@@ -66,7 +66,7 @@ class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(app.name + _("version : ") + str(app.version))
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100,100,800,500)
         layout=qt.QVBoxLayout()        
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
