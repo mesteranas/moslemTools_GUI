@@ -8,6 +8,7 @@ language.init_translation()
 class ExitApp (qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
+        self.resize(200,100)
         self.setWindowTitle(_("الخروج من {} محاورة").format(app.name))
         self.cancel1=False
         lec=_("ماذا تريد أن تفعل?")

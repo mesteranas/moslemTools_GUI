@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder
+import gui,update,guiTools,pyperclip,requests,geocoder,winsound
 from settings import *
 from hijri_converter import Gregorian
 from datetime import datetime
@@ -12,11 +12,22 @@ language.init_translation()
 class prayer_times(qt.QWidget):
     def __init__(self):
         super().__init__()
+        qt1.QShortcut("ctrl+c",self).activated.connect(self.copy_selected_item)
+        qt1.QShortcut("ctrl+a",self).activated.connect(self.copy_all_items)
         self.information=qt.QListWidget()        
         layout=qt.QVBoxLayout()
         layout.addWidget(self.information)        
         self.setLayout(layout)
         self.display_prayer_times()
+    def copy_all_items(self):
+        all_text="\n".join([self.information.item(i).text() for i in range(self.information.count())])
+        pyperclip.copy(all_text)
+        winsound.Beep(1000,100)
+    def copy_selected_item(self):
+        selected_item=self.information.currentItem()
+        if selected_item:
+            pyperclip.copy(selected_item.text())
+            winsound.Beep(1000,100)
     def display_prayer_times(self):    
         gregorian_months=[
             "يَنَايِر", "فِبْرَايِر", "مَارِس", "أَبْرِيل",
