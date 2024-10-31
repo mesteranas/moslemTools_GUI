@@ -13,7 +13,7 @@ language.init_translation()
 class sibha(qt.QWidget):
     def __init__(self):
         super().__init__()
-        qt1.QShortcut("s",self).activated.connect(self.speak_number)
+        qt1.QShortcut("ctrl+s",self).activated.connect(self.speak_number)
         self.reset=qt.QPushButton(_("إعادة تعين"))
         self.reset.setDefault(True)
         self.reset.clicked.connect(self.reset_count)  # ربط الزر بوظيفة إعادة التعيين
