@@ -1,4 +1,5 @@
-import time,winsound
+import time,winsound,pyperclip,gettext
+_=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -28,14 +29,13 @@ class AthkerDialog (qt.QDialog):
         qt1.QShortcut("ctrl+a",self).activated.connect(self.copy_all_items)
     def copy_all_items(self):
         all_text="\n".join([self.athkerViewer.item(i).text() for i in range(self.athkerViewer.count())])
-        guiTools.clikboard.copyText(all_text)
+        pyperclip.copy(all_text)        
         winsound.Beep(1000,100)
     def copy_selected_item(self):
         selected_item=self.athkerViewer.currentItem()
         if selected_item:
-            guiTools.clikboard.copyText(selected_item.text())
+            pyperclip.copy(selected_item.text())
             winsound.Beep(1000,100)
-
     def onPlay(self):
         if self.media.isPlaying():
             self.media.stop()
