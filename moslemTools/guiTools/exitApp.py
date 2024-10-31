@@ -15,7 +15,7 @@ class ExitApp (qt.QDialog):
         label=qt.QLabel(lec)
         self.exit=qt.QComboBox()
         self.exit.setAccessibleName(lec)
-        self.exit.addItems([_("خروج"),_("اعادة تشغيل")])
+        self.exit.addItems([_("خروج"),_("إعادة تشغيل")])
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
         self.ok.clicked.connect(self.fok)

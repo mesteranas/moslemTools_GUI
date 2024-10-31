@@ -10,6 +10,28 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 language.init_translation()
+class NamesOfAllah(qt.QWidget):
+    def __init__(self):
+        super().__init__()
+        with open("data/json/namesOfAllah.json","r",encoding="utf-8") as file:
+            self.data=json.load(file)
+        layout=qt.QVBoxLayout(self)
+        self.information=qt.QListWidget()
+        for item in self.data["names"]:
+            self.information.addItem(item["name"] + " : \n" + item["meaning"])
+        layout.addWidget(self.information)
+        qt1.QShortcut("ctrl+c",self).activated.connect(self.copy_selected_item)
+        qt1.QShortcut("ctrl+a",self).activated.connect(self.copy_all_items)
+    def copy_all_items(self):
+        all_text="\n".join([self.information.item(i).text() for i in range(self.information.count())])
+        guiTools.clikboard.copyText(all_text)
+        winsound.Beep(1000,100)
+    def copy_selected_item(self):
+        selected_item=self.information.currentItem()
+        if selected_item:
+            guiTools.clikboard.copyText(selected_item.text())
+            winsound.Beep(1000,100)
+
 class prayer_times(qt.QWidget):
     def __init__(self):
         super().__init__()
@@ -22,12 +44,12 @@ class prayer_times(qt.QWidget):
         self.display_prayer_times()
     def copy_all_items(self):
         all_text="\n".join([self.information.item(i).text() for i in range(self.information.count())])
-        pyperclip.copy(all_text)
+        guiTools.clikboard.copyText(all_text)
         winsound.Beep(1000,100)
     def copy_selected_item(self):
         selected_item=self.information.currentItem()
         if selected_item:
-            pyperclip.copy(selected_item.text())
+            guiTools.clikboard.copyText(selected_item.text())
             winsound.Beep(1000,100)
     def display_prayer_times(self):    
         gregorian_months=[
@@ -187,6 +209,7 @@ class main(qt.QMainWindow):
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
         self.tools.addTab(DateConverter(),(_("محول التاريخ")))
+        self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))
         self.tools.addTab(Athker(),_("الأذكار والأدعية"))
         layout.addWidget(self.tools)
         self.setting=guiTools.QPushButton(_("الإعدادات"))
