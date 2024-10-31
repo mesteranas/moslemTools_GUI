@@ -127,6 +127,7 @@ class DateConverter(qt.QWidget):
         month_text=self.month.text()
         day_text=self.day.text()            
         if not (year_text.isdigit() and month_text.isdigit() and day_text.isdigit()):
+            self.result.setFocus()
             self.result.setText(_("الرجاء إدخال أرقام صحيحة."))
             return    
         year=int(year_text)
@@ -137,18 +138,21 @@ class DateConverter(qt.QWidget):
                 hijri_date=Hijri(year, month, day)
                 gregorian_date=hijri_date.to_gregorian()
                 result_str=f"{gregorian_date.day} {self.get_gregorian_month_name(gregorian_date.month)} {gregorian_date.year}"
+                self.result.setFocus()
                 self.result.setText(result_str)
             except Exception:
+                self.result.setFocus()
                 self.result.setText(_("تاريخ هجري غير صالح."))
         else:
             try:
                 gregorian_date=Gregorian(year, month, day)
                 hijri_date=gregorian_date.to_hijri()
                 result_str=f"{hijri_date.day} {self.get_hijri_month_name(hijri_date.month)} {hijri_date.year}"
+                self.result.setFocus()
                 self.result.setText(result_str)
             except Exception:
-                self.result.setText(_("تاريخ ميلادي غير صالح."))            
-        self.result.setFocus()
+                self.result.setFocus()
+                self.result.setText(_("تاريخ ميلادي غير صالح."))                    
     def get_gregorian_month_name(self, month):
         months=[
             "يناير", "فبراير", "مارس", "أبريل",
