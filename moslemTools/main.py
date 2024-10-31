@@ -2,6 +2,7 @@ import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
 import gui,update,guiTools,pyperclip,requests,geocoder,winsound
+import json
 from settings import *
 from hijri_converter import Gregorian
 from datetime import datetime
@@ -73,6 +74,17 @@ class prayer_times(qt.QWidget):
                 self.information.addItem(_("حدث خطأ في جلب مواقيت الصلاة."))
         else:
             self.information.addItem(_("لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."))
+class Athker (qt.QWidget):
+    def __init__(self):
+        super().__init__()
+        with open("data/json/athkar.json","r",encoding="utf-8-sig") as data:
+            self.data=json.load(data)
+        layout=qt.QVBoxLayout(self)
+        self.athkerList=guiTools.QListWidget()
+        self.athkerList.addItems(self.data.keys())
+        self.athkerList.clicked.connect(lambda:gui.AthkerDialog(self,self.athkerList.currentItem().text(),self.data[self.athkerList.currentItem().text()]).exec())
+        layout.addWidget(self.athkerList)
+
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -81,6 +93,7 @@ class main(qt.QMainWindow):
         layout=qt.QVBoxLayout()        
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
+        self.tools.addTab(Athker(),_("الأذكار والأدعية"))
         layout.addWidget(self.tools)
         self.setting=guiTools.QPushButton(_("الإعدادات"))
         self.setting.clicked.connect(lambda: settings(self).exec())

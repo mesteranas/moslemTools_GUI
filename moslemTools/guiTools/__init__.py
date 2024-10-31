@@ -8,3 +8,4 @@ from .send_notification import SendNotification
 from .QPushButton import QPushButton
 from .QReadOnlyTextEdit import QReadOnlyTextEdit
 from .playSound import playSoundEffect
+from .QListWidget import QListWidget

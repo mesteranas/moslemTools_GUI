@@ -8,14 +8,13 @@ language.init_translation()
 class ExitApp (qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
-        self.resize(200,100)
         self.setWindowTitle(_("الخروج من {} محاورة").format(app.name))
         self.cancel1=False
         lec=_("ماذا تريد أن تفعل?")
         label=qt.QLabel(lec)
         self.exit=qt.QComboBox()
         self.exit.setAccessibleName(lec)
-        self.exit.addItems([_("خروج"),_("إعادة تشغيل")])
+        self.exit.addItems([_("خروج"),_("اعادة تشغيل")])
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
         self.ok.clicked.connect(self.fok)
