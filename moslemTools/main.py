@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser
+import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions
 _=gettext.gettext
 from settings import *
 from hijri_converter import Gregorian,Hijri
@@ -10,6 +10,49 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 language.init_translation()
+class Quran(qt.QWidget):
+    def __init__(self):
+        super().__init__()
+        layout=qt.QVBoxLayout(self)
+        layout.addWidget(qt.QLabel(_("التصفح ب")))
+        self.type=qt.QComboBox()
+        self.type.setAccessibleName(_("التصفح ب"))
+        self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب")])
+        self.type.currentIndexChanged.connect(self.onTypeChanged)
+        layout.addWidget(self.type)
+        self.info=guiTools.QListWidget()
+        self.info.clicked.connect(self.onItemTriggered)
+        layout.addWidget(self.info)
+        self.onTypeChanged(0)
+    def onItemTriggered(self):
+        index=self.type.currentIndex()
+        if index==0:
+            result=functions.quranJsonControl.getSurahs()
+        elif index==1:
+            result=functions.quranJsonControl.getPage()
+        elif index==2:
+            result=functions.quranJsonControl.getJuz()
+        elif index==3:
+            result=functions.quranJsonControl.getHezb()
+        elif index==4:
+            result=functions.quranJsonControl.getHizb()
+        gui.QuranViewer(self,result[self.info.currentItem().text()][1])
+    def onTypeChanged(self,index:int):
+        self.info.clear()
+        if index==0:
+            self.info.addItems(functions.quranJsonControl.getSurahs().keys())
+        elif index==1:
+            for i in range(1,605):
+                self.info.addItem(str(i))
+        elif index==2:
+            for i in range(1,31):
+                self.info.addItem(str(i))
+        elif index==3:
+            for i in range(1,241):
+                self.info.addItem(str(i))
+        elif index==4:
+            for  i in range(1,61):
+                self.info.addItem(str(i))
 class About_developers(qt.QWidget):
     def __init__(self):
         super().__init__()
@@ -277,6 +320,7 @@ class main(qt.QMainWindow):
         self.tools.addTab(sibha(),(_("سبحة إلكترونية")))
         self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))
         self.tools.addTab(Athker(),_("الأذكار والأدعية"))
+        self.tools.addTab(Quran(),_("القرآن الكريم"))
         self.tools.addTab(About_developers(),(_("عن المطورين")))
         layout.addWidget(self.tools)
         self.setting=guiTools.QPushButton(_("الإعدادات"))
