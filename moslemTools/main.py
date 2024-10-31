@@ -19,7 +19,7 @@ class sibha(qt.QWidget):
         self.reset.clicked.connect(self.reset_count)  # ربط الزر بوظيفة إعادة التعيين
         self.numbers=qt.QLabel("0")
         self.numbers.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        self.numbers.setStyleSheet("font-size:100px;")
+        self.numbers.setStyleSheet("font-size:300px;")
         self.add=qt.QPushButton(_("التسبيح"))
         self.add.setDefault(True)
         self.add.clicked.connect(self.increment_count)  # ربط الزر بوظيفة الزيادة
