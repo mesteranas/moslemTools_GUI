@@ -7,7 +7,7 @@ import guiTools
 class AthkerDialog (qt.QDialog):
     def __init__(self,p,title:str,athkerList:list):
         super().__init__(p)
-        self.setGeometry(100,100,800,500)
+        self.showFullScreen()
         self.setWindowTitle(title)
         layout=qt.QVBoxLayout(self)
         self.media=QMediaPlayer(self)
