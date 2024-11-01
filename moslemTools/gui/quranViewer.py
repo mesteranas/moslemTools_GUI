@@ -55,6 +55,9 @@ class QuranViewer(qt.QDialog):
         tafaserCurrentAyahAction=qt1.QAction(_("تفسير الآية"),self)
         ayahOptions.addAction(tafaserCurrentAyahAction)
         tafaserCurrentAyahAction.triggered.connect(self.getCurentAyahTafseer)
+        IArabCurrentAyah=qt1.QAction(_("إعراب الآية الحالية"),self)
+        ayahOptions.addAction(IArabCurrentAyah)
+        IArabCurrentAyah.triggered.connect(self.getCurentAyahIArab)
         copyCurrentAyahAction=qt1.QAction(_("نسخ الآية المحددة"),self)
         ayahOptions.addAction(copyCurrentAyahAction)
         copyCurrentAyahAction.triggered.connect(self.copy_line)
@@ -73,6 +76,9 @@ class QuranViewer(qt.QDialog):
         tafaseerSurahAction=qt1.QAction(_("تفسير السورة"),self)
         surahOption.addAction(tafaseerSurahAction)
         tafaseerSurahAction.triggered.connect(self.getTafaseerForSurah)
+        IArabSurah=qt1.QAction(_("إعراب السورة"),self)
+        surahOption.addAction(IArabSurah)
+        IArabSurah.triggered.connect(self.getIArabForSurah)
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
@@ -203,3 +209,13 @@ class QuranViewer(qt.QDialog):
     def closeEvent(self,event):
         self.media.stop()
         self.close()
+    def getCurentAyahIArab(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        result=functions.iarab.getIarab(AyahNumber,AyahNumber)
+        guiTools.TextViewer(self,_("إعراب"),result)
+    def getIArabForSurah(self):
+        ayahList=self.quranText.split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        result=functions.iarab.getIarab(AyahNumber1,AyahNumber2)
+        guiTools.TextViewer(self,_("إعراب"),result)
