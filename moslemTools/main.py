@@ -22,7 +22,7 @@ class Quran(qt.QWidget):
         layout.addWidget(self.type)
         self.search_bar=qt.QLineEdit()
         layout.addWidget(self.search_bar)
-        self.search_bar.setPlaceholderText(_("Search..."))
+        self.search_bar.setPlaceholderText(_("بحث ..."))
         self.search_bar.textChanged.connect(self.onsearch)
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)

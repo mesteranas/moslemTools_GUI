@@ -58,6 +58,9 @@ class QuranViewer(qt.QDialog):
         IArabCurrentAyah=qt1.QAction(_("إعراب الآية الحالية"),self)
         ayahOptions.addAction(IArabCurrentAyah)
         IArabCurrentAyah.triggered.connect(self.getCurentAyahIArab)
+        tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية"),self)
+        ayahOptions.addAction(tanzelCurrentAyahAction)
+        tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
         copyCurrentAyahAction=qt1.QAction(_("نسخ الآية المحددة"),self)
         ayahOptions.addAction(copyCurrentAyahAction)
         copyCurrentAyahAction.triggered.connect(self.copy_line)
@@ -219,3 +222,10 @@ class QuranViewer(qt.QDialog):
         Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
         result=functions.iarab.getIarab(AyahNumber1,AyahNumber2)
         guiTools.TextViewer(self,_("إعراب"),result)
+    def getCurrentAyahTanzel(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        result=functions.tanzil.gettanzil(AyahNumber)
+        if result:
+            guiTools.TextViewer(self,_("اسباب النزول"),result)
+        else:
+            qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
