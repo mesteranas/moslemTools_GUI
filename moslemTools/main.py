@@ -108,7 +108,7 @@ class sibha(qt.QWidget):
         self.setLayout(layout)                
     def reset_count(self):
         self.numbers.setText("0")
-        guiTools.speak(_("تم التعيين الى 0"))
+        guiTools.speak(_("تم إعادة التعيين الى 0"))
     def increment_count(self):
         current_count=int(self.numbers.text())
         current_count += 1
@@ -172,8 +172,8 @@ class prayer_times(qt.QWidget):
         if g.ok:
             latitude=g.latlng[0]
             longitude=g.latlng[1]
-            method=5            
-            response=requests.get('http://api.aladhan.com/v1/timings', params={
+            method=5
+            response=requests.get('http://api.aladhan.com/v1/timings',params={
                 'latitude': latitude,
                 'longitude': longitude,
                 'method': method
