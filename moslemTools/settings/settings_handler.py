@@ -11,7 +11,8 @@ if not os.path.exists(cpath):
 	config["g"]["lang"] = "ar"
 	config["g"]["exitDialog"] = "True"
 	config["g"]["reciter"]="0"
-	config["g"]["tafaseer"]="0"
+	config.add_section("tafaseer")
+	config["tafaseer"]["tafaseer"]="jalalayn.json"
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"

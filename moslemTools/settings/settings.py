@@ -1,4 +1,4 @@
-import guiTools,update
+import guiTools,update,functions
 import zipfile
 import sys
 import os,shutil
@@ -25,6 +25,8 @@ class settings (qt.QDialog):
         self.cancel.clicked.connect(self.fcancel)
         self.layout1=tabs.Genral(self)
         self.sectian.add(_("عام"),self.layout1)
+        self.tafaseerSettings=tabs.TafaseerSettings()
+        self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         restoar=tabs.Restoar(self)
         self.sectian.add(_("النسخ الاحتياطي والاستعادةة"),restoar)
@@ -39,6 +41,7 @@ class settings (qt.QDialog):
         settings_handler.set("g","lang",str(language.lang()[self.layout1.language.currentText()]))
         settings_handler.set("g","exitDialog",str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("g","reciter",str(self.layout1.reciter.currentIndex()))
+        settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
         if aa==1:

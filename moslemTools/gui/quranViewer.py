@@ -39,6 +39,7 @@ class QuranViewer(qt.QDialog):
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
+        qt1.QShortcut("escape",self).activated.connect(self.close)
     def oncontextMenu(self):
         menu=qt.QMenu(_("الخيارات "),self)
         menu.setAccessibleName(_("الخيارات "))
@@ -69,6 +70,12 @@ class QuranViewer(qt.QDialog):
         printSurah=qt1.QAction(_("طباعة السورة"),self)
         surahOption.addAction(printSurah)
         printSurah.triggered.connect(self.print_text)
+        tafaseerSurahAction=qt1.QAction(_("تفسير السورة"),self)
+        surahOption.addAction(tafaseerSurahAction)
+        tafaseerSurahAction.triggered.connect(self.getTafaseerForSurah)
+        SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
+        surahOption.addAction(SurahInfoAction)
+        SurahInfoAction.triggered.connect(self.onSurahInfo)
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
@@ -177,3 +184,22 @@ class QuranViewer(qt.QDialog):
     def getCurentAyahTafseer(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         TafaseerViewer(self,AyahNumber,AyahNumber).exec()
+    def getTafaseerForSurah(self):
+        ayahList=self.quranText.split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        TafaseerViewer(self,AyahNumber1,AyahNumber2).exec()
+    def onSurahInfo(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        with open("data/json/files/all_surahs.json","r",encoding="utf-8") as file:
+            data=json.load(file)
+        surahInfo=data[int(surah)-1]
+        numberOfAyah=surahInfo["n"]
+        if surahInfo["r"]==0:
+            type=_("مكية")
+        else:
+            type=_("مدنية")
+        qt.QMessageBox.information(self,_("معلومات السورة"),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
+    def closeEvent(self,event):
+        self.media.stop()
+        self.close()

@@ -20,10 +20,25 @@ class Quran(qt.QWidget):
         self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب")])
         self.type.currentIndexChanged.connect(self.onTypeChanged)
         layout.addWidget(self.type)
+        self.search_bar=qt.QLineEdit()
+        layout.addWidget(self.search_bar)
+        self.search_bar.setPlaceholderText(_("Search..."))
+        self.search_bar.textChanged.connect(self.onsearch)
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)
         layout.addWidget(self.info)
+        self.openAllQuran=guiTools.QPushButton(_("فتح المصحف"))
+        layout.addWidget(self.openAllQuran)
+        self.openAllQuran.clicked.connect(self.onOpenAllQuranClicked)
         self.onTypeChanged(0)
+    def onsearch(self):
+        search_text = self.search_bar.text().lower()
+        for i in range(self.info.count()):
+            item = self.info.item(i)
+            item.setHidden(search_text not in item.text().lower())
+    def onOpenAllQuranClicked(self):
+        result=functions.quranJsonControl.getQuran()
+        gui.QuranViewer(self,"\n".join(result))
     def onItemTriggered(self):
         index=self.type.currentIndex()
         if index==0:
