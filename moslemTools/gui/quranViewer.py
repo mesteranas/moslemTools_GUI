@@ -1,4 +1,5 @@
-import time,winsound,pyperclip,gettext,os
+from .tafaseerViewer import TafaseerViewer
+import time,winsound,pyperclip,gettext,os,json
 _=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -6,46 +7,8 @@ import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 import guiTools,settings,functions
-reciters={
-    "إبراهيم الأخضر": "https://verse.mp3quran.net/arabic/ibrahim_alakhdar/32/",
-    "الشيخ أبو بكر الشاطري": "https://verse.mp3quran.net/arabic/shaik_abu_baker_alshatri/128/",
-    "أحمد العجمي": "https://verse.mp3quran.net/arabic/ahmed_alajmy/128/",
-    "أحمد نعناع": "https://verse.mp3quran.net/arabic/ahmed_neana/128/",
-    "أكرم العلاقمي": "https://verse.mp3quran.net/arabic/akram_alalaqmy/128/",
-    "ورش": "http://www.everyayah.com/data/warsh/warsh_ibrahim_aldosary_128kbps/",
-    "خالد القحطاني": "https://verse.mp3quran.net/arabic/khalid_alqahtani/128/",
-    "خليفة الطنيجي": "https://verse.mp3quran.net/arabic/khalefa_altunaiji/64/",
-    "سعود الشريم": "https://verse.mp3quran.net/arabic/saud_alshuraim/128/",
-    "سهل ياسين": "https://verse.mp3quran.net/arabic/sahl_yassin/128/",
-    "صلاح البدير": "https://verse.mp3quran.net/arabic/salah_albudair/128/",
-    "صلاح بو خاطر": "https://verse.mp3quran.net/arabic/salaah_bukhatir/128/",
-    "عبد الباسط عبد الصمد - مجود": "https://verse.mp3quran.net/arabic/abdulbasit_abdulsamad_mujawwad/128/",
-    "عبد الرحمن السديس": "https://verse.mp3quran.net/arabic/abdurrahmaan_alsudais/128/",
-    "عبد الله المطرود": "https://verse.mp3quran.net/arabic/abdullah_almatroud/128/",
-    "عبد الله بصفر": "https://verse.mp3quran.net/arabic/abdullah_basfar/128/",
-    "عبد الله الجهني": "https://verse.mp3quran.net/arabic/abdullaah_aljohani/128/",
-    "عبد المحسن القاسم": "https://verse.mp3quran.net/arabic/abdulmohsin_alqasim/128/",
-    "علي الحذيفي": "https://verse.mp3quran.net/arabic/ali_alhuthaify/128/",
-    "علي جابر": "https://verse.mp3quran.net/arabic/ali_jaber/64/",
-    "علي حجاج": "https://verse.mp3quran.net/arabic/ali_hajjaj/128/",
-    "فارس عباد": "https://verse.mp3quran.net/arabic/fares_abbad/64/",
-    "ناصر القطامي": "https://verse.mp3quran.net/arabic/nasser_alqatami/128/",
-    "هاني الرفاعي": "https://verse.mp3quran.net/arabic/hani_alrifai/128/",
-    "ياسر الدوسري": "https://verse.mp3quran.net/arabic/yasser_aldossary/128/",
-    "ماهر المعيقلي": "https://verse.mp3quran.net/arabic/maher_almuaiqly/128/",
-    "محمد الطبلاوي": "https://verse.mp3quran.net/arabic/mohammad_altablaway/128/",
-    "محمد أيوب": "https://verse.mp3quran.net/arabic/mohammad_ayyoub/128/",
-    "محمد جبريل": "https://verse.mp3quran.net/arabic/mohammad_jibreel/128/",
-    "محمد المنشاوي": "https://verse.mp3quran.net/arabic/mohammad_alminshawi/128/",
-    "محمد المنشاوي - مجود": "https://verse.mp3quran.net/arabic/mohammad_alminshawi_mujawwd/128/",
-    "محمد عبد الكريم": "https://verse.mp3quran.net/arabic/mohammad_abdulkarim/64/",
-    "محمود الحصري": "https://verse.mp3quran.net/arabic/mahmood_alhusary/128/",
-    "محمود الحصري - مجود": "https://verse.mp3quran.net/arabic/mahmood_alhusary_mujawwd/128/",
-    "محمود علي البنا": "https://verse.mp3quran.net/arabic/mahmoud_ali_albanna/32/",
-    "مشاري العفاسي": "https://verse.mp3quran.net/arabic/mishary_alafasy/128/",
-    "ياسر سلامة": "https://verse.mp3quran.net/arabic/yaser_salamah/128/",
-    "محمود الحصري - معلم": "https://verse.mp3quran.net/arabic/mahmood_alhusary_muallim/128/"
-}
+with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
+    reciters=json.load(file)
 class QuranViewer(qt.QDialog):
     def __init__(self,p,text):
         super().__init__(p)        
@@ -77,13 +40,45 @@ class QuranViewer(qt.QDialog):
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
     def oncontextMenu(self):
-        menu=qt.QMenu(_("خيارات الآية"),self)
-        menu.setAccessibleName(_("خيارات الآية"))
+        menu=qt.QMenu(_("الخيارات "),self)
+        menu.setAccessibleName(_("الخيارات "))
         menu.setFocus()
+        ayahOptions=qt.QMenu(_("خيارات الآية"))
         goToAyah=qt1.QAction(_("الذهاب إلى آية"))
-        menu.addAction(goToAyah)
+        ayahOptions.addAction(goToAyah)
         goToAyah.triggered.connect(self.goToAyah)
-        menu.setDefaultAction(goToAyah)
+        ayahOptions.setDefaultAction(goToAyah)
+        playCurrentAyahAction=qt1.QAction(_("تشغيل الآية الحالية"),self)
+        ayahOptions.addAction(playCurrentAyahAction)
+        playCurrentAyahAction.triggered.connect(self.on_play)
+        tafaserCurrentAyahAction=qt1.QAction(_("تفسير الآية"),self)
+        ayahOptions.addAction(tafaserCurrentAyahAction)
+        tafaserCurrentAyahAction.triggered.connect(self.getCurentAyahTafseer)
+        copyCurrentAyahAction=qt1.QAction(_("نسخ الآية المحددة"),self)
+        ayahOptions.addAction(copyCurrentAyahAction)
+        copyCurrentAyahAction.triggered.connect(self.copy_line)
+        menu.addMenu(ayahOptions)
+        surahOption=qt.QMenu(_("خيارات السورة"),self)
+        copySurahAction=qt1.QAction(_("نسخ السورة"),self)
+        surahOption.addAction(copySurahAction)
+        surahOption.setDefaultAction(copySurahAction)
+        copySurahAction.triggered.connect(self.copy_text)
+        saveSurahAction=qt1.QAction(_("حفظ السورة كملف نصي"),self)
+        surahOption.addAction(saveSurahAction)
+        saveSurahAction.triggered.connect(self.save_text_as_txt)
+        printSurah=qt1.QAction(_("طباعة السورة"),self)
+        surahOption.addAction(printSurah)
+        printSurah.triggered.connect(self.print_text)
+        menu.addMenu(surahOption)
+        fontMenu=qt.QMenu(_("حجم الخط"),self)
+        incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        fontMenu.addAction(incressFontAction)
+        fontMenu.setDefaultAction(incressFontAction)
+        incressFontAction.triggered.connect(self.increase_font_size)
+        decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        fontMenu.addAction(decreaseFontSizeAction)
+        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
+        menu.addMenu(fontMenu)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def goToAyah(self):
         ayah,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
@@ -97,7 +92,7 @@ class QuranViewer(qt.QDialog):
         cerser=self.text.textCursor()
         return cerser.blockNumber()
     def on_set(self):
-        Ayah,surah,juz,page=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         if int(surah)<10:
             surah="00" + surah
         elif int(surah)<100:
@@ -134,7 +129,7 @@ class QuranViewer(qt.QDialog):
             printer=QPrinter()
             dialog=QPrintDialog(printer, self)
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
-                self.text.print_(printer)
+                self.text.print(printer)
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
@@ -179,3 +174,6 @@ class QuranViewer(qt.QDialog):
             winsound.Beep(1000,100)
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def getCurentAyahTafseer(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        TafaseerViewer(self,AyahNumber,AyahNumber).exec()

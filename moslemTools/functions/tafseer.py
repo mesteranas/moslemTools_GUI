@@ -1,0 +1,15 @@
+import json
+with open("data/json/files/all_tafaseers.json","r",encoding="utf-8") as file:
+    tafaseers=json.load(file)
+def getTafaseerByIndex(index:int):
+    names=list(tafaseers.keys())
+    return names[index]
+def getTafaseer(tafaseerName:str,From:int,to:int):
+    with open("data/json/tafaseer/{}".format(tafaseers[tafaseerName]),"r",encoding="utf-8") as file:
+        data=json.load(file)
+    result=[]
+    for ayah in data:
+        index=data.index(ayah)
+        if index>=From and index<=to:
+            result.append(ayah)
+    return "\n".join(result)

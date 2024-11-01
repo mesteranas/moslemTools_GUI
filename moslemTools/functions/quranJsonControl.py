@@ -85,8 +85,8 @@ def getAyah(text):
         for ayah in value["ayahs"]:
             t="{} ({})".format(ayah["text"],str(ayah["numberInSurah"]))
             if t==text:
-                return ayah["numberInSurah"],key,ayah["juz"],ayah["page"]
-    return 1,"1","1","1"
+                return ayah["numberInSurah"],key,ayah["juz"],ayah["page"],ayah["number"]
+    return 1,"1","1","1",1
 def getQuran(from_surah,from_ayah,to_surah,to_ayah):
     result=[]
     for Surah,value in data.items():

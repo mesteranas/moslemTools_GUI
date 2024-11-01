@@ -1,2 +1,2 @@
 from .athkerDialog import AthkerDialog
-from . quranViewer import QuranViewer
+from . quranViewer import QuranViewer,reciters

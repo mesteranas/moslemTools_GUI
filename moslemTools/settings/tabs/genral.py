@@ -1,4 +1,4 @@
-import guiTools,update
+import guiTools,update,gui
 import zipfile
 import sys
 import os,shutil
@@ -27,3 +27,9 @@ class Genral(qt.QWidget):
         layout1.addWidget(label)
         layout1.addWidget(self.language)
         layout1.addWidget(self.ExitDialog)
+        self.reciter=qt.QComboBox()
+        self.reciter.addItems(gui.reciters.keys())
+        self.reciter.setCurrentIndex(int(settings_handler.get("g","reciter")))
+        self.reciter.setAccessibleName(_("القارئ"))
+        layout1.addWidget(qt.QLabel(_("القارئ")))
+        layout1.addWidget(self.reciter)

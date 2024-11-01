@@ -38,6 +38,7 @@ class settings (qt.QDialog):
             aa=1
         settings_handler.set("g","lang",str(language.lang()[self.layout1.language.currentText()]))
         settings_handler.set("g","exitDialog",str(self.layout1.ExitDialog.isChecked()))
+        settings_handler.set("g","reciter",str(self.layout1.reciter.currentIndex()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
         if aa==1:

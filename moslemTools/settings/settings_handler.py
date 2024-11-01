@@ -8,9 +8,10 @@ if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
 if not os.path.exists(cpath):
 	config = ConfigParser() 
 	config.add_section("g")
-	config["g"]["lang"] = "en"
+	config["g"]["lang"] = "ar"
 	config["g"]["exitDialog"] = "True"
 	config["g"]["reciter"]="0"
+	config["g"]["tafaseer"]="0"
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"
