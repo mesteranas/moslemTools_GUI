@@ -61,6 +61,9 @@ class QuranViewer(qt.QDialog):
         tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية"),self)
         ayahOptions.addAction(tanzelCurrentAyahAction)
         tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
+        ayahInfo=qt1.QAction(_("معلومات الآية"),self)
+        ayahOptions.addAction(ayahInfo)
+        ayahInfo.triggered.connect(self.getAyahInfo)
         copyCurrentAyahAction=qt1.QAction(_("نسخ الآية المحددة"),self)
         ayahOptions.addAction(copyCurrentAyahAction)
         copyCurrentAyahAction.triggered.connect(self.copy_line)
@@ -208,7 +211,7 @@ class QuranViewer(qt.QDialog):
             type=_("مكية")
         else:
             type=_("مدنية")
-        qt.QMessageBox.information(self,_("معلومات السورة"),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
+        qt.QMessageBox.information(self,_("معلومات {}".format(juz[1])),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
     def closeEvent(self,event):
         self.media.stop()
         self.close()
@@ -229,3 +232,9 @@ class QuranViewer(qt.QDialog):
             guiTools.TextViewer(self,_("اسباب النزول"),result)
         else:
             qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
+    def getAyahInfo(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        sajda=""
+        if juz[3]:
+            sajda=_("الآية تحتوي على سجدة")
+        qt.QMessageBox.information(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
