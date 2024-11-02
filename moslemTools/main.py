@@ -176,9 +176,11 @@ class NamesOfAllah(qt.QWidget):
         with open("data/json/namesOfAllah.json","r",encoding="utf-8") as file:
             self.data=json.load(file)
         layout=qt.QVBoxLayout(self)
-        self.information=qt.QListWidget()
+        self.information=guiTools.QReadOnlyTextEdit()
+        result=""
         for item in self.data["names"]:
-            self.information.addItem(item["name"] + " : \n" + item["meaning"])
+            result+=item["name"] + " : \n" + item["meaning"]
+        self.information.setText(result)
         layout.addWidget(self.information)
         qt1.QShortcut("ctrl+c",self).activated.connect(self.copy_selected_item)
         qt1.QShortcut("ctrl+a",self).activated.connect(self.copy_all_items)

@@ -64,13 +64,13 @@ class TafaseerViewer(qt.QDialog):
         selectedTafaseer.triggered.connect(lambda:self.onTafaseerChanged(functions.tafseer.getTafaseerByIndex(self.index)))
         for t in tafaseer:
             tAction=qt1.QAction(t,self)
-            menu.addAction(tAction)
             tAction.triggered.connect(lambda:self.onTafaseerChanged(t))
+            menu.addAction(tAction)
         menu.setAccessibleName(_("اختر تفسير"))
         menu.setFocus()
         menu.exec()
     def onTafaseerChanged(self,name:str):
-        self.index=functions.tafseer.tafaseers[name]
+        self.index=functions.tafseer.tafaseers[self.sender().text()]
         self.getResult()
     def print_text(self):
         try:
