@@ -12,6 +12,7 @@ language.init_translation()
 class settings (qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
+        self.resize(500,500)
         self.setWindowTitle(_("الإعدادات"))
         layout=qt.QVBoxLayout()
         self.sectian=guiTools.listBook(layout,_("اختر قسم"))
