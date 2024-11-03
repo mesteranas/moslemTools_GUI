@@ -1,7 +1,8 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,keyboard
+import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time
+from random import choice
 _=gettext.gettext
 from settings import *
 from hijri_converter import Gregorian,Hijri
@@ -10,6 +11,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
+from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 language.init_translation()
 class protcasts(qt.QWidget):
     def __init__(self):
@@ -60,19 +62,13 @@ class Quran(qt.QWidget):
         layout.addWidget(self.type)        
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)
-        layout.addWidget(self.info)
-        self.openAllQuran=guiTools.QPushButton(_("فتح المصحف"))
-        layout.addWidget(self.openAllQuran)
-        self.openAllQuran.clicked.connect(self.onOpenAllQuranClicked)
+        layout.addWidget(self.info)                
         self.onTypeChanged(0)
     def onsearch(self):
         search_text = self.search_bar.text().lower()
         for i in range(self.info.count()):
             item = self.info.item(i)
-            item.setHidden(search_text not in item.text().lower())
-    def onOpenAllQuranClicked(self):
-        result=functions.quranJsonControl.getQuran()
-        gui.QuranViewer(self,"\n".join(result))
+            item.setHidden(search_text not in item.text().lower())    
     def onItemTriggered(self):
         index=self.type.currentIndex()
         if index==0:
@@ -179,20 +175,69 @@ class NamesOfAllah(qt.QWidget):
         self.information=guiTools.QReadOnlyTextEdit()
         result=""
         for item in self.data["names"]:
-            result+=item["name"] + " : \n" + item["meaning"]
+            result+=item["name"] + " : \n" + item["meaning"]+"\n"
         self.information.setText(result)
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.information.setFont(font)
         layout.addWidget(self.information)
-        qt1.QShortcut("ctrl+c",self).activated.connect(self.copy_selected_item)
-        qt1.QShortcut("ctrl+a",self).activated.connect(self.copy_all_items)
-    def copy_all_items(self):
-        all_text="\n".join([self.information.item(i).text() for i in range(self.information.count())])
-        pyperclip.copy(all_text)
-        winsound.Beep(1000,100)
-    def copy_selected_item(self):
-        selected_item=self.information.currentItem()
-        if selected_item:
-            pyperclip.copy(selected_item.text())
+        qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
+        qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
+        qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
+        qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
+        qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
+        qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
+    def print_text(self):
+        try:
+            printer=QPrinter()
+            dialog=QPrintDialog(printer, self)
+            if dialog.exec() == QPrintDialog.DialogCode.Accepted:
+                self.text.print(printer)
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def save_text_as_txt(self):
+        try:
+            file_dialog=qt.QFileDialog()
+            file_dialog.setAcceptMode(qt.QFileDialog.AcceptMode.AcceptSave)
+            file_dialog.setNameFilter("Text Files (*.txt);;All Files (*)")
+            file_dialog.setDefaultSuffix("txt")
+            if file_dialog.exec() == qt.QFileDialog.DialogCode.Accepted:
+                file_name=file_dialog.selectedFiles()[0]
+                with open(file_name, 'w', encoding='utf-8') as file:
+                    text = self.text.toPlainText()
+                    file.write(text)                
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def increase_font_size(self):
+        self.font_size += 1
+        self.update_font_size()
+    def decrease_font_size(self):
+        self.font_size -= 1
+        self.update_font_size()
+    def update_font_size(self):
+        cursor=self.information.textCursor()
+        self.information.selectAll()
+        font=self.information.font()
+        font.setPointSize(self.font_size)
+        self.information.setCurrentFont(font)        
+        self.information.setTextCursor(cursor)
+    def copy_line(self):
+        try:
+            cursor=self.information.textCursor()
+            if cursor.hasSelection():
+                selected_text=cursor.selectedText()
+                pyperclip.copy(selected_text)                
+                winsound.Beep(1000,100)
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def copy_text(self):
+        try:
+            text=self.information.toPlainText()
+            pyperclip.copy(text)            
             winsound.Beep(1000,100)
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))    
 class prayer_times(qt.QWidget):
     def __init__(self):
         super().__init__()
