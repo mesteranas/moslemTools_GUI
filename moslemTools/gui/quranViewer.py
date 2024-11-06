@@ -63,10 +63,10 @@ class QuranViewer(qt.QDialog):
         tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
         ayahInfo=qt1.QAction(_("معلومات الآية"),self)
         ayahOptions.addAction(ayahInfo)
-        ayahInfo.triggered.connect(self.getAyahInfo)
-        copyCurrentAyahAction=qt1.QAction(_("نسخ الآية المحددة"),self)
-        ayahOptions.addAction(copyCurrentAyahAction)
-        copyCurrentAyahAction.triggered.connect(self.copy_line)
+        ayahInfo.triggered.connect(self.getAyahInfo)        
+        copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)
+        ayahOptions.addAction(copy_aya)
+        copy_aya.triggered.connect(self.copyAya)
         menu.addMenu(ayahOptions)
         surahOption=qt.QMenu(_("خيارات السورة"),self)
         copySurahAction=qt1.QAction(_("نسخ السورة"),self)
@@ -99,6 +99,10 @@ class QuranViewer(qt.QDialog):
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
         menu.addMenu(fontMenu)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def copyAya(self):
+        a=self.getcurrentAyahText()
+        pyperclip.copy(a)
+        winsound.Beep(1000,100)
     def goToAyah(self):
         ayah,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if OK:

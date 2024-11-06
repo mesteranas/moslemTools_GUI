@@ -12,7 +12,17 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
-language.init_translation()
+language.init_translation()                
+class hadeeth(qt.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.list_of_ahadeeth=guiTools.QListWidget()
+        self.list_of_ahadeeth.addItem(_("صحيح البخاري"))                
+        self.list_of_ahadeeth.itemClicked.connect(self.open)
+        layout=qt.QVBoxLayout(self)
+        layout.addWidget(self.list_of_ahadeeth)
+    def open(self):
+        gui.hadeeth_viewer(self,"bukhari.json").exec()
 class protcasts(qt.QWidget):
     def __init__(self):
         super().__init__()
@@ -420,7 +430,8 @@ class main(qt.QMainWindow):
         self.tools.addTab(sibha(),(_("سبحة إلكترونية")))
         self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))
         self.tools.addTab(Athker(),_("الأذكار والأدعية"))
-        self.tools.addTab(Quran(),_("القرآن الكريم"))
+        self.tools.addTab(Quran(),_("القرآن الكريم"))        
+        self.tools.addTab(hadeeth(),_("الأحاديث النبوية والقدسية"))
         self.tools.addTab(protcasts(),(_("الإذاعات الإسلامية")))
         self.tools.addTab(About_developers(),(_("عن المطورين")))
         layout.addWidget(self.tools)
