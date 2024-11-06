@@ -314,29 +314,30 @@ class prayer_times(qt.QWidget):
             self.information.addItem(_("لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."))
 class DateConverter(qt.QWidget):
     def __init__(self):
-        super().__init__()    
+        super().__init__()            
         self.l_Converter=qt.QLabel(_("إختيار نوع التحويل"))
         self.Converter_combo=qt.QComboBox()
         self.Converter_combo.setAccessibleName(_("إختيار نوع التحويل"))
         self.Converter_combo.addItem(_("التحويل من هجري الى ميلادي"))
         self.Converter_combo.addItem(_("التحويل من ميلادي الى هجري"))
-        self.Converter_combo.currentIndexChanged.connect(self.update_button_text)  # ربط تغيير النص بالاختيار        
+        self.Converter_combo.currentIndexChanged.connect(self.update_month_combo)
+        self.Converter_combo.currentIndexChanged.connect(self.update_button_text)
         self.l_year=qt.QLabel(_("العام"))
         self.year=qt.QLineEdit()
-        self.year.setAccessibleName(_("العام"))    
+        self.year.setAccessibleName(_("العام"))
         self.l_month=qt.QLabel(_("الشهر"))
-        self.month=qt.QLineEdit()
-        self.month.setAccessibleName(_("الشهر"))            
+        self.month_combo=qt.QComboBox()
+        self.month_combo.setAccessibleName(_("الشهر"))
         self.l_day=qt.QLabel(_("اليوم"))
         self.day=qt.QLineEdit()
-        self.day.setAccessibleName(_("اليوم"))    
+        self.day.setAccessibleName(_("اليوم"))
         self.Convert=qt.QPushButton(_("التحويل الى ميلادي"))
         self.Convert.setDefault(True)
         self.Convert.clicked.connect(self.convert_date)
         self.l_result=qt.QLabel(_("النتيجة"))
         self.result=qt.QLineEdit()
         self.result.setReadOnly(True)
-        self.result.setAccessibleName(_("النتيجة"))        
+        self.result.setAccessibleName(_("النتيجة"))
         self.copy_result=qt.QPushButton(_("نسخ النتيجة"))
         self.copy_result.setDefault(True)
         self.copy_result.clicked.connect(self.copy)
@@ -346,7 +347,7 @@ class DateConverter(qt.QWidget):
         layout.addWidget(self.l_year)
         layout.addWidget(self.year)
         layout.addWidget(self.l_month)
-        layout.addWidget(self.month)
+        layout.addWidget(self.month_combo)
         layout.addWidget(self.l_day)
         layout.addWidget(self.day)
         layout.addWidget(self.Convert)
@@ -354,6 +355,7 @@ class DateConverter(qt.QWidget):
         layout.addWidget(self.result)
         layout.addWidget(self.copy_result)
         self.setLayout(layout)
+        self.update_month_combo()
     def copy(self):
         pyperclip.copy(self.result.text())
         winsound.Beep(1000,100)
@@ -362,16 +364,30 @@ class DateConverter(qt.QWidget):
             self.Convert.setText(_("التحويل الى ميلادي"))
         else:
             self.Convert.setText(_("التحويل الى هجري"))
+    def update_month_combo(self):
+        self.month_combo.clear()
+        if self.Converter_combo.currentIndex() == 0:  # هجري إلى ميلادي
+            months=[
+            "مُحرَّم", "صَفَر", "رَبيع الأوَّل", "رَبيع الآخِر",
+            "جُمادى الأُولى", "جُمادى الآخِرة", "رَجَب", "شَعبان",
+            "رَمَضان", "شَوَّال", "ذو القَعدة", "ذو الحِجَّة"
+        ]
+        else:
+            months=[
+            "يَنايِر", "فَبرايِر", "مارِس", "أبريل", 
+            "مايو", "يونيو", "يوليو", "أغسطس", 
+            "سِبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+        ]
+        self.month_combo.addItems(months)
     def convert_date(self):        
         year_text=self.year.text()
-        month_text=self.month.text()
-        day_text=self.day.text()            
-        if not (year_text.isdigit() and month_text.isdigit() and day_text.isdigit()):
+        day_text=self.day.text()
+        month=self.month_combo.currentIndex() + 1  # الشهر يبدأ من 1        
+        if not (year_text.isdigit() and day_text.isdigit()):
             self.result.setFocus()
             self.result.setText(_("الرجاء إدخال أرقام صحيحة."))
             return    
         year=int(year_text)
-        month=int(month_text)
         day=int(day_text)
         if self.Converter_combo.currentIndex() == 0:  # التحويل من هجري إلى ميلادي
             try:
@@ -393,18 +409,19 @@ class DateConverter(qt.QWidget):
             except Exception:
                 self.result.setFocus()
                 self.result.setText(_("تاريخ ميلادي غير صالح."))                    
-    def get_gregorian_month_name(self, month):
+
+    def get_gregorian_month_name(self,month):
         months=[
-            "يناير", "فبراير", "مارس", "أبريل",
-            "مايو", "يونيو", "يوليو", "أغسطس",
-            "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+            "يَنايِر", "فَبرايِر", "مارِس", "أبريل", 
+            "مايو", "يونيو", "يوليو", "أغسطس", 
+            "سِبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
         ]
         return months[month - 1]
-    def get_hijri_month_name(self, month):
+    def get_hijri_month_name(self,month):
         months=[
-            "محرم", "صفر", "ربيع الأول", "ربيع الآخر",
-            "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان",
-            "رمضان", "شوّال", "ذو القعدة", "ذو الحجة"
+            "مُحرَّم", "صَفَر", "رَبيع الأوَّل", "رَبيع الآخِر",
+            "جُمادى الأُولى", "جُمادى الآخِرة", "رَجَب", "شَعبان",
+            "رَمَضان", "شَوَّال", "ذو القَعدة", "ذو الحِجَّة"
         ]
         return months[month - 1]
 class Athker (qt.QWidget):
