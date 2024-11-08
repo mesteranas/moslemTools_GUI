@@ -1,1 +1,1 @@
-from . import quranJsonControl,tafseer,iarab,tanzil
+from . import quranJsonControl,tafseer,iarab,tanzil,translater,ahadeeth

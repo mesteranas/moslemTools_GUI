@@ -1,3 +1,4 @@
+from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
 import time,winsound,pyperclip,gettext,os,json
 _=gettext.gettext
@@ -61,6 +62,9 @@ class QuranViewer(qt.QDialog):
         tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية"),self)
         ayahOptions.addAction(tanzelCurrentAyahAction)
         tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
+        translationCurrentAyahAction=qt1.QAction(_("ترجمة الآية"),self)
+        ayahOptions.addAction(translationCurrentAyahAction)
+        translationCurrentAyahAction.triggered.connect(self.getCurentAyahTranslation)
         ayahInfo=qt1.QAction(_("معلومات الآية"),self)
         ayahOptions.addAction(ayahInfo)
         ayahInfo.triggered.connect(self.getAyahInfo)        
@@ -85,6 +89,9 @@ class QuranViewer(qt.QDialog):
         IArabSurah=qt1.QAction(_("إعراب السورة"),self)
         surahOption.addAction(IArabSurah)
         IArabSurah.triggered.connect(self.getIArabForSurah)
+        translationSurahAction=qt1.QAction(_("ترجمة  السورة"),self)
+        surahOption.addAction(translationSurahAction)
+        translationSurahAction.triggered.connect(self.getTranslationForSurah)
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
@@ -242,3 +249,11 @@ class QuranViewer(qt.QDialog):
         if juz[3]:
             sajda=_("الآية تحتوي على سجدة")
         qt.QMessageBox.information(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
+    def getCurentAyahTranslation(self):
+        Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
+        translationViewer(self,AyahNumber,AyahNumber).exec()
+    def getTranslationForSurah(self):
+        ayahList=self.quranText.split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        translationViewer(self,AyahNumber1,AyahNumber2).exec()

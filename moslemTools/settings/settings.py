@@ -29,6 +29,10 @@ class settings (qt.QDialog):
         self.tafaseerSettings=tabs.TafaseerSettings()
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
+        self.tafaseerSettings=tabs.TafaseerSettings()
+        self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
+        self.translationSettings=tabs.translationSettings()
+        self.sectian.add(_("إعدادات الترجمة"),self.translationSettings)
         restoar=tabs.Restoar(self)
         self.sectian.add(_("النسخ الاحتياطي والاستعادةة"),restoar)
         layout.addWidget(self.ok)
@@ -43,6 +47,7 @@ class settings (qt.QDialog):
         settings_handler.set("g","exitDialog",str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("g","reciter",str(self.layout1.reciter.currentIndex()))
         settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
+        settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
         if aa==1:

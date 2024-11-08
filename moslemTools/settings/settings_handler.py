@@ -13,6 +13,8 @@ if not os.path.exists(cpath):
 	config["g"]["reciter"]="0"
 	config.add_section("tafaseer")
 	config["tafaseer"]["tafaseer"]="jalalayn.json"
+	config.add_section("translation")
+	config["translation"]["translation"]="en.ahmedali.json"
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"

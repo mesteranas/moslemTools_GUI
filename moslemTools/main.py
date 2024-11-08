@@ -17,12 +17,12 @@ class hadeeth(qt.QWidget):
     def __init__(self):
         super().__init__()
         self.list_of_ahadeeth=guiTools.QListWidget()
-        self.list_of_ahadeeth.addItem(_("صحيح البخاري"))                
+        self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
         self.list_of_ahadeeth.itemClicked.connect(self.open)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.list_of_ahadeeth)
     def open(self):
-        gui.hadeeth_viewer(self,"bukhari.json").exec()
+        gui.hadeeth_viewer(self,functions.ahadeeth.ahadeeths[self.list_of_ahadeeth.currentItem().text()]).exec()
 class protcasts(qt.QWidget):
     def __init__(self):
         super().__init__()
