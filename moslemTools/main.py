@@ -1,8 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time
-from random import choice
+import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os
 _=gettext.gettext
 from settings import *
 from hijri_converter import Gregorian,Hijri
@@ -440,6 +439,13 @@ class main(qt.QMainWindow):
         super().__init__()
         self.setWindowTitle(app.name + _("version : ") + str(app.version))
         self.setGeometry(100,100,800,500)
+        self.media_player = QMediaPlayer()
+        self.audio_output = QAudioOutput()
+        self.media_player.setAudioOutput(self.audio_output)
+        self.Duration=30*1000
+        self.timer=qt2.QTimer(self)
+        self.timer.timeout.connect(self.random_theker)
+        self.timer.start(self.Duration)
         layout=qt.QVBoxLayout()        
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
@@ -468,6 +474,14 @@ class main(qt.QMainWindow):
                 event.ignore()
         else:
             self.close()
+    def random_theker(self):
+        folder_path=r"data\sounds\athkar"
+        sound_files=[f for f in os.listdir(folder_path) if f.endswith(('.ogg'))]
+        if sound_files:
+            chosen_file=random.choice(sound_files)
+            file_path=os.path.join(folder_path, chosen_file)
+            self.media_player.setSource(qt2.QUrl.fromLocalFile(file_path))
+            self.media_player.play()    
 App=qt.QApplication([])
 App.setStyle('fusion')
 w=main()
