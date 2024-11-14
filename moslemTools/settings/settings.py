@@ -14,6 +14,7 @@ class settings (qt.QDialog):
         super().__init__(p)
         self.resize(500,500)
         self.setWindowTitle(_("الإعدادات"))
+        self.p=p
         layout=qt.QVBoxLayout()
         self.sectian=guiTools.listBook(layout,_("اختر قسم"))
         self.update=tabs.Update(self)
@@ -29,10 +30,10 @@ class settings (qt.QDialog):
         self.tafaseerSettings=tabs.TafaseerSettings()
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
-        self.tafaseerSettings=tabs.TafaseerSettings()
-        self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.translationSettings=tabs.translationSettings()
         self.sectian.add(_("إعدادات الترجمة"),self.translationSettings)
+        self.athkar=tabs.AthkarSettings()
+        self.sectian.add(_("إعدادات الأذكار"),self.athkar)
         restoar=tabs.Restoar(self)
         self.sectian.add(_("النسخ الاحتياطي والاستعادةة"),restoar)
         layout.addWidget(self.ok)
@@ -48,8 +49,10 @@ class settings (qt.QDialog):
         settings_handler.set("g","reciter",str(self.layout1.reciter.currentIndex()))
         settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
         settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
+        settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
+        self.p.runAudioThkarTimer()
         if aa==1:
             mb=qt.QMessageBox(self)
             mb.setWindowTitle(_("تم تحديث الإعدادات"))
@@ -88,3 +91,17 @@ class settings (qt.QDialog):
         else:
             return False
 
+def formatDuration(sectionName:str,keyName:str):
+    value=int(settings_handler.get(sectionName,keyName))
+    result=0
+    if value==0:
+        result=300
+    elif value==1:
+        result=600
+    elif value==2:
+        result=1200
+    elif value==3:
+        result=1800
+    elif value==4:
+        result=3600
+    return result*1000

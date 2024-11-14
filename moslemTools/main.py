@@ -478,10 +478,8 @@ class main(qt.QMainWindow):
         self.media_player=QMediaPlayer()
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
-        self.Duration=30*1000
         self.timer=qt2.QTimer(self)
-        self.timer.timeout.connect(self.random_theker)
-        self.timer.start(self.Duration)
+        self.timer.timeout.connect(self.random_audio_theker)
         layout=qt.QVBoxLayout()        
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
@@ -500,8 +498,13 @@ class main(qt.QMainWindow):
         w=qt.QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
+        self.runAudioThkarTimer()
         if settings_handler.get("update","autoCheck")=="True":
             update.check(self,message=False)
+    def runAudioThkarTimer(self):
+        self.timer.stop()
+        if formatDuration("athkar","voice")!=0:
+            self.timer.start(formatDuration("athkar","voice"))
     def closeEvent(self, event):
         if settings_handler.get("g","exitDialog")=="True":
             m=guiTools.ExitApp(self)
@@ -510,7 +513,7 @@ class main(qt.QMainWindow):
                 event.ignore()
         else:
             self.close()
-    def random_theker(self):
+    def random_audio_theker(self):
         folder_path=r"data\sounds\athkar"
         sound_files=[f for f in os.listdir(folder_path) if f.endswith(('.ogg'))]
         if sound_files:

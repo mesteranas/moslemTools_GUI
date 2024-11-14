@@ -1,5 +1,6 @@
 from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
+from .quranPlayer import QuranPlayer
 import time,winsound,pyperclip,gettext,os,json
 _=gettext.gettext
 import PyQt6.QtWidgets as qt
@@ -95,6 +96,9 @@ class QuranViewer(qt.QDialog):
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
+        playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية السورة"),self)
+        surahOption.addAction(playSurahToEnd)
+        playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah()).exec())
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)

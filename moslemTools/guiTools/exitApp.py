@@ -10,12 +10,13 @@ class ExitApp (qt.QDialog):
         super().__init__(p)
         self.resize(200,100)
         self.setWindowTitle(_("الخروج من {} محاورة").format(app.name))
+        self.p=p
         self.cancel1=False
         lec=_("ماذا تريد أن تفعل?")
         label=qt.QLabel(lec)
         self.exit=qt.QComboBox()
         self.exit.setAccessibleName(lec)
-        self.exit.addItems([_("خروج"),_("إعادة تشغيل")])
+        self.exit.addItems([_("إخفاء"),_("خروج"),_("إعادة تشغيل")])
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
         self.ok.clicked.connect(self.fok)
@@ -30,8 +31,11 @@ class ExitApp (qt.QDialog):
     def fok(self):
         ec=self.exit.currentIndex()
         if ec==0:
+            self.p.hide()
+            self.accept()
+        elif ec==1:
             sys.exit()
-        else:
+        elif ec==2:
             os.execl(sys.executable, sys.executable, *sys.argv)
     def fcan(self):
         self.cancel1=True

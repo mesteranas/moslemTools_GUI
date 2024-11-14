@@ -15,6 +15,9 @@ if not os.path.exists(cpath):
 	config["tafaseer"]["tafaseer"]="jalalayn.json"
 	config.add_section("translation")
 	config["translation"]["translation"]="en.ahmedali.json"
+	config.add_section("athkar")
+	config["athkar"]["voice"]="0"
+	config["athkar"]["text"]="0"
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"
