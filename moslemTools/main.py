@@ -12,6 +12,53 @@ import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 language.init_translation()                
+class Albaheth(qt.QWidget):
+    def __init__(self):
+        super().__init__()                
+        self.serch_laibol=qt.QLabel(_("ابحث في"))
+        self.serch=qt.QComboBox()
+        self.serch.addItem(_("القرآن الكريم"))
+        self.serch.addItem(_("الأحاديث"))
+        self.serch.setAccessibleName(_("ابحث في"))        
+        self.ahadeeth_laibol=qt.QLabel(_("إختيار الكتاب"))
+        self.ahadeeth=qt.QComboBox()
+        self.ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
+        self.ahadeeth.setAccessibleName(_("إختيار الكتاب"))        
+        self.serch.currentIndexChanged.connect(self.toggle_ahadeeth_visibility)
+        self.serch_input=qt.QLineEdit()
+        self.serch_input.setAccessibleName(_("أكتب محتوى البحث"))
+        self.start=qt.QPushButton(_("البحث"))
+        self.results=guiTools.QReadOnlyTextEdit()                
+        layout=qt.QVBoxLayout(self)
+        layout.addWidget(self.serch_laibol)
+        layout.addWidget(self.serch)
+        layout.addWidget(self.ahadeeth_laibol)
+        layout.addWidget(self.ahadeeth)
+        layout.addWidget(self.serch_input)
+        layout.addWidget(self.start)
+        layout.addWidget(self.results)        
+        self.ahadeeth_laibol.hide()
+        self.ahadeeth.hide()                
+    def toggle_ahadeeth_visibility(self):        
+        if self.serch.currentText() == _("الأحاديث"):
+            self.ahadeeth_laibol.show()
+            self.ahadeeth.show()
+        else:
+            self.ahadeeth_laibol.hide()
+            self.ahadeeth.hide()
+class book_marcks(qt.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.Category_label=qt.QLabel(_("إختيار الفئة"))
+        self.Category=qt.QComboBox()
+        self.Category.addItem(_("القرآن الكريم"))
+        self.Category.addItem(_("الأحاديث"))
+        self.Category.setAccessibleName(_("إختيار الفئة"))
+        self.results=guiTools.QListWidget()
+        layout=qt.QVBoxLayout(self)
+        layout.addWidget(self.Category_label)
+        layout.addWidget(self.Category)
+        layout.addWidget(self.results)
 class hadeeth(qt.QWidget):
     def __init__(self):
         super().__init__()
@@ -473,8 +520,8 @@ class Athker (qt.QWidget):
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle(app.name + _("version : ") + str(app.version))
-        self.setGeometry(100,100,800,500)
+        self.setWindowTitle(app.name + _("version : ") + str(app.version))        
+        self.resize(1200,600)
         self.media_player=QMediaPlayer()
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
@@ -485,13 +532,35 @@ class main(qt.QMainWindow):
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))
         self.tools.addTab(DateConverter(),(_("محول التاريخ")))
         self.tools.addTab(sibha(),(_("سبحة إلكترونية")))
-        self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))
+        self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))        
         self.tools.addTab(Athker(),_("الأذكار والأدعية"))
         self.tools.addTab(Quran(),_("القرآن الكريم"))        
         self.tools.addTab(hadeeth(),_("الأحاديث النبوية والقدسية"))
+        self.tools.addTab(book_marcks(),_("العلامات المرجعية"))
+        self.tools.addTab(Albaheth(),_("الباحث في القرآن والأحاديث"))
         self.tools.addTab(protcasts(),(_("الإذاعات الإسلامية")))
-        self.tools.addTab(About_developers(),(_("عن المطورين")))
-        layout.addWidget(self.tools)
+        self.tools.addTab(About_developers(),(_("عن المطورين")))                
+        self.tray_icon=qt.QSystemTrayIcon(self)
+        self.tray_icon.setIcon(qt1.QIcon("data/icons/icon.jpg"))
+        self.tray_icon.setToolTip(app.name)
+        self.tray_menu=qt.QMenu(self)
+        self.random_thecker_audio=qt1.QAction(_("تشغيل ذكر عشوائي"))
+        self.random_thecker_audio.triggered.connect(self.random_audio_theker)        
+        self.random_thecker_text=qt1.QAction(_("عرض ذكر عشوائي"))
+        self.random_thecker_text.triggered.connect(self.show_random_theker)                
+        self.show_action=qt1.QAction(_("إظهار البرنامج"))
+        self.show_action.triggered.connect(self.toggle_visibility)        
+        self.close_action=qt1.QAction(_("إغلاق البرنامج"))
+        self.close_action.triggered.connect(lambda:qt.QApplication.quit())
+        self.tray_menu.addAction(self.random_thecker_audio)
+        self.tray_menu.addAction(self.random_thecker_text)
+        self.tray_menu.addAction(self.show_action)        
+        self.tray_menu.addAction(self.close_action)
+        self.tray_icon.setContextMenu(self.tray_menu)
+        self.tray_icon.show()    
+        self.TIMER1=qt2.QTimer(self)
+        self.TIMER1.timeout.connect(self.show_random_theker)        
+        layout.addWidget(self.tools)    
         self.setting=guiTools.QPushButton(_("الإعدادات"))
         self.setting.clicked.connect(lambda: settings(self).exec())        
         layout.addWidget(self.setting)
@@ -499,12 +568,29 @@ class main(qt.QMainWindow):
         w.setLayout(layout)
         self.setCentralWidget(w)
         self.runAudioThkarTimer()
+        self.notification_random_thecker()        
         if settings_handler.get("update","autoCheck")=="True":
-            update.check(self,message=False)
+            update.check(self,message=False)    
+    def toggle_visibility(self):        
+        if self.isVisible():
+            self.hide()
+            self.show_action.setText(_("إظهار البرنامج"))
+        else:
+            self.show()
+            self.show_action.setText(_("إخفاء البرنامج"))
+    def show_random_theker(self):
+        with open("data/json/text_athkar.json","r",encoding="utf_8") as f:
+            data=json.load(f)
+        random_theckr=random.choice(data)
+        guiTools.SendNotification(_("ذكر عشوائي"),random_theckr)
+    def notification_random_thecker(self):
+        self.TIMER1.stop()
+        if formatDuration("athkar","text")!=0:
+            self.TIMER1.start(formatDuration("athkar","text"))
     def runAudioThkarTimer(self):
         self.timer.stop()
         if formatDuration("athkar","voice")!=0:
-            self.timer.start(formatDuration("athkar","voice"))
+            self.timer.start(formatDuration("athkar","voice"))    
     def closeEvent(self, event):
         if settings_handler.get("g","exitDialog")=="True":
             m=guiTools.ExitApp(self)

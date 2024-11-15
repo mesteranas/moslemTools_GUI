@@ -50,9 +50,11 @@ class settings (qt.QDialog):
         settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
         settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
         settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))
+        settings_handler.set("athkar","text",str(self.athkar.textSelection.currentIndex()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
         self.p.runAudioThkarTimer()
+        self.p.notification_random_thecker()
         if aa==1:
             mb=qt.QMessageBox(self)
             mb.setWindowTitle(_("تم تحديث الإعدادات"))

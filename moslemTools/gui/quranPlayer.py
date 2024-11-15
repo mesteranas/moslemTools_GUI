@@ -1,6 +1,6 @@
 from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
-import time,winsound,pyperclip,gettext,os,json
+import time,gettext,os,json
 _=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -12,7 +12,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranPlayer(qt.QDialog):
     def __init__(self,p,text,index:int):
-        super().__init__(p)        
+        super().__init__(p)                        
         self.showFullScreen()
         self.media=QMediaPlayer(self)
         self.audioOutput=QAudioOutput(self)
@@ -22,19 +22,89 @@ class QuranPlayer(qt.QDialog):
         time.sleep(0.5)
         self.media.stop()
         self.media.mediaStatusChanged.connect(self.on_state)
-        self.index=index-1
+        self.index=index-1        
         self.quranText=text.split("\n")
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setText(text[index-1])
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.text.customContextMenuRequested.connect(self.OnContextMenu)
+        self.text.setFocus()
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.text.setFont(font)        
+        self.N_aya=qt.QPushButton(_("الآيا التالية"))
+        self.N_aya.clicked.connect(self.onNextAyah)
+        self.PPS=qt.QPushButton(_("تشغيل"))
+        self.PPS.clicked.connect(self.on_play)
+        self.P_aya=qt.QPushButton(_("الآيا السابقة"))
+        self.P_aya.clicked.connect(self.onPreviousAyah)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
+        layout.addWidget(self.N_aya)
+        layout.addWidget(self.PPS)
+        layout.addWidget(self.P_aya)
         qt1.QShortcut("space",self).activated.connect(self.on_play)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.gotoayah)
         qt1.QShortcut("alt+right",self).activated.connect(self.onNextAyah)
         qt1.QShortcut("alt+left",self).activated.connect(self.onPreviousAyah)
         qt1.QShortcut("escape",self).activated.connect(self.close)
+        qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
+        qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         self.on_play()
+    def OnContextMenu(self):
+        if self.media.isPlaying():
+            self.media.stop()
+        menu=qt.QMenu(_("الخيارات"),self)
+        aya=qt.QMenu(_("خيارات الآية"),self)
+        GoToAya=qt1.QAction(_("الذهاب الى آيا"),self)
+        aya.addAction(GoToAya)
+        aya.triggered.connect(self.gotoayah)
+        aya_info=qt1.QAction(_("معلومات الآيا الحالية"),self)
+        aya.addAction(aya_info)
+        aya_info.triggered.connect(self.getAyahInfo)
+        aya_trans=qt1.QAction(_("ترجمة الآيا الحالية"),self)
+        aya.addAction(aya_trans)
+        aya_trans.triggered.connect(self.getCurentAyahTranslation)
+        aya_tafsseer=qt1.QAction(_("تفسير الآيا الحالية"),self)
+        aya.addAction(aya_tafsseer)
+        aya_tafsseer.triggered.connect(self.getCurentAyahTafseer)
+        aya_arab=qt1.QAction(_("إعراب الآيا الحالية"),self)
+        aya.addAction(aya_arab)
+        aya_arab.triggered.connect(self.getCurentAyahIArab)        
+        aya_tanzeel=qt1.QAction(_("أسباب نزول الآيا الحالية"),self)
+        aya.addAction(aya_tanzeel)
+        aya_tanzeel.triggered.connect(self.getCurrentAyahTanzel)        
+        Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
+        aya.addAction(Previous_aya)
+        Previous_aya.triggered.connect(self.onPreviousAyah)
+        next_aya=qt1.QAction(_("الآيا التالية"),self)
+        aya.addAction(next_aya)
+        next_aya.triggered.connect(self.onNextAyah)
+        fontMenu=qt.QMenu(_("حجم الخط"),self)
+        incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        fontMenu.addAction(incressFontAction)
+        fontMenu.setDefaultAction(incressFontAction)
+        incressFontAction.triggered.connect(self.increase_font_size)
+        decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        fontMenu.addAction(decreaseFontSizeAction)
+        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
+        menu.addMenu(aya)
+        menu.addMenu(fontMenu)        
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def increase_font_size(self):
+        self.font_size += 1
+        self.update_font_size()
+    def decrease_font_size(self):
+        self.font_size -= 1
+        self.update_font_size()
+    def update_font_size(self):
+        cursor=self.text.textCursor()
+        self.text.selectAll()
+        font=self.text.font()
+        font.setPointSize(self.font_size)
+        self.text.setCurrentFont(font)        
+        self.text.setTextCursor(cursor)
     def on_set(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         if int(surah)<10:
@@ -59,8 +129,17 @@ class QuranPlayer(qt.QDialog):
             if not self.media.source()==path:
                 self.media.setSource(path)
             self.media.play()
+            self.PPS.setText(_("إيقاف مؤقت"))
         else:
             self.media.pause()
+            self.PPS.setText(_("تشغيل"))
+    def gotoayah(self):
+        self.media.stop()
+        number,ok=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية"),self.index+1,1,len(self.quranText),1)
+        if ok:
+            self.index=number-1
+            self.text.setText(self.quranText[self.index])
+            self.on_play()
     def onNextAyah(self):
         if self.index+1==len(self.quranText):
             self.index=0
@@ -111,11 +190,4 @@ class QuranPlayer(qt.QDialog):
         qt.QMessageBox.information(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
     def getCurentAyahTranslation(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
-        translationViewer(self,AyahNumber,AyahNumber).exec()
-    def gotoayah(self):
-        self.media.stop()
-        number,ok=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية"),self.index+1,1,len(self.quranText),1)
-        if ok:
-            self.index=number-1
-            self.text.setText(self.quranText[self.index])
-            self.on_play()
+        translationViewer(self,AyahNumber,AyahNumber).exec()    

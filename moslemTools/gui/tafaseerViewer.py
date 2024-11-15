@@ -20,6 +20,10 @@ class TafaseerViewer(qt.QDialog):
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.text.setFont(font)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
         self.changeTafaseer=qt.QPushButton(_("تغيير التفسير"))

@@ -19,14 +19,23 @@ class hadeeth_viewer(qt.QDialog):
         qt1.QShortcut("alt+right",self).activated.connect(self.next_hadeeth)
         qt1.QShortcut("alt+left",self).activated.connect(self.previous_hadeeth)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.go_to_hadeeth)
-        self.font_size=20
         self.showFullScreen()
         self.text=guiTools.QReadOnlyTextEdit()        
         self.text.setText(self.data[self.index])
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.text.setFont(font)
+        self.N_hadeeth=qt.QPushButton(_("الحديث التالي"))
+        self.N_hadeeth.clicked.connect(self.next_hadeeth)
+        self.P_hadeeth=qt.QPushButton(_("الحديث السابق"))
+        self.P_hadeeth.clicked.connect(self.previous_hadeeth)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
+        layout.addWidget(self.N_hadeeth)
+        layout.addWidget(self.P_hadeeth)
     def next_hadeeth(self):
         if self.index == len(self.data)-1:
             self.index=0

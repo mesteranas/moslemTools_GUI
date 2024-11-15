@@ -6,4 +6,4 @@ class QReadOnlyTextEdit(qt.QTextEdit):
         self.setReadOnly(True)
         self.setTextInteractionFlags(qt2.Qt.TextInteractionFlag.TextSelectableByMouse|qt2.Qt.TextInteractionFlag.TextSelectableByKeyboard)
         self.setAcceptRichText(True)
-        self.setLineWrapMode(qt.QTextEdit.LineWrapMode.NoWrap)
+        self.setLineWrapMode(qt.QTextEdit.LineWrapMode.NoWrap)        
