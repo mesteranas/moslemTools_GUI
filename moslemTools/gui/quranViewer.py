@@ -12,9 +12,11 @@ import guiTools,settings,functions
 with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranViewer(qt.QDialog):
-    def __init__(self,p,text):
+    def __init__(self,p,text:str,type:int,category,index=0):
         super().__init__(p)        
         self.showFullScreen()
+        self.type=type
+        self.category=category
         self.media=QMediaPlayer(self)
         self.audioOutput=QAudioOutput(self)
         self.media.setAudioOutput(self.audioOutput)
@@ -33,6 +35,13 @@ class QuranViewer(qt.QDialog):
         self.text.setFont(font)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
+        if not index==0:
+            cerser=self.text.textCursor()
+            cerser.movePosition(cerser.MoveOperation.Start)
+            for i in range(index-1):
+                cerser.movePosition(cerser.MoveOperation.Down)
+            self.text.setTextCursor(cerser)
+
         qt1.QShortcut("space",self).activated.connect(self.on_play)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.goToAyah)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
@@ -72,6 +81,9 @@ class QuranViewer(qt.QDialog):
         copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)
         ayahOptions.addAction(copy_aya)
         copy_aya.triggered.connect(self.copyAya)
+        addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+        ayahOptions.addAction(addNewBookMark)
+        addNewBookMark.triggered.connect(self.onAddBookMark)
         menu.addMenu(ayahOptions)
         surahOption=qt.QMenu(_("خيارات السورة"),self)
         copySurahAction=qt1.QAction(_("نسخ السورة"),self)
@@ -98,7 +110,7 @@ class QuranViewer(qt.QDialog):
         SurahInfoAction.triggered.connect(self.onSurahInfo)
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية السورة"),self)
         surahOption.addAction(playSurahToEnd)
-        playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah()).exec())
+        playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category).exec())
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
@@ -261,3 +273,7 @@ class QuranViewer(qt.QDialog):
         Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
         Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
         translationViewer(self,AyahNumber1,AyahNumber2).exec()
+    def onAddBookMark(self):
+        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        if OK:
+            functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.getCurrentAyah(),False,name)

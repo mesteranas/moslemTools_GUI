@@ -55,10 +55,36 @@ class book_marcks(qt.QWidget):
         self.Category.addItem(_("الأحاديث"))
         self.Category.setAccessibleName(_("إختيار الفئة"))
         self.results=guiTools.QListWidget()
+        self.results.clicked.connect(self.onItemClicked)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.Category_label)
         layout.addWidget(self.Category)
         layout.addWidget(self.results)
+        self.Category.currentIndexChanged.connect(self.onCategoryChanged)
+        self.onCategoryChanged(0)
+        qt1.QShortcut("delete",self).activated.connect(self.onRemove)
+    def onItemClicked(self):
+        if self.Category.currentIndex()==0:
+            functions.bookMarksManager.openQuranByBookMarkName(self,self.results.currentItem().text())
+        else:
+            bookName,hadeethNumber=functions.bookMarksManager.GetHadeethBookByName(self.results.currentItem().text())
+            gui.hadeeth_viewer(self,bookName,index=hadeethNumber).exec()
+    def onRemove(self):
+        if self.Category.currentIndex()==0:
+            functions.bookMarksManager.removeQuranBookMark(self.results.currentItem().text())
+        else:
+            functions.bookMarksManager.removeAhadeethBookMark(self.results.currentItem().text())
+        guiTools.speak(_("تم حذف العلامة"))
+        self.onCategoryChanged(self.Category.currentIndex())
+    def onCategoryChanged(self,index):
+        bookMarksData=functions.bookMarksManager.openBookMarksFile()
+        if index==0:
+            type="quran"
+        else:
+            type="ahadeeth"
+        self.results.clear()
+        for item in bookMarksData[type]:
+            self.results.addItem(item["name"])
 class hadeeth(qt.QWidget):
     def __init__(self):
         super().__init__()
@@ -173,7 +199,7 @@ class Quran(qt.QWidget):
             result=functions.quranJsonControl.getHezb()
         elif index==4:
             result=functions.quranJsonControl.getHizb()
-        gui.QuranViewer(self,result[self.info.currentItem().text()][1])
+        gui.QuranViewer(self,result[self.info.currentItem().text()][1],index,self.info.currentItem().text()).exec()
     def onTypeChanged(self,index:int):
         self.info.clear()
         if index==0:
@@ -548,7 +574,7 @@ class main(qt.QMainWindow):
         self.random_thecker_audio.triggered.connect(self.random_audio_theker)        
         self.random_thecker_text=qt1.QAction(_("عرض ذكر عشوائي"))
         self.random_thecker_text.triggered.connect(self.show_random_theker)                
-        self.show_action=qt1.QAction(_("إظهار البرنامج"))
+        self.show_action = qt1.QAction(_("إخفاء البرنامج"))
         self.show_action.triggered.connect(self.toggle_visibility)        
         self.close_action=qt1.QAction(_("إغلاق البرنامج"))
         self.close_action.triggered.connect(lambda:qt.QApplication.quit())

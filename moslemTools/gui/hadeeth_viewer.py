@@ -1,15 +1,16 @@
-import guiTools,pyperclip,winsound,gettext,json
+import guiTools,pyperclip,winsound,gettext,json,functions
 import PyQt6.QtWidgets as qt
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 _=gettext.gettext
 class hadeeth_viewer(qt.QDialog):
-    def __init__(self,p,book_name):
+    def __init__(self,p,book_name,index:int=0):
         super().__init__(p)
         with open("data/json/ahadeeth/"+book_name,"r",encoding="utf-8") as f:
             self.data=json.load(f)    
-        self.index=0        
+        self.index=index
+        self.bookName=book_name
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
@@ -68,6 +69,9 @@ class hadeeth_viewer(qt.QDialog):
         previous_action.triggered.connect(self.previous_hadeeth)
         go_action=hadeeth_menu.addAction(_("الذهاب إلى حديث"))
         go_action.triggered.connect(self.go_to_hadeeth)
+        addBookMarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
+        hadeeth_menu.addAction(addBookMarkAction)
+        addBookMarkAction.triggered.connect(self.onAddBookMark)
         menu.addMenu(hadeeth_menu)
         text_options_menu=qt.QMenu(_("خيارات النص"), self)
         save_action=text_options_menu.addAction(_("حفظ كملف نصي"))
@@ -139,3 +143,7 @@ class hadeeth_viewer(qt.QDialog):
             winsound.Beep(1000,100)
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def onAddBookMark(self):
+        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        if OK:
+            functions.bookMarksManager.addNewHadeethBookMark(self.bookName,self.index,name)

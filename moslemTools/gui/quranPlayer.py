@@ -11,9 +11,11 @@ import guiTools,settings,functions
 with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranPlayer(qt.QDialog):
-    def __init__(self,p,text,index:int):
+    def __init__(self,p,text,index:int,type,category):
         super().__init__(p)                        
         self.showFullScreen()
+        self.type=type
+        self.category=category
         self.media=QMediaPlayer(self)
         self.audioOutput=QAudioOutput(self)
         self.media.setAudioOutput(self.audioOutput)
@@ -56,10 +58,12 @@ class QuranPlayer(qt.QDialog):
         if self.media.isPlaying():
             self.media.stop()
         menu=qt.QMenu(_("الخيارات"),self)
+        menu.setAccessibleName(_("الخيارات"))
         aya=qt.QMenu(_("خيارات الآية"),self)
         GoToAya=qt1.QAction(_("الذهاب الى آيا"),self)
         aya.addAction(GoToAya)
-        aya.triggered.connect(self.gotoayah)
+        aya.setDefaultAction(GoToAya)
+        GoToAya.triggered.connect(self.gotoayah)
         aya_info=qt1.QAction(_("معلومات الآيا الحالية"),self)
         aya.addAction(aya_info)
         aya_info.triggered.connect(self.getAyahInfo)
@@ -75,12 +79,17 @@ class QuranPlayer(qt.QDialog):
         aya_tanzeel=qt1.QAction(_("أسباب نزول الآيا الحالية"),self)
         aya.addAction(aya_tanzeel)
         aya_tanzeel.triggered.connect(self.getCurrentAyahTanzel)        
+        addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+        aya.addAction(addNewBookMark)
+        addNewBookMark.triggered.connect(self.onAddBookMark)
+
         Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
         aya.addAction(Previous_aya)
         Previous_aya.triggered.connect(self.onPreviousAyah)
         next_aya=qt1.QAction(_("الآيا التالية"),self)
         aya.addAction(next_aya)
         next_aya.triggered.connect(self.onNextAyah)
+        menu.setFocus()
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
         fontMenu.addAction(incressFontAction)
@@ -191,3 +200,7 @@ class QuranPlayer(qt.QDialog):
     def getCurentAyahTranslation(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         translationViewer(self,AyahNumber,AyahNumber).exec()    
+    def onAddBookMark(self):
+        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        if OK:
+            functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.index,True,name)

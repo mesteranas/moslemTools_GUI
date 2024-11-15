@@ -32,6 +32,7 @@ class ExitApp (qt.QDialog):
         ec=self.exit.currentIndex()
         if ec==0:
             self.p.hide()
+            self.p.show_action .setText(_("إظهار البرنامج"))
             self.accept()
         elif ec==1:
             sys.exit()
