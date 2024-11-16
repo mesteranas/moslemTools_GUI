@@ -7,10 +7,13 @@ _=gettext.gettext
 class hadeeth_viewer(qt.QDialog):
     def __init__(self,p,book_name,index:int=0):
         super().__init__(p)
-        with open("data/json/ahadeeth/"+book_name,"r",encoding="utf-8") as f:
-            self.data=json.load(f)    
-        self.index=index
-        self.bookName=book_name
+        try:
+            with open("data/json/ahadeeth/"+book_name,"r",encoding="utf-8") as f:
+                self.data=json.load(f)    
+            self.index=index
+            self.bookName=book_name
+        except:
+            self.close()
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)

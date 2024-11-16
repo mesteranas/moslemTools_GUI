@@ -39,7 +39,7 @@ class Albaheth(qt.QWidget):
         layout.addWidget(self.results)        
         self.ahadeeth_laibol.hide()
         self.ahadeeth.hide()                
-    def toggle_ahadeeth_visibility(self):        
+    def toggle_ahadeeth_visibility(self):
         if self.serch.currentText() == _("الأحاديث"):
             self.ahadeeth_laibol.show()
             self.ahadeeth.show()
@@ -56,10 +56,13 @@ class book_marcks(qt.QWidget):
         self.Category.setAccessibleName(_("إختيار الفئة"))
         self.results=guiTools.QListWidget()
         self.results.clicked.connect(self.onItemClicked)
+        self.dl=guiTools.QPushButton(_("حذف العلامة المرجعية"))
+        self.dl.clicked.connect(self.onRemove)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.Category_label)
         layout.addWidget(self.Category)
         layout.addWidget(self.results)
+        layout.addWidget(self.dl)
         self.Category.currentIndexChanged.connect(self.onCategoryChanged)
         self.onCategoryChanged(0)
         qt1.QShortcut("delete",self).activated.connect(self.onRemove)
@@ -70,12 +73,15 @@ class book_marcks(qt.QWidget):
             bookName,hadeethNumber=functions.bookMarksManager.GetHadeethBookByName(self.results.currentItem().text())
             gui.hadeeth_viewer(self,bookName,index=hadeethNumber).exec()
     def onRemove(self):
-        if self.Category.currentIndex()==0:
-            functions.bookMarksManager.removeQuranBookMark(self.results.currentItem().text())
-        else:
-            functions.bookMarksManager.removeAhadeethBookMark(self.results.currentItem().text())
-        guiTools.speak(_("تم حذف العلامة"))
-        self.onCategoryChanged(self.Category.currentIndex())
+        try:
+            if self.Category.currentIndex()==0:
+                functions.bookMarksManager.removeQuranBookMark(self.results.currentItem().text())
+            else:
+                functions.bookMarksManager.removeAhadeethBookMark(self.results.currentItem().text())
+            guiTools.speak(_("تم حذف العلامة المرجعية"))
+            self.onCategoryChanged(self.Category.currentIndex())
+        except:
+            qt.QMessageBox.critical(self,_("تحذير"),_("حدث خطأ أثناء حذف العلامة المرجعية"))
     def onCategoryChanged(self,index):
         bookMarksData=functions.bookMarksManager.openBookMarksFile()
         if index==0:
