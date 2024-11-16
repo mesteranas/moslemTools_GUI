@@ -103,9 +103,11 @@ class QuranPlayer(qt.QDialog):
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def increase_font_size(self):
         self.font_size += 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

@@ -19,20 +19,24 @@ class TextViewer(qt.QDialog):
         self.text.setText(text)
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.text.setFont(font)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
-        save=menu.addAction(_("حفظ كملف نصي"))
-        save.triggered.connect(self.save_text_as_txt)
-        menu.setDefaultAction(save)
-        print=menu.addAction(_("طباعة"))
+        text_options=qt.QMenu(_("خيارات النص"),self)
+        save=text_options.addAction(_("حفظ كملف نصي"))
+        save.triggered.connect(self.save_text_as_txt)        
+        print=text_options.addAction(_("طباعة"))
         print.triggered.connect(self.print_text)
-        copy_all=menu.addAction(_("نسخ النص كاملا"))        
+        copy_all=text_options.addAction(_("نسخ النص كاملا"))        
         copy_all.triggered.connect(self.copy_text)
-        copy_selected_text=menu.addAction(_("نسخ النص المحدد"))
+        copy_selected_text=text_options.addAction(_("نسخ النص المحدد"))
         copy_selected_text.triggered.connect(self.copy_line)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
@@ -41,7 +45,8 @@ class TextViewer(qt.QDialog):
         incressFontAction.triggered.connect(self.increase_font_size)
         decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
         fontMenu.addAction(decreaseFontSizeAction)
-        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
+        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)        
+        menu.addMenu(text_options)
         menu.addMenu(fontMenu)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def print_text(self):
@@ -67,9 +72,11 @@ class TextViewer(qt.QDialog):
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         self.font_size += 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

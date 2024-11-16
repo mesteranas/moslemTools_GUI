@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os
+import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os,re
 _=gettext.gettext
 from settings import *
 from hijri_converter import Gregorian,Hijri
@@ -15,6 +15,10 @@ language.init_translation()
 class Albaheth(qt.QWidget):
     def __init__(self):
         super().__init__()                
+        qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
+        qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
+        qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
+        qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)        
         self.serch_laibol=qt.QLabel(_("ابحث في"))
         self.serch=qt.QComboBox()
         self.serch.addItem(_("القرآن الكريم"))
@@ -27,8 +31,15 @@ class Albaheth(qt.QWidget):
         self.serch.currentIndexChanged.connect(self.toggle_ahadeeth_visibility)
         self.serch_input=qt.QLineEdit()
         self.serch_input.setAccessibleName(_("أكتب محتوى البحث"))
-        self.start=qt.QPushButton(_("البحث"))
+        self.start=guiTools.QPushButton(_("البحث"))
+        self.start.clicked.connect(self.onSearchClicked)
         self.results=guiTools.QReadOnlyTextEdit()                
+        self.results.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.results.customContextMenuRequested.connect(self.OnContextMenu)
+        self.font_size=20
+        font=self.font()
+        font.setPointSize(self.font_size)
+        self.results.setFont(font)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.serch_laibol)
         layout.addWidget(self.serch)
@@ -38,7 +49,75 @@ class Albaheth(qt.QWidget):
         layout.addWidget(self.start)
         layout.addWidget(self.results)        
         self.ahadeeth_laibol.hide()
-        self.ahadeeth.hide()                
+        self.ahadeeth.hide()                    
+    def OnContextMenu(self):
+        menu=qt.QMenu(_("الخيارات"),self)
+        menu.setAccessibleName(_("الخيارات"))
+        menu.setFocus()        
+        copy_all=menu.addAction(_("نسخ النص كاملا"))        
+        copy_all.triggered.connect(self.copy_text)
+        copy_selected_text=menu.addAction(_("نسخ النص المحدد"))
+        copy_selected_text.triggered.connect(self.copy_line)
+        fontMenu=qt.QMenu(_("حجم الخط"),self)
+        incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        fontMenu.addAction(incressFontAction)
+        fontMenu.setDefaultAction(incressFontAction)
+        incressFontAction.triggered.connect(self.increase_font_size)
+        decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        fontMenu.addAction(decreaseFontSizeAction)
+        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
+        menu.addMenu(fontMenu)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))    
+    def increase_font_size(self):
+        self.font_size += 1
+        guiTools.speak(str(self.font_size ))
+        self.update_font_size()
+    def decrease_font_size(self):
+        self.font_size -= 1
+        guiTools.speak(str(self.font_size ))
+        self.update_font_size()
+    def update_font_size(self):
+        cursor=self.results.textCursor()
+        self.results.selectAll()
+        font=self.results.font()
+        font.setPointSize(self.font_size)
+        self.results.setCurrentFont(font)        
+        self.results.setTextCursor(cursor)
+    def copy_line(self):
+        try:
+            cursor=self.results.textCursor()
+            if cursor.hasSelection():
+                selected_text=cursor.selectedText()
+                pyperclip.copy(selected_text)                
+                winsound.Beep(1000,100)
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def copy_text(self):
+        try:
+            text=self.results.toPlainText()
+            pyperclip.copy(text)            
+            winsound.Beep(1000,100)
+        except Exception as error:
+            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list 
+            if re.search(re.escape(normalized_pattern), tashkeel_pattern.sub('', text))
+        ]    
+        return matches
+    def onSearchClicked(self):
+        I=self.serch.currentIndex()
+        if I==0:
+            listOfWords=functions.quranJsonControl.getQuran()
+        elif I==1:
+            bookName=functions.ahadeeth.ahadeeths[self.ahadeeth.currentText()]
+            with open("data/json/ahadeeth/" + bookName,"r",encoding="utf-8") as file:
+                listOfWords=json.load(file)
+        result=self.search(self.serch_input.text(),listOfWords)
+        self.results.setText("\n".join(result))
+        self.results.setFocus()
     def toggle_ahadeeth_visibility(self):
         if self.serch.currentText() == _("الأحاديث"):
             self.ahadeeth_laibol.show()
@@ -301,6 +380,8 @@ class NamesOfAllah(qt.QWidget):
         for item in self.data["names"]:
             result+=item["name"] + " : \n" + item["meaning"]+"\n"
         self.information.setText(result)
+        self.information.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.information.customContextMenuRequested.connect(self.OnContextMenu)
         self.font_size=20
         font=self.font()
         font.setPointSize(self.font_size)
@@ -312,12 +393,51 @@ class NamesOfAllah(qt.QWidget):
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
+    def OnContextMenu(self):
+        menu=qt.QMenu(_("الخيارات"),self)
+        menu.setAccessibleName(_("الخيارات"))
+        menu.setFocus()
+        text_options=qt.QMenu(_("خيارات النص"),self)
+        save=text_options.addAction(_("حفظ كملف نصي"))
+        save.triggered.connect(self.save_text_as_txt)        
+        print=text_options.addAction(_("طباعة"))
+        print.triggered.connect(self.print_text)
+        copy_all=text_options.addAction(_("نسخ النص كاملا"))        
+        copy_all.triggered.connect(self.copy_text)
+        copy_selected_text=text_options.addAction(_("نسخ النص المحدد"))
+        copy_selected_text.triggered.connect(self.copy_line)
+        fontMenu=qt.QMenu(_("حجم الخط"),self)
+        incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        fontMenu.addAction(incressFontAction)
+        fontMenu.setDefaultAction(incressFontAction)
+        incressFontAction.triggered.connect(self.increase_font_size)
+        decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        fontMenu.addAction(decreaseFontSizeAction)
+        decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
+        menu.addMenu(text_options)
+        menu.addMenu(fontMenu)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def increase_font_size(self):
+        self.font_size += 1
+        guiTools.speak(str(self.font_size ))
+        self.update_font_size()
+    def decrease_font_size(self):
+        self.font_size -= 1
+        guiTools.speak(str(self.font_size ))
+        self.update_font_size()
+    def update_font_size(self):
+        cursor=self.information.textCursor()
+        self.information.selectAll()
+        font=self.information.font()
+        font.setPointSize(self.font_size)
+        self.information.setCurrentFont(font)        
+        self.information.setTextCursor(cursor)
     def print_text(self):
         try:
             printer=QPrinter()
             dialog=QPrintDialog(printer, self)
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
-                self.text.print(printer)
+                self.information.print(printer)
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
@@ -329,23 +449,10 @@ class NamesOfAllah(qt.QWidget):
             if file_dialog.exec() == qt.QFileDialog.DialogCode.Accepted:
                 file_name=file_dialog.selectedFiles()[0]
                 with open(file_name, 'w', encoding='utf-8') as file:
-                    text = self.text.toPlainText()
+                    text = self.information.toPlainText()
                     file.write(text)                
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
-    def increase_font_size(self):
-        self.font_size += 1
-        self.update_font_size()
-    def decrease_font_size(self):
-        self.font_size -= 1
-        self.update_font_size()
-    def update_font_size(self):
-        cursor=self.information.textCursor()
-        self.information.selectAll()
-        font=self.information.font()
-        font.setPointSize(self.font_size)
-        self.information.setCurrentFont(font)        
-        self.information.setTextCursor(cursor)
     def copy_line(self):
         try:
             cursor=self.information.textCursor()

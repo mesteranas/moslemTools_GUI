@@ -122,9 +122,11 @@ class AthkerDialog (qt.QDialog):
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         self.font_size += 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
+        guiTools.speak(str(self.font_size ))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.athkerViewer.textCursor()
