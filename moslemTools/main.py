@@ -45,6 +45,7 @@ class Albaheth(qt.QWidget):
         layout.addWidget(self.serch)
         layout.addWidget(self.ahadeeth_laibol)
         layout.addWidget(self.ahadeeth)
+        layout.addWidget(qt.QLabel(_("أكتب محتوى البحث")))
         layout.addWidget(self.serch_input)
         layout.addWidget(self.start)
         layout.addWidget(self.results)        
@@ -114,9 +115,15 @@ class Albaheth(qt.QWidget):
         elif I==1:
             bookName=functions.ahadeeth.ahadeeths[self.ahadeeth.currentText()]
             with open("data/json/ahadeeth/" + bookName,"r",encoding="utf-8") as file:
-                listOfWords=json.load(file)
+                ahadeeth=json.load(file)
+            listOfWords=[]
+            for item in ahadeeth:
+                listOfWords.append(str(ahadeeth.index(item)+1) + item)
         result=self.search(self.serch_input.text(),listOfWords)
-        self.results.setText("\n".join(result))
+        if result:
+            self.results.setText("عدد نتائج البحث " + str(len(result)) + "\n" + "\n".join(result))
+        else:
+            self.results.setText(_("لم يتم العصور على نتائج"))
         self.results.setFocus()
     def toggle_ahadeeth_visibility(self):
         if self.serch.currentText() == _("الأحاديث"):

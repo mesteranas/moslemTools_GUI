@@ -91,11 +91,5 @@ def getQuran():
     result=[]
     for Surah,value in data.items():
             for Ayah in value["ayahs"]:
-                result.append(Ayah["text"] + "(" + str(Ayah["numberInSurah"]) + ")")
-    return result
-def searchinquran(keyword,ayah_list):
-    result=[]
-    for ayah in ayah_list:
-        if keyword in ayah:
-            result.append(ayah)
+                result.append(str(Surah) + value["name"] + " " + Ayah["text"] + "(" + str(Ayah["numberInSurah"]) + ")")
     return result
