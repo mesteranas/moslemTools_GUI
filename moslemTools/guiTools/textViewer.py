@@ -12,7 +12,7 @@ class TextViewer(qt.QDialog):
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
-        qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
+        qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
         self.setWindowTitle(title)
         self.showFullScreen()
         self.text=guiTools.QReadOnlyTextEdit()
