@@ -14,7 +14,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
 class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0):
         super().__init__(p)        
-        self.showFullScreen()
+        self.resize(1200,600)
         self.type=type
         self.category=category
         self.media=QMediaPlayer(self)
@@ -33,8 +33,16 @@ class QuranViewer(qt.QDialog):
         font=self.font()
         font.setPointSize(self.font_size)
         self.text.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
+        self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         if not index==0:
             cerser=self.text.textCursor()
             cerser.movePosition(cerser.MoveOperation.Start)
@@ -55,7 +63,7 @@ class QuranViewer(qt.QDialog):
         menu=qt.QMenu(_("الخيارات "),self)
         menu.setAccessibleName(_("الخيارات "))
         menu.setFocus()
-        ayahOptions=qt.QMenu(_("خيارات الآية"))
+        ayahOptions=qt.QMenu(_("خيارات الآية الحالية"))
         goToAyah=qt1.QAction(_("الذهاب إلى آية"))
         ayahOptions.addAction(goToAyah)
         goToAyah.triggered.connect(self.goToAyah)
@@ -63,19 +71,19 @@ class QuranViewer(qt.QDialog):
         playCurrentAyahAction=qt1.QAction(_("تشغيل الآية الحالية"),self)
         ayahOptions.addAction(playCurrentAyahAction)
         playCurrentAyahAction.triggered.connect(self.on_play)
-        tafaserCurrentAyahAction=qt1.QAction(_("تفسير الآية"),self)
+        tafaserCurrentAyahAction=qt1.QAction(_("تفسير الآية الحالية"),self)
         ayahOptions.addAction(tafaserCurrentAyahAction)
         tafaserCurrentAyahAction.triggered.connect(self.getCurentAyahTafseer)
         IArabCurrentAyah=qt1.QAction(_("إعراب الآية الحالية"),self)
         ayahOptions.addAction(IArabCurrentAyah)
         IArabCurrentAyah.triggered.connect(self.getCurentAyahIArab)
-        tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية"),self)
+        tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية الحالية"),self)
         ayahOptions.addAction(tanzelCurrentAyahAction)
         tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
-        translationCurrentAyahAction=qt1.QAction(_("ترجمة الآية"),self)
+        translationCurrentAyahAction=qt1.QAction(_("ترجمة الآية الحالية"),self)
         ayahOptions.addAction(translationCurrentAyahAction)
         translationCurrentAyahAction.triggered.connect(self.getCurentAyahTranslation)
-        ayahInfo=qt1.QAction(_("معلومات الآية"),self)
+        ayahInfo=qt1.QAction(_("معلومات الآية الحالية"),self)
         ayahOptions.addAction(ayahInfo)
         ayahInfo.triggered.connect(self.getAyahInfo)        
         copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)
@@ -193,11 +201,13 @@ class QuranViewer(qt.QDialog):
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         self.font_size += 1
-        guiTools.speak(str(self.font_size ))
+        guiTools.speak(str(self.font_size ))        
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

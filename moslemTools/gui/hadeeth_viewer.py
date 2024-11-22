@@ -23,7 +23,7 @@ class hadeeth_viewer(qt.QDialog):
         qt1.QShortcut("alt+right",self).activated.connect(self.next_hadeeth)
         qt1.QShortcut("alt+left",self).activated.connect(self.previous_hadeeth)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.go_to_hadeeth)
-        self.showFullScreen()
+        self.resize(1200,600)
         self.text=guiTools.QReadOnlyTextEdit()        
         self.text.setText(self.data[self.index])
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
@@ -32,12 +32,19 @@ class hadeeth_viewer(qt.QDialog):
         font=self.font()
         font.setPointSize(self.font_size)
         self.text.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
         self.N_hadeeth=qt.QPushButton(_("الحديث التالي"))
         self.N_hadeeth.clicked.connect(self.next_hadeeth)
         self.P_hadeeth=qt.QPushButton(_("الحديث السابق"))
         self.P_hadeeth.clicked.connect(self.previous_hadeeth)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         layout.addWidget(self.N_hadeeth)
         layout.addWidget(self.P_hadeeth)
     def next_hadeeth(self):
@@ -120,10 +127,12 @@ class hadeeth_viewer(qt.QDialog):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

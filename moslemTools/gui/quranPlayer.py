@@ -13,7 +13,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
 class QuranPlayer(qt.QDialog):
     def __init__(self,p,text,index:int,type,category):
         super().__init__(p)                        
-        self.showFullScreen()
+        self.resize(1200,600)
         self.type=type
         self.category=category
         self.media=QMediaPlayer(self)
@@ -35,6 +35,11 @@ class QuranPlayer(qt.QDialog):
         font=self.font()
         font.setPointSize(self.font_size)
         self.text.setFont(font)        
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))        
         self.N_aya=qt.QPushButton(_("الآيا التالية"))
         self.N_aya.clicked.connect(self.onNextAyah)
         self.PPS=qt.QPushButton(_("تشغيل"))
@@ -43,6 +48,8 @@ class QuranPlayer(qt.QDialog):
         self.P_aya.clicked.connect(self.onPreviousAyah)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         layout.addWidget(self.N_aya)
         layout.addWidget(self.PPS)
         layout.addWidget(self.P_aya)
@@ -104,10 +111,12 @@ class QuranPlayer(qt.QDialog):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

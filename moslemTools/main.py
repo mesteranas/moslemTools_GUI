@@ -29,8 +29,15 @@ class UserGuide(qt.QWidget):
         font=self.font()
         font.setPointSize(self.font_size)
         self.guide.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)        
         layout.addWidget(self.guide)
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
         menu.setAccessibleName(_("الخيارات"))
@@ -79,10 +86,12 @@ class UserGuide(qt.QWidget):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.guide.textCursor()
@@ -135,6 +144,11 @@ class Albaheth(qt.QWidget):
         font=self.font()
         font.setPointSize(self.font_size)
         self.results.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.serch_laibol)
         layout.addWidget(self.serch)
@@ -144,6 +158,8 @@ class Albaheth(qt.QWidget):
         layout.addWidget(self.serch_input)
         layout.addWidget(self.start)
         layout.addWidget(self.results)        
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         self.ahadeeth_laibol.hide()
         self.ahadeeth.hide()                    
     def OnContextMenu(self):
@@ -167,10 +183,12 @@ class Albaheth(qt.QWidget):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.results.textCursor()
@@ -488,13 +506,20 @@ class NamesOfAllah(qt.QWidget):
         font=self.font()
         font.setPointSize(self.font_size)
         self.information.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))                
+        self.show_font.setText(str(self.font_size))
         layout.addWidget(self.information)
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
-        qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
+        qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)        
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
         menu.setAccessibleName(_("الخيارات"))
@@ -521,11 +546,13 @@ class NamesOfAllah(qt.QWidget):
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def increase_font_size(self):
         self.font_size += 1
-        guiTools.speak(str(self.font_size ))
+        guiTools.speak(str(self.font_size))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
-        guiTools.speak(str(self.font_size ))
+        guiTools.speak(str(self.font_size))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.information.textCursor()

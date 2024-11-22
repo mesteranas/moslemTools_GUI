@@ -15,8 +15,8 @@ class translationViewer(qt.QDialog):
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
         self.index=settings.settings_handler.get("translation","translation")
         self.From=From
-        self.to=to
-        self.showFullScreen()
+        self.to=to        
+        self.resize(1200,600)
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
@@ -26,6 +26,13 @@ class translationViewer(qt.QDialog):
         self.text.setFont(font)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         self.changetranslation=qt.QPushButton(_("تغيير الترجمة"))
         self.changetranslation.clicked.connect(self.on_change_translation)
         layout.addWidget(self.changetranslation)
@@ -100,10 +107,12 @@ class translationViewer(qt.QDialog):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

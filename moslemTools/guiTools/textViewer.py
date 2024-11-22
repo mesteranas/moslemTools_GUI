@@ -23,8 +23,15 @@ class TextViewer(qt.QDialog):
         font=self.font()
         font.setPointSize(self.font_size)
         self.text.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
         menu.setAccessibleName(_("الخيارات"))
@@ -73,10 +80,12 @@ class TextViewer(qt.QDialog):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()

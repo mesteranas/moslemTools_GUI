@@ -9,7 +9,7 @@ import guiTools
 class AthkerDialog (qt.QDialog):
     def __init__(self,p,title:str,athkerList:list):
         super().__init__(p)
-        self.showFullScreen()
+        self.resize(1200,600)
         self.setWindowTitle(title)
         layout=qt.QVBoxLayout(self)
         self.media=QMediaPlayer(self)
@@ -27,6 +27,11 @@ class AthkerDialog (qt.QDialog):
         font=self.font()
         font.setPointSize(self.font_size)
         self.athkerViewer.setFont(font)
+        self.font_laybol=qt.QLabel(_("حجم الخط"))
+        self.show_font=qt.QLineEdit()
+        self.show_font.setReadOnly(True)
+        self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setText(str(self.font_size))
         self.N_theker=qt.QPushButton(_("الذكر التالي"))
         self.N_theker.clicked.connect(self.onNextThker)
         self.PPS=qt.QPushButton(_("تشغيل"))
@@ -34,6 +39,8 @@ class AthkerDialog (qt.QDialog):
         self.P_thekr=qt.QPushButton(_("الذكر السابق"))
         self.P_thekr.clicked.connect(self.onPreviousThker)
         layout.addWidget(self.athkerViewer)
+        layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         layout.addWidget(self.N_theker)
         layout.addWidget(self.PPS)
         layout.addWidget(self.P_thekr)
@@ -123,10 +130,12 @@ class AthkerDialog (qt.QDialog):
     def increase_font_size(self):
         self.font_size += 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def decrease_font_size(self):
         self.font_size -= 1
         guiTools.speak(str(self.font_size ))
+        self.show_font.setText(str(self.font_size))
         self.update_font_size()
     def update_font_size(self):
         cursor=self.athkerViewer.textCursor()
