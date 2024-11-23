@@ -1,4 +1,4 @@
-import guiTools,pyperclip,winsound,gettext,json,functions
+import guiTools,pyperclip,winsound,gettext,json,functions,settings,os
 import PyQt6.QtWidgets as qt
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 from PyQt6 import QtGui as qt1
@@ -8,11 +8,12 @@ class hadeeth_viewer(qt.QDialog):
     def __init__(self,p,book_name,index:int=0):
         super().__init__(p)
         try:
-            with open("data/json/ahadeeth/"+book_name,"r",encoding="utf-8") as f:
+            with open(os.path.join(os.getenv('appdata'),settings.app.appName,"ahadeeth",book_name),"r",encoding="utf-8") as f:
                 self.data=json.load(f)    
             self.index=index
             self.bookName=book_name
         except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("خطأ "))
             self.close()
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)

@@ -1,14 +1,13 @@
-import os
+import os,settings
 import json
-with open("data/json/files/all_tafaseers.json","r",encoding="utf-8") as file:
-    tafaseers=json.load(file)
+tafaseers={}
 def getTafaseerByIndex(index:str):
     rtafaseers={}
     for key,value in tafaseers.items():
         rtafaseers[value]=key
     return rtafaseers[index]
 def getTafaseer(tafaseerName:str,From:int,to:int):
-    with open("data/json/tafaseer/{}".format(tafaseers[tafaseerName]),"r",encoding="utf-8") as file:
+    with open(os.path.join(os.getenv('appdata'),settings.app.appName,"tafaseer",tafaseers[tafaseerName]),"r",encoding="utf-8") as file:
         data=json.load(file)
     result=[]
     for ayah in data:
@@ -17,8 +16,12 @@ def getTafaseer(tafaseerName:str,From:int,to:int):
             result.append(ayah)
     return "\n".join(result)
 def setTafaseer():
+    global tafaseers
+    with open("data/json/files/all_tafaseers.json","r",encoding="utf-8") as file:
+        tafaseers=json.load(file)
+
     values=tafaseers.copy().values()
     for value in values:
-        if not os.path.exists("data/json/tafaseer/{}".format(value)):
+        if not os.path.exists(os.path.join(os.getenv('appdata'),settings.app.appName,"tafaseer",value)):
             del tafaseers[getTafaseerByIndex(value)]
 setTafaseer()

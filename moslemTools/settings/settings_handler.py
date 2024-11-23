@@ -1,7 +1,17 @@
 from configparser import ConfigParser
-import os
+import os,shutil
 from . import app
 appName=app.appName
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"athkar")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"athkar"))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"translations")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"translations"))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"reciters")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"reciters"))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"tafaseer")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"tafaseer"))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"ahadeeth")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"ahadeeth"))
 cpath=os.path.join(os.getenv('appdata'),appName,"settings.ini")
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName))

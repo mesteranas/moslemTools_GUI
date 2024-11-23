@@ -30,6 +30,7 @@ class settings (qt.QDialog):
         self.tafaseerSettings=tabs.TafaseerSettings()
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
+        self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()
         self.sectian.add(_("إعدادات الترجمة"),self.translationSettings)
         self.athkar=tabs.AthkarSettings()
