@@ -13,7 +13,7 @@ class hadeeth_viewer(qt.QDialog):
             self.index=index
             self.bookName=book_name
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("خطأ "))
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر فتح الملف "))
             self.close()
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
@@ -42,10 +42,17 @@ class hadeeth_viewer(qt.QDialog):
         self.N_hadeeth.clicked.connect(self.next_hadeeth)
         self.P_hadeeth=qt.QPushButton(_("الحديث السابق"))
         self.P_hadeeth.clicked.connect(self.previous_hadeeth)
+        self.hadeeth_number_laybol=qt.QLabel(_("رقم الحديث"))
+        self.show_hadeeth_number=qt.QLineEdit()
+        self.show_hadeeth_number.setReadOnly(True)
+        self.show_hadeeth_number.setAccessibleName(_("رقم الحديث"))
+        self.show_hadeeth_number.setText(str(self.index+1))
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
         layout.addWidget(self.font_laybol)
         layout.addWidget(self.show_font)
+        layout.addWidget(self.hadeeth_number_laybol)
+        layout.addWidget(self.show_hadeeth_number)
         layout.addWidget(self.N_hadeeth)
         layout.addWidget(self.P_hadeeth)
     def next_hadeeth(self):
@@ -55,6 +62,7 @@ class hadeeth_viewer(qt.QDialog):
             self.index+=1
         self.text.setText(self.data[self.index])
         guiTools.speak(str(self.index+1))
+        self.show_hadeeth_number.setText(str(self.index+1))
         winsound.PlaySound("data/sounds/next_page.wav",1)
     def previous_hadeeth(self):
         if self.index == 0:
@@ -63,12 +71,14 @@ class hadeeth_viewer(qt.QDialog):
             self.index-=1
         self.text.setText(self.data[self.index])
         guiTools.speak(str(self.index+1))
+        self.show_hadeeth_number.setText(str(self.index+1))
         winsound.PlaySound("data/sounds/previous_page.wav",1)
     def go_to_hadeeth(self):        
         hadeeth,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى حديث"),_("أكتب رقم الحديث"),self.index+1,1,len(self.data))
         if OK:                                    
             self.index=hadeeth-1
             self.text.setText(self.data[self.index])
+            self.show_hadeeth_number.setText(str(self.index+1))
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"), self)
         menu.setAccessibleName(_("الخيارات"))

@@ -4,8 +4,8 @@ from . import app
 appName=app.appName
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"athkar")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"athkar"))
-if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"translations")):
-	os.mkdir(os.path.join(os.getenv('appdata'),appName,"translations"))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"Quran Translations")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"Quran Translations"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"reciters")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"reciters"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"tafaseer")):
