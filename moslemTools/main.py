@@ -127,7 +127,7 @@ class QuranPlayer(qt.QWidget):
             reciter=self.comboBox.currentText()
             if reciter:
                 for surah,link in self.reciters_data[reciter].items():
-                    self.listWidget.addItem(f"{surah} - {link}")
+                    self.listWidget.addItem(surah)
         except:
             qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def open_context_menu(self, position):
@@ -141,18 +141,20 @@ class QuranPlayer(qt.QWidget):
         menu.exec(self.listWidget.viewport().mapToGlobal(position))
     def play_selected_audio(self):
         try:
+            reciter=self.comboBox.currentText()
             selected_item=self.listWidget.currentItem()
             if selected_item:
-                url=selected_item.text().split(" - ")[1]
+                url=self.reciters_data[reciter][selected_item.text()]
                 self.mp.setSource(qt2.QUrl(url))
                 self.mp.play()
         except:
             qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def download_selected_audio(self):
         try:
+            reciter=self.comboBox.currentText()
             selected_item=self.listWidget.currentItem()
             if selected_item:
-                url=selected_item.text().split(" - ")[1]
+                url=self.reciters_data[reciter][selected_item.text()]
                 filepath,_=qt.QFileDialog.getSaveFileName(self,"save surah","","Audio Files (*.mp3)")
                 if filepath:
                     self.progressBar.setVisible(True)                                        
