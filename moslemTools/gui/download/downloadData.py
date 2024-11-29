@@ -55,7 +55,7 @@ class DownloadThread(qt2.QThread):
                 if r.status_code==200:
                     total_size=int(r.headers.get('content-length', 0))
                     downloaded_size=0                    
-                    with open(os.path.join(os.getenv('appdata'),settings.app.appName,self.DIRName,self.fileName),"wb",encoding="utf-8") as file:
+                    with open(os.path.join(os.getenv('appdata'),settings.app.appName,self.DIRName,self.fileName),"wb") as file:
                         for chunk in r.iter_content(chunk_size=1024):
                             if chunk:
                                 file.write(chunk)
