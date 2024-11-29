@@ -59,9 +59,8 @@ class Genral(qt.QWidget):
                 try:
                     name, value, _ = reg.EnumValue(key, index)
                     if name == app_name:
-                        return True
                         reg.CloseKey(key)
-                        return
+                        return True
                     index += 1
                 except OSError:
                     break
@@ -75,18 +74,14 @@ class Genral(qt.QWidget):
         try:
             app_name = app.appName
             key = reg.OpenKey(reg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, reg.KEY_SET_VALUE)
-            reg.DeleteValue(key, app_name)
+            reg.DeleteValue(key,app_name)
             reg.CloseKey(key)
-
-            
-        except FileNotFoundError:
-            qt.QMessageBox.critical(self, _("خطأ"),_("تعظر اتمام العملية"))
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"),_("تعظر اتمام العملية"))
 
 
     def onStartupChanged(self,value):
-        if value:
-            self.add_to_startup()
-        else:
+        if self.check_in_startup():
             self.remove_from_startup()
+        else:
+            self.add_to_startup()
