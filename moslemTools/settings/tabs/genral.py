@@ -1,22 +1,18 @@
-import guiTools,update,gui
-import zipfile
-import sys
-import os,shutil
+import gui
+import gettext
+_=gettext.gettext
 from settings import settings_handler,app
 from settings import language
 import PyQt6.QtWidgets as qt
-import sys
-import PyQt6.QtGui as qt1
-from PyQt6.QtCore import Qt
 language.init_translation()
 class Genral(qt.QWidget):
     def __init__(self,p):
         super().__init__()
-        label=qt.QLabel(_("اللغة"))
+        label=qt.QLabel(_("لغى التطبيق"))
         self.language=qt.QComboBox()
-        self.language.setAccessibleName(_("اللغة"))
+        self.language.setAccessibleName(_("لغى التطبيق"))
         self.language.addItems(language.lang().keys())
-        languages = {index:language for language, index in enumerate(language.lang().values())}
+        languages={index:language for language, index in enumerate(language.lang().values())}
         try:
             self.language.setCurrentIndex(languages[settings_handler.get("g","lang")])
         except Exception as e:
@@ -30,6 +26,6 @@ class Genral(qt.QWidget):
         self.reciter=qt.QComboBox()
         self.reciter.addItems(gui.reciters.keys())
         self.reciter.setCurrentIndex(int(settings_handler.get("g","reciter")))
-        self.reciter.setAccessibleName(_("القارئ"))
-        layout1.addWidget(qt.QLabel(_("القارئ")))
+        self.reciter.setAccessibleName(_("تحديد القارئ للقرآن المكتوب"))
+        layout1.addWidget(qt.QLabel(_("تحديد القارئ للقرآن المكتوب")))
         layout1.addWidget(self.reciter)

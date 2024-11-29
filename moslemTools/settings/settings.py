@@ -1,7 +1,7 @@
 import guiTools,update,functions
-import zipfile
 import sys
-import os,shutil
+import os,shutil,gettext
+_=gettext.gettext
 from . import settings_handler,app,tabs
 from . import language
 import PyQt6.QtWidgets as qt
@@ -32,7 +32,7 @@ class settings (qt.QDialog):
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()
-        self.sectian.add(_("إعدادات الترجمة"),self.translationSettings)
+        self.sectian.add(_("إعدادات ترجمة القرآن الكريم"),self.translationSettings)
         self.athkar=tabs.AthkarSettings()
         self.sectian.add(_("إعدادات الأذكار"),self.athkar)
         restoar=tabs.Restoar(self)
