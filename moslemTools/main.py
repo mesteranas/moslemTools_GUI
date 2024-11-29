@@ -74,7 +74,7 @@ class QuranPlayer(qt.QWidget):
         self.duration=qt.QLineEdit()
         self.duration.setReadOnly(True)
         self.duration.setAccessibleName(_("مدة المقطع"))
-        self.dl_all=qt.QPushButton(_("تحميل جميع الصور المتاحة لهذا القارئ"))
+        self.dl_all=qt.QPushButton(_("تحميل جميع السور المتاحة لهذا القارئ"))
         self.dl_all.setDefault(True)
         self.dl_all.clicked.connect(self.download_all_soar)
         layout=qt.QVBoxLayout()
@@ -95,11 +95,11 @@ class QuranPlayer(qt.QWidget):
         reciter_name=self.comboBox.currentText()        
         self.files_to_download=list(self.reciters_data.get(reciter_name, {}).items())
         self.current_file_index=0                
-        save_folder=qt.QFileDialog.getExistingDirectory(self, _("اختيار مجلد لحفظ الصور"))
+        save_folder=qt.QFileDialog.getExistingDirectory(self,_("اختيار مجلد لحفظ السور"))
         if not save_folder:            
             return                
         response=qt.QMessageBox.question(self, _("تأكيد التحميل"),
-        _("هل أنت متأكد من تحميل جميع الصور؟"),
+        _("هل أنت متأكد من تحميل جميع السور؟"),
         qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No,
         qt.QMessageBox.StandardButton.No)        
         if response == qt.QMessageBox.StandardButton.Yes:
@@ -129,11 +129,11 @@ class QuranPlayer(qt.QWidget):
                 for surah,link in self.reciters_data[reciter].items():
                     self.listWidget.addItem(f"{surah} - {link}")
         except:
-            qt.QMessageBox.critical(self,_("تنبيه",_("حدث خطأ ما")))
+            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def open_context_menu(self, position):
         menu=qt.QMenu(self)
-        play_action=qt1.QAction(_("تشغيل الصورة المحددة"), self)
-        download_action=qt1.QAction(_("تحميل الصورة المحددة"), self)
+        play_action=qt1.QAction(_("تشغيل السورة المحددة"), self)
+        download_action=qt1.QAction(_("تحميل السورة المحددة"), self)
         play_action.triggered.connect(self.play_selected_audio)
         download_action.triggered.connect(self.download_selected_audio)
         menu.addAction(play_action)
@@ -147,13 +147,13 @@ class QuranPlayer(qt.QWidget):
                 self.mp.setSource(qt2.QUrl(url))
                 self.mp.play()
         except:
-            qt.QMessageBox.critical(self,_("تنبيه",_("حدث خطأ ما")))
+            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def download_selected_audio(self):
         try:
             selected_item=self.listWidget.currentItem()
             if selected_item:
                 url=selected_item.text().split(" - ")[1]
-                filepath,_=qt.QFileDialog.getSaveFileName(self, "Save File","","Audio Files (*.mp3)")
+                filepath,_=qt.QFileDialog.getSaveFileName(self,"save surah","","Audio Files (*.mp3)")
                 if filepath:
                     self.progressBar.setVisible(True)                                        
                     self.download_thread=DownloadThread(url, filepath)
@@ -161,13 +161,13 @@ class QuranPlayer(qt.QWidget):
                     self.download_thread.finished.connect(self.download_complete)
                     self.download_thread.start()                    
         except:
-            qt.QMessageBox.critical(self,_("تنبيه",_("حدث خطأ ما")))    
+            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def download_finished(self):
         self.progressBar.setVisible(True)
         self.download_next_sora()        
     def download_complete(self):
         self.progressBar.setVisible(False)
-        qt.QMessageBox.information(self, _("تم"), _("تم تحميل الصورة"))        
+        qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة"))        
     @staticmethod
     def load_reciters():            
         file_path="data/json/reciters.json"
