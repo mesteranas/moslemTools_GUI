@@ -22,3 +22,5 @@ class Download(qt.QDialog):
             gui.download.SelectItem(self,"all_ahadeeth.json","ahadeeth").exec()        
         elif index==3:
             gui.download.SelectReciter(self).exec()
+        elif index==4:
+            gui.download.SelectAthkar(self).exec()

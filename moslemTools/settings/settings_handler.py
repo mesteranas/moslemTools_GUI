@@ -2,6 +2,8 @@ from configparser import ConfigParser
 import os,shutil
 from . import app
 appName=app.appName
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"quran surah reciters")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"quran surah reciters"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"athkar")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"athkar"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"Quran Translations")):
@@ -35,11 +37,13 @@ if not os.path.exists(cpath):
 		config.write(file)
 
 def get(section,key):
-	config = ConfigParser()
-	config.read(cpath)
-	value = config[section][key]
-	return value
-
+	try:
+		config = ConfigParser()
+		config.read(cpath)
+		value = config[section][key]
+		return value
+	except:
+		return ""
 
 def set(section,key, value):
 		config = ConfigParser()

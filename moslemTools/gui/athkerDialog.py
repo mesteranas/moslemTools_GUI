@@ -1,4 +1,4 @@
-import time,winsound,pyperclip,gettext
+import time,winsound,pyperclip,gettext,os,settings
 _=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -59,7 +59,10 @@ class AthkerDialog (qt.QDialog):
             self.media.stop()
             self.PPS.setText(_("تشغيل"))
         else:            
-            url=qt2.QUrl(self.athkerList[self.inex]["audio"])
+            if os.path.exists(os.path.join(os.getenv('appdata'),settings.app.appName,"athkar",self.windowTitle(),str(self.inex) + ".mp3")):
+                url=qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.app.appName,"athkar",self.windowTitle(),str(self.inex) + ".mp3"))
+            else:
+                url=qt2.QUrl(self.athkerList[self.inex]["audio"])
             if url==self.media.source():
                 pass
             else:
