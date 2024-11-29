@@ -20,3 +20,5 @@ class Download(qt.QDialog):
             gui.download.SelectItem(self,"all_translater.json","Quran Translations").exec()
         elif index==2:    
             gui.download.SelectItem(self,"all_ahadeeth.json","ahadeeth").exec()        
+        elif index==3:
+            gui.download.SelectReciter(self).exec()

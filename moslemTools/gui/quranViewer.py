@@ -162,8 +162,8 @@ class QuranViewer(qt.QDialog):
         return surah+Ayah+".mp3"
     def on_play(self):
         if not self.media.isPlaying():
-            if os.path.exists("data/reciters/" + settings.settings_handler.get("g","reciter") + "/" + self.on_set()):
-                path=qt2.QUrl.fromLocalFile("data/reciters/" + settings.settings_handler.get("g","reciter") + "/" + self.on_set())
+            if os.path.exists(os.path.join(os.getenv('appdata'),settings.app.appName,"reciters",reciters[self.getCurrentReciter()].split("/")[-3],self.on_set())):
+                path=qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.app.appName,"reciters",reciters[self.getCurrentReciter()].split("/")[-3],self.on_set()))
             else:
                 path=qt2.QUrl(reciters[self.getCurrentReciter()] + self.on_set())
             if not self.media.source()==path:
