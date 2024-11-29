@@ -41,50 +41,45 @@ class SelectItem(qt.QDialog):
         except:
             qt.QMessageBox.critical(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
             self.close()
-class DownloadObjects(qt2.QObject):
+class DownloadThread(qt2.QThread):
     progress=qt2.pyqtSignal(int)
     finished=qt2.pyqtSignal(bool)
-class DownloadThread(qt2.QRunnable):
     def __init__(self,fileName:str,DIRName:str):
         super().__init__()
         self.fileName=fileName
-        self.DIRName=DIRName
-        self.objects=DownloadObjects()
+        self.DIRName=DIRName        
     def run (self):
         try:
             url="https://raw.githubusercontent.com/mesteranas/moslemTools_GUI/refs/heads/main/moslemTools/data/json/" + self.DIRName + "/" + self.fileName
-            r=requests.get(url, stream=True)
-            if r.status_code==200:
-                total_size=int(r.headers.get('content-length', 0))
-                downloaded_size=0
-
-                jsonContent=r.json()
-                for chunk in r.iter_content(chunk_size=1024):
-                    if chunk:
-                        downloaded_size+=len(chunk)
-                        progress_percent=int((downloaded_size / total_size) * 100)
-                        self.objects.progress.emit(progress_percent)
-                with open(os.path.join(os.getenv('appdata'),settings.app.appName,self.DIRName,self.fileName),"w",encoding="utf-8") as file:
-                    json.dump(jsonContent,file,ensure_ascii=False,indent=4)
-                functions.tafseer.setTafaseer()
-                functions.translater.settranslation()
-                functions.ahadeeth.setahadeeth()
-                self.objects.finished.emit(True)                
-            else:
-                self.objects.finished.emit(False)    
+            with requests.get(url,stream=True) as r:
+                if r.status_code==200:
+                    total_size=int(r.headers.get('content-length', 0))
+                    downloaded_size=0                    
+                    with open(os.path.join(os.getenv('appdata'),settings.app.appName,self.DIRName,self.fileName),"wb",encoding="utf-8") as file:
+                        for chunk in r.iter_content(chunk_size=1024):
+                            if chunk:
+                                file.write(chunk)
+                                downloaded_size+=len(chunk)
+                                progress_percent=int((downloaded_size / total_size) * 100)
+                                self.progress.emit(progress_percent)                                            
+                    functions.tafseer.setTafaseer()
+                    functions.translater.settranslation()
+                    functions.ahadeeth.setahadeeth()
+                    self.finished.emit(True)                
+                else:
+                    self.finished.emit(False)    
         except:
-            self.objects.finished.emit(False)    
+            self.finished.emit(False)    
 class StartDownloading(qt.QDialog):
     def __init__(self,p,FileName:str,DIRName:str):
         super().__init__(p)
         layout=qt.QVBoxLayout(self)
-        self.progressBar=qt.QProgressBar()
-        self.progressBar.setRange(0,100)
+        self.progressBar=qt.QProgressBar()        
         layout.addWidget(self.progressBar)
-        thread=DownloadThread(FileName,DIRName)
-        thread.objects.finished.connect(self.onFinished)
-        thread.objects.progress.connect(self.onProgreesBarChanged)
-        qt2.QThreadPool(self).start(thread)
+        self.thread=DownloadThread(FileName,DIRName)
+        self.thread.finished.connect(self.onFinished)
+        self.thread.progress.connect(self.onProgreesBarChanged)
+        self.thread.start()
     def onFinished(self,state):
         if state:
             qt.QMessageBox.information(self,_("تم"),_("تم تحميل بنجاح"))
