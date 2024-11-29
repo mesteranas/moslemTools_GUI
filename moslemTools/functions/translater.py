@@ -2,10 +2,13 @@ import os,settings
 import json
 translations={}
 def gettranslationByIndex(index:str):
-    rtranslations={}
-    for key,value in translations.items():
-        rtranslations[value]=key
-    return rtranslations[index]
+    try:
+        rtranslations={}
+        for key,value in translations.items():
+            rtranslations[value]=key
+        return rtranslations[index]
+    except:
+        return ""
 def gettranslation(translationName:str,From:int,to:int):
     with open(os.path.join(os.getenv('appdata'),settings.app.appName,"Quran Translations",translations[translationName]),"r",encoding="utf-8") as file:
         data=json.load(file)

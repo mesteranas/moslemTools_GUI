@@ -2,10 +2,13 @@ import os,settings
 import json
 tafaseers={}
 def getTafaseerByIndex(index:str):
-    rtafaseers={}
-    for key,value in tafaseers.items():
-        rtafaseers[value]=key
-    return rtafaseers[index]
+    try:
+        rtafaseers={}
+        for key,value in tafaseers.items():
+            rtafaseers[value]=key
+        return rtafaseers[index]
+    except:
+        return ""
 def getTafaseer(tafaseerName:str,From:int,to:int):
     with open(os.path.join(os.getenv('appdata'),settings.app.appName,"tafaseer",tafaseers[tafaseerName]),"r",encoding="utf-8") as file:
         data=json.load(file)
