@@ -61,7 +61,7 @@ class QuranPlayer(qt.QWidget):
         self.comboBox = qt.QComboBox()
         self.comboBox.setAccessibleName(_("إختيار قارئ"))
         self.listWidget=guiTools.QListWidget()
-        self.listWidget.clicked.connect(self.play_audio)
+        self.listWidget.clicked.connect(self.play_selected_audio)
         self.progressBar=qt.QProgressBar()
         self.progressBar.setVisible(False)
         self.mp=QMediaPlayer()
@@ -95,20 +95,7 @@ class QuranPlayer(qt.QWidget):
         self.comboBox.currentIndexChanged.connect(self.load_reciter_files)
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.listWidget.customContextMenuRequested.connect(self.open_context_menu)        
-        self.load_reciter_files()        
-    def play_selected_audio_offline(self):
-        try:
-            reciter=self.comboBox.currentText()  # اسم القارئ المحدد
-            selected_item=self.listWidget.currentItem()  # الصورة المحددة
-            if selected_item:            
-                audio_path=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter,selected_item.text()+".mp3")
-                if os.path.exists(audio_path):  # التحقق من وجود الملف
-                    self.mp.setSource(qt2.QUrl.fromLocalFile(audio_path))  # ضبط مصدر الصوت
-                    self.mp.play()  # تشغيل الصوت
-                else:
-                    qt.QMessageBox.critical(self, _("خطأ"), _("السورة المحددة غير موجودة في التطبيق."))
-        except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))
+        self.load_reciter_files()            
     def download_selected_audio_to_app(self):
         try:
             reciter=self.comboBox.currentText()  # اسم القارئ
@@ -216,46 +203,35 @@ class QuranPlayer(qt.QWidget):
         dl_action_ofline.triggered.connect(self.download_selected_audio_to_app)        
         menu2.addAction(dl_action)
         menu2.addAction(dl_action_ofline)        
-        menu2.exec(position)
-    def play_audio(self, position):
-        menu1=qt.QMenu(self)        
-        play_action=qt1.QAction(_("تشغيل السورة المحددة من الإنترنت"), self)
-        play_action.triggered.connect(self.play_selected_audio)        
-        play_action_ofline=qt1.QAction(_("تشغيل السورة المحددة من التطبيق"), self)
-        play_action_ofline.triggered.connect(self.play_selected_audio_offline)        
-        menu1.addAction(play_action)
-        menu1.addAction(play_action_ofline)        
-        if isinstance(position,qt2.QModelIndex):
-            rect=self.listWidget.visualRect(position)
-            global_pos=self.listWidget.viewport().mapToGlobal(rect.center())
-        else:
-            global_pos=self.listWidget.mapToGlobal(position)
-        menu1.exec(global_pos)
+        menu2.exec(position)    
     def open_context_menu(self, position):
-        menu=qt.QMenu(self)
-        play_action_ofline=qt1.QAction(_("تشغيل السورة المحددة من التطبيق"), self)
-        play_action_ofline.triggered.connect(self.play_selected_audio_offline)
-        play_action=qt1.QAction(_("تشغيل السورة المحددة من الإنترنت"), self)
+        menu=qt.QMenu(self)        
+        play_action=qt1.QAction(_("تشغيل السورة المحددة"), self)
         download_action=qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
         play_action.triggered.connect(self.play_selected_audio)
         download_action.triggered.connect(self.download_selected_audio)
         download_app_action=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
         download_app_action.triggered.connect(self.download_selected_audio_to_app)
-        menu.addAction(play_action)
-        menu.addAction(play_action_ofline)
+        menu.addAction(play_action)        
         menu.addAction(download_action)
         menu.addAction(download_app_action)
-        menu.exec(self.listWidget.viewport().mapToGlobal(position))
+        menu.exec(self.listWidget.viewport().mapToGlobal(position))    
     def play_selected_audio(self):
         try:
-            reciter=self.comboBox.currentText()
-            selected_item=self.listWidget.currentItem()
+            reciter=self.comboBox.currentText()  # اسم القارئ المحدد
+            selected_item=self.listWidget.currentItem()  # العنصر المحدد
             if selected_item:
-                url=self.reciters_data[reciter][selected_item.text()]
-                self.mp.setSource(qt2.QUrl(url))
-                self.mp.play()
-        except:
-            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
+                audio_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
+                audio_path=os.path.join(audio_folder, selected_item.text() + ".mp3")            
+                if os.path.exists(audio_path):                  
+                    self.mp.setSource(qt2.QUrl.fromLocalFile(audio_path))
+                    self.mp.play()
+                else:
+                    url=self.reciters_data[reciter][selected_item.text()]
+                    self.mp.setSource(qt2.QUrl(url))
+                    self.mp.play()
+        except Exception as e:
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))
     def download_selected_audio(self):
         try:
             reciter=self.comboBox.currentText()
