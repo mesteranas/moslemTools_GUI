@@ -9,7 +9,7 @@ class Download(qt.QDialog):
         super().__init__()
         layout=qt.QVBoxLayout(self)
         self.types=guiTools.QListWidget()
-        self.types.addItems([_("تفسير"),_("ترجمة قرآن"),_("كتاب حديث"),_("قارئ"),_("أذكار")])
+        self.types.addItems([_("كتاب تفسير"),_("ترجمة قرآن"),_("كتاب حديث"),_("قارئ للقرآن المكتوب"),_("أذكار وأدعية")])
         self.types.clicked.connect(self.onItemClicked)
         layout.addWidget(self.types)
     def onItemClicked(self):
