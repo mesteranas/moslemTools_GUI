@@ -435,12 +435,12 @@ class Albaheth(qt.QWidget):
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def search(self,pattern,text_list):    
-        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652]')        
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
         normalized_pattern=tashkeel_pattern.sub('', pattern)        
         matches=[
-            text for text in text_list 
-            if re.search(re.escape(normalized_pattern), tashkeel_pattern.sub('', text))
-        ]    
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
         return matches
     def onSearchClicked(self):
         I=self.serch.currentIndex()

@@ -11,9 +11,9 @@ language.init_translation()
 class Genral(qt.QWidget):
     def __init__(self,p):
         super().__init__()
-        label=qt.QLabel(_("لغى التطبيق"))
+        label=qt.QLabel(_("لغة التطبيق"))
         self.language=qt.QComboBox()
-        self.language.setAccessibleName(_("لغى التطبيق"))
+        self.language.setAccessibleName(_("لغة التطبيق"))
         self.language.addItems(language.lang().keys())
         languages={index:language for language, index in enumerate(language.lang().values())}
         try:
