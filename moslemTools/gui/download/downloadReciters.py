@@ -21,11 +21,11 @@ class downloadObjects(qt2.QObject):
     finch=qt2.pyqtSignal(bool)
 class downloadThread(qt2.QRunnable):
     def __init__(self,p,url):
-        super().__init__()
+        super().__init__()        
         self.objects=downloadObjects()
         self.url=url
         self.pause=False
-        self.objects.pauseDownloading.connect(self.on_pause)
+        self.objects.pauseDownloading.connect(self.on_pause)        
     def on_pause(self,s):
         self.pause=True
     def  run(self):
@@ -81,11 +81,11 @@ class downloadThread(qt2.QRunnable):
         else:
             Ayah=str(Ayah)
         return surah+Ayah+".mp3"
-
 class DownloadReciter(qt.QDialog):
     def __init__(self,p,url):
-        super().__init__(p)
-        self.setWindowTitle(_("جاري التحميل"))
+        super().__init__(p)    
+        qt1.QShortcut("escape",self).activated.connect(lambda:self.run.objects.pauseDownloading.emit("a"))
+        self.setWindowTitle(_("جاري التحميل"))        
         self.progress=qt.QProgressBar()
         self.downloaded=qt.QSpinBox()
         self.downloaded.setAccessibleName(_("عدد الآيات التي تم تحميلها"))
@@ -94,15 +94,18 @@ class DownloadReciter(qt.QDialog):
         self.pause=qt.QPushButton(_("إيقاف مؤقت"))
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.progress)
+        layout.addWidget(qt.QLabel(_("عدد الآيات التي تم تحميلها")))
         layout.addWidget(self.downloaded)
         layout.addWidget(self.pause)
         thread=qt2.QThreadPool(self)
-        run=downloadThread(self,url)
-        run.objects.finch.connect(self.on)
-        run.objects.progress.connect(self.on_progress)
-        run.objects.downloaded.connect(self.on_downloaded)
-        thread.start(run)
-        self.pause.clicked.connect(lambda:run.objects.pauseDownloading.emit("a"))
+        self.run=downloadThread(self,url)
+        self.run.objects.finch.connect(self.on)
+        self.run.objects.progress.connect(self.on_progress)
+        self.run.objects.downloaded.connect(self.on_downloaded)
+        thread.start(self.run)
+        self.pause.clicked.connect(lambda:self.run.objects.pauseDownloading.emit("a"))
+    def closeEvent(self,event):
+        self.run.objects.pauseDownloading.emit("a")
     def on(self,state):
         if state==True:
             qt.QMessageBox.information(self,_("تم"),_("تم التحميل بنجاح"))
