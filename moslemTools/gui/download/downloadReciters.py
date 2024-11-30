@@ -8,6 +8,7 @@ import PyQt6.QtCore as qt2
 class SelectReciter(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
+        self.resize(500,500)
         layout=qt.QVBoxLayout(self)
         self.reciterData=gui.reciters
         self.reciters=guiTools.QListWidget()
@@ -83,9 +84,9 @@ class downloadThread(qt2.QRunnable):
         return surah+Ayah+".mp3"
 class DownloadReciter(qt.QDialog):
     def __init__(self,p,url):
-        super().__init__(p)    
-        qt1.QShortcut("escape",self).activated.connect(lambda:self.run.objects.pauseDownloading.emit("a"))
+        super().__init__(p)                    
         self.setWindowTitle(_("جاري التحميل"))        
+        qt1.QShortcut("escape",self).activated.connect(lambda:self.run.objects.pauseDownloading.emit("a"))
         self.progress=qt.QProgressBar()
         self.downloaded=qt.QSpinBox()
         self.downloaded.setAccessibleName(_("عدد الآيات التي تم تحميلها"))
