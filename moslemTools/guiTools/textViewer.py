@@ -3,7 +3,6 @@ import PyQt6.QtWidgets as qt
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-_=gettext.gettext
 class TextViewer(qt.QDialog):
     def __init__(self,p,title,text):
         super().__init__(p)

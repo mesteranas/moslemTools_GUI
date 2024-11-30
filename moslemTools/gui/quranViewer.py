@@ -2,7 +2,6 @@ from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
 from .quranPlayer import QuranPlayer
 import time,winsound,pyperclip,gettext,os,json
-_=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -250,7 +249,7 @@ class QuranViewer(qt.QDialog):
             type=_("مكية")
         else:
             type=_("مدنية")
-        qt.QMessageBox.information(self,_("معلومات {}".format(juz[1])),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
+        qt.QMessageBox.information(self,_("معلومات {}").format(juz[1]),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
     def closeEvent(self,event):
         self.media.stop()
         self.close()
@@ -268,7 +267,7 @@ class QuranViewer(qt.QDialog):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         result=functions.tanzil.gettanzil(AyahNumber)
         if result:
-            guiTools.TextViewer(self,_("اسباب النزول"),result)
+            guiTools.TextViewer(self,_("أسباب النزول"),result)
         else:
             qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
     def getAyahInfo(self):

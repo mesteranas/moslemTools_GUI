@@ -3,7 +3,6 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
-_=gettext.gettext
 class TafaseerViewer(qt.QDialog):
     def __init__(self,p,From,to):
         super().__init__(p)

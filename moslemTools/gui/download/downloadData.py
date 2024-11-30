@@ -1,5 +1,4 @@
 import json,os,requests,gettext
-_=gettext.gettext
 import guiTools,gui,settings,settings,functions
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1

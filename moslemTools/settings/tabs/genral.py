@@ -3,7 +3,6 @@ import sys
 import winreg as reg
 import gui
 import gettext
-_=gettext.gettext
 from settings import settings_handler,app
 from settings import language
 import PyQt6.QtWidgets as qt
@@ -47,7 +46,7 @@ class Genral(qt.QWidget):
 
             
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"),_("تعظر اتمام العملية"))
+            qt.QMessageBox.critical(self, _("خطأ"),_("تعذر إتمام العملية"))
 
     def check_in_startup(self):
         try:

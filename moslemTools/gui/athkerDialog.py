@@ -1,5 +1,4 @@
 import time,winsound,pyperclip,gettext,os,settings
-_=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -77,6 +76,7 @@ class AthkerDialog (qt.QDialog):
         self.PPS.setText(_("تشغيل"))
         if self.inex+1==len(self.athkerList):
             self.inex=0
+            winsound.Beep(1000,200)
         else:
             self.inex+=1
         self.athkerViewer.setText(self.athkerList[self.inex]["text"])
@@ -86,6 +86,7 @@ class AthkerDialog (qt.QDialog):
         self.PPS.setText(_("تشغيل"))
         if self.inex==0:
             self.inex=len(self.athkerList)-1
+            winsound.Beep(1000,200)
         else:
             self.inex-=1
         self.athkerViewer.setText(self.athkerList[self.inex]["text"])

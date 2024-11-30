@@ -1,7 +1,6 @@
 import guiTools,update,functions
 import sys
 import os,shutil,gettext
-_=gettext.gettext
 from . import settings_handler,app,tabs
 from . import language
 import PyQt6.QtWidgets as qt
@@ -48,8 +47,14 @@ class settings (qt.QDialog):
         settings_handler.set("g","lang",str(language.lang()[self.layout1.language.currentText()]))
         settings_handler.set("g","exitDialog",str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("g","reciter",str(self.layout1.reciter.currentIndex()))
-        settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
-        settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
+        try:
+            settings_handler.set("tafaseer","tafaseer",functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
+        except:
+            pass
+        try:
+            settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
+        except:
+            pass
         settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))
         settings_handler.set("athkar","text",str(self.athkar.textSelection.currentIndex()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
@@ -83,7 +88,7 @@ class settings (qt.QDialog):
         mb.exec()
         ex=mb.clickedButton()
         if ex==rn:
-            shutil.rmtree(os.path.join(os.getenv('appdata'),app.appName))
+            os.remove(os.path.join(os.getenv('appdata'),app.appName,"settings.ini"))
             os.execl(sys.executable, sys.executable, *sys.argv)
 
     def fcancel(self):

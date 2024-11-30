@@ -1,7 +1,6 @@
 from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
 import time,gettext,os,json
-_=gettext.gettext
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
