@@ -441,7 +441,7 @@ class Albaheth(qt.QWidget):
             text for text in text_list
             if normalized_pattern in tashkeel_pattern.sub('', text)
         ]        
-        return matches
+        return matches        
     def onSearchClicked(self):
         I=self.serch.currentIndex()
         if I==0:

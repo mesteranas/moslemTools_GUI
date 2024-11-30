@@ -56,7 +56,7 @@ class AthkerDialog (qt.QDialog):
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
     def onPlay(self):
         if self.media.isPlaying():
-            self.media.stop()
+            self.media.pause()
             self.PPS.setText(_("تشغيل"))
         else:            
             if os.path.exists(os.path.join(os.getenv('appdata'),settings.app.appName,"athkar",self.windowTitle(),str(self.inex) + ".mp3")):
@@ -68,11 +68,13 @@ class AthkerDialog (qt.QDialog):
             else:
                 self.media.setSource(url)
             self.media.play()            
-            self.PPS.setText(_("إيقاف"))
+            self.PPS.setText(_("إيقاف مؤقت"))
     def closeEvent (self,event):
-        self.media.stop()
+        self.media.stop()        
         self.close()
     def onNextThker(self):
+        self.media.stop()
+        self.PPS.setText(_("تشغيل"))
         if self.inex+1==len(self.athkerList):
             self.inex=0
         else:
@@ -80,6 +82,8 @@ class AthkerDialog (qt.QDialog):
         self.athkerViewer.setText(self.athkerList[self.inex]["text"])
         winsound.PlaySound("data/sounds/next_page.wav",1)
     def onPreviousThker(self):
+        self.media.stop()
+        self.PPS.setText(_("تشغيل"))
         if self.inex==0:
             self.inex=len(self.athkerList)-1
         else:
