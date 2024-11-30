@@ -101,7 +101,7 @@ class QuranPlayer(qt.QWidget):
             reciter=self.comboBox.currentText()  # اسم القارئ المحدد
             selected_item=self.listWidget.currentItem()  # الصورة المحددة
             if selected_item:            
-                audio_path=f"data/QuranPlayer/{reciter}/{selected_item.text()}.mp3"
+                audio_path=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter,selected_item.text()+".mp3")
                 if os.path.exists(audio_path):  # التحقق من وجود الملف
                     self.mp.setSource(qt2.QUrl.fromLocalFile(audio_path))  # ضبط مصدر الصوت
                     self.mp.play()  # تشغيل الصوت
@@ -115,7 +115,7 @@ class QuranPlayer(qt.QWidget):
             selected_item=self.listWidget.currentItem()  # الصورة المحددة
             if selected_item:            
                 url=self.reciters_data[reciter][selected_item.text()]            
-                audio_folder=f"data/QuranPlayer/{reciter}"
+                audio_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
                 os.makedirs(audio_folder, exist_ok=True)  # إنشاء المجلد إذا لم يكن موجودًا                        
                 filepath=f"{audio_folder}/{selected_item.text()}.mp3"
                 self.progressBar.setVisible(True)  # عرض شريط التقدم                        
@@ -130,7 +130,7 @@ class QuranPlayer(qt.QWidget):
             reciter=self.comboBox.currentText()  # اسم القارئ
             self.files_to_download=list(self.reciters_data.get(reciter, {}).items())
             self.current_file_index=0        
-            app_folder=f"data/QuranPlayer/{reciter}"
+            app_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
             os.makedirs(app_folder, exist_ok=True)        
             response=qt.QMessageBox.question(
                 self, _("تأكيد التحميل"),
