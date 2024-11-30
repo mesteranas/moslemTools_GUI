@@ -106,9 +106,9 @@ class QuranPlayer(qt.QWidget):
                     self.mp.setSource(qt2.QUrl.fromLocalFile(audio_path))  # ضبط مصدر الصوت
                     self.mp.play()  # تشغيل الصوت
                 else:
-                    qt.QMessageBox.critical(self, _("خطأ"), _("الصورة المحددة غير موجودة في التطبيق."))
+                    qt.QMessageBox.critical(self, _("خطأ"), _("السورة المحددة غير موجودة في التطبيق."))
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل الصوت: ") + str(e))
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))
     def download_selected_audio_to_app(self):
         try:
             reciter=self.comboBox.currentText()  # اسم القارئ
@@ -124,7 +124,7 @@ class QuranPlayer(qt.QWidget):
                 self.download_thread.finished.connect(self.download_audio_complete)
                 self.download_thread.start()
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تحميل الصوت: ") + str(e))
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))
     def download_all_audios_to_app(self):
         try:
             reciter=self.comboBox.currentText()  # اسم القارئ
@@ -142,7 +142,7 @@ class QuranPlayer(qt.QWidget):
                 self.save_folder=app_folder
                 self.download_next_audio_to_app()
             else:
-                qt.QMessageBox.information(self, _("إلغاء العملية"), _("تم إلغاء تحميل الصور الصوتية."))
+                qt.QMessageBox.information(self, _("إلغاء العملية"), _("تم إلغاء تحميل السور."))
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))
     def download_next_audio_to_app(self):
@@ -157,11 +157,11 @@ class QuranPlayer(qt.QWidget):
             self.download_thread.start()
         else:
             self.progressBar.setVisible(False)
-            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع الصور الصوتية الخاصة بالقارئ بنجاح."))
+            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السوربنجاح."))
     def download_audio_complete(self):
         self.progressBar.setValue(100)
         self.progressBar.setVisible(False)
-        qt.QMessageBox.information(self, _("تم"), _("تم تحميل الصورة الصوتية بنجاح."))
+        qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة بنجاح."))
     def download_all_soar(self):
         reciter_name=self.comboBox.currentText()        
         self.files_to_download=list(self.reciters_data.get(reciter_name, {}).items())
