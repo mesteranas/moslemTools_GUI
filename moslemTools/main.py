@@ -55,12 +55,13 @@ class QuranPlayer(qt.QWidget):
         qt1.QShortcut("ctrl+9", self).activated.connect(self.t90)
         qt1.QShortcut("shift+up", self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)                
+        qt1.QShortcut("ctrl+d",self).activated.connect(self.trigger_context_menu)
         self.reciters_data=self.load_reciters()        
         self.show_reciters=qt.QLabel(_("إختيار قارئ"))
         self.comboBox = qt.QComboBox()
         self.comboBox.setAccessibleName(_("إختيار قارئ"))
         self.listWidget=guiTools.QListWidget()
-        self.listWidget.clicked.connect(self.play_selected_audio)
+        self.listWidget.clicked.connect(self.play_audio)
         self.progressBar=qt.QProgressBar()
         self.progressBar.setVisible(False)
         self.mp=QMediaPlayer()
@@ -74,6 +75,9 @@ class QuranPlayer(qt.QWidget):
         self.duration=qt.QLineEdit()
         self.duration.setReadOnly(True)
         self.duration.setAccessibleName(_("مدة المقطع"))
+        self.dl_all_app=qt.QPushButton(_("تحميل جميع السور المتاحة لهذا القارئ في التطبيق"))
+        self.dl_all_app.setDefault(True)
+        self.dl_all_app.clicked.connect(self.download_all_audios_to_app)
         self.dl_all=qt.QPushButton(_("تحميل جميع السور المتاحة لهذا القارئ في الجهاز"))
         self.dl_all.setDefault(True)
         self.dl_all.clicked.connect(self.download_all_soar)
@@ -81,6 +85,7 @@ class QuranPlayer(qt.QWidget):
         layout.addWidget(self.show_reciters)
         layout.addWidget(self.comboBox)
         layout.addWidget(self.listWidget)
+        layout.addWidget(self.dl_all_app)
         layout.addWidget(self.dl_all)
         layout.addWidget(self.progressBar)
         layout.addWidget(self.Slider)
@@ -91,6 +96,72 @@ class QuranPlayer(qt.QWidget):
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.listWidget.customContextMenuRequested.connect(self.open_context_menu)        
         self.load_reciter_files()        
+    def play_selected_audio_offline(self):
+        try:
+            reciter=self.comboBox.currentText()  # اسم القارئ المحدد
+            selected_item=self.listWidget.currentItem()  # الصورة المحددة
+            if selected_item:            
+                audio_path=f"data/QuranPlayer/{reciter}/{selected_item.text()}.mp3"
+                if os.path.exists(audio_path):  # التحقق من وجود الملف
+                    self.mp.setSource(qt2.QUrl.fromLocalFile(audio_path))  # ضبط مصدر الصوت
+                    self.mp.play()  # تشغيل الصوت
+                else:
+                    qt.QMessageBox.critical(self, _("خطأ"), _("الصورة المحددة غير موجودة في التطبيق."))
+        except Exception as e:
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل الصوت: ") + str(e))
+    def download_selected_audio_to_app(self):
+        try:
+            reciter=self.comboBox.currentText()  # اسم القارئ
+            selected_item=self.listWidget.currentItem()  # الصورة المحددة
+            if selected_item:            
+                url=self.reciters_data[reciter][selected_item.text()]            
+                audio_folder=f"data/QuranPlayer/{reciter}"
+                os.makedirs(audio_folder, exist_ok=True)  # إنشاء المجلد إذا لم يكن موجودًا                        
+                filepath=f"{audio_folder}/{selected_item.text()}.mp3"
+                self.progressBar.setVisible(True)  # عرض شريط التقدم                        
+                self.download_thread = DownloadThread(url, filepath)
+                self.download_thread.progress.connect(self.progressBar.setValue)
+                self.download_thread.finished.connect(self.download_audio_complete)
+                self.download_thread.start()
+        except Exception as e:
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تحميل الصوت: ") + str(e))
+    def download_all_audios_to_app(self):
+        try:
+            reciter=self.comboBox.currentText()  # اسم القارئ
+            self.files_to_download=list(self.reciters_data.get(reciter, {}).items())
+            self.current_file_index=0        
+            app_folder=f"data/QuranPlayer/{reciter}"
+            os.makedirs(app_folder, exist_ok=True)        
+            response=qt.QMessageBox.question(
+                self, _("تأكيد التحميل"),
+                _("هل تريد تحميل جميع الصور الخاصة بالقارئ إلى التطبيق؟"),
+                qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
+                qt.QMessageBox.StandardButton.No
+            )
+            if response == qt.QMessageBox.StandardButton.Yes:
+                self.save_folder=app_folder
+                self.download_next_audio_to_app()
+            else:
+                qt.QMessageBox.information(self, _("إلغاء العملية"), _("تم إلغاء تحميل الصور الصوتية."))
+        except Exception as e:
+            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))
+    def download_next_audio_to_app(self):
+        if self.current_file_index < len(self.files_to_download):
+            file_name,url=self.files_to_download[self.current_file_index]
+            filepath=f"{self.save_folder}/{file_name}.mp3"
+            self.current_file_index += 1
+            self.progressBar.setVisible(True)
+            self.download_thread = DownloadThread(url, filepath)
+            self.download_thread.progress.connect(self.progressBar.setValue)
+            self.download_thread.finished.connect(self.download_next_audio_to_app)
+            self.download_thread.start()
+        else:
+            self.progressBar.setVisible(False)
+            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع الصور الصوتية الخاصة بالقارئ بنجاح."))
+    def download_audio_complete(self):
+        self.progressBar.setValue(100)
+        self.progressBar.setVisible(False)
+        qt.QMessageBox.information(self, _("تم"), _("تم تحميل الصورة الصوتية بنجاح."))
     def download_all_soar(self):
         reciter_name=self.comboBox.currentText()        
         self.files_to_download=list(self.reciters_data.get(reciter_name, {}).items())
@@ -130,14 +201,50 @@ class QuranPlayer(qt.QWidget):
                     self.listWidget.addItem(surah)
         except:
             qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
+    def trigger_context_menu(self):
+        selected_item=self.listWidget.currentIndex()
+        if not selected_item.isValid():            
+            return    
+        rect=self.listWidget.visualRect(selected_item)
+        global_pos=self.listWidget.viewport().mapToGlobal(rect.center())        
+        self.dl_audio(global_pos)
+    def dl_audio(self, position):
+        menu2=qt.QMenu(self)        
+        dl_action=qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
+        dl_action.triggered.connect(self.download_selected_audio)        
+        dl_action_ofline=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
+        dl_action_ofline.triggered.connect(self.download_selected_audio_to_app)        
+        menu2.addAction(dl_action)
+        menu2.addAction(dl_action_ofline)        
+        menu2.exec(position)
+    def play_audio(self, position):
+        menu1=qt.QMenu(self)        
+        play_action=qt1.QAction(_("تشغيل السورة المحددة من الإنترنت"), self)
+        play_action.triggered.connect(self.play_selected_audio)        
+        play_action_ofline=qt1.QAction(_("تشغيل السورة المحددة من التطبيق"), self)
+        play_action_ofline.triggered.connect(self.play_selected_audio_offline)        
+        menu1.addAction(play_action)
+        menu1.addAction(play_action_ofline)        
+        if isinstance(position,qt2.QModelIndex):
+            rect=self.listWidget.visualRect(position)
+            global_pos=self.listWidget.viewport().mapToGlobal(rect.center())
+        else:
+            global_pos=self.listWidget.mapToGlobal(position)
+        menu1.exec(global_pos)
     def open_context_menu(self, position):
         menu=qt.QMenu(self)
+        play_action_ofline=qt1.QAction(_("تشغيل السورة المحددة من التطبيق"), self)
+        play_action_ofline.triggered.connect(self.play_selected_audio_offline)
         play_action=qt1.QAction(_("تشغيل السورة المحددة من الإنترنت"), self)
         download_action=qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
         play_action.triggered.connect(self.play_selected_audio)
         download_action.triggered.connect(self.download_selected_audio)
+        download_app_action=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
+        download_app_action.triggered.connect(self.download_selected_audio_to_app)
         menu.addAction(play_action)
+        menu.addAction(play_action_ofline)
         menu.addAction(download_action)
+        menu.addAction(download_app_action)
         menu.exec(self.listWidget.viewport().mapToGlobal(position))
     def play_selected_audio(self):
         try:
@@ -243,7 +350,7 @@ class UserGuide(qt.QWidget):
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
         self.guide=guiTools.QReadOnlyTextEdit()        
-        self.guide.setText(_("دليل المستخدم لبرنامج Moslem Tools\n\nمقدمة\nبرنامج Moslem Tools هو أداة شاملة للمسلمين، يقدم مجموعة من الميزات التي تلبي احتياجاتهم اليومية في العبادة والتعلم. يوفر البرنامج تجربة مريحة وسهلة الاستخدام مع أدوات متنوعة لتحسين حياتك الدينية.\n\nميزات برنامج Moslem Tools\n\n1. قراءة واستماع للقرآن الكريم\nقراءة القرآن الكريم بالتقسيمات المختلفة (سور، صفحات، أجزاء، أرباع، وأحزاب).\nالاستماع للقرآن الكريم بعدة أصوات لمجموعة كبيرة من القراء.\nإمكانية تحميل القراء للاستماع بدون الحاجة إلى الإنترنت.\nتوفر الترجمات والتفاسير للقرآن الكريم، قابلة للتنزيل والاستخدام.\nإعراب الآيات أو الصور المحددة.\nالبحث السهل في القرآن الكريم.\n\n2. الأذكار\nقراءة أذكار الصباح والمساء وغيرها من الأذكار اليومية.\nإمكانية إرسال إشعارات تحتوي على ذكر صوتي أو كتابي بشكل عشوائي حسب المدة المحددة.\n\n3. السبحة الإلكترونية\nعداد إلكتروني للأذكار ليس له حدود للعد.\n\n4. محول التاريخ\nتحويل التاريخ من هجري إلى ميلادي والعكس بسهولة.\n\n5. معاني أسماء الله الحسنى\nاستعراض معاني أسماء الله الحسنى الموجودة في الأحاديث الصحيحة.\n\n6. الأحاديث الصحيحة\nقراءة وتحميل كتب الأحاديث الصحيحة.\nالبحث السهل في الأحاديث.\n\n7. الراديو الإسلامي\nاستماع إلى محطات إذاعية إسلامية تتعلق بالقرآن الكريم، التفسير، والعلوم الدينية.\n\n8. وضع العلامات المرجعية\nوضع علامات مرجعية للعودة إلى مكان القراءة سواء في القرآن أو الأحاديث.\n\n9. عرض مواقيت الصلاة والتاريخ الميلادي والهجري\nيعرض البرنامج مواقيت الصلاة والتاريخ الميلادي والهجري لليوم الحالي.\n\nاختصارات لوحة المفاتيح في Moslem Tools\n\nالتحكم في السبحة الإلكترونية\nCTRL + S: قراءة الرقم الحالي للسبحة لمستخدمي قارئ الشاشة.\n\nنسخ وتنسيق النصوص\nCTRL + A: نسخ كل النص.\nCTRL + C: نسخ النص المحدد.\nCTRL + S: الحفظ كملف نصي.\nCTRL + P: طباعة النص.\nCTRL + +: تكبير النص.\nCTRL + -: تصغير النص.\n\nالتحكم في القراءة والتشغيل\nزر المسافة (Space): تشغيل، إيقاف، أو إيقاف مؤقت.\nALT + السهم الأيمن: الانتقال إلى الذكر التالي، الآية التالية، أو الحديث التالي.\nALT + السهم الأيسر: العودة إلى الذكر السابق، الآية السابقة، أو الحديث السابق.\nCTRL + G: الانتقال مباشرة إلى آية أو حديث.\n\nالعلامات المرجعية\nزر الحذف (Delete): حذف العلامة المرجعية المحددة.\n\nتشغيل الإذاعات الإسلامية\nزر الإدخال (Enter): تشغيل أو إيقاف الإذاعة الحالية.\n\nاختصارات التحكم في المقطع للقرآن\nزر المسافة: تشغيل/إيقاف مؤقت\nإيقاف: CTRL + S\nالتقديم السريع لمدة 5 ثواني: ALT + السهم الأيمن\nالترجيع السريع لمدة 5 ثواني: ALT + السهم الأيسر\nالتقديم السريع لمدة 10 ثواني: ALT + السهم الأعلى\nالترجيع السريع لمدة 10 ثواني: ALT + السهم الأسفل\nالتقديم السريع لمدة 30 ثانية: CTRL + السهم الأيمن\nالترجيع السريع لمدة 30 ثانية: CTRL + السهم الأيسر\nالتقديم السريع لمدة دقيقة: CTRL + السهم الأعلى\nالترجيع السريع لمدة دقيقة: CTRL + السهم الأسفل\nاختصارات Ctrl + الرقم للانتقال مباشرة إلى نسبة محددة من المقطع، على سبيل المثال، Ctrl + 1 للانتقال إلى 10% من المقطع، Ctrl + 2 للانتقال إلى 20%، وهكذا\nرفع الصوت: SHIFT + السهم الأعلى\nخفض الصوت: SHIFT + السهم الأسفل\n\nالمطورين\nعبد الرحمن محمد، أنس محمد.\n\nالخاتمة\nبرنامج Moslem Tools هو رفيقك اليومي لتعزيز تجربتك الدينية، سواء كنت تقرأ القرآن، تستمع للأذكار، أو تبحث في الأحاديث. مع هذه الميزات المتنوعة والاختصارات العملية، ستجد البرنامج سهلاً ومفيداً."))
+        self.guide.setText(_("دليل المستخدم لبرنامج Moslem Tools\n\nمقدمة\nبرنامج Moslem Tools هو أداة شاملة للمسلمين، يقدم مجموعة من الميزات التي تلبي احتياجاتهم اليومية في العبادة والتعلم. يوفر البرنامج تجربة مريحة وسهلة الاستخدام مع أدوات متنوعة لتحسين حياتك الدينية.\n\nميزات برنامج Moslem Tools\n\n1. قراءة واستماع للقرآن الكريم\nقراءة القرآن الكريم بالتقسيمات المختلفة (سور، صفحات، أجزاء، أرباع، وأحزاب).\nالاستماع للقرآن الكريم بعدة أصوات لمجموعة كبيرة من القراء.\nإمكانية تحميل القراء للاستماع بدون الحاجة إلى الإنترنت.\nتوفر الترجمات والتفاسير للقرآن الكريم، قابلة للتنزيل والاستخدام.\nإعراب الآيات أو الصور المحددة.\nالبحث السهل في القرآن الكريم.\n\n2. الأذكار\nقراءة أذكار الصباح والمساء وغيرها من الأذكار اليومية.\nإمكانية إرسال إشعارات تحتوي على ذكر صوتي أو كتابي بشكل عشوائي حسب المدة المحددة.\n\n3. السبحة الإلكترونية\nعداد إلكتروني للأذكار ليس له حدود للعد.\n\n4. محول التاريخ\nتحويل التاريخ من هجري إلى ميلادي والعكس بسهولة.\n\n5. معاني أسماء الله الحسنى\nاستعراض معاني أسماء الله الحسنى الموجودة في الأحاديث الصحيحة.\n\n6. الأحاديث الصحيحة\nقراءة وتحميل كتب الأحاديث الصحيحة.\nالبحث السهل في الأحاديث.\n\n7. الراديو الإسلامي\nاستماع إلى محطات إذاعية إسلامية تتعلق بالقرآن الكريم، التفسير، والعلوم الدينية.\n\n8. وضع العلامات المرجعية\nوضع علامات مرجعية للعودة إلى مكان القراءة سواء في القرآن أو الأحاديث.\n\n9. عرض مواقيت الصلاة والتاريخ الميلادي والهجري\nيعرض البرنامج مواقيت الصلاة والتاريخ الميلادي والهجري لليوم الحالي.\n\nاختصارات لوحة المفاتيح في Moslem Tools\n\nالتحكم في السبحة الإلكترونية\nCTRL + S: قراءة الرقم الحالي للسبحة لمستخدمي قارئ الشاشة.\n\nنسخ وتنسيق النصوص\nCTRL + A: نسخ كل النص.\nCTRL + C: نسخ النص المحدد.\nCTRL + S: الحفظ كملف نصي.\nCTRL + P: طباعة النص.\nCTRL + +: تكبير النص.\nCTRL + -: تصغير النص.\n\nالتحكم في القراءة والتشغيل\nزر المسافة (Space): تشغيل، إيقاف، أو إيقاف مؤقت.\nALT + السهم الأيمن: الانتقال إلى الذكر التالي، الآية التالية، أو الحديث التالي.\nALT + السهم الأيسر: العودة إلى الذكر السابق، الآية السابقة، أو الحديث السابق.\nCTRL + G: الانتقال مباشرة إلى آية أو حديث.\n\nالعلامات المرجعية\nزر الحذف (Delete): حذف العلامة المرجعية المحددة.\n\nتشغيل الإذاعات الإسلامية\nزر الإدخال (Enter): تشغيل أو إيقاف الإذاعة الحالية.\n\nاختصارات التحكم في المقطع للقرآن\nزر المسافة: تشغيل/إيقاف مؤقت\nإيقاف: CTRL + S\nفتح قائمة تنزيل السور: CTRLD\nالتقديم السريع لمدة 5 ثواني: ALT + السهم الأيمن\nالترجيع السريع لمدة 5 ثواني: ALT + السهم الأيسر\nالتقديم السريع لمدة 10 ثواني: ALT + السهم الأعلى\nالترجيع السريع لمدة 10 ثواني: ALT + السهم الأسفل\nالتقديم السريع لمدة 30 ثانية: CTRL + السهم الأيمن\nالترجيع السريع لمدة 30 ثانية: CTRL + السهم الأيسر\nالتقديم السريع لمدة دقيقة: CTRL + السهم الأعلى\nالترجيع السريع لمدة دقيقة: CTRL + السهم الأسفل\nاختصارات Ctrl + الرقم للانتقال مباشرة إلى نسبة محددة من المقطع، على سبيل المثال، Ctrl + 1 للانتقال إلى 10% من المقطع، Ctrl + 2 للانتقال إلى 20%، وهكذا\nرفع الصوت: SHIFT + السهم الأعلى\nخفض الصوت: SHIFT + السهم الأسفل\n\nالمطورين\nعبد الرحمن محمد، أنس محمد.\n\nالخاتمة\nبرنامج Moslem Tools هو رفيقك اليومي لتعزيز تجربتك الدينية، سواء كنت تقرأ القرآن، تستمع للأذكار، أو تبحث في الأحاديث. مع هذه الميزات المتنوعة والاختصارات العملية، ستجد البرنامج سهلاً ومفيداً."))
         self.guide.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.guide.customContextMenuRequested.connect(self.OnContextMenu)
         self.font_size=20
