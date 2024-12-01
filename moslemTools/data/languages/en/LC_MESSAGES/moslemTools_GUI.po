@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: moslem tools version 1.0\n"
-"POT-Creation-Date: 2024-11-30 18:43+0200\n"
-"PO-Revision-Date: 2024-11-30 21:29+0200\n"
+"POT-Creation-Date: 2024-12-01 19:31+0200\n"
+"PO-Revision-Date: 2024-12-01 19:51+0200\n"
+"Last-Translator: \n"
 "Language-Team: mesteranas\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Generator: Poedit 2.0.7\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: en_US\n"
 
 #: D:\programming\projects\python\GUI\moslemTools\functions\iarab.py:14
 msgid "لم يتم العثور على ملفات الإعراب, الرجاء إعادة تثبيت البرنامج مرة أخرى"
@@ -55,36 +55,36 @@ msgid "خروج"
 msgstr "exit"
 
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\exitApp.py:20
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:21
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:20
 msgid "موافق"
 msgstr "ok"
 
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\exitApp.py:23
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:26
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:88
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:25
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:87
 #: D:\programming\projects\python\GUI\moslemTools\update\updater.py:72
 msgid "إلغاء"
 msgstr "cancel"
 
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\exitApp.py:35
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1151
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1187
 msgid "إظهار البرنامج"
 msgstr "show the program"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:26
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:48
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:30
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:108
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:36
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:107
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:38
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:100
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:36
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:123
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:29
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:53
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:29
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:53
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:25
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:47
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:29
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:107
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:35
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:106
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:37
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:99
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:35
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:122
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:28
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:52
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:28
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:52
 #: D:\programming\projects\python\GUI\moslemTools\main.py:336
 #: D:\programming\projects\python\GUI\moslemTools\main.py:358
 #: D:\programming\projects\python\GUI\moslemTools\main.py:451
@@ -94,31 +94,31 @@ msgstr "show the program"
 msgid "حجم الخط"
 msgstr "font size"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:29
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:33
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:39
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:41
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:39
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:32
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:32
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:28
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:32
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:38
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:40
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:38
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:31
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:31
 #: D:\programming\projects\python\GUI\moslemTools\main.py:339
 #: D:\programming\projects\python\GUI\moslemTools\main.py:454
 #: D:\programming\projects\python\GUI\moslemTools\main.py:816
 msgid "حجم النص"
 msgstr "text size"
 
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:35
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:36
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:37
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:95
 #: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:96
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:97
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:82
 #: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:83
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:84
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:66
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:67
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:68
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:40
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:41
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:42
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:40
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:41
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:42
 #: D:\programming\projects\python\GUI\moslemTools\main.py:346
 #: D:\programming\projects\python\GUI\moslemTools\main.py:347
 #: D:\programming\projects\python\GUI\moslemTools\main.py:470
@@ -128,297 +128,298 @@ msgstr "text size"
 msgid "الخيارات"
 msgstr "options"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:39
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:97
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:38
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:96
 #: D:\programming\projects\python\GUI\moslemTools\main.py:349
 #: D:\programming\projects\python\GUI\moslemTools\main.py:831
 msgid "خيارات النص"
 msgstr "text options"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:40
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:99
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:98
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:44
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:44
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:39
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:98
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:97
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:43
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:43
 #: D:\programming\projects\python\GUI\moslemTools\main.py:350
 #: D:\programming\projects\python\GUI\moslemTools\main.py:832
 msgid "حفظ كملف نصي"
 msgstr "save as a text file"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:42
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:102
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:101
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:47
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:47
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:41
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:101
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:100
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:46
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:46
 #: D:\programming\projects\python\GUI\moslemTools\main.py:352
 #: D:\programming\projects\python\GUI\moslemTools\main.py:834
 msgid "طباعة"
 msgstr "print"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:44
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:104
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:49
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:49
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:43
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:103
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:48
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:48
 #: D:\programming\projects\python\GUI\moslemTools\main.py:354
 #: D:\programming\projects\python\GUI\moslemTools\main.py:473
 #: D:\programming\projects\python\GUI\moslemTools\main.py:836
 msgid "نسخ النص كاملا"
 msgstr "copy all text"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:46
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:106
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:105
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:51
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:51
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:45
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:105
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:104
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:50
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:50
 #: D:\programming\projects\python\GUI\moslemTools\main.py:356
 #: D:\programming\projects\python\GUI\moslemTools\main.py:475
 #: D:\programming\projects\python\GUI\moslemTools\main.py:838
 msgid "نسخ النص المحدد"
 msgstr "copy selected text"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:49
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:109
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:108
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:101
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:124
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:54
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:54
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:48
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:108
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:107
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:100
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:123
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:53
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:53
 #: D:\programming\projects\python\GUI\moslemTools\main.py:359
 #: D:\programming\projects\python\GUI\moslemTools\main.py:478
 #: D:\programming\projects\python\GUI\moslemTools\main.py:841
 msgid "تكبير الخط"
 msgstr "increase font size"
 
-#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:53
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:113
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:111
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:105
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:128
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:58
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:58
+#: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:52
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:112
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:110
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:104
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:127
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:57
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:57
 #: D:\programming\projects\python\GUI\moslemTools\main.py:363
 #: D:\programming\projects\python\GUI\moslemTools\main.py:482
 #: D:\programming\projects\python\GUI\moslemTools\main.py:845
 msgid "تصغير الخط"
 msgstr "decrease font size"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:35
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:34
 msgid "الذكر التالي"
 msgstr "next supplication"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:37
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:60
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:77
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:87
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:45
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:155
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:36
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:59
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:76
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:86
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:44
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:154
 msgid "تشغيل"
 msgstr "play"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:39
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:38
 msgid "الذكر السابق"
 msgstr "previouse supplication"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:71
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:83
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:95
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:152
+#: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:70
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:82
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:94
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:151
 msgid "إيقاف مؤقت"
 msgstr "pause"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:76
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:88
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:75
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:87
 msgid "جاري التحميل"
 msgstr "loading"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:80
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:86
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:79
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:85
 msgid "عدد الأذكار التي تم تحميلها"
 msgstr "numbers of supplications downloaded"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:100
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:85
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:112
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:99
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:84
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:111
 #: D:\programming\projects\python\GUI\moslemTools\main.py:147
 #: D:\programming\projects\python\GUI\moslemTools\main.py:151
 #: D:\programming\projects\python\GUI\moslemTools\main.py:255
 msgid "تم"
 msgstr "done"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:100
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:112
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:99
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:111
 msgid "تم التحميل بنجاح"
 msgstr "downloaded successfuly"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:103
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:115
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:102
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:114
 msgid "تعظر التحميل"
 msgstr "download failed"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:103
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:115
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:16
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadAthkar.py:102
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:114
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:15
 #: D:\programming\projects\python\GUI\moslemTools\main.py:114
 #: D:\programming\projects\python\GUI\moslemTools\main.py:134
 #: D:\programming\projects\python\GUI\moslemTools\main.py:234
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:50
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:80
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:49
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:79
 #: D:\programming\projects\python\GUI\moslemTools\update\checkForUpdate.py:20
 #: D:\programming\projects\python\GUI\moslemTools\update\updater.py:89
 msgid "خطأ"
 msgstr "error"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:39
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:42
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:38
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:41
 msgid "حدث خطأ أثناء تحميل البيانات"
 msgstr "an error record while downloading data"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:39
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:42
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:88
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:204
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:273
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:38
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:41
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:87
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:203
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:272
 #: D:\programming\projects\python\GUI\moslemTools\main.py:190
 #: D:\programming\projects\python\GUI\moslemTools\main.py:249
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:83
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:82
 msgid "تنبيه"
 msgstr "alert"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:85
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:84
 msgid "تم تحميل بنجاح"
 msgstr "downloaded successfuly"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:88
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadData.py:87
 msgid "حدث خطأ أثناء التحميل"
 msgstr "an error record while downloading"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:92
-#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:98
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:91
+#: D:\programming\projects\python\GUI\moslemTools\gui\download\downloadReciters.py:97
 msgid "عدد الآيات التي تم تحميلها"
 msgstr "numbers of verses downloaded"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:16
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:15
 msgid "تعذر فتح الملف "
 msgstr "failed to open file"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:41
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:87
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:40
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:86
 msgid "الحديث التالي"
 msgstr "next hadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:43
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:89
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:42
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:88
 msgid "الحديث السابق"
 msgstr "previous hadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:45
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:48
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:44
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:47
 msgid "رقم الحديث"
 msgstr "hadeeth number"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:77
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:76
 msgid "أكتب رقم الحديث"
 msgstr "type the number of hadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:77
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:91
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:76
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:90
 msgid "الذهاب إلى حديث"
 msgstr "go to hadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:86
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:85
 msgid "خيارات الحديث"
 msgstr "hadeeth options"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:93
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:172
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:89
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:215
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:92
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:289
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:92
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:171
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:88
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:214
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:91
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:288
 msgid "إضافة علامة مرجعية"
 msgstr "add bookmark"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:103
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:102
 msgid "نسخ النص كاملاً"
 msgstr "copy all text"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:172
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:215
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:289
+#: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:171
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:214
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:288
 msgid "أكتب أسم للعلامة المرجعية"
 msgstr "type the name for bookmark"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:43
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:96
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:42
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:95
 msgid "الآيا التالية"
 msgstr "next verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:47
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:93
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:46
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:92
 msgid "الآيا السابقة"
 msgstr "previous verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:69
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:68
 msgid "خيارات الآية"
 msgstr "verse options"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:70
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:69
 msgid "الذهاب الى آيا"
 msgstr "go to verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:74
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:73
 msgid "معلومات الآيا الحالية"
 msgstr "current verse information"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:77
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:76
 msgid "ترجمة الآيا الحالية"
 msgstr "translate current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:80
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:79
 msgid "تفسير الآيا الحالية"
 msgstr "interpretation current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:83
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:82
 msgid "إعراب الآيا الحالية"
 msgstr "grammar of current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:86
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:85
 msgid "أسباب نزول الآيا الحالية"
 msgstr "the reasons of revillation of current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:158
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:157
 msgid "أكتب رقم الآية"
 msgstr "type the number of verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:158
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:67
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:138
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:157
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:66
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:137
 msgid "الذهاب إلى آية"
 msgstr "go to verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:197
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:260
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:266
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:196
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:259
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:265
 msgid "إعراب"
 msgstr "grammarian"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:202
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:271
-msgid "أسباب النزول"
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:201
+#, fuzzy
+#| msgid "أسباب النزول"
+msgid "اسباب النزول"
 msgstr "the reasons of revilation"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:204
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:273
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:203
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:272
 msgid "لا توجد أسباب نزول متاحة لهذه الآية"
 msgstr "no reasons of revilation fownd for this verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:209
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:278
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:208
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:277
 msgid "الآية تحتوي على سجدة"
 msgstr "the verse containing a prostration"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:210
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:279
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:209
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:278
 msgid ""
 "رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} "
 "الصفحة {} {}"
@@ -426,99 +427,99 @@ msgstr ""
 "Verse number {} Sura number {} {} Verse number in quran book {} Part {} "
 "Quarter {} Page {} {}"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:210
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:279
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:209
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:278
 #: D:\programming\projects\python\GUI\moslemTools\update\checkForUpdate.py:14
 #: D:\programming\projects\python\GUI\moslemTools\update\checkForUpdate.py:18
 msgid "معلومة"
 msgstr "information"
 
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:62
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:63
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:64
 msgid "الخيارات "
 msgstr "options"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:66
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:65
 msgid "خيارات الآية الحالية"
 msgstr "current verse options"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:71
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:70
 msgid "تشغيل الآية الحالية"
 msgstr "play current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:74
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:73
 msgid "تفسير الآية الحالية"
 msgstr "interpretation current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:77
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:76
 msgid "إعراب الآية الحالية"
 msgstr "grammar of current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:80
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:79
 msgid "أسباب نزول الآية الحالية"
 msgstr "the reasons of revilation for current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:83
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:82
 msgid "ترجمة الآية الحالية"
 msgstr "translate current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:86
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:85
 msgid "معلومات الآية الحالية"
 msgstr "current verse information"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:89
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:88
 msgid "نسخ الآية الحالية"
 msgstr "copy current verse"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:96
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:95
 msgid "خيارات السورة"
 msgstr "surah options"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:97
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:96
 msgid "نسخ السورة"
 msgstr "copy surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:101
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:100
 msgid "حفظ السورة كملف نصي"
 msgstr "save the surah as a text file"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:104
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:103
 msgid "طباعة السورة"
 msgstr "print the surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:107
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:106
 msgid "تفسير السورة"
 msgstr "explain the surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:110
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:109
 msgid "إعراب السورة"
 msgstr "grammar of the surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:113
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:112
 msgid "ترجمة  السورة"
 msgstr "translate the surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:116
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:115
 msgid "معلومات السورة"
 msgstr "surah information"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:119
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:118
 msgid "التشغيل إلى نهاية السورة"
 msgstr "play untell the end of the surah"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:138
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:137
 msgid "أكتب رقم الآية "
 msgstr "type the verse number"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:250
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:249
 msgid "مكية"
 msgstr "makan"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:252
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:251
 msgid "مدنية"
 msgstr "madanin"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:253
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:252
 msgid ""
 "رقم السورة {} \n"
 " عدد آياتها {} \n"
@@ -528,30 +529,34 @@ msgstr ""
 " Number of verses {} \n"
 " Surah type {}"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:253
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:252
 msgid "معلومات {}"
 msgstr "information of {}"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:36
+#: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:270
+msgid "أسباب النزول"
+msgstr "the reasons of revilation"
+
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:35
 msgid "تغيير التفسير"
 msgstr "change interpretation book"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:67
-#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:80
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:66
+#: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:79
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\tafaseer.py:13
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\tafaseer.py:14
 msgid "اختر تفسير"
 msgstr "select book of interpretation"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:36
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:35
 msgid "تغيير الترجمة"
 msgstr "change translation"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:67
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:66
 msgid "اختر #ترجمة"
 msgstr "change translation"
 
-#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:80
+#: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:79
 msgid "اختر ترجمة"
 msgstr "change translation"
 
@@ -1071,229 +1076,436 @@ msgstr "Praise"
 msgid "تم إعادة التعيين الى 0"
 msgstr "It has been reset to 0"
 
+#: D:\programming\projects\python\GUI\moslemTools\main.py:926
+msgid "يَنَايِر"
+msgstr "January"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:927
+msgid "فِبْرَايِر"
+msgstr "February"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:928
+msgid "مَارِس"
+msgstr "March"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:929
+msgid "أَبْرِيل"
+msgstr "April"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:930
+msgid "مَايُو"
+msgstr "May"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:931
+msgid "يُونْيُو"
+msgstr "June"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:932
+msgid "يُولْيُو"
+msgstr "July"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:933
+msgid "أَغُسْطُس"
+msgstr "August"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:934
+msgid "سِبْتَمْبَر"
+msgstr "September"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:935
+msgid "أُكْتُوبَر"
+msgstr "October"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:936
+msgid "نُوفَمْبَر"
+msgstr "November"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:937
+msgid "دِيسَمْبَر"
+msgstr "December"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:940
+msgid "مُحَرَّم"
+msgstr "Muharram"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:941
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "صَفَر"
+msgstr "Safar"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:942
+msgid "رَبِيع ٱلْأَوَّل"
+msgstr "Rabi' al-Awwal"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:943
+msgid "رَبِيع ٱلثَّانِي"
+msgstr "Rabi' al-Thani"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:944
+msgid "جُمَادَىٰ ٱلْأُولَىٰ"
+msgstr "Jumada al-Awwal"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:945
+msgid "جُمَادَىٰ ٱلثَّانِيَة"
+msgstr "Jumada al-Thani"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:946
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "رَجَب"
+msgstr "Rajab"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:947
+msgid "شَعْبَان"
+msgstr "Shaaban"
+
 #: D:\programming\projects\python\GUI\moslemTools\main.py:948
+msgid "رَمَضَان"
+msgstr "Ramadan"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:949
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "شَوَّال"
+msgstr "Shawwal"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:950
+msgid "ذُو ٱلْقَعْدَة"
+msgstr "Dhul-Qa'dah"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:951
+msgid "ذُو ٱلْحِجَّة"
+msgstr "Dhul-Hijjah"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:966
 msgid "الفجر"
 msgstr "fajr"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:949
+#: D:\programming\projects\python\GUI\moslemTools\main.py:967
 msgid "الشروق"
 msgstr "sunrise"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:950
+#: D:\programming\projects\python\GUI\moslemTools\main.py:968
 msgid "الظهر"
 msgstr "dhuhr"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:951
+#: D:\programming\projects\python\GUI\moslemTools\main.py:969
 msgid "العصر"
 msgstr "asr"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:952
+#: D:\programming\projects\python\GUI\moslemTools\main.py:970
 msgid "المغرب"
 msgstr "maghrib"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:953
+#: D:\programming\projects\python\GUI\moslemTools\main.py:971
 msgid "العشاء"
 msgstr "isha"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:963
+#: D:\programming\projects\python\GUI\moslemTools\main.py:981
 msgid "التاريخ الميلادي: "
 msgstr "Gregorian date:"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:964
+#: D:\programming\projects\python\GUI\moslemTools\main.py:982
 msgid "التاريخ الهجري: "
 msgstr "Hijri date:"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:966
+#: D:\programming\projects\python\GUI\moslemTools\main.py:984
 msgid "حدث خطأ في جلب مواقيت الصلاة."
 msgstr "An error occurred in fetching prayer times."
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:968
+#: D:\programming\projects\python\GUI\moslemTools\main.py:986
 msgid "لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."
 msgstr ""
 "No geographical location specified. Make sure your internet connection."
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:972
-#: D:\programming\projects\python\GUI\moslemTools\main.py:974
+#: D:\programming\projects\python\GUI\moslemTools\main.py:990
+#: D:\programming\projects\python\GUI\moslemTools\main.py:992
 msgid "إختيار نوع التحويل"
 msgstr "Choose the type of Conversion "
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:975
+#: D:\programming\projects\python\GUI\moslemTools\main.py:993
 msgid "التحويل من هجري الى ميلادي"
 msgstr "Conversion from Hijri to Gregorian"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:976
+#: D:\programming\projects\python\GUI\moslemTools\main.py:994
 msgid "التحويل من ميلادي الى هجري"
 msgstr "Conversion from Gregorian to Hijri"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:979
-#: D:\programming\projects\python\GUI\moslemTools\main.py:981
+#: D:\programming\projects\python\GUI\moslemTools\main.py:997
+#: D:\programming\projects\python\GUI\moslemTools\main.py:999
 msgid "العام"
 msgstr "year"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:982
-#: D:\programming\projects\python\GUI\moslemTools\main.py:984
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1000
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1002
 msgid "الشهر"
 msgstr "month"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:985
-#: D:\programming\projects\python\GUI\moslemTools\main.py:987
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1003
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1005
 msgid "اليوم"
 msgstr "day"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:988
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1018
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1006
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1036
 msgid "التحويل الى ميلادي"
 msgstr "Convert to Gregorian"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:991
-#: D:\programming\projects\python\GUI\moslemTools\main.py:994
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1009
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1012
 msgid "النتيجة"
 msgstr "result"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:995
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1013
 msgid "نسخ النتيجة"
 msgstr "Copy the result"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1020
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1038
 msgid "التحويل الى هجري"
 msgstr "Convert to Hijri"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1042
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "رَبيع الآخِر"
+msgstr "Rabi' al-Akhir"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "رَبيع الأوَّل"
+msgstr "Rabi' al-Awwal"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "مُحرَّم"
+msgstr "Muharram"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "جُمادى الآخِرة"
+msgstr "Jumada al-Akhir"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "جُمادى الأُولى"
+msgstr "Jumada al-Awwal"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "شَعبان"
+msgstr "Shaaban"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "ذو الحِجَّة"
+msgstr "Dhul-Hijjah"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "ذو القَعدة"
+msgstr "Dhul-Qa'dah"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "رَمَضان"
+msgstr "Ramadan"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1049
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1096
+msgid "يَنايِر"
+msgstr "January"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1050
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1097
+msgid "فَبرايِر"
+msgstr "February"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1051
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1098
+msgid "مارِس"
+msgstr "March"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1052
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1099
+msgid "أبريل"
+msgstr "April"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1053
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1100
+msgid "مايو"
+msgstr "May"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1054
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1101
+msgid "يونيو"
+msgstr "June"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1055
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1102
+msgid "يوليو"
+msgstr "July"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1056
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1103
+msgid "أغسطس"
+msgstr "August"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1057
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1104
+msgid "سِبتمبر"
+msgstr "September"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1058
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1105
+msgid "أكتوبر"
+msgstr "October"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1059
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1106
+msgid "نوفمبر"
+msgstr "November"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1060
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1107
+msgid "ديسمبر"
+msgstr "December"
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1069
 msgid "الرجاء إدخال أرقام صحيحة."
 msgstr "Please enter valid numbers."
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1055
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1082
 msgid "تاريخ هجري غير صالح."
 msgstr "Invalid Hijri date."
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1065
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1092
 msgid "تاريخ ميلادي غير صالح."
 msgstr "The Gregorian date is not valid."
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1095
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1131
 msgid "version : "
-msgstr ""
+msgstr "version : "
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1104
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1140
 msgid "مواقيت الصلاة والتاريخ"
 msgstr "Prayer times and date"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1105
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1141
 msgid "القرآن الكريم مكتوب"
 msgstr "Quran karim as text"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1106
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1142
 msgid "القرآن الكريم صوتي"
 msgstr "quran karim as audio"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1107
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1143
 msgid "الأحاديث النبوية والقدسية"
 msgstr "Prophetic and qudsi ahadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1108
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1144
 msgid "العلامات المرجعية"
 msgstr "bookmarks"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1109
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1145
 msgid "الباحث في القرآن والأحاديث"
 msgstr "Researcher in the Quran and ahadeeth"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1110
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1146
 msgid "الإذاعات الإسلامية"
 msgstr "Islamic radio"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1111
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1147
 msgid "الأذكار والأدعية"
 msgstr "prayers and supplications"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1148
 msgid "سبحة إلكترونية"
 msgstr "Electronic rosary"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1149
 msgid "أسماء الله الحُسْنة"
 msgstr "The beautiful names of allah"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1150
 msgid "محول التاريخ"
 msgstr "Date converter"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1115
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1151
 msgid "دليل المستخدم"
 msgstr "user guide"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1116
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1152
 msgid "عن المطورين"
 msgstr "About the developers"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1121
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1157
 msgid "تشغيل ذكر عشوائي"
 msgstr "play a random supplcation"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1123
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1159
 msgid "عرض ذكر عشوائي"
 msgstr "view a random supplcation"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1125
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1154
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1161
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1190
 msgid "إخفاء البرنامج"
 msgstr "Hide the program"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1127
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1163
 msgid "إغلاق البرنامج"
 msgstr "Close the program"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1138
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:16
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1174
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:15
 msgid "الإعدادات"
 msgstr "settings"
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1159
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1195
 msgid "ذكر عشوائي"
 msgstr "random supplcations"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:19
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:18
 msgid "اختر قسم"
 msgstr "Choose a section"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:24
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:23
 msgid "استعادة الإعدادات الإفتراضية"
 msgstr "Restore default settings"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:29
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:28
 msgid "عام"
 msgstr "general"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:31
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:30
 msgid "إعدادات التفسير"
 msgstr "Interpretation settings"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:32
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:31
 msgid "إعدادات التحديثات"
 msgstr "Updates settings"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:33
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:32
 msgid "تحميل موارد"
 msgstr "Download resources"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:35
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:34
 msgid "إعدادات ترجمة القرآن الكريم"
 msgstr "Settings for translation of quran karim"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:37
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:36
 msgid "إعدادات الأذكار"
 msgstr "supplication settings"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:39
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:38
 msgid "النسخ الاحتياطي والاستعادةة"
 msgstr "Backup and restore"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:67
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:66
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:39
 msgid "تم تحديث الإعدادات"
 msgstr "Settings have been updated"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:68
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:67
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:40
 msgid ""
 "يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"
@@ -1301,17 +1513,15 @@ msgstr ""
 "You must restart the program to apply the changes. Do you want to restart "
 "now?"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:70
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:42
-msgid "اعادة التشغيل الآن"
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:69
+msgid "إعادة التشغيل الآن"
 msgstr "Restart now"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:72
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:44
-msgid "اعادة التشغيل لاحقا"
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:71
+msgid "إعادة التشغيل لاحقا"
 msgstr "Restart later"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:84
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:83
 msgid ""
 "هل تريد إعادة تعيين إعداداتك؟ إذا قمت بالنقر على إعادة تعيين، سيعيد البرنامج "
 "التشغيل لإكمال إعادة التعيين."
@@ -1319,7 +1529,7 @@ msgstr ""
 "Do you want to reset your settings? If you click Reset, the program will "
 "restart to complete the reset."
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:86
+#: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:85
 msgid "إعادة التعيين وإعادة التشغيل"
 msgstr "Reset and restart"
 
@@ -1365,54 +1575,71 @@ msgstr "Backup"
 msgid "استعادة"
 msgstr "restore"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:12
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:42
+#, fuzzy
+#| msgid "إعادة التشغيل الآن"
+msgid "اعادة التشغيل الآن"
+msgstr "Restart now"
+
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:44
+#, fuzzy
+#| msgid "إعادة التشغيل لاحقا"
+msgid "اعادة التشغيل لاحقا"
+msgstr "Restart later"
+
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:11
 msgid "أذكار وأدعية"
 msgstr "prayers and supplications"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:12
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:11
 msgid "ترجمة قرآن"
 msgstr "Quran translation"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:12
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:11
 msgid "قارئ للقرآن المكتوب"
 msgstr "a reciter of quran as text"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:12
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:11
 msgid "كتاب تفسير"
 msgstr "Interpretation book"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:12
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\downloadSettings.py:11
 msgid "كتاب حديث"
 msgstr "hadeeth book"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:14
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:16
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:13
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:15
 msgid "لغة التطبيق"
 msgstr "applecation language"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:23
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:22
 msgid "عرض نافذة الخروج عند الخروج من البرنامج"
 msgstr "show the exit dialog when exiting the program"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:29
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:28
 msgid "بدء تشغيل البرنامج عند بدء تشغيل النظام"
 msgstr "startup the program when the system start"
 
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:35
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:36
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:37
 msgid "تحديد القارئ للقرآن المكتوب"
 msgstr "select a reciter for quran as text"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:50
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:80
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:49
 msgid "تعذر إتمام العملية"
 msgstr "The process cannot be completed"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\translation.py:15
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\genral.py:79
+#, fuzzy
+#| msgid "تعذر إتمام العملية"
+msgid "تعظر اتمام العملية"
+msgstr "The process cannot be completed"
+
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\translation.py:14
 msgid "اختر ترجمة للقرآن الكريم"
 msgstr "Choose a translation of Quran karim"
 
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\translation.py:16
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\translation.py:15
 msgid "اختر  ترجمة للقرآن الكريم"
 msgstr "Choose a translation of Quran karim"
 

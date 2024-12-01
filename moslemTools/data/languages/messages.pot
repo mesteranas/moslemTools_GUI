@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-11-30 21:28+0200\n"
+"POT-Creation-Date: 2024-12-01 19:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid "إلغاء"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\exitApp.py:35
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1151
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1187
 msgid "إظهار البرنامج"
 msgstr ""
 
@@ -978,183 +978,390 @@ msgstr ""
 msgid "تم إعادة التعيين الى 0"
 msgstr ""
 
+#: D:\programming\projects\python\GUI\moslemTools\main.py:926
+msgid "يَنَايِر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:927
+msgid "فِبْرَايِر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:928
+msgid "مَارِس"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:929
+msgid "أَبْرِيل"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:930
+msgid "مَايُو"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:931
+msgid "يُونْيُو"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:932
+msgid "يُولْيُو"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:933
+msgid "أَغُسْطُس"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:934
+msgid "سِبْتَمْبَر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:935
+msgid "أُكْتُوبَر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:936
+msgid "نُوفَمْبَر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:937
+msgid "دِيسَمْبَر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:940
+msgid "مُحَرَّم"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:941
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "صَفَر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:942
+msgid "رَبِيع ٱلْأَوَّل"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:943
+msgid "رَبِيع ٱلثَّانِي"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:944
+msgid "جُمَادَىٰ ٱلْأُولَىٰ"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:945
+msgid "جُمَادَىٰ ٱلثَّانِيَة"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:946
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "رَجَب"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:947
+msgid "شَعْبَان"
+msgstr ""
+
 #: D:\programming\projects\python\GUI\moslemTools\main.py:948
-msgid "الفجر"
+msgid "رَمَضَان"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:949
-msgid "الشروق"
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "شَوَّال"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:950
-msgid "الظهر"
+msgid "ذُو ٱلْقَعْدَة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:951
-msgid "العصر"
-msgstr ""
-
-#: D:\programming\projects\python\GUI\moslemTools\main.py:952
-msgid "المغرب"
-msgstr ""
-
-#: D:\programming\projects\python\GUI\moslemTools\main.py:953
-msgid "العشاء"
-msgstr ""
-
-#: D:\programming\projects\python\GUI\moslemTools\main.py:963
-msgid "التاريخ الميلادي: "
-msgstr ""
-
-#: D:\programming\projects\python\GUI\moslemTools\main.py:964
-msgid "التاريخ الهجري: "
+msgid "ذُو ٱلْحِجَّة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:966
-msgid "حدث خطأ في جلب مواقيت الصلاة."
+msgid "الفجر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:967
+msgid "الشروق"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:968
-msgid "لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."
+msgid "الظهر"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:972
-#: D:\programming\projects\python\GUI\moslemTools\main.py:974
-msgid "إختيار نوع التحويل"
+#: D:\programming\projects\python\GUI\moslemTools\main.py:969
+msgid "العصر"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:975
-msgid "التحويل من هجري الى ميلادي"
+#: D:\programming\projects\python\GUI\moslemTools\main.py:970
+msgid "المغرب"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:976
-msgid "التحويل من ميلادي الى هجري"
+#: D:\programming\projects\python\GUI\moslemTools\main.py:971
+msgid "العشاء"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:979
 #: D:\programming\projects\python\GUI\moslemTools\main.py:981
-msgid "العام"
+msgid "التاريخ الميلادي: "
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:982
+msgid "التاريخ الهجري: "
+msgstr ""
+
 #: D:\programming\projects\python\GUI\moslemTools\main.py:984
+msgid "حدث خطأ في جلب مواقيت الصلاة."
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:986
+msgid "لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:990
+#: D:\programming\projects\python\GUI\moslemTools\main.py:992
+msgid "إختيار نوع التحويل"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:993
+msgid "التحويل من هجري الى ميلادي"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:994
+msgid "التحويل من ميلادي الى هجري"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:997
+#: D:\programming\projects\python\GUI\moslemTools\main.py:999
+msgid "العام"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1000
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1002
 msgid "الشهر"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:985
-#: D:\programming\projects\python\GUI\moslemTools\main.py:987
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1003
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1005
 msgid "اليوم"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:988
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1018
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1006
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1036
 msgid "التحويل الى ميلادي"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:991
-#: D:\programming\projects\python\GUI\moslemTools\main.py:994
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1009
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1012
 msgid "النتيجة"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:995
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1013
 msgid "نسخ النتيجة"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1020
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1038
 msgid "التحويل الى هجري"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1042
-msgid "الرجاء إدخال أرقام صحيحة."
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "رَبيع الآخِر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "رَبيع الأوَّل"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1043
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+msgid "مُحرَّم"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "جُمادى الآخِرة"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "جُمادى الأُولى"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1044
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+msgid "شَعبان"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "ذو الحِجَّة"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "ذو القَعدة"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1045
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+msgid "رَمَضان"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1049
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1096
+msgid "يَنايِر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1050
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1097
+msgid "فَبرايِر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1051
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1098
+msgid "مارِس"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1052
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1099
+msgid "أبريل"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1053
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1100
+msgid "مايو"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1054
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1101
+msgid "يونيو"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\main.py:1055
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1102
+msgid "يوليو"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1056
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1103
+msgid "أغسطس"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1057
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1104
+msgid "سِبتمبر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1058
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1105
+msgid "أكتوبر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1059
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1106
+msgid "نوفمبر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1060
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1107
+msgid "ديسمبر"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1069
+msgid "الرجاء إدخال أرقام صحيحة."
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1082
 msgid "تاريخ هجري غير صالح."
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1065
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1092
 msgid "تاريخ ميلادي غير صالح."
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1095
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1131
 msgid "version : "
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1104
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1140
 msgid "مواقيت الصلاة والتاريخ"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1105
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1141
 msgid "القرآن الكريم مكتوب"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1106
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1142
 msgid "القرآن الكريم صوتي"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1107
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1143
 msgid "الأحاديث النبوية والقدسية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1108
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1144
 msgid "العلامات المرجعية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1109
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1145
 msgid "الباحث في القرآن والأحاديث"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1110
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1146
 msgid "الإذاعات الإسلامية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1111
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1147
 msgid "الأذكار والأدعية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1112
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1148
 msgid "سبحة إلكترونية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1113
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1149
 msgid "أسماء الله الحُسْنة"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1114
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1150
 msgid "محول التاريخ"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1115
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1151
 msgid "دليل المستخدم"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1116
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1152
 msgid "عن المطورين"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1121
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1157
 msgid "تشغيل ذكر عشوائي"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1123
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1159
 msgid "عرض ذكر عشوائي"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1125
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1154
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1161
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1190
 msgid "إخفاء البرنامج"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1127
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1163
 msgid "إغلاق البرنامج"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1138
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1174
 #: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:15
 msgid "الإعدادات"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\main.py:1159
+#: D:\programming\projects\python\GUI\moslemTools\main.py:1195
 msgid "ذكر عشوائي"
 msgstr ""
 
@@ -1205,13 +1412,11 @@ msgid "يجب عليك إعادة تشغيل البرنامج لتطبيق ال�
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:69
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:42
-msgid "اعادة التشغيل الآن"
+msgid "إعادة التشغيل الآن"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:71
-#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:44
-msgid "اعادة التشغيل لاحقا"
+msgid "إعادة التشغيل لاحقا"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\settings\settings.py:83
@@ -1272,6 +1477,16 @@ msgstr ""
 #:
 #: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:19
 msgid "استعادة"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:42
+msgid "اعادة التشغيل الآن"
+msgstr ""
+
+#:
+#: D:\programming\projects\python\GUI\moslemTools\settings\tabs\backupAndRestoart.py:44
+msgid "اعادة التشغيل لاحقا"
 msgstr ""
 
 #:
