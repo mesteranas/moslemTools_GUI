@@ -2,12 +2,14 @@ from configparser import ConfigParser
 import os,shutil
 from . import app
 appName=app.appName
+cpath=os.path.join(os.getenv('appdata'),appName,"settings.ini")
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"quran surah reciters")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"quran surah reciters"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"athkar")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"athkar"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"Quran Translations")):
-
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"Quran Translations"))
 	shutil.copy("data/json/Quran Translations/en.itani.json",os.path.join(os.getenv('appdata'),appName,"Quran Translations","en.itani.json"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"reciters")):
@@ -19,9 +21,6 @@ if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"ahadeeth")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"ahadeeth"))
 	shutil.copy("data/json/ahadeeth/nawawi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","nawawi40.json"))
 	shutil.copy("data/json/ahadeeth/qudsi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","qudsi40.json"))
-cpath=os.path.join(os.getenv('appdata'),appName,"settings.ini")
-if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
-	os.mkdir(os.path.join(os.getenv('appdata'),appName))
 if not os.path.exists(cpath):
 	config = ConfigParser() 
 	config.add_section("g")

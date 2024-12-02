@@ -98,14 +98,14 @@ class QuranPlayer(qt.QWidget):
         self.load_reciter_files()            
     def download_selected_audio_to_app(self):
         try:
-            reciter=self.comboBox.currentText()  # اسم القارئ
+            reciter=self.comboBox.currentText()
             selected_item=self.listWidget.currentItem()
             if selected_item:            
                 url=self.reciters_data[reciter][selected_item.text()]            
                 audio_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
-                os.makedirs(audio_folder, exist_ok=True)  # إنشاء المجلد إذا لم يكن موجودًا                        
+                os.makedirs(audio_folder, exist_ok=True)
                 filepath=f"{audio_folder}/{selected_item.text()}.mp3"
-                self.progressBar.setVisible(True)  # عرض شريط التقدم                        
+                self.progressBar.setVisible(True)
                 self.download_thread = DownloadThread(url, filepath)
                 self.download_thread.progress.connect(self.progressBar.setValue)
                 self.download_thread.finished.connect(self.download_audio_complete)
@@ -114,7 +114,7 @@ class QuranPlayer(qt.QWidget):
             qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))
     def download_all_audios_to_app(self):
         try:
-            reciter=self.comboBox.currentText()  # اسم القارئ
+            reciter=self.comboBox.currentText()
             self.files_to_download=list(self.reciters_data.get(reciter, {}).items())
             self.current_file_index=0        
             app_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
@@ -218,7 +218,7 @@ class QuranPlayer(qt.QWidget):
         menu.exec(self.listWidget.viewport().mapToGlobal(position))    
     def play_selected_audio(self):
         try:
-            reciter=self.comboBox.currentText()  # اسم القارئ المحدد
+            reciter=self.comboBox.currentText()
             selected_item=self.listWidget.currentItem()
             if selected_item:
                 audio_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
@@ -770,13 +770,13 @@ class sibha(qt.QWidget):
         qt1.QShortcut("ctrl+s",self).activated.connect(self.speak_number)
         self.reset=qt.QPushButton(_("إعادة تعين"))
         self.reset.setDefault(True)
-        self.reset.clicked.connect(self.reset_count)  # ربط الزر بوظيفة إعادة التعيين
+        self.reset.clicked.connect(self.reset_count)
         self.numbers=qt.QLabel("0")
         self.numbers.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.numbers.setStyleSheet("font-size:300px;")
         self.add=qt.QPushButton(_("التسبيح"))
         self.add.setDefault(True)
-        self.add.clicked.connect(self.increment_count)  # ربط الزر بوظيفة الزيادة
+        self.add.clicked.connect(self.increment_count)
         layout=qt.QVBoxLayout()
         layout.addWidget(self.reset)
         layout.addWidget(self.numbers)
@@ -1038,7 +1038,7 @@ class DateConverter(qt.QWidget):
             self.Convert.setText(_("التحويل الى هجري"))
     def update_month_combo(self):
         self.month_combo.clear()
-        if self.Converter_combo.currentIndex() == 0:  # هجري إلى ميلادي
+        if self.Converter_combo.currentIndex() == 0:
             months=[
             _("مُحرَّم"), _("صَفَر"), _("رَبيع الأوَّل"), _("رَبيع الآخِر"),
             _("جُمادى الأُولى"), _("جُمادى الآخِرة"), _("رَجَب"), _("شَعبان"),
@@ -1063,14 +1063,14 @@ class DateConverter(qt.QWidget):
     def convert_date(self):        
         year_text=self.year.text()
         day_text=self.day.text()
-        month=self.month_combo.currentIndex() + 1  # الشهر يبدأ من 1        
+        month=self.month_combo.currentIndex() + 1
         if not (year_text.isdigit() and day_text.isdigit()):
             self.result.setFocus()
             self.result.setText(_("الرجاء إدخال أرقام صحيحة."))
             return    
         year=int(year_text)
         day=int(day_text)
-        if self.Converter_combo.currentIndex() == 0:  # التحويل من هجري إلى ميلادي
+        if self.Converter_combo.currentIndex() == 0:
             try:
                 hijri_date=Hijri(year, month, day)
                 gregorian_date=hijri_date.to_gregorian()
