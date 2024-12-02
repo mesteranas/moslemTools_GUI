@@ -2,7 +2,6 @@ import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
 import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os,re
-
 from settings import *
 from hijri_converter import Gregorian,Hijri
 from datetime import datetime
@@ -332,14 +331,14 @@ class UserGuide(qt.QWidget):
         self.font_size=20
         font=self.font()
         font.setPointSize(self.font_size)
-        self.guide.setFont(font)
+        self.guide.setFont(font)        
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.show_font=qt.QLineEdit()
         self.show_font.setReadOnly(True)
         self.show_font.setAccessibleName(_("حجم النص"))        
         self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)        
-        layout.addWidget(self.guide)
+        layout.addWidget(self.guide)        
         layout.addWidget(self.font_laybol)
         layout.addWidget(self.show_font)
     def OnContextMenu(self):

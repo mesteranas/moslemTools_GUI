@@ -10,7 +10,11 @@ class Download(qt.QDialog):
         self.types=guiTools.QListWidget()
         self.types.addItems([_("كتاب تفسير"),_("ترجمة قرآن"),_("كتاب حديث"),_("قارئ للقرآن المكتوب"),_("أذكار وأدعية")])
         self.types.clicked.connect(self.onItemClicked)
+        self.adminstration=qt.QLineEdit()
+        self.adminstration.setReadOnly(True)
+        self.adminstration.setText(_("تنبيه هام , لتثبيت موارد خارجية, يجب أولا منح صلاحيات المشرف للبرنامج"))
         layout.addWidget(self.types)
+        layout.addWidget(self.adminstration)
     def onItemClicked(self):
         index=self.types.currentRow()
         if index==0:

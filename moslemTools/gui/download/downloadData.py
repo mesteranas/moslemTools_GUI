@@ -10,9 +10,9 @@ class SelectItem(qt.QDialog):
         self.data={}
         self.dirName=dirName
         layout=qt.QVBoxLayout(self)
-        self.item=guiTools.QListWidget()
+        self.item=guiTools.QListWidget()        
         layout.addWidget(self.item)        
-        self.item.clicked.connect(lambda:StartDownloading(self,self.data[self.item.currentItem().text()],self.dirName).exec())        
+        self.item.clicked.connect(lambda:StartDownloading(self,self.data[self.item.currentItem().text()],self.dirName).exec())                
         self.fileName=fileName
         self.onLoad()
     def onLoad(self):
