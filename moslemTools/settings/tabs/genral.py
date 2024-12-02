@@ -28,7 +28,7 @@ class Genral(qt.QWidget):
         self.startup=qt.QCheckBox(_("بدء تشغيل البرنامج عند بدء تشغيل النظام"))
         self.startup.setChecked(self.check_in_startup())
         self.startup.checkStateChanged.connect(self.onStartupChanged)
-        layout1.addWidget(self.startup)
+        #layout1.addWidget(self.startup)
         self.reciter=qt.QComboBox()
         self.reciter.addItems(gui.reciters.keys())
         self.reciter.setCurrentIndex(int(settings_handler.get("g","reciter")))

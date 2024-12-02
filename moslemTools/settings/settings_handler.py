@@ -55,4 +55,3 @@ def set(section,key, value):
 		config[section][key] = value
 		with open(cpath, "w",encoding="utf-8") as file:
 			config.write(file)
-
