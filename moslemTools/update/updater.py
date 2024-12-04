@@ -1,10 +1,9 @@
-import settings,guiTools
+import settings
 import requests
 import sys
 import subprocess
 import os,shutil
 import PyQt6.QtWidgets as qt
-import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class DownloadUpdateObjects(qt2.QObject):
     progress=qt2.pyqtSignal(int)
@@ -56,8 +55,7 @@ class DownloadUpdateThread(qt2.QRunnable):
         except:
             self.object.finish.emit("error")
         sys.exit()
-class DownloadUpdateGUI (qt.QDialog):
-
+class DownloadUpdateGUI(qt.QDialog):
     def __init__(self,p,URL):
         super().__init__(p)
         self.setWindowTitle(_("جاري التحديث"))
@@ -86,7 +84,7 @@ class DownloadUpdateGUI (qt.QDialog):
         self.downloading.setValue(progress)
     def finish(self,c):
         if c=="error":
-            qt.QMessageBox.information(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
+            qt.QMessageBox.critical(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
             self.close()
     def cancelBTN(self):
         self.run.object.download.emit(False)
