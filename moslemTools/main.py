@@ -179,6 +179,8 @@ class QuranPlayer(qt.QWidget):
     def update_progress(self,progress_percent):
         self.progressBar.setValue(progress_percent)
     def load_reciter_files(self):
+        if self.mp.isPlaying():
+            self.mp.stop()
         try:
             self.listWidget.clear()
             reciter=self.comboBox.currentText()
@@ -290,11 +292,11 @@ class QuranPlayer(qt.QWidget):
         else:
             self.mp.play()
     def increase_volume(self):
-        current_volume=self.ao.volume()
+        current_volume=self.au.volume()
         new_volume=current_volume+0.10
         self.au.setVolume(new_volume)
     def decrease_volume(self):
-        current_volume=self.ao.volume()
+        current_volume=self.au.volume()
         new_volume=current_volume-0.10
         self.au.setVolume(new_volume)        
     def update_slider(self):
