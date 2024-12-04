@@ -294,11 +294,11 @@ class QuranPlayer(qt.QWidget):
     def increase_volume(self):
         current_volume=self.au.volume()
         new_volume=current_volume+0.10
-        self.au.setVolume(new_volume)
+        self.au.setVolume(new_volume)        
     def decrease_volume(self):
         current_volume=self.au.volume()
         new_volume=current_volume-0.10
-        self.au.setVolume(new_volume)        
+        self.au.setVolume(new_volume)                
     def update_slider(self):
         try:
             self.Slider.setValue(int((self.mp.position()/self.mp.duration())*100))
