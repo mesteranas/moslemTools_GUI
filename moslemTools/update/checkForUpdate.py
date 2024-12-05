@@ -5,7 +5,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from settings.app import appdirname
-def check (p,message=True):
+def check(p,message=True):
     try:
         r=requests.get("https://raw.githubusercontent.com/mesteranas/{}/main/{}/update/app.json".format(settings.settings_handler.appName,appdirname))
         info=r.json()
@@ -17,8 +17,8 @@ def check (p,message=True):
         else:
             if message: qt.QMessageBox.information(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
     except:
-        if message: qt.QMessageBox.information(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
-class download (qt.QDialog):
+        if message:qt.QMessageBox.critical(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
+class download(qt.QDialog):
     def __init__(self,p,version,URL,whatsNew):
         super().__init__(p)
         layout=qt.QVBoxLayout(self)

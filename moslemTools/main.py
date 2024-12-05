@@ -94,18 +94,21 @@ class QuranPlayer(qt.QWidget):
         self.comboBox.currentIndexChanged.connect(self.load_reciter_files)
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.listWidget.customContextMenuRequested.connect(self.open_context_menu)        
-        self.load_reciter_files()            
+        self.load_reciter_files()                
     def download_selected_audio_to_app(self):
         try:
             reciter=self.comboBox.currentText()
             selected_item=self.listWidget.currentItem()
-            if selected_item:            
-                url=self.reciters_data[reciter][selected_item.text()]            
-                audio_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
+            if selected_item:
+                url=self.reciters_data[reciter][selected_item.text()]
+                audio_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
                 os.makedirs(audio_folder, exist_ok=True)
-                filepath=f"{audio_folder}/{selected_item.text()}.mp3"
+                filepath=os.path.join(audio_folder, f"{selected_item.text()}.mp3")            
+                if self.is_audio_downloaded(filepath):
+                    qt.QMessageBox.critical(self, _("تنبيه"), _("السورة محملة بالفعل."))
+                    return            
                 self.progressBar.setVisible(True)
-                self.download_thread = DownloadThread(url, filepath)
+                self.download_thread=DownloadThread(url, filepath)
                 self.download_thread.progress.connect(self.progressBar.setValue)
                 self.download_thread.finished.connect(self.download_audio_complete)
                 self.download_thread.start()
@@ -114,36 +117,50 @@ class QuranPlayer(qt.QWidget):
     def download_all_audios_to_app(self):
         try:
             reciter=self.comboBox.currentText()
-            self.files_to_download=list(self.reciters_data.get(reciter, {}).items())
-            self.current_file_index=0        
-            app_folder=os.path.join(os.getenv('appdata'),app.appName,"quran surah reciters",reciter)
-            os.makedirs(app_folder, exist_ok=True)        
+            self.files_to_download = [
+                (file_name, url)
+                for file_name, url in self.reciters_data.get(reciter, {}).items()
+                if not self.is_audio_downloaded(
+                    os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter, f"{file_name}.mp3")
+                )
+            ]
+            self.current_file_index = 0
+            if not self.files_to_download:
+                qt.QMessageBox.critical(self, _("تنبيه"), _("جميع السور محملة بالفعل"))
+                return        
             response=qt.QMessageBox.question(
-                self, _("تأكيد التحميل"),
-                _("هل تريد تحميل جميع السور الخاصة بالقارئ إلى التطبيق؟"),
+                self,
+                _("تأكيد التحميل"),
+                _("هل تريد تحميل جميع السور غير المحملة لهذا القارئ؟"),
                 qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                qt.QMessageBox.StandardButton.No
+                qt.QMessageBox.StandardButton.No,
             )
             if response == qt.QMessageBox.StandardButton.Yes:
-                self.save_folder=app_folder
+                app_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
+                os.makedirs(app_folder, exist_ok=True)
+                self.save_folder = app_folder
                 self.download_next_audio_to_app()
             else:
                 qt.QMessageBox.information(self, _("إلغاء العملية"), _("تم إلغاء تحميل السور."))
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))
+    def is_audio_downloaded(self,filepath):
+        return os.path.exists(filepath)
     def download_next_audio_to_app(self):
         if self.current_file_index < len(self.files_to_download):
             file_name,url=self.files_to_download[self.current_file_index]
-            filepath=f"{self.save_folder}/{file_name}.mp3"
+            filepath=os.path.join(self.save_folder, f"{file_name}.mp3")
             self.current_file_index += 1
             self.progressBar.setVisible(True)
-            self.download_thread = DownloadThread(url, filepath)
+            self.download_thread=DownloadThread(url, filepath)
             self.download_thread.progress.connect(self.progressBar.setValue)
             self.download_thread.finished.connect(self.download_next_audio_to_app)
             self.download_thread.start()
         else:
             self.progressBar.setVisible(False)
-            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السوربنجاح."))
+            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السور بنجاح."))
+    def is_audio_downloaded(self,filepath):
+        return os.path.exists(filepath)
     def download_audio_complete(self):
         self.progressBar.setValue(100)
         self.progressBar.setVisible(False)
