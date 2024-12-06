@@ -7,6 +7,7 @@ from settings import settings_handler,app
 from settings import language
 import PyQt6.QtWidgets as qt
 language.init_translation()
+startUpPath=os.path.join(os.getenv('appdata'),"Microsoft","Windows","Start Menu","Programs","Startup","moslemTools.cmd")
 class Genral(qt.QWidget):
     def __init__(self,p):
         super().__init__()
@@ -37,37 +38,22 @@ class Genral(qt.QWidget):
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
         try:
-            app_name=app.appName
-            app_path=sys.executable
-            key=reg.OpenKey(reg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, reg.KEY_SET_VALUE)
-            reg.SetValueEx(key,app_name, 0, reg.REG_SZ, app_path)
-            reg.CloseKey(key)            
+            with open(startUpPath,"w",encoding="utf-8") as file:
+                file.write('''@echo off
+start "{}"'''.format(sys.executable))
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"),_("تعذر إتمام العملية"))
     def check_in_startup(self):
         try:
-            app_name=app.appName
-            key=reg.OpenKey(reg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, reg.KEY_READ)
-            index=0
-            while True:
-                try:
-                    name,value, _ = reg.EnumValue(key, index)
-                    if name == app_name:
-                        reg.CloseKey(key)
-                        return True
-                    index+=1
-                except OSError:
-                    break
-            reg.CloseKey(key)
-            return False
+            if os.path.exists(startUpPath):
+                return True
+            else:
+                return False
         except Exception as e:
             return False
     def remove_from_startup(self):
         try:
-            app_name=app.appName
-            key=reg.OpenKey(reg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, reg.KEY_SET_VALUE)
-            reg.DeleteValue(key,app_name)
-            reg.CloseKey(key)
+            os.remove(startUpPath)
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"),_("تعظر اتمام العملية"))
     def onStartupChanged(self,value):

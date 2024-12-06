@@ -54,7 +54,7 @@ class DownloadUpdateThread(qt2.QRunnable):
             subprocess.Popen('"{}" /silent'.format(Name),shell=True)
         except:
             self.object.finish.emit("error")
-        sys.exit()
+        qt.QApplication.exit()
 class DownloadUpdateGUI(qt.QDialog):
     def __init__(self,p,URL):
         super().__init__(p)

@@ -166,10 +166,11 @@ class QuranViewer(qt.QDialog):
             else:
                 path=qt2.QUrl(reciters[self.getCurrentReciter()] + self.on_set())
             if not self.media.source()==path:
+                self.media.stop()
                 self.media.setSource(path)
             self.media.play()
         else:
-            self.media.stop()
+            self.media.pause()
     def getCurrentReciter(self):
         index=int(settings.settings_handler.get("g","reciter"))
         name=list(reciters.keys())[index]
