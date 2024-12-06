@@ -1,7 +1,6 @@
-import sys
+import sys,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os,re
 from custome_errors import *
 sys.excepthook=my_excepthook
-import gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os,re
 from settings import *
 from hijri_converter import Gregorian,Hijri
 from datetime import datetime
@@ -1145,8 +1144,8 @@ class Athker (qt.QWidget):
         layout.addWidget(self.athkerList)
 class main(qt.QMainWindow):
     def __init__(self):
-        super().__init__()
-        self.setWindowTitle(app.name + _("version : ") + str(app.version))        
+        super().__init__()        
+        self.setWindowTitle(app.name+_("الإصدار:") + str(app.version))
         self.resize(1200,600)
         self.media_player=QMediaPlayer()
         self.audio_output=QAudioOutput()
@@ -1227,7 +1226,7 @@ class main(qt.QMainWindow):
                 event.ignore()
         else:
             self.close()
-    def random_audio_theker(self):
+    def random_audio_theker(self):        
         folder_path=r"data\sounds\athkar"
         sound_files=[f for f in os.listdir(folder_path) if f.endswith(('.ogg'))]
         if sound_files:
@@ -1236,12 +1235,12 @@ class main(qt.QMainWindow):
             self.media_player.setSource(qt2.QUrl.fromLocalFile(file_path))
             self.media_player.play()    
 App=qt.QApplication([])
-App.setStyle('fusion')
-w=main()
-w.show()
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)
 App.setApplicationVersion(str(app.version))
 App.setOrganizationName(app.creater)
 App.setWindowIcon(qt1.QIcon("data/icons/app_icon.jpg"))
-App.exec()
+App.setStyle('fusion')
+window=main()
+window.show()
+App.exec()    
