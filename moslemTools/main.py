@@ -1,4 +1,4 @@
-import sys,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,gettext,webbrowser,functions,time,random,os,re
+import sys,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,webbrowser,functions,time,random,os,re
 from custome_errors import *
 sys.excepthook=my_excepthook
 from settings import *
@@ -79,11 +79,16 @@ class QuranPlayer(qt.QWidget):
         self.dl_all=qt.QPushButton(_("تحميل جميع السور المتاحة لهذا القارئ في الجهاز"))
         self.dl_all.setDefault(True)
         self.dl_all.clicked.connect(self.download_all_soar)
+        self.delete=qt.QPushButton(_("حذف كل السور للقارئ الحالي من التطبيق"))
+        self.delete.setDefault(True)
+        self.delete.setVisible(False)
+        self.delete.clicked.connect(lambda: self.delete_surah())
         layout=qt.QVBoxLayout()
         layout.addWidget(self.show_reciters)
         layout.addWidget(self.comboBox)
         layout.addWidget(self.listWidget)
         layout.addWidget(self.dl_all_app)
+        layout.addWidget(self.delete)
         layout.addWidget(self.dl_all)
         layout.addWidget(self.progressBar)
         layout.addWidget(self.Slider)
@@ -93,9 +98,68 @@ class QuranPlayer(qt.QWidget):
         self.recitersList.sort()
         self.comboBox.addItems(self.recitersList)
         self.comboBox.currentIndexChanged.connect(self.load_reciter_files)
+        self.comboBox.currentIndexChanged.connect(self.check_all_surahs_downloaded)
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.listWidget.customContextMenuRequested.connect(self.open_context_menu)        
+        self.listWidget.customContextMenuRequested.connect(self.open_context_menu)                
         self.load_reciter_files()                
+    def delete_surah(self,surah_name=None):
+        reciter=self.comboBox.currentText()
+        reciter_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
+        if surah_name:
+            surah_path=os.path.join(reciter_folder, f"{surah_name}.mp3")
+            if os.path.exists(surah_path):
+                confirm=qt.QMessageBox.question(
+                    self,
+                    _("تأكيد الحذف"),
+                    _("هل أنت متأكد أنك تريد حذف السورة المحددة؟"),
+                    qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
+                    qt.QMessageBox.StandardButton.No,
+                )
+                if confirm == qt.QMessageBox.StandardButton.Yes:
+                    os.remove(surah_path)
+                    qt.QMessageBox.information(self,_("تم"), _("تم حذف السورة بنجاح."))
+        else:
+            if os.path.exists(reciter_folder):
+                confirm=qt.QMessageBox.question(
+                    self,
+                    _("تأكيد الحذف"),
+                    _("هل أنت متأكد أنك تريد حذف جميع السور؟"),
+                    qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
+                    qt.QMessageBox.StandardButton.No,
+                )
+                if confirm == qt.QMessageBox.StandardButton.Yes:
+                    for file in os.listdir(reciter_folder):
+                        if file.endswith(".mp3"):
+                            os.remove(os.path.join(reciter_folder, file))
+                    qt.QMessageBox.information(self,_("تم"), _("تم حذف جميع السور بنجاح."))    
+        self.check_all_surahs_downloaded()
+    def check_all_surahs_downloaded(self):
+        reciter=self.comboBox.currentText()
+        reciter_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
+        if os.path.exists(reciter_folder):
+            all_files=os.listdir(reciter_folder)
+            all_surahs=self.reciters_data.get(reciter, {}).keys()
+            downloaded_surahs={os.path.splitext(file)[0] for file in all_files if file.endswith(".mp3")}
+            if downloaded_surahs >= set(all_surahs):  # جميع السور محملة
+                self.delete.setVisible(True)
+            else:
+                self.delete.setVisible(False)
+        else:
+            self.delete.setVisible(False)
+    def check_current_surah_downloaded(self):
+        reciter=self.comboBox.currentText()
+        selected_item=self.listWidget.currentItem()
+        if not selected_item:
+            return
+        surah_name=selected_item.text()
+        surah_path=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter, f"{surah_name}.mp3")
+        delete_option=qt1.QAction(_("حذف السورة المحددة من التطبيق"), self)
+        if os.path.exists(surah_path):
+            delete_option.setVisible(True)
+            delete_option.triggered.connect(lambda: self.delete_surah(surah_name))
+        else:
+            delete_option.setVisible(False)
+        return delete_option
     def download_selected_audio_to_app(self):
         try:
             reciter=self.comboBox.currentText()
@@ -159,9 +223,7 @@ class QuranPlayer(qt.QWidget):
             self.download_thread.start()
         else:
             self.progressBar.setVisible(False)
-            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السور بنجاح."))
-    def is_audio_downloaded(self,filepath):
-        return os.path.exists(filepath)
+            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السور بنجاح."))    
     def download_audio_complete(self):
         self.progressBar.setValue(100)
         self.progressBar.setVisible(False)
@@ -231,9 +293,12 @@ class QuranPlayer(qt.QWidget):
         download_action.triggered.connect(self.download_selected_audio)
         download_app_action=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
         download_app_action.triggered.connect(self.download_selected_audio_to_app)
+        delete_option=self.check_current_surah_downloaded()
         menu.addAction(play_action)        
         menu.addAction(download_action)
         menu.addAction(download_app_action)
+        if delete_option:
+            menu.addAction(delete_option)
         menu.exec(self.listWidget.viewport().mapToGlobal(position))    
     def play_selected_audio(self):
         try:

@@ -1,8 +1,4 @@
-import os
-import sys
-import winreg as reg
-import gui
-import gettext
+import os,sys,gui
 from settings import settings_handler,app
 from settings import language
 import win32com.client
@@ -39,8 +35,8 @@ class Genral(qt.QWidget):
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
         try:
-            shell = win32com.client.Dispatch("WScript.Shell")
-            shortcut = shell.CreateShortcut(startUpPath)
+            shell=win32com.client.Dispatch("WScript.Shell")
+            shortcut=shell.CreateShortcut(startUpPath)
             shortcut.TargetPath = sys.executable
             shortcut.WorkingDirectory = os.path.dirname(sys.executable)
             shortcut.Description = "a shortcut for opening moslem tools when windows start"
