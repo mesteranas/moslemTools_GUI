@@ -101,37 +101,50 @@ class QuranPlayer(qt.QWidget):
         self.comboBox.currentIndexChanged.connect(self.check_all_surahs_downloaded)
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.listWidget.customContextMenuRequested.connect(self.open_context_menu)                
-        self.load_reciter_files()                
-    def delete_surah(self,surah_name=None):
+        self.load_reciter_files()                        
+    def delete_surah(self, surah_name=None):
         reciter=self.comboBox.currentText()
-        reciter_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
-        if surah_name:
-            surah_path=os.path.join(reciter_folder, f"{surah_name}.mp3")
-            if os.path.exists(surah_path):
-                confirm=qt.QMessageBox.question(
-                    self,
-                    _("تأكيد الحذف"),
-                    _("هل أنت متأكد أنك تريد حذف السورة المحددة؟"),
-                    qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                    qt.QMessageBox.StandardButton.No,
-                )
-                if confirm == qt.QMessageBox.StandardButton.Yes:
-                    os.remove(surah_path)
-                    qt.QMessageBox.information(self,_("تم"), _("تم حذف السورة بنجاح."))
-        else:
-            if os.path.exists(reciter_folder):
-                confirm=qt.QMessageBox.question(
-                    self,
-                    _("تأكيد الحذف"),
-                    _("هل أنت متأكد أنك تريد حذف جميع السور؟"),
-                    qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                    qt.QMessageBox.StandardButton.No,
-                )
-                if confirm == qt.QMessageBox.StandardButton.Yes:
-                    for file in os.listdir(reciter_folder):
-                        if file.endswith(".mp3"):
-                            os.remove(os.path.join(reciter_folder, file))
-                    qt.QMessageBox.information(self,_("تم"), _("تم حذف جميع السور بنجاح."))    
+        reciter_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)    
+        try:
+            if surah_name:
+                surah_path=os.path.join(reciter_folder, f"{surah_name}.mp3")
+                if os.path.exists(surah_path):
+                    confirm=qt.QMessageBox.question(
+                        self,
+                        _("تأكيد الحذف"),
+                        _("هل أنت متأكد أنك تريد حذف السورة المحددة؟"),
+                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
+                        qt.QMessageBox.StandardButton.No,
+                    )
+                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        try:
+                            os.remove(surah_path)
+                            qt.QMessageBox.information(self, _("تم"), _("تم حذف السورة بنجاح."))
+                        except PermissionError:
+                            qt.QMessageBox.critical(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام."))
+            else:
+                if os.path.exists(reciter_folder):
+                    confirm=qt.QMessageBox.question(
+                        self,
+                        _("تأكيد الحذف"),
+                        _("هل أنت متأكد أنك تريد حذف جميع السور؟"),
+                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
+                        qt.QMessageBox.StandardButton.No,
+                    )
+                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        for file in os.listdir(reciter_folder):
+                            if file.endswith(".mp3"):
+                                try:
+                                    os.remove(os.path.join(reciter_folder, file))
+                                except PermissionError:
+                                    qt.QMessageBox.critical(
+                                        self,
+                                        _("خطأ"),
+                                        _("تعذر حذف بعض الملفات. قد تكون قيد الاستخدام.")
+                                    )
+                        qt.QMessageBox.information(self, _("تم"), _("تم حذف جميع السور بنجاح."))
+        except Exception as e:
+            qt.QMessageBox.critical(self, _("خطأ غير متوقع"), str(e))    
         self.check_all_surahs_downloaded()
     def check_all_surahs_downloaded(self):
         reciter=self.comboBox.currentText()
