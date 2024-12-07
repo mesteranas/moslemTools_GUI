@@ -5,9 +5,10 @@ import gui
 import gettext
 from settings import settings_handler,app
 from settings import language
+import win32com.client
 import PyQt6.QtWidgets as qt
 language.init_translation()
-startUpPath=os.path.join(os.getenv('appdata'),"Microsoft","Windows","Start Menu","Programs","Startup","moslemTools.cmd")
+startUpPath=os.path.join(os.getenv('appdata'),"Microsoft","Windows","Start Menu","Programs","Startup","moslemTools.lnk")
 class Genral(qt.QWidget):
     def __init__(self,p):
         super().__init__()
@@ -38,9 +39,12 @@ class Genral(qt.QWidget):
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
         try:
-            with open(startUpPath,"w",encoding="utf-8") as file:
-                file.write('''@echo off
-start "{}"'''.format(sys.executable))
+            shell = win32com.client.Dispatch("WScript.Shell")
+            shortcut = shell.CreateShortcut(startUpPath)
+            shortcut.TargetPath = sys.executable
+            shortcut.WorkingDirectory = os.path.dirname(sys.executable)
+            shortcut.Description = "a shortcut for opening moslem tools when windows start"
+            shortcut.Save()
         except Exception as e:
             qt.QMessageBox.critical(self, _("خطأ"),_("تعذر إتمام العملية"))
     def check_in_startup(self):
