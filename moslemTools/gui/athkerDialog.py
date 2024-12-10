@@ -1,4 +1,4 @@
-import time,winsound,pyperclip,gettext,os,settings
+import time,winsound,pyperclip,os,settings
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -7,7 +7,7 @@ from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 import guiTools
 class AthkerDialog (qt.QDialog):
     def __init__(self,p,title:str,athkerList:list):
-        super().__init__(p)
+        super().__init__(p)        
         self.resize(1200,600)
         self.setWindowTitle(title)
         layout=qt.QVBoxLayout(self)

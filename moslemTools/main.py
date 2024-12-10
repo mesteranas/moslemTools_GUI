@@ -121,7 +121,7 @@ class QuranPlayer(qt.QWidget):
                             os.remove(surah_path)
                             qt.QMessageBox.information(self, _("تم"), _("تم حذف السورة بنجاح."))
                         except PermissionError:
-                            qt.QMessageBox.critical(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام."))
+                            qt.QMessageBox.critical(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
             else:
                 if os.path.exists(reciter_folder):
                     confirm=qt.QMessageBox.question(
@@ -140,7 +140,7 @@ class QuranPlayer(qt.QWidget):
                                     qt.QMessageBox.critical(
                                         self,
                                         _("خطأ"),
-                                        _("تعذر حذف بعض الملفات. قد تكون قيد الاستخدام.")
+                                        _("تعذر حذف بعض الملفات. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج")
                                     )
                         qt.QMessageBox.information(self, _("تم"), _("تم حذف جميع السور بنجاح."))
         except Exception as e:
