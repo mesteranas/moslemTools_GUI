@@ -14,7 +14,7 @@ Let me guide you through **installation** and the program’s features.
 
 ## **Installation**  
 1. **Download the program**:  
-   [Click here to install it](https://github.com/mesteranas/moslemTools_GUI/releases/download/v2.0/moslemTools.exe).  
+   [Click here to install it](https://github.com/mesteranas/moslemTools_GUI/releases/download/v3.0/moslem_tools_V3.0.exe).  
 2. **Open the file** and follow the installation instructions.  
 3. Once installed, stay with me as I explain everything about the program.
 
