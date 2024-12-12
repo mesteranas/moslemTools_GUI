@@ -1,6 +1,7 @@
-import sys,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,webbrowser,functions,time,random,os,re
+import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
+import shudel,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,webbrowser,functions,time,random,os,re
 from settings import *
 from hijri_converter import Gregorian,Hijri
 from datetime import datetime

@@ -1,8 +1,10 @@
-import os,sys,gui
+import os,sys,gui,guiTools,shutil
 from settings import settings_handler,app
 from settings import language
 import win32com.client
 import PyQt6.QtWidgets as qt
+import PyQt6.QtGui as qt1
+import PyQt6.QtCore as qt2
 language.init_translation()
 startUpPath=os.path.join(os.getenv('appdata'),"Microsoft","Windows","Start Menu","Programs","Startup","moslemTools.lnk")
 class Genral(qt.QWidget):
@@ -31,6 +33,9 @@ class Genral(qt.QWidget):
         self.reciter.addItems(gui.reciters.keys())
         self.reciter.setCurrentIndex(int(settings_handler.get("g","reciter")))
         self.reciter.setAccessibleName(_("تحديد القارئ للقرآن المكتوب"))
+        self.reciter.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.reciter.customContextMenuRequested.connect(self.onDelete)
+        qt1.QShortcut("delete",self).activated.connect(self.onDelete)
         layout1.addWidget(qt.QLabel(_("تحديد القارئ للقرآن المكتوب")))
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
@@ -61,3 +66,13 @@ class Genral(qt.QWidget):
             self.remove_from_startup()
         else:
             self.add_to_startup()
+    def onDelete(self):
+        itemText=self.reciter.currentText()
+        if itemText:
+            reciterText=gui.quranViewer.reciters[itemText].split("/")[-3]
+            path=os.path.join(os.getenv('appdata'),app.appName,"reciters",reciterText)
+            if os.path.exists(path):
+                question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا القارئ"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
+                if question==qt.QMessageBox.StandardButton.Yes:
+                    shutil.rmtree(path)
+                    guiTools.speak(_("تم الحذف"))
