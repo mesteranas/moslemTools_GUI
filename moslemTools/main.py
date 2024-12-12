@@ -210,7 +210,7 @@ class QuranPlayer(qt.QWidget):
             response=qt.QMessageBox.question(
                 self,
                 _("تأكيد التحميل"),
-                _("هل تريد تحميل جميع السور غير المحملة لهذا القارئ؟"),
+                _("هل تريد تحميل جميع السور المتاحة لهذا القارئ؟"),
                 qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
                 qt.QMessageBox.StandardButton.No,
             )
