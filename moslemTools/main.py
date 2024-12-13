@@ -855,6 +855,7 @@ class About_developers(qt.QWidget):
         self.info.addItem(_("حساب أنس على telegram"))
         self.info.addItem(_("حساب أنس على GitHub"))
         self.info.addItem(_("التواصل مع أنس عبر البريد الإكتروني"))        
+        self.info.addItem(_("فيديو شرح البرنامج على YouTube"))
         self.info_text=qt.QLineEdit()
         self.info_text.setReadOnly(True)
         self.info_text.setText(_("اللهم اجعل عملنا هذا في ميزان حسناتنا وصدقة جارية لنا"))
@@ -880,6 +881,8 @@ class About_developers(qt.QWidget):
                 webbrowser.open("https://github.com/mesteranas/")
             elif text == _("التواصل مع أنس عبر البريد الإكتروني"):
                 webbrowser.open("mailto:anasformohammed@gmail.com")
+            elif text == _("فيديو شرح البرنامج على YouTube"):
+                webbrowser.open("https://www.youtube.com/watch?v=NUe8ftmg4Cw")
 class sibha(qt.QWidget):
     def __init__(self):
         super().__init__()
