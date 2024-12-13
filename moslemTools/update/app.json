@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
 "version": 2.0,
-"what is new": "Fixed some errors",
+"what is new": "1 Adding the pause in the kareem Quran as a text\n2 Add the ability to delete resources directly from the application\n3 Check if a specific resource has been downloaded\n4 Add some important alerts in the settings\n5 additional textual supplications\n6 Add the option to run the program when the system starts from the program\n7 Reduce the size of the program\n8 Add a link explaining the program\n9 fix errors\n\nenjoy",
 "download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v2.0/moslemTools.exe",
 "is_beta": false
 }
