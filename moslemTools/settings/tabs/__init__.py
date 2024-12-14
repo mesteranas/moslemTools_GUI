@@ -5,3 +5,4 @@ from .tafaseer import TafaseerSettings
 from .translation import translationSettings
 from .athkarSettings import AthkarSettings
 from .downloadSettings import Download
+from .prayerTimesSettings import PrayerTimesSettings

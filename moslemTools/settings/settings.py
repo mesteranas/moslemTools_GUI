@@ -28,6 +28,8 @@ class settings (qt.QDialog):
         self.sectian.add(_("عام"),self.layout1)
         self.tafaseerSettings=tabs.TafaseerSettings()
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
+        self.prayerTimesSettings=tabs.PrayerTimesSettings(self)
+        self.sectian.add(_("إعدادات مواقيت الصلاة"),self.prayerTimesSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()
@@ -57,6 +59,7 @@ class settings (qt.QDialog):
             pass
         settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))
         settings_handler.set("athkar","text",str(self.athkar.textSelection.currentIndex()))
+        settings_handler.set("prayerTimes","adaanReminder",str(self.prayerTimesSettings.adaanReminder.isChecked()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
         self.p.runAudioThkarTimer()

@@ -34,6 +34,8 @@ if not os.path.exists(cpath):
 	config.add_section("athkar")
 	config["athkar"]["voice"]="0"
 	config["athkar"]["text"]="0"
+	config.add_section("prayerTimes")
+	config["prayerTimes"]["adaanReminder"]="True"
 	config.add_section("update")
 	config["update"]["autoCheck"]="True"
 	config["update"]["beta"]="False"
