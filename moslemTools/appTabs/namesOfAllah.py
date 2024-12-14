@@ -1,11 +1,8 @@
-import shutil,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,webbrowser,functions,time,random,os,re
+import guiTools,pyperclip,winsound,json
 from settings import *
-from hijri_converter import Gregorian,Hijri
-from datetime import datetime
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
-from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 language.init_translation()
 class NamesOfAllah(qt.QWidget):

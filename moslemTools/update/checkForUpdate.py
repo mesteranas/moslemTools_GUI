@@ -2,8 +2,6 @@ import settings,guiTools
 from .updater import DownloadUpdateGUI
 import requests
 import PyQt6.QtWidgets as qt
-import PyQt6.QtGui as qt1
-import PyQt6.QtCore as qt2
 from settings.app import appdirname
 def check(p,message=True):
     try:
@@ -21,6 +19,7 @@ def check(p,message=True):
 class download(qt.QDialog):
     def __init__(self,p,version,URL,whatsNew):
         super().__init__(p)
+        self.resize(600,500)
         layout=qt.QVBoxLayout(self)
         self.setWindowTitle(_("جديد {} إصدار {}").format(settings.app.name,str(version)))
         whatsn=guiTools.QReadOnlyTextEdit()

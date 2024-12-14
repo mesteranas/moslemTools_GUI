@@ -1,18 +1,14 @@
 import sys
 from custome_errors import *
 sys.excepthook=my_excepthook
-import shutil,gui,update,guiTools,pyperclip,requests,geocoder,winsound,json,webbrowser,functions,time,random,os,re
+import update,guiTools,json,random,os
 from settings import *
-from hijri_converter import Gregorian,Hijri
-from datetime import datetime
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
-from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
-from appTabes import *
+from appTabs import *
 language.init_translation()
-
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()        

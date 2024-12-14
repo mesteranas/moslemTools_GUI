@@ -1,6 +1,5 @@
 import settings
 import requests
-import sys
 import subprocess
 import os,shutil
 import PyQt6.QtWidgets as qt
