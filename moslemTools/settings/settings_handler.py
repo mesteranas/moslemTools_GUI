@@ -54,6 +54,10 @@ def get(section,key):
 def set(section,key, value):
 		config = ConfigParser()
 		config.read(cpath)
-		config[section][key] = value
+		try:
+			config[section][key] = value
+		except KeyError:
+			config.add_section(section)
+			config[section][key] = value
 		with open(cpath, "w",encoding="utf-8") as file:
 			config.write(file)

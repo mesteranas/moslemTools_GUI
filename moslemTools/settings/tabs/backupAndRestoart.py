@@ -39,9 +39,9 @@ class Restoar(qt.QWidget):
             mb.setWindowTitle(_("تم تحديث الإعدادات"))
             mb.setText(_("يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"))
             rn=mb.addButton(qt.QMessageBox.StandardButton.Yes)
-            rn.setText(_("اعادة التشغيل الآن"))
+            rn.setText(_("إعادة التشغيل الآن"))
             rl=mb.addButton(qt.QMessageBox.StandardButton.No)
-            rl.setText(_("اعادة التشغيل لاحقا"))
+            rl.setText(_("إعادة التشغيل لاحقا"))
             mb.exec()
             ex=mb.clickedButton()
             if ex==rn:
