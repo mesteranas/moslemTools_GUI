@@ -2,6 +2,7 @@ import pyperclip,winsound
 from settings import *
 from hijri_converter import Gregorian,Hijri
 import PyQt6.QtWidgets as qt
+import PyQt6.QtGui as qt1
 language.init_translation()
 class DateConverter(qt.QWidget):
     def __init__(self):
@@ -15,13 +16,18 @@ class DateConverter(qt.QWidget):
         self.Converter_combo.currentIndexChanged.connect(self.update_button_text)
         self.l_year=qt.QLabel(_("العام"))
         self.year=qt.QLineEdit()
-        self.year.setAccessibleName(_("العام"))
+        self.year.setAccessibleName(_("العام"))        
+        self.year.setInputMask("9999")
         self.l_month=qt.QLabel(_("الشهر"))
         self.month_combo=qt.QComboBox()
         self.month_combo.setAccessibleName(_("الشهر"))
         self.l_day=qt.QLabel(_("اليوم"))
         self.day=qt.QLineEdit()
         self.day.setAccessibleName(_("اليوم"))
+        self.v=qt1.QIntValidator(1,31)
+        self.v.setRange(1,31)
+        self.day.setValidator(self.v)                            
+        self.day.textChanged.connect(self.max_number)
         self.Convert=qt.QPushButton(_("التحويل الى ميلادي"))
         self.Convert.setDefault(True)
         self.Convert.clicked.connect(self.convert_date)
@@ -47,6 +53,9 @@ class DateConverter(qt.QWidget):
         layout.addWidget(self.copy_result)
         self.setLayout(layout)
         self.update_month_combo()
+    def max_number(self):
+        if self.day.text()>"31":
+            self.day.clear()
     def copy(self):
         pyperclip.copy(self.result.text())
         winsound.Beep(1000,100)
