@@ -5,6 +5,7 @@ from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class AdaanDialog(qt.QDialog):
     def __init__(self,p,index:int,title:str):
         super().__init__(p)
+        self.showFullScreen()
         self.setWindowTitle(title)
         self.setWindowIcon(qt1.QIcon("data/icons/app_icon.jpg"))
         self.media_player=QMediaPlayer()
