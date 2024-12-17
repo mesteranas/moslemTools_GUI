@@ -5,10 +5,10 @@ from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class AdaanDialog(qt.QDialog):
     def __init__(self,p,index:int,title:str):
         super().__init__(p)
-        self.setGeometry(100,100,400,400)
+        self.resize(600,500)
         self.setWindowTitle(title)
         self.lay=qt.QLabel()
-        self.lay.setGeometry(50,50,300,300)
+        self.lay.resize(500,400)
         self.lay.setPixmap(qt1.QPixmap("data/icons/app_icon.jpg"))
         self.lay.setScaledContents(True)
         self.media_player=QMediaPlayer()
