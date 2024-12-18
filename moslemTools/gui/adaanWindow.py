@@ -9,7 +9,7 @@ class AdaanDialog(qt.QDialog):
         self.setWindowTitle(title)
         self.lay=qt.QLabel(title)
         self.lay.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        self.lay.setStyleSheet("font-size:300px;")
+        self.lay.setStyleSheet("font-size:150px;")
         self.media_player=QMediaPlayer()
         self.media_player.mediaStatusChanged.connect(self.onStateChanged)
         self.audio_output=QAudioOutput()
