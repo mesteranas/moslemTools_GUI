@@ -1,8 +1,8 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtCore as qt2
 class AfterAdaan(qt.QDialog):
-    def __init__(self,parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
         self.resize(1200,600)
         self.setWindowTitle(_("دعاء بعد الأذان"))
         self.suplication=qt.QTextEdit()
