@@ -5,12 +5,11 @@ from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class AdaanDialog(qt.QDialog):
     def __init__(self,p,index:int,title:str):
         super().__init__(p)
-        self.resize(600,500)
+        self.resize(500,600)
         self.setWindowTitle(title)
-        self.lay=qt.QLabel()
-        self.lay.resize(500,400)
-        self.lay.setPixmap(qt1.QPixmap("data/icons/app_icon.jpg"))
-        self.lay.setScaledContents(True)
+        self.lay=qt.QLabel(title)
+        self.lay.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.lay.setStyleSheet("font-size:300px;")
         self.media_player=QMediaPlayer()
         self.media_player.mediaStatusChanged.connect(self.onStateChanged)
         self.audio_output=QAudioOutput()
@@ -29,6 +28,6 @@ class AdaanDialog(qt.QDialog):
     def onStateChanged(self,state):
         if state==self.media_player.MediaStatus.EndOfMedia:            
             self.accept()            
-            from afterAdaan import AfterAdaan
+            from after_azaan import AfterAdaan
             window=AfterAdaan(self)
             window.exec()
