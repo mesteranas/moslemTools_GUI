@@ -14,6 +14,8 @@ class QuranPlayer(qt.QDialog):
         super().__init__(p)                        
         self.resize(1200,600)
         self.type=type
+        self.times=int(settings.settings_handler.get("quranPlayer","times"))
+        self.currentTime=1
         self.category=category
         self.media=QMediaPlayer(self)
         self.audioOutput=QAudioOutput(self)
@@ -156,10 +158,12 @@ class QuranPlayer(qt.QDialog):
         self.media.stop()
         number,ok=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية"),self.index+1,1,len(self.quranText),1)
         if ok:
+            self.currentTime=1
             self.index=number-1
             self.text.setText(self.quranText[self.index])
             self.on_play()
     def onNextAyah(self):
+        self.currentTime=1
         if self.index+1==len(self.quranText):
             self.index=0
         else:
@@ -168,6 +172,7 @@ class QuranPlayer(qt.QDialog):
         self.media.stop()
         self.on_play()
     def onPreviousAyah(self):
+        self.currentTime=1
         if self.index==0:
             self.index=len(self.quranText)-1
         else:
@@ -179,7 +184,11 @@ class QuranPlayer(qt.QDialog):
         return self.text.toPlainText()
     def on_state(self,state):
         if state==QMediaPlayer.MediaStatus.EndOfMedia:
-            self.onNextAyah()
+            if self.times==self.currentTime:
+                self.onNextAyah()
+            else:
+                self.currentTime+=1
+                self.media.play()
     def getCurrentReciter(self):
         index=int(settings.settings_handler.get("g","reciter"))
         name=list(reciters.keys())[index]

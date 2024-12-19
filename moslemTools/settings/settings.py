@@ -30,6 +30,8 @@ class settings (qt.QDialog):
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.prayerTimesSettings=tabs.PrayerTimesSettings(self)
         self.sectian.add(_("إعدادات الأذان"),self.prayerTimesSettings)
+        self.quranPlayerTimes=tabs.QuranPlayerSettings()
+        self.sectian.add(_("إعدادات مشغل القرآن"),self.quranPlayerTimes)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()
@@ -59,6 +61,7 @@ class settings (qt.QDialog):
             pass
         settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))
         settings_handler.set("athkar","text",str(self.athkar.textSelection.currentIndex()))
+        settings_handler.set("quranPlayer","times",str(self.quranPlayerTimes.times.value()))
         settings_handler.set("prayerTimes","adaanReminder",str(self.prayerTimesSettings.adaanReminder.isChecked()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))

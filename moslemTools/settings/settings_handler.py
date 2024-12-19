@@ -25,24 +25,39 @@ if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"ahadeeth")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"ahadeeth"))
 	shutil.copy("data/json/ahadeeth/nawawi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","nawawi40.json"))
 	shutil.copy("data/json/ahadeeth/qudsi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","qudsi40.json"))
+settingsConfig={
+	"g":{
+		"lang":"ar",
+		"exitdialog":"True",
+		"reciter":"0"
+	},
+	"tafaseer":{
+		"tafaseer":"muyassar.json"
+	},
+	"translation":{
+		"translation":"en.itani.json"
+	},
+	"athkar":{
+		"voice":"0",
+		"text":"0"
+	},
+	"prayerTimes":{
+		"adaanReminder":"True"
+	},
+	"update":{
+		"autoCheck":"True",
+		"beta":"False"
+	},
+	"quranPlayer":{
+		"times":"1"
+	}
+}
 if not os.path.exists(cpath):
 	config = ConfigParser() 
-	config.add_section("g")
-	config["g"]["lang"] = "ar"
-	config["g"]["exitDialog"] = "True"
-	config["g"]["reciter"]="0"
-	config.add_section("tafaseer")
-	config["tafaseer"]["tafaseer"]="muyassar.json"
-	config.add_section("translation")
-	config["translation"]["translation"]="en.itani.json"
-	config.add_section("athkar")
-	config["athkar"]["voice"]="0"
-	config["athkar"]["text"]="0"
-	config.add_section("prayerTimes")
-	config["prayerTimes"]["adaanReminder"]="True"
-	config.add_section("update")
-	config["update"]["autoCheck"]="True"
-	config["update"]["beta"]="False"
+	for section,values in settingsConfig.items():
+		config.add_section(section)
+		for key,value in values.items():
+			config[section][key]=value
 	with open(cpath, "w",encoding="utf-8") as file:
 		config.write(file)
 
@@ -53,7 +68,10 @@ def get(section,key):
 		value = config[section][key]
 		return value
 	except:
-		return ""
+		try:
+			return settingsConfig[section][key]
+		except:
+			return ""
 
 def set(section,key, value):
 		config = ConfigParser()
