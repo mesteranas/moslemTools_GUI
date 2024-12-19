@@ -3,6 +3,7 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 from.after_azaan import AfterAdaan
+import os,settings
 class AdaanDialog(qt.QDialog):
     def __init__(self,p,index:int,title:str):
         super().__init__(p)
@@ -16,9 +17,9 @@ class AdaanDialog(qt.QDialog):
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
         if index==0:
-            self.media_player.setSource(qt2.QUrl.fromLocalFile("data/sounds/adaan/fajr.mp3"))
+            self.media_player.setSource(qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.settings_handler.appName,"addan","fajr.mp3")))
         else:
-            self.media_player.setSource(qt2.QUrl.fromLocalFile("data/sounds/adaan/genral.webm"))
+            self.media_player.setSource(qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.settings_handler.appName,"addan","genral.mp3")))
         self.media_player.play()
         qt1.QShortcut("escape",self).activated.connect(self.close)
         layout=qt.QVBoxLayout(self)
@@ -29,5 +30,5 @@ class AdaanDialog(qt.QDialog):
     def onStateChanged(self,state):
         if state==self.media_player.MediaStatus.EndOfMedia:            
             self.accept()            
-            window=AfterAdaan()
+            window=AfterAdaan(self)
             window.exec()

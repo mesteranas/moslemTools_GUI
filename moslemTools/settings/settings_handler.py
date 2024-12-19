@@ -5,6 +5,10 @@ appName=app.appName
 cpath=os.path.join(os.getenv('appdata'),appName,"settings.ini")
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"addan")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"addan"))
+	shutil.copy("data/sounds/adaan/fajr.mp3",os.path.join(os.getenv('appdata'),appName,"addan","fajr.mp3"))
+	shutil.copy("data/sounds/adaan/genral.mp3",os.path.join(os.getenv('appdata'),appName,"addan","genral.mp3"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"quran surah reciters")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"quran surah reciters"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"athkar")):
