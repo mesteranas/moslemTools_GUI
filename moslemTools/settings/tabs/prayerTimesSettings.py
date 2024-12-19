@@ -53,6 +53,7 @@ class PrayerTimesSettings(qt.QWidget):
         path=os.path.join(os.getenv('appdata'),settings_handler.appName,"addan",adaanName)
         fileDialog=qt.QFileDialog(self,_("اختر صوت"))
         fileDialog.setDefaultSuffix("mp3")
+        fileDialog.setNameFilters(["audio files(*.mp3)"])
         if fileDialog.exec()==fileDialog.DialogCode.Accepted:
             try:
                 os.remove(path)
