@@ -15,6 +15,6 @@ class QuranPlayerSettings(qt.QWidget):
         self.duration=qt.QLineEdit()
         self.duration.setInputMask("999")
         self.duration.setText(settings_handler.get("quranPlayer","duration"))
-        self.duration.setAccessibleName(_("مدة الانتظار بين الآيات بالثواني"))
-        layout.addWidget(qt.QLabel(_("مدة الانتظار بين الآيات بالثواني")))
+        self.duration.setAccessibleName(_("مدة الانتظار بين التكرار بالثواني"))
+        layout.addWidget(qt.QLabel(_("مدة الانتظار بين التكرار بالثواني")))
         layout.addWidget(self.duration)

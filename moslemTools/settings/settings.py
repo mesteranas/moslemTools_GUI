@@ -31,7 +31,7 @@ class settings (qt.QDialog):
         self.prayerTimesSettings=tabs.PrayerTimesSettings(self)
         self.sectian.add(_("إعدادات الأذان"),self.prayerTimesSettings)
         self.quranPlayerTimes=tabs.QuranPlayerSettings()
-        self.sectian.add(_("إعدادات مشغل القرآن"),self.quranPlayerTimes)
+        self.sectian.add(_("إعدادات مشغل القرآن للقرآن المكتوب"),self.quranPlayerTimes)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()

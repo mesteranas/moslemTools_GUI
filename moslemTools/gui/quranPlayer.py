@@ -188,7 +188,7 @@ class QuranPlayer(qt.QDialog):
                 qt2.QTimer.singleShot(int(settings.settings_handler.get("quranPlayer","duration"))*1000,qt2.Qt.TimerType.PreciseTimer,self.onNextAyah)
             else:
                 self.currentTime+=1
-                self.media.play()
+                qt2.QTimer.singleShot(int(settings.settings_handler.get("quranPlayer","duration"))*1000,qt2.Qt.TimerType.PreciseTimer,self.media.play)
     def getCurrentReciter(self):
         index=int(settings.settings_handler.get("g","reciter"))
         name=list(reciters.keys())[index]
