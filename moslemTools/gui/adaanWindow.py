@@ -2,7 +2,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
-from .after_azaan import AfterAdaan
+from.after_azaan import AfterAdaan
 class AdaanDialog(qt.QDialog):
     def __init__(self,p,index:int,title:str):
         super().__init__(p)
@@ -29,5 +29,5 @@ class AdaanDialog(qt.QDialog):
     def onStateChanged(self,state):
         if state==self.media_player.MediaStatus.EndOfMedia:            
             self.accept()            
-            window=AfterAdaan(self)
+            window=AfterAdaan()
             window.exec()
