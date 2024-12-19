@@ -19,6 +19,10 @@ class PrayerTimesSettings(qt.QWidget):
         self.changeAdaanSound.setVisible(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.changeAdaanSound.clicked.connect(lambda:self.onChangeAdaanButtonClicked("genral.mp3"))
         layout.addWidget(self.changeAdaanSound)
+        self.worning=qt.QLineEdit()
+        self.worning.setReadOnly(True)
+        self.worning.setText(_("تنبيه هام, في حالة اختيار صوت للأذان من الجهاز, الرجاء اختيار ملف صوتي بامتداد .mp3"))
+        layout.addWidget(self.worning)
     def onprayerTimesReminderCheckboxStateChanged(self,state):
         self.changeAdaanSound.setVisible(state)
         self.changeFajrSound.setVisible(state)
