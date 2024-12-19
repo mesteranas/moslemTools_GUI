@@ -49,7 +49,8 @@ settingsConfig={
 		"beta":"False"
 	},
 	"quranPlayer":{
-		"times":"1"
+		"times":"1",
+		"duration":"0"
 	}
 }
 if not os.path.exists(cpath):

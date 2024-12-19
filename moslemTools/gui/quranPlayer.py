@@ -185,7 +185,7 @@ class QuranPlayer(qt.QDialog):
     def on_state(self,state):
         if state==QMediaPlayer.MediaStatus.EndOfMedia:
             if self.times==self.currentTime:
-                self.onNextAyah()
+                qt2.QTimer.singleShot(int(settings.settings_handler.get("quranPlayer","duration"))*1000,qt2.Qt.TimerType.PreciseTimer,self.onNextAyah)
             else:
                 self.currentTime+=1
                 self.media.play()
