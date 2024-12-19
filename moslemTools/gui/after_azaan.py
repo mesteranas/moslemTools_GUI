@@ -7,8 +7,7 @@ class AfterAdaan(qt.QDialog):
         super().__init__(p)
         self.resize(1200,600)
         self.setWindowTitle(_("دعاء بعد الأذان"))
-        self.media_player=QMediaPlayer()
-        self.media_player.mediaStatusChanged.connect(self.onStateChanged)
+        self.media_player=QMediaPlayer()        
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
         self.media_player.setSource(qt2.QUrl.fromLocalFile("data/sounds/prayAfterAdaan.m4a"))
@@ -25,7 +24,4 @@ class AfterAdaan(qt.QDialog):
         qt1.QShortcut("escape",self).activated.connect(self.close)
     def closeEvent(self,event):
         self.media_player.stop()
-        self.accept()
-    def onStateChanged(self,state):
-        if state==self.media_player.MediaStatus.EndOfMedia:            
-            self.accept()            
+        self.accept()    

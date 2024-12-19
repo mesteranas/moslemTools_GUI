@@ -29,7 +29,7 @@ class settings (qt.QDialog):
         self.tafaseerSettings=tabs.TafaseerSettings()
         self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
         self.prayerTimesSettings=tabs.PrayerTimesSettings(self)
-        self.sectian.add(_("إعدادات مواقيت الصلاة"),self.prayerTimesSettings)
+        self.sectian.add(_("إعدادات الأذان"),self.prayerTimesSettings)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
         self.translationSettings=tabs.translationSettings()

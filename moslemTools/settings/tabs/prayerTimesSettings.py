@@ -7,15 +7,15 @@ class PrayerTimesSettings(qt.QWidget):
     def __init__(self,p):
         super().__init__()
         layout=qt.QVBoxLayout(self)
-        self.adaanReminder=qt.QCheckBox(_("التنبيه بالآذان"))
+        self.adaanReminder=qt.QCheckBox(_("التنبيه بالأذان"))
         self.adaanReminder.setChecked(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.adaanReminder.stateChanged.connect(self.onprayerTimesReminderCheckboxStateChanged)
         layout.addWidget(self.adaanReminder)
-        self.changeFajrSound=qt.QPushButton(_("تغيير صوت آذان الفجر"))
+        self.changeFajrSound=qt.QPushButton(_("تغيير صوت أذان الفجر"))
         self.changeFajrSound.setVisible(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.changeFajrSound.clicked.connect(lambda:self.onChangeAdaanButtonClicked("fajr.mp3"))
         layout.addWidget(self.changeFajrSound)
-        self.changeAdaanSound=qt.QPushButton(_("تغيير صوت الآذان"))
+        self.changeAdaanSound=qt.QPushButton(_("تغيير صوت الأذان"))
         self.changeAdaanSound.setVisible(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.changeAdaanSound.clicked.connect(lambda:self.onChangeAdaanButtonClicked("genral.mp3"))
         layout.addWidget(self.changeAdaanSound)
@@ -25,21 +25,22 @@ class PrayerTimesSettings(qt.QWidget):
     def onChangeAdaanButtonClicked(self,adaanName):
         contextMenu=qt.QMenu(_("اختر صوت"),self)
         contextMenu.setAccessibleName(_("اختر صوت"))
-        default=qt1.QAction(_("الآذان الإفتراضي"),self)
+        default=qt1.QAction(_("الأذان الإفتراضي"),self)
         contextMenu.addAction(default)
         contextMenu.setDefaultAction(default)
         default.triggered.connect(lambda:self.onDefaultActionTriggered(adaanName))
-        chooseFromDevice=qt1.QAction(_("اختر من الجهاذ"),self)
+        chooseFromDevice=qt1.QAction(_("اختر من الجهاز"),self)
         contextMenu.addAction(chooseFromDevice)
         chooseFromDevice.triggered.connect(lambda:self.onChooseFromDevice(adaanName))
         contextMenu.setFocus()
-        contextMenu.exec()
+        mouse_position=qt1.QCursor.pos()
+        contextMenu.exec(mouse_position)
     def onDefaultActionTriggered(self,adaanName):
         path=os.path.join(os.getenv('appdata'),settings_handler.appName,"addan",adaanName)
         try:
             os.remove(path)
             shutil.copy("data/sounds/adaan/" + adaanName,path)
-            qt.QMessageBox.information(self,_("تم"),_("تم تغيير صوت الآذان بنجاح"))
+            qt.QMessageBox.information(self,_("تم"),_("تم تغيير صوت الأذان بنجاح"))
         except:
             qt.QMessageBox.critical(self,_("خطأ"),_("حدث خطأ غير متوقع"))
     def onChooseFromDevice(self,adaanName):
@@ -50,6 +51,6 @@ class PrayerTimesSettings(qt.QWidget):
             try:
                 os.remove(path)
                 shutil.copy(fileDialog.selectedFiles()[0],path)
-                qt.QMessageBox.information(self,_("تم"),_("تم تغيير صوت الآذان بنجاح"))
+                qt.QMessageBox.information(self,_("تم"),_("تم تغيير صوت الأذان بنجاح"))
             except:
                 qt.QMessageBox.critical(self,_("خطأ"),_("حدث خطأ غير متوقع"))
