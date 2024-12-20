@@ -86,11 +86,14 @@ class main(qt.QMainWindow):
         if formatDuration("athkar","voice")!=0:
             self.timer.start(formatDuration("athkar","voice"))    
     def closeEvent(self, event):
-        if settings_handler.get("g","exitDialog")=="True":
-            m=guiTools.ExitApp(self)
-            m.exec()
-            if m:
-                event.ignore()
+        if app.exit:
+            if settings_handler.get("g","exitDialog")=="True":
+                m=guiTools.ExitApp(self)
+                m.exec()
+                if m:
+                    event.ignore()
+            else:
+                self.close()
         else:
             self.close()
     def random_audio_theker(self):        

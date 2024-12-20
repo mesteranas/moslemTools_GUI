@@ -22,6 +22,7 @@ class download(qt.QDialog):
         self.resize(600,500)
         layout=qt.QVBoxLayout(self)
         self.setWindowTitle(_("جديد {} إصدار {}").format(settings.app.name,str(version)))
+        self.p=p
         whatsn=guiTools.QReadOnlyTextEdit()
         whatsn.setAccessibleName(_("ما الجديد"))
         whatsn.setText(whatsNew)
@@ -37,4 +38,5 @@ class download(qt.QDialog):
         layout.addWidget(self.Close)
     def onUpdate(self):
         self.close()
+        settings.app.exit=False
         DownloadUpdateGUI(self,self.URL).exec()

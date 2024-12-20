@@ -54,6 +54,7 @@ class DownloadUpdateGUI(qt.QDialog):
     def __init__(self,p,URL):
         super().__init__(p)
         self.setWindowTitle(_("جاري التحديث"))
+
         layout=qt.QVBoxLayout(self)
         self.state=qt.QLabel(_("يجري الآن تحميل التحديث"))
         layout.addWidget(self.state)
