@@ -49,11 +49,7 @@ class DownloadUpdateThread(qt2.QRunnable):
                 self.object.installing.emit("yes")
         except:
             self.object.finish.emit("error")
-        try:
-            subprocess.Popen('"{}" /silent'.format(Name),shell=True)
-        except:
-            self.object.finish.emit("error")
-        qt.QApplication.exit()
+        self.object.finish.emit(Name)
 class DownloadUpdateGUI(qt.QDialog):
     def __init__(self,p,URL):
         super().__init__(p)
@@ -85,6 +81,9 @@ class DownloadUpdateGUI(qt.QDialog):
         if c=="error":
             qt.QMessageBox.critical(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
             self.close()
+        else:
+            subprocess.Popen([c, "/SILENT", "/NOCANCEL", "/SUPPRESSMSGBOXES", "/NORESTART"])
+            qt.QApplication.exit()
     def cancelBTN(self):
         self.run.object.download.emit(False)
         self.close()

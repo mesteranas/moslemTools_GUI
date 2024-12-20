@@ -93,7 +93,7 @@ class prayer_times(qt.QWidget):
                     'Isha': _('العشاء')
                 }                
                 self.prayers=list(prayers_ar.values())
-                self.times=["03:40 PM"]
+                self.times=[]
                 self.timer.start(10000)
                 for prayer_en, prayer_ar in prayers_ar.items():
                     time_24h=data[prayer_en]
