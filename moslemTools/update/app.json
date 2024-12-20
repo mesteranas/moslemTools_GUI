@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
-"version": 3.0,
-"what is new": "1 Adding the pause in the Quran kareem as a text\n2 Add the ability to delete resources directly from the application\n3 Check if a specific resource has been downloaded\n4 Add some important alerts in the settings\n5 additional textual supplications\n6 Add the option to run the program when the system starts from the program\n7 Add a link explaining the program\n8 fix errors\n\nenjoy",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v3.0/moslem_tools_V3.0.exe",
+"version": 4.0,
+"what is new": "1 Added azan\n1 تم إضافة الأذان\n2Added repetition of verses in the Quran player for quran as text\n2 تم إضافاة تكرار الآيات في مشغل القرآن المكتوب\n3 Reload prayer times without restarting the program\n3 إعادة تحميل أوقات الصلاة بدون إعادة تشغيل البرنامج\n4 fixed some errors\n4 تم إصلاح بعض الأخطاء",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v4.0/moslem_tools_version_4.0.exe",
 "is_beta": false
 }
