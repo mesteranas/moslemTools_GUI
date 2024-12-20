@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
-"version": 4.0,
-"what is new": "1 Added azan\n1 تم إضافة الأذان\n2Added repetition of verses in the Quran player for quran as text\n2 تم إضافاة تكرار الآيات في مشغل القرآن المكتوب\n3 Reload prayer times without restarting the program\n3 إعادة تحميل أوقات الصلاة بدون إعادة تشغيل البرنامج\n4 fixed some errors\n4 تم إصلاح بعض الأخطاء",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v4.0/moslem_tools_version_4.0.exe",
+"version": 4.1,
+"what is new": "fixed alot of errors",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v4.1/moslem_tools_version_4.1.exe",
 "is_beta": false
 }
