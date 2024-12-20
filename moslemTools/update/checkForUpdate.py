@@ -28,9 +28,13 @@ class download(qt.QDialog):
         self.URL=URL
         self.download=qt.QPushButton(_("تحميل"))
         self.download.setDefault(True)
-        self.download.clicked.connect(lambda:DownloadUpdateGUI(self,URL).exec())
+        self.download.clicked.connect(self.onUpdate)
+        self.URL=URL
         self.Close=qt.QPushButton(_("إغلاق"))
         self.Close.clicked.connect(lambda:self.close())
         layout.addWidget(whatsn)
         layout.addWidget(self.download)
         layout.addWidget(self.Close)
+    def onUpdate(self):
+        self.close()
+        DownloadUpdateGUI(self,self.URL).exec()

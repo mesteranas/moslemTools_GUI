@@ -41,7 +41,7 @@ class DownloadUpdateThread(qt2.QRunnable):
                     for pk in r.iter_content(1024):
                         if not self.downloading:
                             file.close()
-                            return
+                            self.object.finish.emit("cancelled")
                         file.write(pk)
                         recieved+=len(pk)
                         progress=int((recieved/size)*100)
@@ -80,6 +80,8 @@ class DownloadUpdateGUI(qt.QDialog):
     def finish(self,c):
         if c=="error":
             qt.QMessageBox.critical(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
+            self.close()
+        elif c=="cancelled":
             self.close()
         else:
             subprocess.Popen([c, "/SILENT", "/NOCANCEL", "/SUPPRESSMSGBOXES", "/NORESTART"])
