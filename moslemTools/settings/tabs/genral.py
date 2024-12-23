@@ -33,10 +33,12 @@ class Genral(qt.QWidget):
         self.reciter.addItems(gui.reciters.keys())
         self.reciter.setCurrentIndex(int(settings_handler.get("g","reciter")))
         self.reciter.setAccessibleName(_("تحديد القارئ للقرآن المكتوب"))
+        self.reciter.setAccessibleDescription(_("لحذف القارئ المحدد قم بالضغط على زر الحذف أو زر التطبيقات"))
         self.reciter.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.reciter.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
         layout1.addWidget(qt.QLabel(_("تحديد القارئ للقرآن المكتوب")))
+        layout1.addWidget(qt.QLabel(_("لحذف القارئ المحدد قم بالضغط على زر الحذف أو زر التطبيقات")))
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
         try:
