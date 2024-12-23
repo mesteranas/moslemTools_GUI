@@ -21,7 +21,7 @@ class AdaanDialog(qt.QDialog):
         else:
             self.media_player.setSource(qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.settings_handler.appName,"addan","genral.mp3")))
         self.media_player.play()
-        qt1.QShortcut("escape",self).activated.connect(self.close)
+        qt1.QShortcut("escape",self).activated.connect(self.closeEvent)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.lay)
     def closeEvent(self,event):

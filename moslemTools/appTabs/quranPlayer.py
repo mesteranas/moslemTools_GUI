@@ -96,7 +96,7 @@ class QuranPlayer(qt.QWidget):
         self.listWidget.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.listWidget.customContextMenuRequested.connect(self.open_context_menu)                
         self.load_reciter_files()                        
-    def delete_surah(self, surah_name=None):
+    def delete_surah(self,surah_name=None):
         reciter=self.comboBox.currentText()
         reciter_folder=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)    
         try:
