@@ -61,7 +61,8 @@ class QuranPlayer(qt.QWidget):
         self.mp.setAudioOutput(self.au)
         self.Slider=qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.Slider.setRange(0,100)
-        self.Slider.setAccessibleName(_("الوقت المنقدي"))
+        self.Slider.setAccessibleName(_("الوقت المنقدي"))                
+        self.Slider.setTracking(True)
         self.mp.durationChanged.connect(self.update_slider)
         self.mp.positionChanged.connect(self.update_slider)        
         self.duration=qt.QLineEdit()
@@ -149,10 +150,13 @@ class QuranPlayer(qt.QWidget):
             downloaded_surahs={os.path.splitext(file)[0] for file in all_files if file.endswith(".mp3")}
             if downloaded_surahs >= set(all_surahs):  # جميع السور محملة
                 self.delete.setVisible(True)
+                self.dl_all_app.setVisible(False)
             else:
                 self.delete.setVisible(False)
+                self.dl_all_app.setVisible(True)
         else:
             self.delete.setVisible(False)
+            self.dl_all_app.setVisible(True)
     def check_current_surah_downloaded(self):
         reciter=self.comboBox.currentText()
         selected_item=self.listWidget.currentItem()
@@ -293,20 +297,26 @@ class QuranPlayer(qt.QWidget):
         menu2.addAction(dl_action_ofline)        
         menu2.exec(position)    
     def open_context_menu(self, position):
-        menu=qt.QMenu(self)        
+        menu=qt.QMenu(self)
         play_action=qt1.QAction(_("تشغيل السورة المحددة"), self)
-        download_action=qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
         play_action.triggered.connect(self.play_selected_audio)
-        download_action.triggered.connect(self.download_selected_audio)
-        download_app_action=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
-        download_app_action.triggered.connect(self.download_selected_audio_to_app)
+        menu.addAction(play_action)
+        selected_item=self.listWidget.currentItem()
+        if selected_item:
+            surah_name=selected_item.text()
+            reciter = self.comboBox.currentText()
+            surah_path=os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter, f"{surah_name}.mp3")        
+            if not os.path.exists(surah_path):
+                download_app_action=qt1.QAction(_("تحميل السورة المحددة في التطبيق"), self)
+                download_app_action.triggered.connect(self.download_selected_audio_to_app)
+                menu.addAction(download_app_action)        
+            download_device_action=qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
+            download_device_action.triggered.connect(self.download_selected_audio)
+            menu.addAction(download_device_action)
         delete_option=self.check_current_surah_downloaded()
-        menu.addAction(play_action)        
-        menu.addAction(download_action)
-        menu.addAction(download_app_action)
         if delete_option:
             menu.addAction(delete_option)
-        menu.exec(self.listWidget.viewport().mapToGlobal(position))    
+        menu.exec(self.listWidget.viewport().mapToGlobal(position))
     def play_selected_audio(self):
         try:
             reciter=self.comboBox.currentText()
@@ -388,22 +398,22 @@ class QuranPlayer(qt.QWidget):
     def decrease_volume(self):
         current_volume=self.au.volume()
         new_volume=current_volume-0.10
-        self.au.setVolume(new_volume)                
+        self.au.setVolume(new_volume)                    
     def update_slider(self):
-        try:
-            self.Slider.setValue(int((self.mp.position()/self.mp.duration())*100))
-            self.time_VA()
+        try:            
+            self.Slider.setValue(int((self.mp.position() / self.mp.duration()) * 100))                
+            self.time_VA()            
         except:
             self.duration.setText(_("خطأ في الحصول على مدة المقطع"))
     def time_VA(self):
         position=self.mp.position()
         duration=self.mp.duration()
-        position_hours=(position // 3600000) % 24
-        position_minutes=(position // 60000) % 60
-        position_seconds=(position // 1000) % 60
-        duration_hours=(duration // 3600000) % 24
-        duration_minutes=(duration // 60000) % 60
-        duration_seconds=(duration // 1000) % 60
-        position_str=qt2.QTime(position_hours, position_minutes, position_seconds).toString("HH:mm:ss")
-        duration_str=qt2.QTime(duration_hours, duration_minutes, duration_seconds).toString("HH:mm:ss")        
-        self.duration.setText(_("الوقت المنقضي: ") + position_str + _("، مدة المقطع: ") + duration_str)
+        remaining=duration - position
+        position_str=qt2.QTime(0, 0, 0).addMSecs(position).toString("HH:mm:ss")
+        duration_str=qt2.QTime(0, 0, 0).addMSecs(duration).toString("HH:mm:ss")
+        remaining_str=qt2.QTime(0, 0, 0).addMSecs(remaining).toString("HH:mm:ss")
+        self.duration.setText(
+            _("الوقت المنقضي: ") + position_str+
+            _("، الوقت المتبقي: ") + remaining_str+
+            _("، مدة المقطع: ") + duration_str
+        )        
