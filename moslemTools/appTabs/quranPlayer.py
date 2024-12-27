@@ -63,6 +63,7 @@ class QuranPlayer(qt.QWidget):
         self.Slider.setRange(0,100)
         self.Slider.setAccessibleName(_("الوقت المنقدي"))                
         self.Slider.setTracking(True)
+        self.Slider.valueChanged.connect(self.set_position_from_slider)
         self.mp.durationChanged.connect(self.update_slider)
         self.mp.positionChanged.connect(self.update_slider)        
         self.duration=qt.QLineEdit()
@@ -399,10 +400,16 @@ class QuranPlayer(qt.QWidget):
         current_volume=self.au.volume()
         new_volume=current_volume-0.10
         self.au.setVolume(new_volume)                    
+    def set_position_from_slider(self, value):
+        duration=self.mp.duration()
+        new_position=int((value/100)*duration)
+        self.mp.setPosition(new_position)
     def update_slider(self):
-        try:            
-            self.Slider.setValue(int((self.mp.position() / self.mp.duration()) * 100))                
-            self.time_VA()            
+        try:
+            self.Slider.blockSignals(True)
+            self.Slider.setValue(int((self.mp.position() / self.mp.duration()) * 100))
+            self.Slider.blockSignals(False)
+            self.time_VA()
         except:
             self.duration.setText(_("خطأ في الحصول على مدة المقطع"))
     def time_VA(self):
