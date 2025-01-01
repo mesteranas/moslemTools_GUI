@@ -1,5 +1,4 @@
-import guiTools,pyperclip,winsound,json,functions,re
-from settings import *
+import guiTools,pyperclip,winsound,json,functions,re,os,settings
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -113,9 +112,9 @@ class Albaheth(qt.QWidget):
         if I==0:
             listOfWords=functions.quranJsonControl.getQuran()
         elif I==1:
-            bookName=functions.ahadeeth.ahadeeths[self.ahadeeth.currentText()]
-            with open("data/json/ahadeeth/" + bookName,"r",encoding="utf-8") as file:
-                ahadeeth=json.load(file)
+            book_name=functions.ahadeeth.ahadeeths[self.ahadeeth.currentText()]
+            with open(os.path.join(os.getenv('appdata'),settings.app.appName,"ahadeeth",book_name),"r",encoding="utf-8") as f:
+                ahadeeth=json.load(f)
             listOfWords=[]
             for item in ahadeeth:
                 listOfWords.append(str(ahadeeth.index(item)+1) + item)
