@@ -13,7 +13,7 @@ class TextViewer(qt.QDialog):
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
         self.setWindowTitle(title)
-        self.showFullScreen()
+        self.resize(1200,600)
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setText(text)
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
