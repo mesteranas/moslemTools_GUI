@@ -5,5 +5,4 @@ nvda = ctypes.windll.LoadLibrary(os.path.join(os.getcwd(),"data","dlls","nvda_sp
 def speak(msg):
 	running = nvda.nvdaController_testIfRunning()
 	if running != 1:
-		nvda.nvdaController_speakText(msg)
-	print(msg)
+		nvda.nvdaController_speakText(msg)	

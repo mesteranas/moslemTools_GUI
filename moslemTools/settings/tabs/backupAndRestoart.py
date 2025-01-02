@@ -34,6 +34,7 @@ class Thread (qt2.QRunnable):
 class GUIForThread(qt.QDialog):
     def __init__ (self,p,path,choice):
         super().__init__(p)
+        self.resize(500,500)
         self.setWindowTitle(_("جاري إتمام العملية . يرجى الانتظار ..."))
         self.thread=Thread(path,choice)
         self.thread.objects.finish.connect(self.onFinished)
