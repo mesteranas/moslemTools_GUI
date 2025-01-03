@@ -22,6 +22,6 @@ class AfterAdaan(qt.QDialog):
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.suplication)        
         qt1.QShortcut("escape",self).activated.connect(self.closeEvent)
-    def closeEvent(self,event):
+    def closeEvent(self):
         self.media_player.stop()
         self.accept()    
