@@ -61,6 +61,8 @@ class QuranPlayer(qt.QDialog):
         qt1.QShortcut("escape",self).activated.connect(self.close)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
+        qt1.QShortcut("shift+up",self).activated.connect(self.volume_up)
+        qt1.QShortcut("shift+down",self).activated.connect(self.volume_down)
         self.on_play()
     def OnContextMenu(self):
         if self.media.isPlaying():
@@ -223,3 +225,7 @@ class QuranPlayer(qt.QDialog):
         name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.index,True,name)
+    def volume_up(self):
+        self.audioOutput.setVolume(self.audioOutput.volume()+0.10)
+    def volume_down(self):
+        self.audioOutput.setVolume(self.audioOutput.volume()-0.10)
