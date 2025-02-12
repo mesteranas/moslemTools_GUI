@@ -117,6 +117,9 @@ class QuranViewer(qt.QDialog):
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
+        playFromVersToVersAction=qt1.QAction(_("التشغيل من الآية إلى الآية"),self)
+        surahOption.addAction(playFromVersToVersAction)
+        playFromVersToVersAction.triggered.connect(self.playFromVersToVers)
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية السورة"),self)
         surahOption.addAction(playSurahToEnd)
         playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category).exec())
@@ -291,3 +294,15 @@ class QuranViewer(qt.QDialog):
         name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.getCurrentAyah(),False,name)
+    def playFromVersToVers(self):
+        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        if ok:
+            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            if ok:
+                verses=[]
+                allVerses=self.quranText.split("\n")
+                for vers in allVerses:
+                    index=allVerses.index(vers)+1
+                    if index>=FromVers and index<=toVers:
+                        verses.append(vers)
+                QuranPlayer(self,"\n".join(verses),0,self.type,self.category).exec()
