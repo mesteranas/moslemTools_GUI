@@ -3,11 +3,13 @@ from settings import *
 from hijri_converter import Gregorian,Hijri
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
+import PyQt6.QtCore as qt2
 language.init_translation()
 class DateConverter(qt.QWidget):
     def __init__(self):
         super().__init__()            
         self.l_Converter=qt.QLabel(_("إختيار نوع التحويل"))
+        self.l_Converter.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.Converter_combo=qt.QComboBox()
         self.Converter_combo.setAccessibleName(_("إختيار نوع التحويل"))
         self.Converter_combo.addItem(_("التحويل من هجري الى ميلادي"))
@@ -15,13 +17,16 @@ class DateConverter(qt.QWidget):
         self.Converter_combo.currentIndexChanged.connect(self.update_month_combo)
         self.Converter_combo.currentIndexChanged.connect(self.update_button_text)
         self.l_year=qt.QLabel(_("العام"))
+        self.l_year.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.year=qt.QLineEdit()
         self.year.setAccessibleName(_("العام"))        
         self.year.setInputMask("9999")
-        self.l_month=qt.QLabel(_("الشهر"))
+        self.l_month=qt.QLabel(_("الشهر"))        
+        self.l_month.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.month_combo=qt.QComboBox()
         self.month_combo.setAccessibleName(_("الشهر"))
-        self.l_day=qt.QLabel(_("اليوم"))
+        self.l_day=qt.QLabel(_("اليوم"))        
+        self.l_day.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.day=qt.QLineEdit()
         self.day.setAccessibleName(_("اليوم"))
         self.v=qt1.QIntValidator(1,31)
@@ -32,9 +37,11 @@ class DateConverter(qt.QWidget):
         self.Convert.setDefault(True)
         self.Convert.clicked.connect(self.convert_date)
         self.l_result=qt.QLabel(_("النتيجة"))
+        self.l_result.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.result=qt.QLineEdit()
         self.result.setReadOnly(True)
         self.result.setAccessibleName(_("النتيجة"))
+        self.result.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.copy_result=qt.QPushButton(_("نسخ النتيجة"))
         self.copy_result.setDefault(True)
         self.copy_result.clicked.connect(self.copy)

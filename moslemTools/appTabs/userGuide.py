@@ -25,6 +25,7 @@ class UserGuide(qt.QWidget):
         self.show_font=qt.QLineEdit()
         self.show_font.setReadOnly(True)
         self.show_font.setAccessibleName(_("حجم النص"))        
+        self.show_font.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.show_font.setText(str(self.font_size))
         layout=qt.QVBoxLayout(self)        
         layout.addWidget(self.guide)        

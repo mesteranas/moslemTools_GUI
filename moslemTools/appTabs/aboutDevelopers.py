@@ -1,6 +1,7 @@
 import guiTools,webbrowser
 from settings import *
 import PyQt6.QtWidgets as qt
+import PyQt6.QtCore as qt2
 language.init_translation()
 class About_developers(qt.QWidget):
     def __init__(self):
@@ -20,6 +21,7 @@ class About_developers(qt.QWidget):
         self.info_text=qt.QLineEdit()
         self.info_text.setReadOnly(True)
         self.info_text.setText(_("اللهم اجعل عملنا هذا في ميزان حسناتنا وصدقة جارية لنا"))
+        self.info_text.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout=qt.QVBoxLayout()
         layout.addWidget(self.info)
         layout.addWidget(self.info_text)

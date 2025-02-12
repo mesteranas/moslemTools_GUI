@@ -1,17 +1,23 @@
 import gui,guiTools,functions
 from settings import *
 import PyQt6.QtWidgets as qt
+import PyQt6.QtCore as qt2
 language.init_translation()
 class Quran(qt.QWidget):
     def __init__(self):
         super().__init__()
         layout=qt.QVBoxLayout(self)
-        layout.addWidget(qt.QLabel(_("بحث")))
+        self.serch=qt.QLabel(_("بحث"))
+        self.serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.serch)
         self.search_bar=qt.QLineEdit()        
         self.search_bar.setPlaceholderText(_("بحث ..."))
         self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.search_bar)
-        layout.addWidget(qt.QLabel(_("التصفح ب")))
+        self.by=qt.QLabel(_("التصفح ب"))
+        self.by.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.by)
         self.type=qt.QComboBox()
         self.type.setAccessibleName(_("التصفح ب"))
         self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب")])

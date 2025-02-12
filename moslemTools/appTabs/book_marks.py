@@ -2,10 +2,12 @@ import gui,guiTools,functions
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
+import PyQt6.QtCore as qt2
 class book_marcks(qt.QWidget):
     def __init__(self):
         super().__init__()
         self.Category_label=qt.QLabel(_("إختيار الفئة"))
+        self.Category_label.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.Category=qt.QComboBox()
         self.Category.addItem(_("القرآن الكريم"))
         self.Category.addItem(_("الأحاديث"))

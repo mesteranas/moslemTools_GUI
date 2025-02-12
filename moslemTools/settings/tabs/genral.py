@@ -11,6 +11,7 @@ class Genral(qt.QWidget):
     def __init__(self,p):
         super().__init__()
         label=qt.QLabel(_("لغة التطبيق"))
+        label.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.language=qt.QComboBox()
         self.language.setAccessibleName(_("لغة التطبيق"))
         self.language.addItems(language.lang().keys())
@@ -37,8 +38,11 @@ class Genral(qt.QWidget):
         self.reciter.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.reciter.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
-        layout1.addWidget(qt.QLabel(_("تحديد القارئ للقرآن المكتوب")))
-        layout1.addWidget(qt.QLabel(_("لحذف القارئ المحدد قم بالضغط على زر الحذف أو زر التطبيقات")))
+        reciter_laybol=qt.QLabel(_("تحديد القارئ للقرآن المكتوب"))
+        reciter_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout1.addWidget(reciter_laybol)
+        delete_laybol=qt.QLabel(_("لحذف القارئ المحدد قم بالضغط على زر الحذف أو زر التطبيقات"))
+        layout1.addWidget(delete_laybol)
         layout1.addWidget(self.reciter)
     def add_to_startup(self):
         try:
