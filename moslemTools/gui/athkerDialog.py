@@ -22,7 +22,7 @@ class AthkerDialog (qt.QDialog):
         self.athkerViewer=guiTools.QReadOnlyTextEdit()
         self.inex=0
         self.athkerViewer.setText(self.athkerList[self.inex]["text"])
-        self.font_size=20
+        self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
         self.athkerViewer.setFont(font)
