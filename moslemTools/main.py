@@ -18,7 +18,7 @@ class main(qt.QMainWindow):
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
         self.timer=qt2.QTimer(self)
-        self.timer.timeout.connect(self.random_audio_theker)
+        self.timer.timeout.connect(self.random_audio_theker)        
         layout=qt.QVBoxLayout()        
         self.tools=qt.QTabWidget()
         self.tools.addTab(prayer_times(),_("مواقيت الصلاة والتاريخ"))

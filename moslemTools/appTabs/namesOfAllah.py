@@ -18,7 +18,7 @@ class NamesOfAllah(qt.QWidget):
         self.information.setText(result)
         self.information.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.information.customContextMenuRequested.connect(self.OnContextMenu)
-        self.font_size=20
+        self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
         self.information.setFont(font)

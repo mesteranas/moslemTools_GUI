@@ -28,7 +28,7 @@ class QuranViewer(qt.QDialog):
         self.text.setText(text)
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.oncontextMenu)
-        self.font_size=20
+        self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
         self.text.setFont(font)
