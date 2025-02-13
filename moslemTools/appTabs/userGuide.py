@@ -4,9 +4,11 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
-class UserGuide(qt.QWidget):
+class UserGuide(qt.QDialog):
     def __init__(self):
         super().__init__()                
+        self.resize(1200,600)
+        self.setWindowTitle(_("دليل المستخدم"))
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)

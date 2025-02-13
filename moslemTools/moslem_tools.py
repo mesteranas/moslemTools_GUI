@@ -18,8 +18,8 @@ class main(qt.QMainWindow):
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
         self.timer=qt2.QTimer(self)
-        self.timer.timeout.connect(self.random_audio_theker)        
-        layout=qt.QVBoxLayout()                
+        self.timer.timeout.connect(self.random_audio_theker)
+        layout=qt.QVBoxLayout()
         content_layout=qt.QHBoxLayout()
         self.list_widget=qt.QListWidget()
         self.stacked_widget=qt.QStackedWidget()        
@@ -34,29 +34,35 @@ class main(qt.QMainWindow):
             (Athker, _("الأذكار والأدعية")),
             (sibha, _("سبحة إلكترونية")),
             (NamesOfAllah, _("أسماء الله الحُسْنى")),
-            (DateConverter, _("محول التاريخ")),
-            (UserGuide, _("دليل المستخدم")),
-            (About_developers, _("عن المطورين"))
+            (DateConverter, _("محول التاريخ"))            
         ]
         for widget_class, label in tabs:
             self.list_widget.addItem(label)
             instance=widget_class()
             self.stacked_widget.addWidget(instance)        
         self.list_widget.currentRowChanged.connect(self.stacked_widget.setCurrentIndex)
-        self.list_widget.setCurrentRow(0)        
+        self.list_widget.setCurrentRow(0)
         content_layout.addWidget(self.list_widget, 1)
         content_layout.addWidget(self.stacked_widget, 3)
         layout.addLayout(content_layout)        
         self.setting=guiTools.QPushButton(_("الإعدادات"))
         self.setting.clicked.connect(lambda: settings(self).exec())
-        layout.addWidget(self.setting)        
+        self.user_guide=guiTools.QPushButton(_("دليل المستخدم"))        
+        self.user_guide.clicked.connect(self.open_user_g_window)
+        self.about_devs=guiTools.QPushButton(_("عن المطورين"))                
+        self.about_devs.clicked.connect(self.open_developers_window)
+        buttons_layout=qt.QHBoxLayout()
+        buttons_layout.addWidget(self.setting)
+        buttons_layout.addWidget(self.user_guide)
+        buttons_layout.addWidget(self.about_devs)        
+        layout.addLayout(buttons_layout)
         w=qt.QWidget()
         w.setLayout(layout)
-        self.setCentralWidget(w)                
+        self.setCentralWidget(w)
         self.tray_icon=qt.QSystemTrayIcon(self)
         self.tray_icon.setIcon(qt1.QIcon("data/icons/app_icon.jpg"))
         self.tray_icon.setToolTip(app.name)
-        self.tray_menu=qt.QMenu(self)
+        self.tray_menu=qt.QMenu(self)        
         self.random_thecker_audio=qt1.QAction(_("تشغيل ذكر عشوائي"))
         self.random_thecker_audio.triggered.connect(self.random_audio_theker)
         self.random_thecker_text=qt1.QAction(_("عرض ذكر عشوائي"))
@@ -76,38 +82,38 @@ class main(qt.QMainWindow):
         self.runAudioThkarTimer()
         self.notification_random_thecker()
         if settings_handler.get("update", "autoCheck") == "True":
-            update.check(self, message=False)            
+            update.check(self, message=False)
     def toggle_visibility(self):
         if self.isVisible():
             self.hide()
             self.show_action.setText(_("إظهار البرنامج"))
         else:
             self.show()
-            self.show_action.setText(_("إخفاء البرنامج"))    
+            self.show_action.setText(_("إخفاء البرنامج"))
     def show_random_theker(self):
         with open("data/json/text_athkar.json", "r", encoding="utf_8") as f:
             data=json.load(f)
         random_theckr=random.choice(data)
-        guiTools.SendNotification(_("ذكر عشوائي"), random_theckr)    
+        guiTools.SendNotification(_("ذكر عشوائي"), random_theckr)
     def notification_random_thecker(self):
         self.TIMER1.stop()
         if formatDuration("athkar", "text") != 0:
-            self.TIMER1.start(formatDuration("athkar", "text"))    
+            self.TIMER1.start(formatDuration("athkar", "text"))
     def runAudioThkarTimer(self):
         self.timer.stop()
         if formatDuration("athkar", "voice") != 0:
-            self.timer.start(formatDuration("athkar", "voice"))    
+            self.timer.start(formatDuration("athkar", "voice"))
     def closeEvent(self, event):
         if app.exit:
             if settings_handler.get("g", "exitDialog") == "True":
-                m=guiTools.ExitApp(self)
+                m = guiTools.ExitApp(self)
                 m.exec()
                 if m:
                     event.ignore()
             else:
                 self.close()
         else:
-            self.close()    
+            self.close()
     def random_audio_theker(self):
         folder_path=r"data\sounds\athkar"
         sound_files=[f for f in os.listdir(folder_path) if f.endswith(('.ogg'))]
@@ -116,6 +122,12 @@ class main(qt.QMainWindow):
             file_path=os.path.join(folder_path, chosen_file)
             self.media_player.setSource(qt2.QUrl.fromLocalFile(file_path))
             self.media_player.play()
+    def open_user_g_window(self)    :
+        self.user_guide_window=UserGuide()
+        self.user_guide_window.show()
+    def open_developers_window(self):
+        self.developers_window=About_developers()
+        self.developers_window.show()
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

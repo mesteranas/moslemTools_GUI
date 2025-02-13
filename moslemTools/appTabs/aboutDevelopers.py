@@ -3,9 +3,11 @@ from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtCore as qt2
 language.init_translation()
-class About_developers(qt.QWidget):
+class About_developers(qt.QDialog):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle(_("عن المطورين"))
+        self.resize(1200,600)
         self.info=guiTools.QListWidget()
         self.info.itemClicked.connect(self.open_link)        
         self.info.addItem(_("عبد الرحمن محمد alcoder"))
