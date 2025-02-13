@@ -7,7 +7,7 @@ class About_developers(qt.QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(_("عن المطورين"))
-        self.resize(1200,600)
+        self.resize(1100,600)
         self.info=guiTools.QListWidget()
         self.info.itemClicked.connect(self.open_link)        
         self.info.addItem(_("عبد الرحمن محمد alcoder"))
