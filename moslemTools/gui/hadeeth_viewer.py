@@ -56,8 +56,10 @@ class hadeeth_viewer(qt.QDialog):
         layout.addWidget(self.show_font)
         layout.addWidget(self.hadeeth_number_laybol)
         layout.addWidget(self.show_hadeeth_number)
-        layout.addWidget(self.N_hadeeth)
-        layout.addWidget(self.P_hadeeth)
+        layout1=qt.QHBoxLayout()
+        layout1.addWidget(self.N_hadeeth)
+        layout1.addWidget(self.P_hadeeth)
+        layout.addLayout(layout1)
     def next_hadeeth(self):
         if self.index == len(self.data)-1:
             self.index=0
