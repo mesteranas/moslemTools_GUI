@@ -94,7 +94,6 @@ class QuranPlayer(qt.QDialog):
         addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
         aya.addAction(addNewBookMark)
         addNewBookMark.triggered.connect(self.onAddBookMark)
-
         Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
         aya.addAction(Previous_aya)
         Previous_aya.triggered.connect(self.onPreviousAyah)
@@ -114,15 +113,17 @@ class QuranPlayer(qt.QDialog):
         menu.addMenu(fontMenu)        
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def increase_font_size(self):
-        self.font_size += 1
-        guiTools.speak(str(self.font_size ))
-        self.show_font.setText(str(self.font_size))
-        self.update_font_size()
+        if self.font_size < 50:
+            self.font_size += 1
+            guiTools.speak(str(self.font_size))
+            self.show_font.setText(str(self.font_size))
+            self.update_font_size()
     def decrease_font_size(self):
-        self.font_size -= 1
-        guiTools.speak(str(self.font_size ))
-        self.show_font.setText(str(self.font_size))
-        self.update_font_size()
+        if self.font_size > 1:
+            self.font_size -= 1
+            guiTools.speak(str(self.font_size))
+            self.show_font.setText(str(self.font_size))
+            self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()
         self.text.selectAll()

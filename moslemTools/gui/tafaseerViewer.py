@@ -106,15 +106,17 @@ class TafaseerViewer(qt.QDialog):
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
-        self.font_size += 1
-        guiTools.speak(str(self.font_size ))
-        self.show_font.setText(str(self.font_size))
-        self.update_font_size()
+        if self.font_size < 50:
+            self.font_size += 1
+            guiTools.speak(str(self.font_size))
+            self.show_font.setText(str(self.font_size))
+            self.update_font_size()
     def decrease_font_size(self):
-        self.font_size -= 1
-        guiTools.speak(str(self.font_size ))
-        self.show_font.setText(str(self.font_size))
-        self.update_font_size()
+        if self.font_size > 1:
+            self.font_size -= 1
+            guiTools.speak(str(self.font_size))
+            self.show_font.setText(str(self.font_size))
+            self.update_font_size()
     def update_font_size(self):
         cursor=self.text.textCursor()
         self.text.selectAll()
