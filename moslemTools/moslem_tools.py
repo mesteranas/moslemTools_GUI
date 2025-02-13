@@ -59,6 +59,8 @@ class main(qt.QMainWindow):
         w=qt.QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
+        qt1.QShortcut("ctrl+tab",self).activated.connect(self.Nexttab)
+        qt1.QShortcut("ctrl+shift+tab",self).activated.connect(self.previousTab)
         self.tray_icon=qt.QSystemTrayIcon(self)
         self.tray_icon.setIcon(qt1.QIcon("data/icons/app_icon.jpg"))
         self.tray_icon.setToolTip(app.name)
@@ -128,6 +130,16 @@ class main(qt.QMainWindow):
     def open_developers_window(self):
         self.developers_window=About_developers()
         self.developers_window.show()
+    def Nexttab(self):
+        if self.list_widget.currentRow()==self.list_widget.count()-1:
+            self.list_widget.setCurrentRow(0)
+        else:
+            self.list_widget.setCurrentRow(int(self.list_widget.currentRow())+1)
+    def previousTab(self):
+        if self.list_widget.currentRow()==0:
+            self.list_widget.setCurrentRow(self.list_widget.count()-1)
+        else:
+            self.list_widget.setCurrentRow(self.list_widget.currentRow()-1)
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)
