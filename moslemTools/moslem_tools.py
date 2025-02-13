@@ -13,7 +13,7 @@ class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))
-        self.resize(1200,600)
+        self.resize(1100,600)
         self.media_player=QMediaPlayer()
         self.audio_output=QAudioOutput()
         self.media_player.setAudioOutput(self.audio_output)
