@@ -7,7 +7,7 @@ import PyQt6.QtCore as qt2
 class SelectAthkar(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
-        self.resize(500,500)
+        self.resize(700,500)
         layout=qt.QVBoxLayout(self)
         with open("data/json/athkar.json","r",encoding="utf-8-sig") as data:
             self.reciterData=json.load(data)

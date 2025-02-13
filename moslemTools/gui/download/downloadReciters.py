@@ -7,7 +7,7 @@ import PyQt6.QtCore as qt2
 class SelectReciter(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
-        self.resize(500,500)
+        self.resize(700,500)
         layout=qt.QVBoxLayout(self)
         self.reciterData=gui.reciters
         self.reciters=guiTools.QListWidget()
