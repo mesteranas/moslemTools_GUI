@@ -116,6 +116,9 @@ class Albaheth(qt.QWidget):
         ]        
         return matches        
     def onSearchClicked(self):
+        if not self.serch_input.text():
+            qt.QMessageBox.critical(self, _("تنبيه"), _("يرجى كتابة محتوى للبحث"))
+            return                                           
         I=self.serch.currentIndex()
         if I==0:
             listOfWords=functions.quranJsonControl.getQuran()
