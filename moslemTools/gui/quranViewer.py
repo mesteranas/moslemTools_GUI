@@ -117,7 +117,7 @@ class QuranViewer(qt.QDialog):
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
-        playFromVersToVersAction=qt1.QAction(_("التشغيل من الآية إلى الآية"),self)
+        playFromVersToVersAction=qt1.QAction(_("التشغيل من آية إلى آية"),self)
         surahOption.addAction(playFromVersToVersAction)
         playFromVersToVersAction.triggered.connect(self.playFromVersToVers)
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية السورة"),self)

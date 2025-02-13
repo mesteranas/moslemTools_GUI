@@ -30,7 +30,7 @@ class main(qt.QMainWindow):
         self.tools.addTab(protcasts(),(_("الإذاعات الإسلامية")))        
         self.tools.addTab(Athker(),_("الأذكار والأدعية"))                                        
         self.tools.addTab(sibha(),(_("سبحة إلكترونية")))
-        self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنة"))                                
+        self.tools.addTab(NamesOfAllah(),_("أسماء الله الحُسْنى"))
         self.tools.addTab(DateConverter(),(_("محول التاريخ")))        
         self.tools.addTab(UserGuide(),(_("دليل المستخدم")))
         self.tools.addTab(About_developers(),(_("عن المطورين")))                
