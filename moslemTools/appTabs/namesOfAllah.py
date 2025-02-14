@@ -13,7 +13,7 @@ class NamesOfAllah(qt.QWidget):
         layout=qt.QVBoxLayout(self)
         self.information=guiTools.QReadOnlyTextEdit()
         result=""
-        for item in self.data["names"]:
+        for item in self.data[settings_handler.get("g","lang")]:
             result+=item["name"] + " : \n" + item["meaning"]+"\n"
         self.information.setText(result)
         self.information.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)

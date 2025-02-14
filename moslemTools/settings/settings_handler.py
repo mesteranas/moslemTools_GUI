@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+import locale
 import os,shutil
 from . import app
 appName=app.appName
@@ -28,9 +29,20 @@ if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"ahadeeth")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"ahadeeth"))
 	shutil.copy("data/json/ahadeeth/nawawi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","nawawi40.json"))
 	shutil.copy("data/json/ahadeeth/qudsi40.json",os.path.join(os.getenv('appdata'),appName,"ahadeeth","qudsi40.json"))
+def getSystemLanguage():
+	try:
+		systemlanguage, encoding = locale.getdefaultlocale()
+		languages=os.listdir("data/languages")
+		for language in languages:
+			if language.lower() in systemlanguage.lower():
+				return language
+		return "ar"
+	except:
+		return "ar"
+
 settingsConfig={
 	"g":{
-		"lang":"ar",
+		"lang":getSystemLanguage(),
 		"exitdialog":"True",
 		"reciter":"0"
 	},
