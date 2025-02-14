@@ -116,6 +116,15 @@ class QuranViewer(qt.QDialog):
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
         surahOption.addAction(SurahInfoAction)
         SurahInfoAction.triggered.connect(self.onSurahInfo)
+        tafseerFromVersToVersAction=qt1.QAction(_("التفسير من آية إلى آية"))
+        surahOption.addAction(tafseerFromVersToVersAction)
+        tafseerFromVersToVersAction.triggered.connect(self.TafseerFromVersToVers)
+        translateFromVersToVersAction=qt1.QAction(_("الترجمة من آية إلى آية"))
+        surahOption.addAction(translateFromVersToVersAction)
+        translateFromVersToVersAction.triggered.connect(self.translateFromVersToVers)
+        IArabFromVersToVersAction=qt1.QAction(_("الإعراب من آية إلى آية"),self)
+        surahOption.addAction(IArabFromVersToVersAction)
+        IArabFromVersToVersAction.triggered.connect(self.IArabFromVersToVers)
         playFromVersToVersAction=qt1.QAction(_("التشغيل من آية إلى آية"),self)
         surahOption.addAction(playFromVersToVersAction)
         playFromVersToVersAction.triggered.connect(self.playFromVersToVers)
@@ -307,3 +316,22 @@ class QuranViewer(qt.QDialog):
                     if index>=FromVers and index<=toVers:
                         verses.append(vers)
                 QuranPlayer(self,"\n".join(verses),0,self.type,self.category).exec()
+    def TafseerFromVersToVers(self):
+        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        if ok:
+            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            if ok:
+                TafaseerViewer(self,FromVers,toVers).exec()
+    def translateFromVersToVers(self):
+        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        if ok:
+            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            if ok:
+                translationViewer(self,FromVers,toVers).exec()
+    def IArabFromVersToVers(self):
+        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        if ok:
+            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            if ok:
+                result=functions.iarab.getIarab(FromVers,toVers)
+                guiTools.TextViewer(self,_("إعراب"),result).exec()
