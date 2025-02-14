@@ -6,11 +6,17 @@ import PyQt6.QtCore as qt2
 class IslamicBooks(qt.QWidget):
     def __init__(self):
         super().__init__()
+        qt1.QShortcut("f5",self).activated.connect(self.refresh)
         self.list_of_abook=guiTools.QListWidget()
         self.list_of_abook.addItems(functions.islamicBooks.books.keys())
         self.list_of_abook.itemClicked.connect(self.open)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.list_of_abook)
+        self.info=qt.QLineEdit()
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info.setText(_("في حالة تحميل كتاب جديد, يرجى إعادة تحميل قائمة الكتب بالضغت على زر F5"))
+        layout.addWidget(self.info)
         self.list_of_abook.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_of_abook.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
@@ -42,3 +48,7 @@ class IslamicBooks(qt.QWidget):
         except Exception as error:
             print(error)
             qt.QMessageBox.critical(self,_("خطأ"),_("تعذر فتح الملف "))
+    def refresh(self):
+        functions.islamicBooks.setbook()
+        self.list_of_abook.clear()
+        self.list_of_abook.addItems(functions.islamicBooks.books.keys())

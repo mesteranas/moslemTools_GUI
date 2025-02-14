@@ -6,11 +6,17 @@ import PyQt6.QtCore as qt2
 class hadeeth(qt.QWidget):
     def __init__(self):
         super().__init__()
+        qt1.QShortcut("f5",self).activated.connect(self.refresh)
         self.list_of_ahadeeth=guiTools.QListWidget()
         self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
         self.list_of_ahadeeth.itemClicked.connect(self.open)
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.list_of_ahadeeth)
+        self.info=qt.QLineEdit()
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info.setText(_("في حالة تحميل كتاب جديد, يرجى إعادة تحميل قائمة الكتب بالضغت على زر F5"))
+        layout.addWidget(self.info)
         self.list_of_ahadeeth.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_of_ahadeeth.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
@@ -31,3 +37,7 @@ class hadeeth(qt.QWidget):
                     guiTools.speak(_("تم الحذف"))
     def open(self):
         gui.hadeeth_viewer(self,functions.ahadeeth.ahadeeths[self.list_of_ahadeeth.currentItem().text()]).exec()
+    def refresh(self):
+        functions.ahadeeth.setahadeeth()
+        self.list_of_ahadeeth.clear()
+        self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())

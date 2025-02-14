@@ -15,5 +15,5 @@ class PartSelection (qt.QDialog):
     def openPart(self):
         partName=self.parts.currentItem().text()
         partContent=self.content[partName]
-        self.close()
         book_viewer(self,self.bookName,partName,partContent).exec()
+        self.close()

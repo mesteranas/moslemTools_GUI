@@ -28,13 +28,13 @@ class main(qt.QMainWindow):
             (Quran, _("القرآن الكريم مكتوب")),
             (QuranPlayer, _("القرآن الكريم صوتي")),
             (hadeeth, _("الأحاديث النبوية والقدسية")),
+            (IslamicBooks,_("الكتب الإسلامية")),
             (book_marcks, _("العلامات المرجعية")),
             (Albaheth, _("الباحث في القرآن والأحاديث")),
             (protcasts, _("الإذاعات الإسلامية")),
             (Athker, _("الأذكار والأدعية")),
             (sibha, _("سبحة إلكترونية")),
             (NamesOfAllah, _("أسماء الله الحُسْنى")),
-            (IslamicBooks,_("الكتب الإسلامية")),
             (DateConverter, _("محول التاريخ"))            
         ]
         for widget_class, label in tabs:
@@ -106,7 +106,7 @@ class main(qt.QMainWindow):
         self.timer.stop()
         if formatDuration("athkar", "voice") != 0:
             self.timer.start(formatDuration("athkar", "voice"))
-    def closeEvent(self, event):
+    def closeEvent(self,event):
         if app.exit:
             if settings_handler.get("g", "exitDialog") == "True":
                 m = guiTools.ExitApp(self)
