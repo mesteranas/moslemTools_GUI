@@ -8,7 +8,7 @@ class Download(qt.QDialog):
         super().__init__()
         layout=qt.QVBoxLayout(self)
         self.types=guiTools.QListWidget()
-        self.types.addItems([_("كتاب تفسير"),_("ترجمة قرآن"),_("كتاب حديث"),_("قارئ للقرآن المكتوب"),_("أذكار وأدعية")])
+        self.types.addItems([_("كتاب تفسير"),_("ترجمة قرآن"),_("كتاب حديث"),_("قارئ للقرآن المكتوب"),_("أذكار وأدعية"),_("الكتب الإسلامية")])
         self.types.clicked.connect(self.onItemClicked)
         self.adminstration=qt.QLineEdit()
         self.adminstration.setReadOnly(True)
@@ -27,3 +27,5 @@ class Download(qt.QDialog):
             gui.download.SelectReciter(self).exec()
         elif index==4:
             gui.download.SelectAthkar(self).exec()
+        elif index==5:
+            gui.download.SelectItem(self,"all_islamic_books.json","islamicBooks").exec()

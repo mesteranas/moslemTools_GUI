@@ -4,13 +4,13 @@ from settings import app
 bookMarksPath=os.path.join(os.getenv('appdata'),app.appName,"bookMarks.json")
 if not os.path.exists(bookMarksPath):
     with open(bookMarksPath,"w",encoding="utf-8") as file:
-        json.dump({"quran":[],"ahadeeth":[]},file,ensure_ascii=False,indent=4)
+        json.dump({"quran":[],"ahadeeth":[],"islamicBooks":[]},file,ensure_ascii=False,indent=4)
 def openBookMarksFile():
     try:
         with open(bookMarksPath,"r",encoding="utf-8") as file:
             return json.load(file)
     except:
-        return {"quran":[],"ahadeeth":[]}
+        return {"quran":[],"ahadeeth":[],"islamicBooks":[]}
 def saveBookMarks(bookMarksList:dict):
     with open(bookMarksPath,"w",encoding="utf-8") as file:
         json.dump(bookMarksList,file,ensure_ascii=False,indent=4)
@@ -82,3 +82,32 @@ def openQuranByBookMarkName(p,bookMarkName:str):
         gui.QuranPlayer(p,result[data["category"]][1],data["ayah"],data["type"],data["category"]).exec()
     else:
         gui.QuranViewer(p,result[data["category"]][1],data["type"],data["category"],index=data["ayah"]+1).exec()
+def addNewislamicBookBookMark(bookName:str,partName:str,pageNumber:int,bookMarkName:str):
+    bookMarksList=openBookMarksFile()
+    try:
+        islamicBookBookMarksList=bookMarksList["islamicBooks"]
+    except:
+        islamicBookBookMarksList=bookMarksList["islamicBooks"]=[]
+    newBookMarkData={
+        "bookName":bookName,
+        "number":pageNumber,
+        "part":partName,
+        "name":bookMarkName
+    }
+    islamicBookBookMarksList.append(newBookMarkData)
+    bookMarksList["islamicBooks"]=islamicBookBookMarksList
+    saveBookMarks(bookMarksList)
+def removeislamicBookBookMark(bookMarkName:str):
+    bookMarksList=openBookMarksFile()
+    islamicBookBookMarksList=bookMarksList["islamicBooks"]
+    for islamicBookBookMarkData in islamicBookBookMarksList:
+        if islamicBookBookMarkData["name"]==bookMarkName:
+            islamicBookBookMarksList.remove(islamicBookBookMarkData)
+            break
+    bookMarksList["islamicBooks"]=islamicBookBookMarksList
+    saveBookMarks(bookMarksList)
+def GetislamicBookBookByName(name:str):
+    islamicBookBookMarks=openBookMarksFile()
+    for islamicBookData in islamicBookBookMarks["islamicBooks"]:
+        if islamicBookData["name"]==name:
+            return islamicBookData["bookName"],islamicBookData["number"],islamicBookData["part"]

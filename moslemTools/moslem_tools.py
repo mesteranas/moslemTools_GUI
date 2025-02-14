@@ -34,6 +34,7 @@ class main(qt.QMainWindow):
             (Athker, _("الأذكار والأدعية")),
             (sibha, _("سبحة إلكترونية")),
             (NamesOfAllah, _("أسماء الله الحُسْنى")),
+            (IslamicBooks,_("الكتب الإسلامية")),
             (DateConverter, _("محول التاريخ"))            
         ]
         for widget_class, label in tabs:

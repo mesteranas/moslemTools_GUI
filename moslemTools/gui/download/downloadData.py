@@ -30,6 +30,8 @@ class SelectItem(qt.QDialog):
                     downloadedData=list(functions.translater.translations.keys())
                 elif self.fileName=="all_ahadeeth.json":
                     downloadedData=list(functions.ahadeeth.ahadeeths.keys())
+                elif self.fileName=="all_islamic_books.json":
+                    downloadedData=list(functions.islamicBooks.books.keys())
                 for data in downloadedData:
                     del jsonContent[data]
                 self.data=jsonContent

@@ -5,6 +5,9 @@ appName=app.appName
 cpath=os.path.join(os.getenv('appdata'),appName,"settings.ini")
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName)):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName))
+if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"islamicBooks")):
+	os.mkdir(os.path.join(os.getenv('appdata'),appName,"islamicBooks"))
+	shutil.copy("data/json/islamicBooks/elShabahLibe.json",os.path.join(os.getenv('appdata'),appName,"islamicBooks","elShabahLibe.json"))
 if not os.path.exists(os.path.join(os.getenv('appdata'),appName,"addan")):
 	os.mkdir(os.path.join(os.getenv('appdata'),appName,"addan"))
 	shutil.copy("data/sounds/adaan/fajr.mp3",os.path.join(os.getenv('appdata'),appName,"addan","fajr.mp3"))

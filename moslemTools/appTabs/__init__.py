@@ -11,3 +11,4 @@ from .namesOfAllah import NamesOfAllah
 from .prayerTimes import prayer_times
 from .dateConverter import DateConverter
 from .athkar import Athker
+from .islamicBooks import IslamicBooks
