@@ -57,6 +57,8 @@ class AthkerDialog (qt.QDialog):
         qt1.QShortcut("ctrl+-", self).activated.connect(self.decrease_font_size)
         qt1.QShortcut("ctrl+s", self).activated.connect(self.save_text_as_txt)
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)                
+        qt1.QShortcut("shift+up",self).activated.connect(self.volume_up)
+        qt1.QShortcut("shift+down",self).activated.connect(self.volume_down)
     def onPlay(self):
         if self.media.isPlaying():
             self.media.pause()
@@ -174,3 +176,7 @@ class AthkerDialog (qt.QDialog):
             winsound.Beep(1000,100)
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+    def volume_up(self):
+        self.audioOutput.setVolume(self.audioOutput.volume()+0.10)
+    def volume_down(self):
+        self.audioOutput.setVolume(self.audioOutput.volume()-0.10)
