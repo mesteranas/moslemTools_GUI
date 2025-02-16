@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
-"version": 4.2,
-"what is new": "لقد أصبح شريط التمرير قابلا للتحريك بواسطة المستخدم في القرآن الكريم كصوت\nthe slider has become moveable by the user in the Quran careem  as a audio\nتم إصلاح مشكلة البحث في الأحاديث\nthe problem of searching in hadiths has been fixed\nتم تصحيح بعض الأخطاء في ترجمة البرنامج\nsome errors in the translation of the program have been corrected\nتم إصلاح مشكلة تجميد البرنامج أثناء نسخ الإعدادات إحتياطيا واستعادتها\nfixed the problem of the program freezing while backing up and restoring settings",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v4.2/moslem_toolse_V4.2.exe",
+"version": 5.0,
+"what is new": "تم تغيير تخطيط ومظهر البرنامج\nthe layout and appearance of programme have been changed\nتمت إضافة المزيد من محطات الراديو الإسلامية\nmore islamic radio stations have been added\nتمت إضافة المزيد من الإجرآت في تبويبة القرآن الكريم المكتوب\nmore acshtions have been added in quran kareem as text tab\nتم إضافة تبويبة الكتب الإسلامية\nislamic books tab has been added\nإصلاح الأخطاء\nfix errors",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v5.0/moslem_tools_version_5.0.exe",
 "is_beta": false
 }
