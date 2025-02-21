@@ -27,6 +27,7 @@ class main(qt.QMainWindow):
             (prayer_times, _("مواقيت الصلاة والتاريخ")),
             (Quran, _("القرآن الكريم مكتوب")),
             (QuranPlayer, _("القرآن الكريم صوتي")),
+            (QuranRecitations,_("قراءات القرآن الكريم")),
             (hadeeth, _("الأحاديث النبوية والقدسية")),
             (IslamicBooks,_("الكتب الإسلامية")),
             (book_marcks, _("العلامات المرجعية")),

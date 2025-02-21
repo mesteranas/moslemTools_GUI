@@ -5,3 +5,4 @@ from .quranPlayer import QuranPlayer
 from . import download,islamicBooks
 from .adaanWindow import AdaanDialog
 from .after_azaan import AfterAdaan
+from .quranRecitationViewer import QuranRecitationViewer
