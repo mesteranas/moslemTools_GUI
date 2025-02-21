@@ -1,4 +1,4 @@
-import gui,guiTools,functions
+import gui,guiTools,functions,re
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtCore as qt2
@@ -6,6 +6,7 @@ language.init_translation()
 class Quran(qt.QWidget):
     def __init__(self):
         super().__init__()
+        self.infoData=[]
         layout=qt.QVBoxLayout(self)
         self.serch=qt.QLabel(_("بحث"))
         self.serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -27,11 +28,19 @@ class Quran(qt.QWidget):
         self.info.clicked.connect(self.onItemTriggered)
         layout.addWidget(self.info)                
         self.onTypeChanged(0)
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
     def onsearch(self):
         search_text = self.search_bar.text().lower()
-        for i in range(self.info.count()):
-            item = self.info.item(i)
-            item.setHidden(search_text not in item.text().lower())    
+        self.info.clear()
+        result=self.search(search_text,self.infoData)
+        self.info.addItems(result)
     def onItemTriggered(self):
         index=self.type.currentIndex()
         if index==0:
@@ -47,17 +56,19 @@ class Quran(qt.QWidget):
         gui.QuranViewer(self,result[self.info.currentItem().text()][1],index,self.info.currentItem().text()).exec()
     def onTypeChanged(self,index:int):
         self.info.clear()
+        self.infoData=[]
         if index==0:
-            self.info.addItems(functions.quranJsonControl.getSurahs().keys())
+            self.infoData=functions.quranJsonControl.getSurahs().keys()
         elif index==1:
             for i in range(1,605):
-                self.info.addItem(str(i))
+                self.infoData.append(str(i))
         elif index==2:
             for i in range(1,31):
-                self.info.addItem(str(i))
+                self.infoData.append(str(i))
         elif index==3:
             for i in range(1,241):
-                self.info.addItem(str(i))
+                self.infoData.append(str(i))
         elif index==4:
             for  i in range(1,61):
-                self.info.addItem(str(i))
+                self.infoData.append(str(i))
+        self.info.addItems(self.infoData)
