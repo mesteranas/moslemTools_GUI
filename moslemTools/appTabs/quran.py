@@ -37,7 +37,7 @@ class Quran(qt.QWidget):
         ]        
         return matches        
     def onsearch(self):
-        search_text = self.search_bar.text().lower()
+        search_text=self.search_bar.text().lower()
         self.info.clear()
         result=self.search(search_text,self.infoData)
         self.info.addItems(result)

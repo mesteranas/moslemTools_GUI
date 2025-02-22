@@ -7,13 +7,15 @@ class QuranRecitations(qt.QWidget):
         super().__init__()
         with open("data/json/files/all_quran_recitations.json","r",encoding="utf-8") as file:
             self.recitationData=json.load(file)
-        layout=qt.QVBoxLayout(self)
+        layout=qt.QVBoxLayout(self)        
+        self.select_laybol=qt.QLabel(_("اختر قراءة"))
+        self.select_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.select_laybol)
         self.selectRecitation=qt.QComboBox()
         self.selectRecitation.addItems(self.recitationData)
         self.data={}
         self.selectRecitation.currentTextChanged.connect(self.onRecitationChanged)
-        self.selectRecitation.setAccessibleName(_("اختر قراءة"))
-        layout.addWidget(qt.QLabel(_("اختر قراءة")))
+        self.selectRecitation.setAccessibleName(_("اختر قراءة"))        
         layout.addWidget(self.selectRecitation)
         self.surahs=qt.QListWidget()
         self.surahs.itemActivated.connect(self.onSurahClicked)
