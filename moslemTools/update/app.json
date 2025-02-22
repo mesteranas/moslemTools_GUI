@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
-"version": 5.0,
-"what is new": "تم تغيير تخطيط ومظهر البرنامج\nthe layout and appearance of programme have been changed\nتمت إضافة المزيد من محطات الراديو الإسلامية\nmore islamic radio stations have been added\nتمت إضافة المزيد من الإجرآت في تبويبة القرآن الكريم المكتوب\nmore acshtions have been added in quran kareem as text tab\nتم إضافة تبويبة الكتب الإسلامية\nislamic books tab has been added\nإصلاح الأخطاء\nfix errors",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v5.0/moslem_tools_version_5.0.exe",
+"version": 5.1,
+"what is new": "تمت إضافة قراأات القرآن الكريم\nquran's recitations have been added\nإصلاح مشكلة البحث في تبويبة القرآن الكريم مكتوب بالنسبة لمستخدمي قارآت الشاشة\nfixed a search issue for screen reader users in the 'Quran Kareem as Text' tab\nوإصلاح أخطاء أخرى\nand fix other errors",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v5.1/moslem_tools_version_5.1.exe",
 "is_beta": false
 }
