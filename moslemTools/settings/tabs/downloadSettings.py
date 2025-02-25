@@ -13,6 +13,7 @@ class Download(qt.QDialog):
         self.adminstration=qt.QLineEdit()
         self.adminstration.setReadOnly(True)
         self.adminstration.setText(_("تنبيه هام , لتثبيت موارد خارجية, يجب أولا منح صلاحيات المشرف للبرنامج"))
+        self.adminstration.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.types)
         layout.addWidget(self.adminstration)
     def onItemClicked(self):

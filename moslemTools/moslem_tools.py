@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools, json, random, os
+import update, guiTools,json,random,os
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
