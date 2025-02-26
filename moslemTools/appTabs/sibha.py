@@ -8,6 +8,7 @@ class sibha(qt.QWidget):
     def __init__(self):
         super().__init__()
         qt1.QShortcut("ctrl+s",self).activated.connect(self.speak_number)
+        qt1.QShortcut("ctrl+c",self).activated.connect(self.speak_current_thecre)
         self.athkar_laybol=qt.QLabel(_("قم بتحديد الذكر"))
         self.athkar_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.athkar=qt.QComboBox()        
@@ -60,3 +61,5 @@ class sibha(qt.QWidget):
     def speak_number(self):
         current_number=self.numbers.text()
         guiTools.speak(current_number)
+    def speak_current_thecre(self):
+        guiTools.speak(self.athkar.currentText())
