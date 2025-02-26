@@ -12,6 +12,7 @@ class sibha(qt.QWidget):
         self.athkar_laybol=qt.QLabel(_("قم بتحديد الذكر"))
         self.athkar_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.athkar=qt.QComboBox()        
+        self.athkar.setAccessibleDescription(_("control plus c لنطق الذكر المحدد"))
         self.athkar.setAccessibleName(_("قم بتحديد الذكر"))
         self.athkar.addItem(_("سبحان الله"))
         self.athkar.addItem(_("الحمد لله "))
