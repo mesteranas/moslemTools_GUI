@@ -19,11 +19,11 @@ class prayer_times(qt.QWidget):
         self.timer.timeout.connect(self.onTimer)
         self.information=qt.QListWidget()        
         layout=qt.QVBoxLayout()
-        layout.addWidget(self.information)        
         self.info=qt.QLineEdit()
         self.info.setReadOnly(True)
         self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.info)
+        layout.addWidget(self.information)        
         self.setLayout(layout)
         self.display_prayer_times()
     def onTimer(self):
