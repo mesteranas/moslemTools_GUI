@@ -157,6 +157,7 @@ class QuranPlayer(qt.QWidget):
         else:
             button.setStyleSheet("")    
     def handle_play_all_toggled(self, checked):
+        self.mp.stop()
         if checked:
             self.play_all_to_start.setEnabled(False)
             self.repeat_surah_button.setEnabled(False)
@@ -167,6 +168,7 @@ class QuranPlayer(qt.QWidget):
             self.play_all_to_start.setEnabled(True)
             self.repeat_surah_button.setEnabled(True)    
     def handle_play_all_start_toggled(self, checked):
+        self.mp.stop()
         if checked:
             self.play_all_to_end.setEnabled(False)
             self.repeat_surah_button.setEnabled(False)
@@ -177,6 +179,7 @@ class QuranPlayer(qt.QWidget):
             self.play_all_to_end.setEnabled(True)
             self.repeat_surah_button.setEnabled(True)    
     def handle_repeat_toggled(self, checked):
+        # self.mp.stop()
         if checked:
             self.play_all_to_end.setEnabled(False)
             self.play_all_to_start.setEnabled(False)

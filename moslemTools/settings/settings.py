@@ -66,6 +66,7 @@ class settings (qt.QDialog):
         settings_handler.set("prayerTimes","adaanReminder",str(self.prayerTimesSettings.adaanReminder.isChecked()))
         settings_handler.set("update","autoCheck",str(self.update.update_autoDect.isChecked()))
         settings_handler.set("update","beta",str(self.update.update_beta.isChecked()))
+        settings_handler.set("prayerTimes","playPrayerAfterAdhaan",str(self.prayerTimesSettings.playPrayerAfterAdhaan.isChecked()))
         self.p.runAudioThkarTimer()
         self.p.notification_random_thecker()
         if aa==1:

@@ -30,5 +30,6 @@ class AdaanDialog(qt.QDialog):
     def onStateChanged(self,state):
         if state==self.media_player.MediaStatus.EndOfMedia:            
             self.accept()            
-            window=AfterAdaan(self)
-            window.exec()
+            if settings.settings_handler.get("prayerTimes","playPrayerAfterAdhaan")=="True":
+                window=AfterAdaan(self)
+                window.exec()

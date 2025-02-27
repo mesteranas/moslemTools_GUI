@@ -11,6 +11,10 @@ class PrayerTimesSettings(qt.QWidget):
         self.adaanReminder.setChecked(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.adaanReminder.stateChanged.connect(self.onprayerTimesReminderCheckboxStateChanged)
         layout.addWidget(self.adaanReminder)
+        self.playPrayerAfterAdhaan=qt.QCheckBox(_("تشغيل الدعاء بعد الأذان"))
+        self.playPrayerAfterAdhaan.setChecked(p.cbts(settings_handler.get("prayerTimes","playPrayerAfterAdhaan")))
+        self.playPrayerAfterAdhaan.setVisible(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
+        layout.addWidget(self.playPrayerAfterAdhaan)
         self.changeFajrSound=qt.QPushButton(_("تغيير صوت أذان الفجر"))
         self.changeFajrSound.setVisible(p.cbts(settings_handler.get("prayerTimes","adaanReminder")))
         self.changeFajrSound.clicked.connect(lambda:self.onChangeAdaanButtonClicked("fajr.mp3"))
@@ -26,6 +30,7 @@ class PrayerTimesSettings(qt.QWidget):
         self.worning.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.worning)
     def onprayerTimesReminderCheckboxStateChanged(self,state):
+        self.playPrayerAfterAdhaan.setVisible(state)
         self.changeAdaanSound.setVisible(state)
         self.changeFajrSound.setVisible(state)
         self.worning.setVisible(state)

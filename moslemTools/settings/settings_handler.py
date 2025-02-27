@@ -57,7 +57,8 @@ settingsConfig={
 		"text":"0"
 	},
 	"prayerTimes":{
-		"adaanReminder":"True"
+		"adaanReminder":"True",
+		"playPrayerAfterAdhaan":"True"
 	},
 	"update":{
 		"autoCheck":"True",

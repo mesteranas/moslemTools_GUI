@@ -20,6 +20,10 @@ class prayer_times(qt.QWidget):
         self.information=qt.QListWidget()        
         layout=qt.QVBoxLayout()
         layout.addWidget(self.information)        
+        self.info=qt.QLineEdit()
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.info)
         self.setLayout(layout)
         self.display_prayer_times()
     def onTimer(self):
@@ -114,9 +118,15 @@ class prayer_times(qt.QWidget):
         else:
             self.information.addItem(_("لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."))    
         now=datetime.now()
-        day_name=days_of_week[now.weekday()]  # weekday() يعطي رقم اليوم من 0 (الاثنين) إلى 6 (الأحد)
+        day_name=days_of_week[now.weekday()] 
         gregorian_date=f"{day_name} - {now.day} {gregorian_months[now.month - 1]} {now.year}"
         hijri_date_obj=Gregorian.today().to_hijri()
         hijri_date=f"{hijri_date_obj.day} {hijri_months[hijri_date_obj.month - 1]} {hijri_date_obj.year}"
         self.information.addItem(_("التاريخ الميلادي: ") + gregorian_date)
         self.information.addItem(_("التاريخ الهجري: ") + hijri_date)
+        if hijri_date_obj.month==9:
+            self.info.setText(_("رمضان كريم"))
+        elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
+            self.info.setText("عيد مبارك")
+        else:
+            self.info.setText(_("لا تَنْسى ذِكْر الله"))
