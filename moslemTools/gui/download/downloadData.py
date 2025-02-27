@@ -1,4 +1,4 @@
-import json,os,requests,gettext
+import json,os,requests,gettext,re
 import guiTools,gui,settings,settings,functions
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -10,6 +10,14 @@ class SelectItem(qt.QDialog):
         self.data={}
         self.dirName=dirName
         layout=qt.QVBoxLayout(self)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(serch)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.search_bar)
         self.item=guiTools.QListWidget()        
         layout.addWidget(self.item)        
         self.item.clicked.connect(lambda:StartDownloading(self,self.data[self.item.currentItem().text()],self.dirName).exec())                
@@ -41,7 +49,20 @@ class SelectItem(qt.QDialog):
                 self.close()
         except:
             qt.QMessageBox.critical(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
-            self.close()
+            self.accept()
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.item.clear()
+        result=self.search(search_text,list(self.data.keys()))
+        self.item.addItems(result)
 class DownloadThread(qt2.QThread):
     progress=qt2.pyqtSignal(int)
     finished=qt2.pyqtSignal(bool)

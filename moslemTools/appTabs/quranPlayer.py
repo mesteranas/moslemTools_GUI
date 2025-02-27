@@ -405,6 +405,7 @@ class QuranPlayer(qt.QWidget):
         self.progressBar.setVisible(False)
         qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة"))
     def on_reciter_selected(self):        
+        self.mp.stop()
         self.surahListWidget.clear()
         selected_reciter_item = self.recitersListWidget.currentItem()
         if selected_reciter_item:
