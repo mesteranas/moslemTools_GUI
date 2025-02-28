@@ -27,15 +27,13 @@ class settings (qt.QDialog):
         self.layout1=tabs.Genral(self)
         self.sectian.add(_("عام"),self.layout1)
         self.tafaseerSettings=tabs.TafaseerSettings()
-        self.sectian.add(_("إعدادات التفسير"),self.tafaseerSettings)
+        self.sectian.add(_("إعدادات التفسير والترجمة"),self.tafaseerSettings)
         self.prayerTimesSettings=tabs.PrayerTimesSettings(self)
         self.sectian.add(_("إعدادات الأذان"),self.prayerTimesSettings)
         self.quranPlayerTimes=tabs.QuranPlayerSettings()
         self.sectian.add(_("إعدادات مشغل القرآن للقرآن المكتوب"),self.quranPlayerTimes)
         self.sectian.add(_("إعدادات التحديثات"),self.update)
         self.sectian.add(_("تحميل موارد"),tabs.Download())
-        self.translationSettings=tabs.translationSettings()
-        self.sectian.add(_("إعدادات ترجمة القرآن الكريم"),self.translationSettings)
         self.athkar=tabs.AthkarSettings()
         self.sectian.add(_("إعدادات الأذكار"),self.athkar)
         restoar=tabs.Restoar(self)
@@ -56,7 +54,7 @@ class settings (qt.QDialog):
         except:
             pass
         try:
-            settings_handler.set("translation","translation",functions.translater.translations[self.translationSettings.selecttranslation.currentText()])
+            settings_handler.set("translation","translation",functions.translater.translations[self.tafaseerSettings.selecttranslation.currentText()])
         except:
             pass
         settings_handler.set("athkar","voice",str(self.athkar.voiceSelection.currentIndex()))

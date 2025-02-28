@@ -153,7 +153,7 @@ class main(qt.QMainWindow):
         if hijri_date_obj.month==9:
             self.info.setText(_("رمضان كريم"))
         elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
-            self.info.setText("عيد مبارك")
+            self.info.setText(_("عيد مبارك"))
         else:
             self.info.setText(_("لا تَنْسى ذِكْر الله"))
 App=qt.QApplication([])
