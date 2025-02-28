@@ -2,6 +2,7 @@ import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
 import update, guiTools,json,random,os
+from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -20,6 +21,11 @@ class main(qt.QMainWindow):
         self.timer=qt2.QTimer(self)
         self.timer.timeout.connect(self.random_audio_theker)
         layout=qt.QVBoxLayout()
+        self.info=qt.QLineEdit()
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.info)
+        self.viewInfoTextEdit()
         content_layout=qt.QHBoxLayout()
         self.list_widget=qt.QListWidget()
         self.stacked_widget=qt.QStackedWidget()        
@@ -142,6 +148,14 @@ class main(qt.QMainWindow):
             self.list_widget.setCurrentRow(self.list_widget.count()-1)
         else:
             self.list_widget.setCurrentRow(self.list_widget.currentRow()-1)
+    def viewInfoTextEdit(self):
+        hijri_date_obj=Gregorian.today().to_hijri()
+        if hijri_date_obj.month==9:
+            self.info.setText(_("رمضان كريم"))
+        elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
+            self.info.setText("عيد مبارك")
+        else:
+            self.info.setText(_("لا تَنْسى ذِكْر الله"))
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

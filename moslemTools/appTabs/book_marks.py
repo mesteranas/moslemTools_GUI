@@ -1,4 +1,4 @@
-import gui,guiTools,functions,json,os
+import gui,guiTools,functions,json,os,re
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -18,8 +18,16 @@ class book_marcks(qt.QWidget):
         self.dl=guiTools.QPushButton(_("حذف العلامة المرجعية"))
         self.dl.clicked.connect(self.onRemove)
         layout=qt.QVBoxLayout(self)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.Category_label)
         layout.addWidget(self.Category)
+        layout.addWidget(serch)
+        layout.addWidget(self.search_bar)
         layout.addWidget(self.results)
         layout.addWidget(self.dl)
         self.Category.currentIndexChanged.connect(self.onCategoryChanged)
@@ -59,5 +67,20 @@ class book_marcks(qt.QWidget):
         elif index==2:
             type="islamicBooks"
         self.results.clear()
+        self.bookMarks1=[]
         for item in bookMarksData[type]:
-            self.results.addItem(item["name"])
+            self.bookMarks1.append(item["name"])
+        self.results.addItems(self.bookMarks1)
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.results.clear()
+        result=self.search(search_text,self.bookMarks1)
+        self.results.addItems(result)

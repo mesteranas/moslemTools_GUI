@@ -1,5 +1,5 @@
 from functions import quranJsonControl
-import json,os,requests,gettext
+import json,os,requests,gettext,re
 import guiTools,gui,settings,settings,functions
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -9,13 +9,37 @@ class SelectAthkar(qt.QDialog):
         super().__init__(p)
         self.resize(700,500)
         layout=qt.QVBoxLayout(self)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(serch)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.search_bar)
         with open("data/json/athkar.json","r",encoding="utf-8-sig") as data:
             self.reciterData=json.load(data)
         self.reciters=guiTools.QListWidget()
+        self.reciterData1=[]
         for athker in self.reciterData:
-            self.reciters.addItem(athker["name"])
+            self.reciterData1.append(athker["name"])
         self.reciters.clicked.connect(lambda:DownloadReciter(self,self.reciterData[self.reciters.currentRow()]["content"],self.reciters.currentItem().text()).exec())
+        self.reciters.addItems(self.reciterData1)
         layout.addWidget(self.reciters)
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.reciters.clear()
+        result=self.search(search_text,list(self.reciterData1))
+        self.reciters.addItems(result)
+
 class downloadObjects(qt2.QObject):
     progress=qt2.pyqtSignal(int)
     downloaded=qt2.pyqtSignal(int)

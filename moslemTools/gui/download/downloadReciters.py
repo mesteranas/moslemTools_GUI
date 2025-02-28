@@ -1,5 +1,5 @@
 from functions import quranJsonControl
-import json,os,requests,gettext
+import json,os,requests,gettext,re
 import guiTools,gui,settings,settings,functions
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -9,11 +9,33 @@ class SelectReciter(qt.QDialog):
         super().__init__(p)
         self.resize(700,500)
         layout=qt.QVBoxLayout(self)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(serch)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.search_bar)
         self.reciterData=gui.reciters
         self.reciters=guiTools.QListWidget()
         self.reciters.addItems(self.reciterData.keys())
         self.reciters.clicked.connect(lambda:DownloadReciter(self,self.reciterData[self.reciters.currentItem().text()]).exec())
         layout.addWidget(self.reciters)
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.reciters.clear()
+        result=self.search(search_text,list(self.reciterData.keys()))
+        self.reciters.addItems(result)
+
 class downloadObjects(qt2.QObject):
     progress=qt2.pyqtSignal(int)
     downloaded=qt2.pyqtSignal(int)

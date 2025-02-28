@@ -1,4 +1,4 @@
-import gui,guiTools,functions,os,json
+import gui,guiTools,functions,os,json,re
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -6,17 +6,31 @@ import PyQt6.QtCore as qt2
 class IslamicBooks(qt.QWidget):
     def __init__(self):
         super().__init__()
+        layout=qt.QVBoxLayout(self)
         qt1.QShortcut("f5",self).activated.connect(self.refresh)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(serch)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.search_bar)
         self.list_of_abook=guiTools.QListWidget()
         self.list_of_abook.addItems(functions.islamicBooks.books.keys())
         self.list_of_abook.itemClicked.connect(self.open)
-        layout=qt.QVBoxLayout(self)
         layout.addWidget(self.list_of_abook)
         self.info=qt.QLineEdit()
         self.info.setReadOnly(True)
         self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.info.setText(_("في حالة تحميل كتاب جديد, يرجى إعادة تحميل قائمة الكتب بالضغت على زر F5"))
         layout.addWidget(self.info)
+        self.info1=qt.QLineEdit()
+        self.info1.setReadOnly(True)
+        self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info1.setText(_("تنبيه هام , مطوري البرنامج غير مسؤولين عن محتوى هذه الكتب"))
+        layout.addWidget(self.info1)
+
         self.list_of_abook.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_of_abook.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
@@ -52,3 +66,16 @@ class IslamicBooks(qt.QWidget):
         functions.islamicBooks.setbook()
         self.list_of_abook.clear()
         self.list_of_abook.addItems(functions.islamicBooks.books.keys())
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.list_of_abook.clear()
+        result=self.search(search_text,list(functions.islamicBooks.books.keys()))
+        self.list_of_abook.addItems(result)

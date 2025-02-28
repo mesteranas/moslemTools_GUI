@@ -19,10 +19,6 @@ class prayer_times(qt.QWidget):
         self.timer.timeout.connect(self.onTimer)
         self.information=qt.QListWidget()        
         layout=qt.QVBoxLayout()
-        self.info=qt.QLineEdit()
-        self.info.setReadOnly(True)
-        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.info)
         layout.addWidget(self.information)        
         self.setLayout(layout)
         self.display_prayer_times()
@@ -124,9 +120,3 @@ class prayer_times(qt.QWidget):
         hijri_date=f"{hijri_date_obj.day} {hijri_months[hijri_date_obj.month - 1]} {hijri_date_obj.year}"
         self.information.addItem(_("التاريخ الميلادي: ") + gregorian_date)
         self.information.addItem(_("التاريخ الهجري: ") + hijri_date)
-        if hijri_date_obj.month==9:
-            self.info.setText(_("رمضان كريم"))
-        elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
-            self.info.setText("عيد مبارك")
-        else:
-            self.info.setText(_("لا تَنْسى ذِكْر الله"))

@@ -1,4 +1,4 @@
-import gui,guiTools,functions,os
+import gui,guiTools,functions,os,re
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -11,6 +11,15 @@ class hadeeth(qt.QWidget):
         self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
         self.list_of_ahadeeth.itemClicked.connect(self.open)
         layout=qt.QVBoxLayout(self)
+        serch=qt.QLabel(_("بحث"))
+        serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(serch)
+        self.search_bar=qt.QLineEdit()        
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)        
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.search_bar)
+
         layout.addWidget(self.list_of_ahadeeth)
         self.info=qt.QLineEdit()
         self.info.setReadOnly(True)
@@ -41,3 +50,16 @@ class hadeeth(qt.QWidget):
         functions.ahadeeth.setahadeeth()
         self.list_of_ahadeeth.clear()
         self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
+    def search(self,pattern,text_list):    
+        tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
+        normalized_pattern=tashkeel_pattern.sub('', pattern)        
+        matches=[
+            text for text in text_list
+            if normalized_pattern in tashkeel_pattern.sub('', text)
+        ]        
+        return matches        
+    def onsearch(self):
+        search_text=self.search_bar.text().lower()
+        self.list_of_ahadeeth.clear()
+        result=self.search(search_text,list(functions.ahadeeth.ahadeeths.keys()))
+        self.list_of_ahadeeth.addItems(result)
