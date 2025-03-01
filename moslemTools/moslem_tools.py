@@ -36,6 +36,7 @@ class main(qt.QMainWindow):
             (QuranRecitations,_("قراءات القرآن الكريم")),
             (hadeeth, _("الأحاديث النبوية والقدسية")),
             (IslamicBooks,_("الكتب الإسلامية")),
+            (ProphetStories,_("قصص الأنبياء")),
             (book_marcks, _("العلامات المرجعية")),
             (Albaheth, _("الباحث في القرآن والأحاديث")),
             (protcasts, _("الإذاعات الإسلامية")),
