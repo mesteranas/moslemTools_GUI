@@ -12,6 +12,7 @@ class book_marcks(qt.QWidget):
         self.Category.addItem(_("القرآن الكريم"))
         self.Category.addItem(_("الأحاديث"))
         self.Category.addItem(_("الكتب الإسلامية"))
+        self.Category.addItem(_("القصص الإسلامية"))
         self.Category.setAccessibleName(_("إختيار الفئة"))
         self.results=guiTools.QListWidget()
         self.results.clicked.connect(self.onItemClicked)
@@ -45,7 +46,8 @@ class book_marcks(qt.QWidget):
                 data=json.load(f)    
             partContent=data[partName]
             gui.islamicBooks.book_viewer(self,bookName,partName,partContent,index=pageNumber).exec()
-
+        elif self.Category.currentIndex()==3:
+            functions.bookMarksManager.getStoryBookmark(self,self.results.currentItem().text())
     def onRemove(self):
         try:
             if self.Category.currentIndex()==0:
@@ -54,6 +56,8 @@ class book_marcks(qt.QWidget):
                 functions.bookMarksManager.removeAhadeethBookMark(self.results.currentItem().text())
             elif self.Category.currentIndex()==2:
                 functions.bookMarksManager.removeislamicBookBookMark(self.results.currentItem().text())
+            elif self.Category.currentIndex()==3:
+                functions.bookMarksManager.removeStoriesBookMark(self.results.currentItem().text())
             guiTools.speak(_("تم حذف العلامة المرجعية"))
             self.onCategoryChanged(self.Category.currentIndex())
         except:
@@ -66,6 +70,8 @@ class book_marcks(qt.QWidget):
             type="ahadeeth"
         elif index==2:
             type="islamicBooks"
+        elif index==3:
+            type="stories"
         self.results.clear()
         self.bookMarks1=[]
         for item in bookMarksData[type]:
