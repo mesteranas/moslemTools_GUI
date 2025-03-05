@@ -74,8 +74,11 @@ class book_marcks(qt.QWidget):
             type="stories"
         self.results.clear()
         self.bookMarks1=[]
-        for item in bookMarksData[type]:
-            self.bookMarks1.append(item["name"])
+        try:
+            for item in bookMarksData[type]:
+                self.bookMarks1.append(item["name"])
+        except:
+            pass
         self.results.addItems(self.bookMarks1)
     def search(self,pattern,text_list):    
         tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        

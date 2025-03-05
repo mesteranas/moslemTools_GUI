@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-03-03 14:17+0200\n"
+"POT-Creation-Date: 2025-03-04 16:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\ahadeeth.py:14
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\athkar.py:21
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:21
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:22
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\islamicBooks.py:11
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\prophetStories.py:20
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\quran.py:11
@@ -98,7 +98,7 @@ msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\ahadeeth.py:18
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\athkar.py:25
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:24
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:25
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\islamicBooks.py:15
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\prophetStories.py:24
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\quran.py:14
@@ -165,7 +165,7 @@ msgid "هل تريد حذف الأذكار الصوتية"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:9
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:15
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:16
 msgid "إختيار الفئة"
 msgstr ""
 
@@ -186,19 +186,24 @@ msgstr ""
 msgid "الكتب الإسلامية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:18
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:15
+#: D:\programming\projects\python\GUI\moslemTools\moslem_tools.py:39
+msgid "القصص الإسلامية"
+msgstr ""
+
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:19
 msgid "حذف العلامة المرجعية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:57
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:61
 msgid "تم حذف العلامة المرجعية"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:60
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:64
 msgid "تحذير"
 msgstr ""
 
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:60
+#: D:\programming\projects\python\GUI\moslemTools\appTabs\book_marks.py:64
 msgid "حدث خطأ أثناء حذف العلامة المرجعية"
 msgstr ""
 
@@ -850,6 +855,8 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:54
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:35
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:135
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:26
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:61
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:28
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:54
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:28
@@ -867,6 +874,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:43
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:30
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:39
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:30
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:32
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:32
 msgid "حجم النص"
@@ -890,6 +898,8 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:75
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:38
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:39
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:45
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:46
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:42
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:43
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:42
@@ -903,6 +913,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:102
 #: D:\programming\projects\python\GUI\moslemTools\gui\islamicBooks\bookViewer.py:98
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:41
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:48
 msgid "خيارات النص"
 msgstr ""
 
@@ -913,6 +924,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:103
 #: D:\programming\projects\python\GUI\moslemTools\gui\islamicBooks\bookViewer.py:99
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:46
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:53
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:45
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:45
 msgid "حفظ كملف نصي"
@@ -925,6 +937,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:106
 #: D:\programming\projects\python\GUI\moslemTools\gui\islamicBooks\bookViewer.py:102
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:48
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:55
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:48
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:48
 msgid "طباعة"
@@ -936,6 +949,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\guiTools\textViewer.py:45
 #: D:\programming\projects\python\GUI\moslemTools\gui\athkerDialog.py:109
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:50
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:57
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:50
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:50
 msgid "نسخ النص كاملا"
@@ -949,6 +963,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\hadeeth_viewer.py:110
 #: D:\programming\projects\python\GUI\moslemTools\gui\islamicBooks\bookViewer.py:106
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:52
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:59
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:52
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:52
 msgid "نسخ النص المحدد"
@@ -964,6 +979,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:107
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:55
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:136
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:62
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:55
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:55
 msgid "تكبير الخط"
@@ -979,6 +995,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:111
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranRecitationViewer.py:59
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:140
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:66
 #: D:\programming\projects\python\GUI\moslemTools\gui\tafaseerViewer.py:59
 #: D:\programming\projects\python\GUI\moslemTools\gui\translationViewer.py:59
 msgid "تصغير الخط"
@@ -1143,12 +1160,11 @@ msgid "اختر قسم"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\prophetStories.py:13
-msgid "قصص القرآن الكريم"
+msgid "قصص الأنبياء"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\prophetStories.py:13
-#: D:\programming\projects\python\GUI\moslemTools\appTabs\prophetStories.py:32
-msgid "قصص الأنبياء"
+msgid "قصص القرآن الكريم"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\appTabs\quran.py:17
@@ -1784,6 +1800,8 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:230
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:92
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:304
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:49
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:133
 msgid "إضافة علامة مرجعية"
 msgstr ""
 
@@ -1796,6 +1814,7 @@ msgstr ""
 #: D:\programming\projects\python\GUI\moslemTools\gui\islamicBooks\bookViewer.py:175
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranPlayer.py:230
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:304
+#: D:\programming\projects\python\GUI\moslemTools\gui\storyViewer.py:133
 msgid "أكتب أسم للعلامة المرجعية"
 msgstr ""
 
@@ -1969,27 +1988,27 @@ msgid "خيارات الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:97
-msgid "نسخ السورة"
+msgid "نسخ الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:101
-msgid "حفظ السورة كملف نصي"
+msgid "حفظ الفئة كملف نصي"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:104
-msgid "طباعة السورة"
+msgid "طباعة الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:107
-msgid "تفسير السورة"
+msgid "تفسير الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:110
-msgid "إعراب السورة"
+msgid "إعراب الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:113
-msgid "ترجمة  السورة"
+msgid "ترجمة  الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:116
@@ -2013,7 +2032,7 @@ msgid "التشغيل من آية إلى آية"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:131
-msgid "التشغيل إلى نهاية السورة"
+msgid "التشغيل إلى نهاية الفئة"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\gui\quranViewer.py:265
@@ -2109,10 +2128,6 @@ msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\moslem_tools.py:37
 msgid "الأحاديث النبوية والقدسية"
-msgstr ""
-
-#: D:\programming\projects\python\GUI\moslemTools\moslem_tools.py:39
-msgid "القصص الإسلامية"
 msgstr ""
 
 #: D:\programming\projects\python\GUI\moslemTools\moslem_tools.py:40
