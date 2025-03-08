@@ -1,7 +1,0 @@
-{
-"name": "!moslem tools",
-"version": 6.0,
-"what is new": "التحديث الرمضاني لmoslem tools\nramadan update for moslem tools\n\nتم إضافة إمكانية البحث في الكثير من تبويبات ونوافذ البرنامج\nthe ability to search for a lot of program tabs and windows has been added\nتم إضافة التشغيل من السورة الحالية الى البداية أو النهاية أو تكرار السورة المحددة بعد إنتهائها في تبويبة القرآن الكريم كصوت\nadded the option to play from the current surah to the beginning or the end, or to repeat the selected surah after it ends in the Quran tab as audio\nتم إضافة تهنئة بشهر رمضان المبارك والأعياد المبراكة في وقتهم, وفي حالة أن اليوم لا يوافق عيد أو رمضان سيذكرك البرنامج بذكر الله\nA greeting for the blessed month of Ramadan and the blessed eids has been added at their respective times. If today is not eid or Ramadan, the program will remind you to remember Allah\nتم تحسين تخطيط البرنامج\nprogram layout has been improved\nتم جعل الدعاء بعد الأذان اختياريا\nthe supplication after azan has been made optional\nإصلاح الأخطاء\nfix errors\nكل عام وأنتم بخير بمناسبة حلول شهر رمضان المبارك",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v6.0/moslem_tools_version_6.0.exe",
-"is_beta": false
-}
