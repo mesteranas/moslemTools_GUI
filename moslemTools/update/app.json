@@ -1,0 +1,7 @@
+{
+"name": "!moslem tools",
+"version": 6.1,
+"what is new": "تم إضافة تبويبة القصص الإسلامية تحتوي على قصص الأنبياء وقصص القرآن الكريم\nThe Islamic stories tabs have been added containing the stories of the prophets and the stories of the quran kareem\nتم إضافة قابلية التحكم في مستوى صوت الأذكار العشوائية, تتطلب إعادة تشغيل البرنامج بعد تعديل نسبة درجة الصوت\nThe ability to control the volume of random supplications has been added. A program restart is required after adjusting the volume level\nتم جعل إعادة القراءة بعد الانتهاء في مشغل القرآن الكريم مكتوب اختيارية\nThe option to replay recitation after completion in the Quran player in quran kareem as text has been made optional.\nفي تبويبة القرآن الكريم مكتوب أصبح يمكنك الانتقال الى السابق والتالي في محتوى الفئة الحالية وأنت في نافذة القراءة\nIn the Quran kareem as text tab you can move to the previous and next in the content of the current category while you are in the reading window\nتم إصلاح بعض الأخطاء\nSome errors have been fixed",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v6.1/moslem_tools_version_6.1.exe",
+"is_beta": false
+}
