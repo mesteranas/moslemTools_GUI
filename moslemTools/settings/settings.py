@@ -69,6 +69,7 @@ class settings (qt.QDialog):
         settings_handler.set("prayerTimes","playPrayerAfterAdhaan",str(self.prayerTimesSettings.playPrayerAfterAdhaan.isChecked()))
         self.p.runAudioThkarTimer()
         self.p.notification_random_thecker()
+        self.p.audio_output.setVolume(int(settings_handler.get("athkar","voiceVolume"))/100)
         if aa==1:
             mb=qt.QMessageBox(self)
             mb.setWindowTitle(_("تم تحديث الإعدادات"))
