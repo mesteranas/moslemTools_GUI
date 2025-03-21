@@ -7,6 +7,7 @@ class book_marcks(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.resize(300,300)
+        self.setWindowTitle(_("العلامات المرجعية"))
         self.Category_label=qt.QLabel(_("إختيار الفئة"))
         self.Category_label.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.Category=qt.QComboBox()

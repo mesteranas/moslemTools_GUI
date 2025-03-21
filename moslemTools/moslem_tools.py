@@ -69,6 +69,8 @@ class main(qt.QMainWindow):
         self.about_devs.clicked.connect(self.open_developers_window)
         self.bookMark=guiTools.QPushButton(_("العلامات المرجعية"))        
         self.bookMark.clicked.connect(lambda: book_marcks(self).exec())
+        self.bookMark.setShortcut("ctrl+b")
+        self.bookMark.setAccessibleDescription("control plus b")
         buttons_layout=qt.QHBoxLayout()
         buttons_layout.addWidget(self.setting)
         buttons_layout.addWidget(self.bookMark)
