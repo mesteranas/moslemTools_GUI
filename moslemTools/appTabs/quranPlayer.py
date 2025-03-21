@@ -25,7 +25,7 @@ class DownloadThread(qt2.QThread):
             self.finished.emit()
 class QuranPlayer(qt.QWidget):
     def __init__(self):
-        super().__init__()        
+        super().__init__()
         qt1.QShortcut("ctrl+s", self).activated.connect(lambda: self.mp.stop())
         qt1.QShortcut("space", self).activated.connect(self.play)
         qt1.QShortcut("alt+right", self).activated.connect(lambda: self.mp.setPosition(self.mp.position() + 5000))
@@ -49,7 +49,7 @@ class QuranPlayer(qt.QWidget):
         qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)
         qt1.QShortcut("ctrl+d", self).activated.connect(self.trigger_context_menu)        
         self.reciters_data = self.load_reciters()        
-        self.recitersLabel = qt.QLabel(_("اختيار قارئ"))
+        self.recitersLabel = qt.QLabel(_("إختيار قارئ"))
         self.recitersLabel.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.reciterSearchLabel = qt.QLabel(_("ابحث عن قارئ"))
         self.reciterSearchLabel.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -156,6 +156,7 @@ class QuranPlayer(qt.QWidget):
         else:
             button.setStyleSheet("")    
     def handle_play_all_toggled(self, checked):
+        self.mp.stop()
         if checked:
             self.play_all_to_start.setEnabled(False)
             self.repeat_surah_button.setEnabled(False)
@@ -166,6 +167,7 @@ class QuranPlayer(qt.QWidget):
             self.play_all_to_start.setEnabled(True)
             self.repeat_surah_button.setEnabled(True)    
     def handle_play_all_start_toggled(self, checked):
+        self.mp.stop()
         if checked:
             self.play_all_to_end.setEnabled(False)
             self.repeat_surah_button.setEnabled(False)
@@ -176,6 +178,7 @@ class QuranPlayer(qt.QWidget):
             self.play_all_to_end.setEnabled(True)
             self.repeat_surah_button.setEnabled(True)    
     def handle_repeat_toggled(self, checked):
+        # self.mp.stop()
         if checked:
             self.play_all_to_end.setEnabled(False)
             self.play_all_to_start.setEnabled(False)
@@ -401,6 +404,7 @@ class QuranPlayer(qt.QWidget):
         self.progressBar.setVisible(False)
         qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة"))
     def on_reciter_selected(self):        
+        self.mp.stop()
         self.surahListWidget.clear()
         selected_reciter_item = self.recitersListWidget.currentItem()
         if selected_reciter_item:
