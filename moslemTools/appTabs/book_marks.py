@@ -3,9 +3,10 @@ from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
-class book_marcks(qt.QWidget):
-    def __init__(self):
-        super().__init__()
+class book_marcks(qt.QDialog):
+    def __init__(self,p):
+        super().__init__(p)
+        self.resize(300,300)
         self.Category_label=qt.QLabel(_("إختيار الفئة"))
         self.Category_label.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.Category=qt.QComboBox()
@@ -48,6 +49,7 @@ class book_marcks(qt.QWidget):
             gui.islamicBooks.book_viewer(self,bookName,partName,partContent,index=pageNumber).exec()
         elif self.Category.currentIndex()==3:
             functions.bookMarksManager.getStoryBookmark(self,self.results.currentItem().text())
+        self.close()
     def onRemove(self):
         try:
             if self.Category.currentIndex()==0:

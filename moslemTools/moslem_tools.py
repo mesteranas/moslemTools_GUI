@@ -44,8 +44,7 @@ class main(qt.QMainWindow):
             (hadeeth, _("الأحاديث النبوية والقدسية")),
             (IslamicBooks,_("الكتب الإسلامية")),
             (ProphetStories,_("القصص الإسلامية المكتوبة")),
-            (StoryPlayer,_("القصص الإسلامية الصوتية")),
-            (book_marcks, _("العلامات المرجعية")),
+            (StoryPlayer,_("القصص الإسلامية الصوتية")),            
             (Albaheth, _("الباحث في القرآن والأحاديث")),
             (protcasts, _("الإذاعات الإسلامية")),
             (Athker, _("الأذكار والأدعية")),
@@ -68,8 +67,11 @@ class main(qt.QMainWindow):
         self.user_guide.clicked.connect(self.open_user_g_window)
         self.about_devs=guiTools.QPushButton(_("عن المطورين"))                
         self.about_devs.clicked.connect(self.open_developers_window)
+        self.bookMark=guiTools.QPushButton(_("العلامات المرجعية"))        
+        self.bookMark.clicked.connect(lambda: book_marcks(self).exec())
         buttons_layout=qt.QHBoxLayout()
         buttons_layout.addWidget(self.setting)
+        buttons_layout.addWidget(self.bookMark)
         buttons_layout.addWidget(self.user_guide)
         buttons_layout.addWidget(self.about_devs)        
         layout.addLayout(buttons_layout)
