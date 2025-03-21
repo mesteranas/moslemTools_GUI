@@ -11,8 +11,9 @@ import guiTools,settings,functions
 with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranViewer(qt.QDialog):
-    def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0):
+    def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
+        self.enableBookmarks=enableBookmarks
         self.typeResult=typeResult
         self.CurrentIndex=CurrentIndex
         self.resize(1200,600)
@@ -106,6 +107,7 @@ class QuranViewer(qt.QDialog):
         addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
         ayahOptions.addAction(addNewBookMark)
         addNewBookMark.triggered.connect(self.onAddBookMark)
+        addNewBookMark.setEnabled(self.enableBookmarks)
         menu.addMenu(ayahOptions)
         surahOption=qt.QMenu(_("خيارات الفئة"),self)
         copySurahAction=qt1.QAction(_("نسخ الفئة"),self)
@@ -144,7 +146,7 @@ class QuranViewer(qt.QDialog):
         playFromVersToVersAction.triggered.connect(self.playFromVersToVers)
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية الفئة"),self)
         surahOption.addAction(playSurahToEnd)
-        playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category).exec())
+        playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category,enableBookMarks=self.enableBookmarks).exec())
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
@@ -329,7 +331,7 @@ class QuranViewer(qt.QDialog):
                     index=allVerses.index(vers)+1
                     if index>=FromVers and index<=toVers:
                         verses.append(vers)
-                QuranPlayer(self,"\n".join(verses),0,self.type,self.category).exec()
+                QuranPlayer(self,"\n".join(verses),0,self.type,self.category,enableBookMarks=self.enableBookmarks).exec()
     def TafseerFromVersToVers(self):
         FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:

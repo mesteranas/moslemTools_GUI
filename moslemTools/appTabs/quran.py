@@ -19,7 +19,7 @@ class Quran(qt.QWidget):
         layout.addWidget(self.by)        
         self.type=qt.QComboBox()
         self.type.setAccessibleName(_("التصفح ب"))
-        self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب")])
+        self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب"),_("مخصص")])
         self.type.currentIndexChanged.connect(self.onTypeChanged)                
         layout.addWidget(self.type)        
         layout.addWidget(self.serch)
@@ -27,6 +27,8 @@ class Quran(qt.QWidget):
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)
         layout.addWidget(self.info)                
+        self.fromToSuraah=guiTools.FromToSurahWidget(self)
+        layout.addWidget(self.fromToSuraah)
         self.onTypeChanged(0)
     def search(self,pattern,text_list):    
         tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
@@ -55,6 +57,7 @@ class Quran(qt.QWidget):
             result=functions.quranJsonControl.getHizb()
         gui.QuranViewer(self,result[self.info.currentItem().text()][1],index,self.info.currentItem().text(),enableNextPreviouseButtons=True,typeResult=result,CurrentIndex=self.info.currentRow()).exec()
     def onTypeChanged(self,index:int):
+        state=True
         self.info.clear()
         self.infoData=[]
         if index==0:
@@ -71,4 +74,10 @@ class Quran(qt.QWidget):
         elif index==4:
             for  i in range(1,61):
                 self.infoData.append(str(i))
+        elif index==5:
+            state=False
         self.info.addItems(self.infoData)
+        self.serch.setVisible(state)
+        self.search_bar.setVisible(state)
+        self.info.setVisible(state)
+        self.fromToSuraah.setVisible(state!=True)

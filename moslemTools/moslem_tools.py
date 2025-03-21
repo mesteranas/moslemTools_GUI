@@ -10,9 +10,12 @@ import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
 from appTabs import *
 language.init_translation()
-updatePath=os.path.join(os.getenv('appdata'),settings_handler.appName,"update")
-if os.path.exists(updatePath):
-    shutil.rmtree(updatePath)
+try:
+    updatePath=os.path.join(os.getenv('appdata'),settings_handler.appName,"update")
+    if os.path.exists(updatePath):
+        shutil.rmtree(updatePath)
+except:
+    pass
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()

@@ -21,8 +21,12 @@ class DownloadUpdateThread(qt2.QRunnable):
         self.downloading=value
     def run(self):
         Name=os.path.join(self.path,self.URL.split("/")[-1])
-        if os.path.exists(self.path):
-            shutil.rmtree(self.path)
+        try:
+            if os.path.exists(self.path):
+                shutil.rmtree(self.path)
+        except:
+            self.object.finish.emit("error")
+            return
         os.makedirs(self.path)
         try:
             with requests.get(self.URL,stream=True)as r:
@@ -89,4 +93,3 @@ class DownloadUpdateGUI(qt.QDialog):
             qt.QApplication.exit()
     def cancelBTN(self):
         self.run.object.download.emit(False)
-        self.close()

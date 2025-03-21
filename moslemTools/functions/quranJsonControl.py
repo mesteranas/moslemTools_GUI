@@ -93,3 +93,28 @@ def getQuran():
             for Ayah in value["ayahs"]:
                 result.append(str(Surah) + value["name"] + " " + Ayah["text"] + "(" + str(Ayah["numberInSurah"]) + ")")
     return result
+def getFromTo(from_surah, from_ayah, to_surah, to_ayah):
+    result=[]
+    for surah_key in sorted(data.keys(), key=lambda x: int(x)):
+        surah_num=int(surah_key)
+        ayahs=data[surah_key]["ayahs"]
+        
+        if from_surah < surah_num < to_surah:
+            for ayah in ayahs:
+                result.append(f"{ayah['text']} ({ayah['numberInSurah']})")
+        elif surah_num == from_surah:
+            for ayah in ayahs:
+                ayah_num=int(ayah["numberInSurah"])
+                if from_surah == to_surah:
+                    if from_ayah <= ayah_num <= to_ayah:
+                        result.append(f"{ayah['text']} ({ayah['numberInSurah']})")
+                else:
+                    if ayah_num >= from_ayah:
+                        result.append(f"{ayah['text']} ({ayah['numberInSurah']})")
+                        
+        elif surah_num == to_surah:
+            for ayah in ayahs:
+                ayah_num=int(ayah["numberInSurah"])
+                if ayah_num <= to_ayah:
+                    result.append(f"{ayah['text']} ({ayah['numberInSurah']})")
+    return result

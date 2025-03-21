@@ -6,3 +6,4 @@ from .send_notification import SendNotification
 from .QPushButton import QPushButton
 from .QReadOnlyTextEdit import QReadOnlyTextEdit
 from .QListWidget import QListWidget
+from .fromToSurahWidget import FromToSurahWidget

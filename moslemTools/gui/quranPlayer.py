@@ -10,8 +10,9 @@ import guiTools,settings,functions
 with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranPlayer(qt.QDialog):
-    def __init__(self,p,text,index:int,type,category):
+    def __init__(self,p,text,index:int,type,category,enableBookMarks=True):
         super().__init__(p)                        
+        self.enableBookmarks=enableBookMarks
         self.resize(1200,600)
         self.type=type
         self.times=int(settings.settings_handler.get("quranPlayer","times"))
@@ -70,7 +71,8 @@ class QuranPlayer(qt.QDialog):
         self.on_play()
     def OnContextMenu(self):
         if self.media.isPlaying():
-            self.media.stop()
+            self.media.pause()
+            self.PPS.setText(_("تشغيل"))
         menu=qt.QMenu(_("الخيارات"),self)
         menu.setAccessibleName(_("الخيارات"))
         aya=qt.QMenu(_("خيارات الآية"),self)
@@ -96,6 +98,7 @@ class QuranPlayer(qt.QDialog):
         addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
         aya.addAction(addNewBookMark)
         addNewBookMark.triggered.connect(self.onAddBookMark)
+        addNewBookMark.setEnabled(self.enableBookmarks)
         Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
         aya.addAction(Previous_aya)
         Previous_aya.triggered.connect(self.onPreviousAyah)
