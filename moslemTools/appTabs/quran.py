@@ -19,16 +19,18 @@ class Quran(qt.QWidget):
         layout.addWidget(self.by)        
         self.type=qt.QComboBox()
         self.type.setAccessibleName(_("التصفح ب"))
-        self.type.addItems([_("سور"),_("صفحات"),_("أجزاء"),_("أرباع"),_("أحزاب"),_("مخصص")])
-        self.type.currentIndexChanged.connect(self.onTypeChanged)                
+        self.type.addItems([_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")])
+        self.type.currentIndexChanged.connect(self.onTypeChanged)                        
+        self.custom=guiTools.QPushButton(_("مخصص"))        
+        self.custom.clicked.connect(lambda: self.fromToSuraah.exec())
         layout.addWidget(self.type)        
+        layout.addWidget(self.custom)
         layout.addWidget(self.serch)
         layout.addWidget(self.search_bar)
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)
         layout.addWidget(self.info)                
-        self.fromToSuraah=guiTools.FromToSurahWidget(self)
-        layout.addWidget(self.fromToSuraah)
+        self.fromToSuraah=guiTools.FromToSurahWidget(self)        
         self.onTypeChanged(0)
     def search(self,pattern,text_list):    
         tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
@@ -73,11 +75,5 @@ class Quran(qt.QWidget):
                 self.infoData.append(str(i))
         elif index==4:
             for  i in range(1,61):
-                self.infoData.append(str(i))
-        elif index==5:
-            state=False
+                self.infoData.append(str(i))                        
         self.info.addItems(self.infoData)
-        self.serch.setVisible(state)
-        self.search_bar.setVisible(state)
-        self.info.setVisible(state)
-        self.fromToSuraah.setVisible(state!=True)
