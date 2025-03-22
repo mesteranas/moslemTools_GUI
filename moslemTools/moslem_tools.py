@@ -35,26 +35,29 @@ class main(qt.QMainWindow):
         self.viewInfoTextEdit()
         content_layout=qt.QHBoxLayout()
         self.list_widget=qt.QListWidget()
+        self.list_widget.currentItemChanged.connect(self.onToolChanged)
         self.stacked_widget=qt.QStackedWidget()        
+        self.quranPlayer=QuranPlayer()
+        self.storiesPlayer=StoryPlayer()
         tabs=[
-            (prayer_times, _("مواقيت الصلاة والتاريخ")),
-            (Quran, _("القرآن الكريم مكتوب")),
-            (QuranPlayer, _("القرآن الكريم صوتي")),
-            (QuranRecitations,_("قراءات القرآن الكريم")),
-            (hadeeth, _("الأحاديث النبوية والقدسية")),
-            (IslamicBooks,_("الكتب الإسلامية")),
-            (ProphetStories,_("القصص الإسلامية المكتوبة")),
-            (StoryPlayer,_("القصص الإسلامية الصوتية")),            
-            (Albaheth, _("الباحث في القرآن والأحاديث")),
-            (protcasts, _("الإذاعات الإسلامية")),
-            (Athker, _("الأذكار والأدعية")),
-            (sibha, _("سبحة إلكترونية")),
-            (NamesOfAllah, _("أسماء الله الحُسْنى")),
-            (DateConverter, _("محول التاريخ"))            
+            (prayer_times(), _("مواقيت الصلاة والتاريخ")),
+            (Quran(), _("القرآن الكريم مكتوب")),
+            (self.quranPlayer, _("القرآن الكريم صوتي")),
+            (QuranRecitations(),_("قراءات القرآن الكريم")),
+            (hadeeth(), _("الأحاديث النبوية والقدسية")),
+            (IslamicBooks(),_("الكتب الإسلامية")),
+            (ProphetStories(),_("القصص الإسلامية المكتوبة")),
+            (self.storiesPlayer,_("القصص الإسلامية الصوتية")),            
+            (Albaheth(), _("الباحث في القرآن والأحاديث")),
+            (protcasts(), _("الإذاعات الإسلامية")),
+            (Athker(), _("الأذكار والأدعية")),
+            (sibha(), _("سبحة إلكترونية")),
+            (NamesOfAllah(), _("أسماء الله الحُسْنى")),
+            (DateConverter(), _("محول التاريخ"))            
         ]
         for widget_class, label in tabs:
             self.list_widget.addItem(label)
-            instance=widget_class()
+            instance=widget_class
             self.stacked_widget.addWidget(instance)        
         self.list_widget.currentRowChanged.connect(self.stacked_widget.setCurrentIndex)
         self.list_widget.setCurrentRow(0)
@@ -62,8 +65,8 @@ class main(qt.QMainWindow):
         content_layout.addWidget(self.stacked_widget, 3)
         layout.addLayout(content_layout)        
         self.setting=guiTools.QPushButton(_("الإعدادات"))
-        self.setting.setShortcut("ctrl+s")
-        self.setting.setAccessibleDescription("control plus s")
+        self.setting.setShortcut("f3")
+        self.setting.setAccessibleDescription("f three")
         self.setting.clicked.connect(lambda: settings(self).exec())
         self.user_guide=guiTools.QPushButton(_("دليل المستخدم"))        
         self.user_guide.setShortcut("f1")
@@ -173,8 +176,25 @@ class main(qt.QMainWindow):
             self.info.setText(_("رمضان كريم"))
         elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
             self.info.setText(_("عيد مبارك"))
+        elif hijri_date_obj.month==10:
+            self.info.setText(_("صيام الست أيام البيض في هذا الشهر وهي سنة عن النبي"))
+        elif hijri_date_obj.month==8:
+            self.info.setText(_("يستحب الصيام في هذا الشهر"))
+        elif hijri_date_obj.day in [13,14,15]:
+            self.info.setText(_("صيام الأيام القمرية سنة عن النبي"))
+        elif hijri_date_obj.month==1 and hijri_date_obj.day==10:
+            self.info.setText(_("صيام عاشوراء مستحب عن النبي"))
+        elif hijri_date_obj.month==12 and hijri_date_obj.day in [1,2,3,4,5,6,7,8]:
+            self.info.setText(_("صيام العشر الأوائل من زي الحجة سنة عن النبي"))
+        elif hijri_date_obj.month==12 and hijri_date_obj.day==9:
+            self.info.setText(_("صيام وقفة عرفات"))
         else:
             self.info.setText(_("لا تَنْسى ذِكْر الله"))
+    def onToolChanged(self,index):
+        if self.quranPlayer.mp.isPlaying():
+            self.quranPlayer.mp.stop()
+        if self.storiesPlayer.mp.isPlaying():
+            self.storiesPlayer.mp.stop()
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

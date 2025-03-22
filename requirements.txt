@@ -1,0 +1,8 @@
+PyQt6
+PyQt6-Qt6
+PyQt6_sip
+requests
+hijri_converter 
+notify-py
+pyperclip
+geocoder
