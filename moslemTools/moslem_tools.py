@@ -177,15 +177,15 @@ class main(qt.QMainWindow):
         elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
             self.info.setText(_("عيد مبارك"))
         elif hijri_date_obj.month==10:
-            self.info.setText(_("صيام الست أيام البيض في هذا الشهر وهي سنة عن النبي"))
+            self.info.setText(_("صيام الست أيام البيض في هذا الشهر وهي سنة عن النبي صل الله عليه وسلم"))
         elif hijri_date_obj.month==8:
             self.info.setText(_("يستحب الصيام في هذا الشهر"))
         elif hijri_date_obj.day in [13,14,15]:
-            self.info.setText(_("صيام الأيام القمرية سنة عن النبي"))
+            self.info.setText(_("صيام الأيام القمرية سنة عن النبي صل الله عليه وسلم"))
         elif hijri_date_obj.month==1 and hijri_date_obj.day==10:
-            self.info.setText(_("صيام عاشوراء مستحب عن النبي"))
+            self.info.setText(_("صيام عاشوراء مستحب عن النبي صل الله عليه وسلم"))
         elif hijri_date_obj.month==12 and hijri_date_obj.day in [1,2,3,4,5,6,7,8]:
-            self.info.setText(_("صيام العشر الأوائل من زي الحجة سنة عن النبي"))
+            self.info.setText(_("صيام العشر الأوائل من ذي الحجة سنة عن النبي صل الله عليه وسلم"))
         elif hijri_date_obj.month==12 and hijri_date_obj.day==9:
             self.info.setText(_("صيام وقفة عرفات"))
         else:
