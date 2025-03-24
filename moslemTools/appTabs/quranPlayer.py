@@ -1,4 +1,4 @@
-import guiTools, requests, json, os
+import guiTools, requests, json, os,winsound
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -48,6 +48,12 @@ class QuranPlayer(qt.QWidget):
         qt1.QShortcut("shift+up", self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)
         qt1.QShortcut("ctrl+d", self).activated.connect(self.trigger_context_menu)        
+        qt1.QShortcut("[",self).activated.connect(self.onChangeStartingPosition)
+        qt1.QShortcut("]",self).activated.connect(self.onChangeEndingPosition)
+        qt1.QShortcut("backspace",self).activated.connect(self.removePosition)
+        self.startingPosition=None
+        self.endingPosition=None
+        self.repeatFromPositionToPosition=False
         self.reciters_data = self.load_reciters()        
         self.recitersLabel = qt.QLabel(_("إختيار قارئ"))
         self.recitersLabel.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -431,6 +437,7 @@ class QuranPlayer(qt.QWidget):
         result = self.search(search_text, surah_list)
         self.surahListWidget.addItems(result)    
     def play_selected_audio(self):
+        self.repeatFromPositionToPosition=False
         try:
             selected_reciter_item = self.recitersListWidget.currentItem()
             if not selected_reciter_item:
@@ -485,6 +492,17 @@ class QuranPlayer(qt.QWidget):
         menu2.exec(position)
     def open_context_menu(self, position):
         menu = qt.QMenu(self)
+        repeateFromPositionTopositionMenue=menu.addMenu(_("التكرار من موضع إلى موضع"))
+        setStartingPositionAction=qt1.QAction(_("تحديد موضع البداية ["),self)
+        setStartingPositionAction.triggered.connect(self.onChangeStartingPosition)
+        repeateFromPositionTopositionMenue.addAction(setStartingPositionAction)
+        repeateFromPositionTopositionMenue.setDefaultAction(setStartingPositionAction)
+        setEndingPositionAction=qt1.QAction(_("تحديد موضع النهاية ]"),self)
+        setEndingPositionAction.triggered.connect(self.onChangeEndingPosition)
+        repeateFromPositionTopositionMenue.addAction(setEndingPositionAction)
+        resetAndStopRepeatingAction=qt1.QAction("حذف الموضع المحدد وإيقاف التكرار backspace",self)
+        resetAndStopRepeatingAction.triggered.connect(self.removePosition)
+        repeateFromPositionTopositionMenue.addAction(resetAndStopRepeatingAction)
         play_action = qt1.QAction(_("تشغيل السورة المحددة"), self)
         play_action.triggered.connect(self.play_selected_audio)
         menu.addAction(play_action)
@@ -552,6 +570,12 @@ class QuranPlayer(qt.QWidget):
         new_position = int((value / 100) * duration)
         self.mp.setPosition(new_position)
     def update_slider(self):
+        if self.repeatFromPositionToPosition:
+            if self.mp.position() >= self.endingPosition:
+                self.mp.pause()
+                self.mp.setPosition(self.startingPosition)
+                self.mp.play()
+                return
         try:
             self.Slider.blockSignals(True)
             self.Slider.setValue(int((self.mp.position() / self.mp.duration()) * 100))
@@ -576,3 +600,28 @@ class QuranPlayer(qt.QWidget):
         file_path = "data/json/reciters.json"
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
+    def onChangeStartingPosition(self):
+        position=self.mp.position()
+        self.startingPosition=position
+        self.endingPosition=None
+        self.repeatFromPositionToPosition=False
+        winsound.Beep(400,500)
+    def onChangeEndingPosition(self):
+        if not self.startingPosition==None:
+            if self.startingPosition==self.mp.position():
+                qt.QMessageBox.critical(self,_("خطأ"),_("لا يمكن أن يكون موضع البداية هو نفس موضع النهاية"))
+            elif self.startingPosition>self.mp.position():
+                qt.QMessageBox.critical(self,_("خطأ"),_("لا يمكن أن يكون موضع البداية أكبر من موضع النهاية"))
+            else:
+                position=self.mp.position()
+                self.endingPosition=position
+                winsound.Beep(500,500)
+                self.repeatFromPositionToPosition=True
+                self.mp.setPosition(self.startingPosition)
+        else:
+            qt.QMessageBox.critical(self,_("خطأ"),_("يرجى تحديد موضع البداية أولا"))
+    def removePosition(self):
+        self.startingPosition=None
+        self.endingPosition=None
+        self.repeatFromPositionToPosition=False
+        winsound.Beep(300,500)
