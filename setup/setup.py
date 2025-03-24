@@ -8,7 +8,6 @@ pyqt_path = os.path.dirname(PyQt6.__file__)
 include_files = [
     ("data/dlls", "data/dlls"),
     ("data/icons","data/icons"),
-    ("data/languages","data/languages"),
     ("data/sounds/adaan","data/sounds/adaan"),
     ("data/sounds/athkar","data/sounds/athkar"),
     ("data/sounds/001001.mp3","data/sounds/001001.mp3"),
@@ -32,6 +31,13 @@ include_files = [
     ("data/json/tanzil.json","data/json/tanzil.json"),
     ("data/json/text_athkar.json","data/json/text_athkar.json")
 ]
+for languageFolder in os.listdir("data/languages"):
+    languagesFolder="data/languages/" + languageFolder
+    if os.path.isdir(languagesFolder):
+        langNameFile=languagesFolder + "/langName.translation"
+        langcontent=languagesFolder + "/LC_MESSAGES/moslemTools_GUI.mo"
+        include_files.append((langNameFile,langNameFile))
+        include_files.append((langcontent,langcontent))
 dll_files = ["Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll", "Qt6Network.dll","","Qt6Multimedia.dll","Qt6MultimediaQuick.dll","Qt6PrintSupport.dll"]
 for file in dll_files:
     include_files.append((os.path.join(pyqt_path, "Qt6", "bin", file), os.path.join("lib", file)))
