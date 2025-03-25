@@ -1,4 +1,4 @@
-import guiTools, requests, json, os
+import guiTools, requests, json, os,gui,functions
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -48,6 +48,8 @@ class StoryPlayer(qt.QWidget):
         qt1.QShortcut("shift+up", self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)
         qt1.QShortcut("ctrl+d", self).activated.connect(self.trigger_context_menu)        
+        self.bookmarksPosition=None
+        self.isAMustToGoToBookmark=False
         self.categories_data = self.load_categories()
         self.categoriesLabel = qt.QLabel(_("اختيار فئة"))
         self.categoriesLabel.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -77,6 +79,8 @@ class StoryPlayer(qt.QWidget):
         self.mp = QMediaPlayer()
         self.au = QAudioOutput()
         self.mp.setAudioOutput(self.au)        
+        self.openBookmarks=guiTools.QPushButton(_("العلامات المرجعية"))
+        self.openBookmarks.clicked.connect(self.onBookmarkOpened)
         self.play_all_to_end = qt.QPushButton(_("تشغيل كل القصص من بداية القصة المركز عليها الى النهاية"))
         self.play_all_to_end.setAccessibleDescription("control plus A")
         self.play_all_to_end.setCheckable(True)
@@ -103,6 +107,8 @@ class StoryPlayer(qt.QWidget):
         self.Slider.setAccessibleName(_("الوقت المنقدي"))
         self.Slider.setTracking(True)
         self.Slider.valueChanged.connect(self.set_position_from_slider)
+        self.Slider.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.Slider.customContextMenuRequested.connect(self.onAddNewBookmark)
         self.mp.durationChanged.connect(self.update_slider)
         self.mp.positionChanged.connect(self.update_slider)        
         self.duration = qt.QLineEdit()
@@ -138,6 +144,7 @@ class StoryPlayer(qt.QWidget):
         layout.addWidget(self.dl_all_app)
         layout.addWidget(self.delete)
         layout.addWidget(self.dl_all)
+        layout.addWidget(self.openBookmarks)
         layout.addWidget(self.progressBar)
         layout.addWidget(self.Slider)
         layout.addWidget(self.play_all_to_end)
@@ -505,6 +512,9 @@ class StoryPlayer(qt.QWidget):
         delete_option = self.check_current_story_downloaded()
         if delete_option:
             menu.addAction(delete_option)
+        addNewBookmarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
+        menu.addAction(addNewBookmarkAction)
+        addNewBookmarkAction.triggered.connect(self.onAddNewBookmark)
         menu.exec(self.storiesListWidget.viewport().mapToGlobal(position))    
     def t10(self):
         total_duration = self.mp.duration()
@@ -551,6 +561,9 @@ class StoryPlayer(qt.QWidget):
         new_position = int((value / 100) * duration)
         self.mp.setPosition(new_position)
     def update_slider(self):
+        if self.isAMustToGoToBookmark and self.mp.position()>=3000:
+            self.isAMustToGoToBookmark=False
+            self.mp.setPosition(self.bookmarksPosition)
         try:
             self.Slider.blockSignals(True)
             self.Slider.setValue(int((self.mp.position() / self.mp.duration()) * 100))
@@ -575,3 +588,12 @@ class StoryPlayer(qt.QWidget):
         file_path = "data/json/files/all_audio_stories.json"
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
+    def onBookmarkOpened(self):
+        gui.book_marcks(self,"stories").exec()
+    def onAddNewBookmark(self):
+        name,ok=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب اسم العلامة المرجعية"))
+        if ok:
+            type=self.categoriesListWidget.currentRow()
+            surah=self.storiesListWidget.currentRow()
+            position=self.mp.position()
+            functions.bookMarksManager.addNewaudioBookMark("stories",type,surah,position,name)

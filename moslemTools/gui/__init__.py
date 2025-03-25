@@ -7,3 +7,4 @@ from .adaanWindow import AdaanDialog
 from .after_azaan import AfterAdaan
 from .quranRecitationViewer import QuranRecitationViewer
 from .storyViewer import StoryViewer
+from .book_marks import book_marcks

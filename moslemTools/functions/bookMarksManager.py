@@ -151,3 +151,32 @@ def getStoryBookmark(p,name):
                     stories=json.load(file)
             story=stories[category]
             gui.StoryViewer(p,story,type,category,index=line).exec()
+def addNewaudioBookMark(tabName,typeIndex:int,categoryIndex:int,position:int,bookMarkName:str):
+    bookMarksList=openBookMarksFile()
+    try:
+        quranBookMarksList=bookMarksList["audio " + tabName]
+    except:
+        quranBookMarksList=bookMarksList["audio " + tabName]=[]
+    newQuranBookMarkData={
+        "type":typeIndex,
+        "category":categoryIndex,
+        "position":position,
+        "name":bookMarkName
+    }
+    quranBookMarksList.append(newQuranBookMarkData)
+    bookMarksList["audio " + tabName]=quranBookMarksList
+    saveBookMarks(bookMarksList)
+def removeaudioBookMark(tabName,bookMarkName:str):
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["audio " + tabName]
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["name"]==bookMarkName:
+            ahadeethBookMarksList.remove(hadeethBookMarkData)
+            break
+    bookMarksList["audio " + tabName]=ahadeethBookMarksList
+    saveBookMarks(bookMarksList)
+def GetAudioBookByName(tabName,name:str):
+    ahadeethBookMarks=openBookMarksFile()
+    for hadeethData in ahadeethBookMarks["audio " + tabName]:
+        if hadeethData["name"]==name:
+            return hadeethData

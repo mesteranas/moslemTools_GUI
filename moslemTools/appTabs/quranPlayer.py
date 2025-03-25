@@ -1,4 +1,4 @@
-import guiTools, requests, json, os,winsound
+import guiTools, requests, json, os,winsound,gui,functions
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -51,6 +51,8 @@ class QuranPlayer(qt.QWidget):
         qt1.QShortcut("[",self).activated.connect(self.onChangeStartingPosition)
         qt1.QShortcut("]",self).activated.connect(self.onChangeEndingPosition)
         qt1.QShortcut("backspace",self).activated.connect(self.removePosition)
+        self.bookmarksPosition=None
+        self.isAMustToGoToBookmark=False
         self.startingPosition=None
         self.endingPosition=None
         self.repeatFromPositionToPosition=False
@@ -83,6 +85,8 @@ class QuranPlayer(qt.QWidget):
         self.mp = QMediaPlayer()
         self.au = QAudioOutput()
         self.mp.setAudioOutput(self.au)
+        self.openBookmarks=guiTools.QPushButton(_("العلامات المرجعية"))
+        self.openBookmarks.clicked.connect(self.onBookmarkOpened)
         self.play_all_to_end = qt.QPushButton(_("تشغيل كل السور من بداية السورة المركز عليها الى النهاية"))
         self.play_all_to_end.setAccessibleDescription("control plus A")
         self.play_all_to_end.setCheckable(True)
@@ -109,6 +113,8 @@ class QuranPlayer(qt.QWidget):
         self.Slider.setAccessibleName(_("الوقت المنقدي"))
         self.Slider.setTracking(True)
         self.Slider.valueChanged.connect(self.set_position_from_slider)
+        self.Slider.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.Slider.customContextMenuRequested.connect(self.onAddNewBookmark)
         self.mp.durationChanged.connect(self.update_slider)
         self.mp.positionChanged.connect(self.update_slider)
         self.duration = qt.QLineEdit()
@@ -144,6 +150,7 @@ class QuranPlayer(qt.QWidget):
         layout.addWidget(self.dl_all_app)
         layout.addWidget(self.delete)
         layout.addWidget(self.dl_all)
+        layout.addWidget(self.openBookmarks)
         layout.addWidget(self.progressBar)
         layout.addWidget(self.Slider)
         layout.addWidget(self.play_all_to_end)
@@ -524,6 +531,9 @@ class QuranPlayer(qt.QWidget):
         delete_option = self.check_current_surah_downloaded()
         if delete_option:
             menu.addAction(delete_option)
+        addNewBookmarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
+        menu.addAction(addNewBookmarkAction)
+        addNewBookmarkAction.triggered.connect(self.onAddNewBookmark)
         menu.exec(self.surahListWidget.viewport().mapToGlobal(position))
     def t10(self):
         total_duration = self.mp.duration()
@@ -570,6 +580,9 @@ class QuranPlayer(qt.QWidget):
         new_position = int((value / 100) * duration)
         self.mp.setPosition(new_position)
     def update_slider(self):
+        if self.isAMustToGoToBookmark and self.mp.position()>=3000:
+            self.isAMustToGoToBookmark=False
+            self.mp.setPosition(self.bookmarksPosition)
         if self.repeatFromPositionToPosition:
             if self.mp.position() >= self.endingPosition:
                 self.mp.pause()
@@ -625,3 +638,12 @@ class QuranPlayer(qt.QWidget):
         self.endingPosition=None
         self.repeatFromPositionToPosition=False
         winsound.Beep(300,500)
+    def onBookmarkOpened(self):
+        gui.book_marcks(self,"quran").exec()
+    def onAddNewBookmark(self):
+        name,ok=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب اسم العلامة المرجعية"))
+        if ok:
+            type=self.recitersListWidget.currentRow()
+            surah=self.surahListWidget.currentRow()
+            position=self.mp.position()
+            functions.bookMarksManager.addNewaudioBookMark("quran",type,surah,position,name)
