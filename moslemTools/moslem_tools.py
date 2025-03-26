@@ -68,6 +68,10 @@ class main(qt.QMainWindow):
         self.setting.setShortcut("f3")
         self.setting.setAccessibleDescription("f three")
         self.setting.clicked.connect(lambda: settings(self).exec())
+        self.viewLastMessage=guiTools.QPushButton(_("أظهار آخر رسالة من المطورين"))
+        self.viewLastMessage.setShortcut("ctrl+m")
+        self.viewLastMessage.setAccessibleDescription("control plus m")
+        self.viewLastMessage.clicked.connect(self.onViewLastMessageButtonClicked)
         self.user_guide=guiTools.QPushButton(_("دليل المستخدم"))        
         self.user_guide.setShortcut("f1")
         self.user_guide.setAccessibleDescription("f one")
@@ -82,6 +86,7 @@ class main(qt.QMainWindow):
         self.bookMark.setAccessibleDescription("control plus b")
         buttons_layout=qt.QHBoxLayout()
         buttons_layout.addWidget(self.setting)
+        buttons_layout.addWidget(self.viewLastMessage)
         buttons_layout.addWidget(self.bookMark)
         buttons_layout.addWidget(self.user_guide)
         buttons_layout.addWidget(self.about_devs)        
@@ -113,6 +118,7 @@ class main(qt.QMainWindow):
         self.TIMER1.timeout.connect(self.show_random_theker)        
         self.runAudioThkarTimer()
         self.notification_random_thecker()
+        guiTools.messageHandler.check(self)
         if settings_handler.get("update", "autoCheck") == "True":
             update.check(self, message=False)
     def toggle_visibility(self):
@@ -195,6 +201,10 @@ class main(qt.QMainWindow):
             self.quranPlayer.mp.stop()
         if self.storiesPlayer.mp.isPlaying():
             self.storiesPlayer.mp.stop()
+    def onViewLastMessageButtonClicked(self):
+        with open(os.path.join(os.getenv('appdata'),settings_handler.appName,"message.json"),"r",encoding="utf-8") as file:
+            data=json.load(file)
+        guiTools.TextViewer(self,_("آخر رسالة من المطورين"),data["message"]).exec()
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

@@ -7,3 +7,4 @@ from .QPushButton import QPushButton
 from .QReadOnlyTextEdit import QReadOnlyTextEdit
 from .QListWidget import QListWidget
 from .fromToSurahWidget import FromToSurahWidget
+from . import messageHandler

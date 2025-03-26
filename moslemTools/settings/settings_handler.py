@@ -45,6 +45,7 @@ def getSystemLanguage():
 settingsConfig={
 	"g":{
 		"lang":getSystemLanguage(),
+		"messageID":"0",
 		"exitdialog":"True",
 		"reciter":"0"
 	},
