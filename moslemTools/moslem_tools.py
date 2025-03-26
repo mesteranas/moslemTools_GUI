@@ -68,7 +68,7 @@ class main(qt.QMainWindow):
         self.setting.setShortcut("f3")
         self.setting.setAccessibleDescription("f three")
         self.setting.clicked.connect(lambda: settings(self).exec())
-        self.viewLastMessage=guiTools.QPushButton(_("أظهار آخر رسالة من المطورين"))
+        self.viewLastMessage=guiTools.QPushButton(_("إظهار آخر رسالة من المطورين"))
         self.viewLastMessage.setShortcut("ctrl+m")
         self.viewLastMessage.setAccessibleDescription("control plus m")
         self.viewLastMessage.clicked.connect(self.onViewLastMessageButtonClicked)
