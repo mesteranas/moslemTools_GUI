@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools,json,random,os,shutil
+import update, guiTools,json,random,os,shutil,datetime
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -177,24 +177,29 @@ class main(qt.QMainWindow):
         else:
             self.list_widget.setCurrentRow(self.list_widget.currentRow()-1)
     def viewInfoTextEdit(self):
-        hijri_date_obj=Gregorian.today().to_hijri()
-        if hijri_date_obj.month==9:
-            self.info.setText(_("رمضان كريم"))
-        elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
-            self.info.setText(_("عيد مبارك"))
-        elif hijri_date_obj.month==10:
-            self.info.setText(_("صيام الست أيام البيض في هذا الشهر وهي سنة عن النبي صل الله عليه وسلم"))
-        elif hijri_date_obj.month==8:
-            self.info.setText(_("يستحب الصيام في هذا الشهر"))
-        elif hijri_date_obj.day in [13,14,15]:
-            self.info.setText(_("صيام الأيام القمرية سنة عن النبي صل الله عليه وسلم"))
-        elif hijri_date_obj.month==1 and hijri_date_obj.day==10:
-            self.info.setText(_("صيام عاشوراء مستحب عن النبي صل الله عليه وسلم"))
-        elif hijri_date_obj.month==12 and hijri_date_obj.day in [1,2,3,4,5,6,7,8]:
-            self.info.setText(_("صيام العشر الأوائل من ذي الحجة سنة عن النبي صل الله عليه وسلم"))
-        elif hijri_date_obj.month==12 and hijri_date_obj.day==9:
-            self.info.setText(_("صيام وقفة عرفات"))
-        else:
+        try:
+            hijri_date_obj=Gregorian.today().to_hijri()
+            if hijri_date_obj.month==9:
+                self.info.setText(_("رمضان كريم"))
+            elif hijri_date_obj.month==10 and hijri_date_obj.day==1 or hijri_date_obj.month==12 and hijri_date_obj.day==10:
+                self.info.setText(_("عيد مبارك"))
+            elif hijri_date_obj.month==10:
+                self.info.setText(_("صيام الست أيام البيض في هذا الشهر وهي سنة عن النبي صل الله عليه وسلم"))
+            elif hijri_date_obj.month==8:
+                self.info.setText(_("يستحب الصيام في هذا الشهر"))
+            elif hijri_date_obj.day in [13,14,15]:
+                self.info.setText(_("صيام الأيام القمرية سنة عن النبي صل الله عليه وسلم"))
+            elif hijri_date_obj.month==1 and hijri_date_obj.day==10:
+                self.info.setText(_("صيام عاشوراء مستحب عن النبي صل الله عليه وسلم"))
+            elif hijri_date_obj.month==12 and hijri_date_obj.day in [1,2,3,4,5,6,7,8]:
+                self.info.setText(_("صيام العشر الأوائل من ذي الحجة سنة عن النبي صل الله عليه وسلم"))
+            elif hijri_date_obj.month==12 and hijri_date_obj.day==9:
+                self.info.setText(_("صيام وقفة عرفات"))
+            elif datetime.datetime.now().weekday() in [0,3]:
+                self.info.setText(_("صيام اليوم سنة عن النبي صل الله عليه وسلم"))
+            else:
+                self.info.setText(_("لا تَنْسى ذِكْر الله"))
+        except:
             self.info.setText(_("لا تَنْسى ذِكْر الله"))
     def onToolChanged(self,index):
         if self.quranPlayer.mp.isPlaying():
