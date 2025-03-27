@@ -7,4 +7,4 @@ notify-py
 pyperclip
 geocoder
 pywin32
-cx_Freeze
+pyinstaller
