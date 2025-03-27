@@ -18,8 +18,13 @@ class prayer_times(qt.QWidget):
         self.timer=qt2.QTimer(self)
         self.timer.timeout.connect(self.onTimer)
         self.information=qt.QListWidget()        
+        self.worning=qt.QLineEdit()
+        self.worning.setReadOnly(True)
+        self.worning.setText(_("F5 لإعادة تحميل مواقيت الصلاة"))
+        self.worning.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout=qt.QVBoxLayout()
         layout.addWidget(self.information)        
+        layout.addWidget(self.worning)
         self.setLayout(layout)
         self.display_prayer_times()
     def onTimer(self):
