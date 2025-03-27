@@ -228,12 +228,13 @@ class QuranPlayer(qt.QDialog):
     def getCurentAyahIArab(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         result=functions.iarab.getIarab(AyahNumber,AyahNumber)
-        guiTools.TextViewer(self,_("إعراب"),result)
+        guiTools.TextViewer(self,_("إعراب"),result).exec()
+
     def getCurrentAyahTanzel(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         result=functions.tanzil.gettanzil(AyahNumber)
         if result:
-            guiTools.TextViewer(self,_("اسباب النزول"),result)
+            guiTools.TextViewer(self,_("اسباب النزول"),result).exec()
         else:
             qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
     def getAyahInfo(self):
