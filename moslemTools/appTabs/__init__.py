@@ -1,5 +1,4 @@
 from .quranPlayer import QuranPlayer
-from .userGuide import UserGuide
 from .researcher import Albaheth
 from .book_marks import book_marcks
 from .ahadeeth import hadeeth

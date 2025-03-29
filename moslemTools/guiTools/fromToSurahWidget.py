@@ -41,7 +41,7 @@ class FromToSurahWidget(qt.QDialog):
         main_layout.addWidget(self.go)        
         self.setLayout(main_layout)                
         self.combo_from_surah.currentIndexChanged.connect(self.handle_surah_change)
-        self.combo_to_surah.currentIndexChanged.connect(self.handle_surah_change)
+        self.combo_to_surah.currentIndexChanged.connect(self.handle_to_surah_change)
         self.spin_from_verse.valueChanged.connect(self.handle_verse_change)
         self.spin_to_verse.valueChanged.connect(self.handle_verse_change)
         self.go.clicked.connect(self.onGo)        
@@ -70,3 +70,12 @@ class FromToSurahWidget(qt.QDialog):
             self.spin_to_verse.value()
         )
         gui.QuranViewer(self.p, "\n".join(result), 5, 0, enableBookmarks=False).exec()
+    def handle_to_surah_change(self):        
+        if self.combo_to_surah.currentIndex() < self.combo_from_surah.currentIndex():
+            self.combo_to_surah.setCurrentIndex(self.combo_from_surah.currentIndex())        
+        surah_from_text = self.combo_from_surah.currentText()
+        surah_to_text = self.combo_to_surah.currentText()
+        num_verses_to = len(self.surahs[surah_to_text][1].split("\n"))
+        self.spin_to_verse.setRange(1, num_verses_to)
+        self.spin_to_verse.setValue(num_verses_to)
+        self.handle_verse_change()    

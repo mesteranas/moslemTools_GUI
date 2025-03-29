@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools,json,random,os,shutil,datetime
+import update, guiTools,json,random,os,shutil,datetime,webbrowser
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -161,8 +161,7 @@ class main(qt.QMainWindow):
             self.media_player.setSource(qt2.QUrl.fromLocalFile(file_path))
             self.media_player.play()
     def open_user_g_window(self)    :
-        self.user_guide_window=UserGuide()
-        self.user_guide_window.show()
+        webbrowser.open("https://drive.google.com/file/d/1GLp5kR6SIY2OhXfc6bZXjWn5beRflsEP/view?usp=drivesdk")
     def open_developers_window(self):
         self.developers_window=About_developers()
         self.developers_window.show()
