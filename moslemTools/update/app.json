@@ -1,7 +1,7 @@
 {
 "name": "!moslem tools",
-"version": 6.2,
-"what is new": "تم إصلاح الكثير من الأخطاء\nMany errors have been fixed",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v6.2/moslem_tools_version_6.2.exe",
+"version": 7.0,
+"what is new": "تم إضافة المزيد من القراء بأكثر من قراءة للقرآن الكريم صوتي ومكتوب\nMore reciters have been added, each offering multiple recitations of the Qur'an in both audio and text formats.\nتم إضافة تصفح القرآن بطريقة مخصصة في تبويبة القرآن الكريم مكتوب\nThe Qur'an can now be browsed by custom way in quran as text tab\nتم إضافة اختصارات للإجرآت في تبويبة القرآن الكريم مكتوب والكثير من التبويبات\nShortcuts for various actions have been added in the quran as Text tab and other tabs.\nتم إضافة إمكانية تكرار جزء معين من سورة في تبويبة القرآن الكريم صوتي عن طريق موضع البدء ولانتهاء\nThe quran as Audio tab now allows you to repeat a specific part of a surah by specifying its start and end positions.\nتم إضافة إمكانية عمل علامة مرجعية في تبويبة القرآن الكريم صوتي\nYou can now create bookmarks in the Quran as audio tab.\nتم إضافة تبويبة القصص الإسلامية الصوتية\nIslamic audio stories tab has been added.\nتم عمل تغيير بسيط في تخطيط البرنامج\nA simple change has been made to the program's layout.\nتم تحويل دليل المستخدم الى فيديو\nThe user guide has been converted into a video , the video in arabic.\nتم إضافة إستقبال رسائل من مطوري البرنامج\nThe program now supports receiving messages from the developers.\nتم إصلاح الكثير من الأخطاء\nsome errors have been fixed.\n\nكل عام وأنتم بخير بمناسبة عيد الفطر المبارك\nWishing you all a blessed Eid al-Fitr",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v7.0.0/moslemToolsSetup.exe",
 "is_beta": false
 }
