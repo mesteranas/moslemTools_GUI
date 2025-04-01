@@ -68,6 +68,10 @@ class main(qt.QMainWindow):
         self.setting.setShortcut("f3")
         self.setting.setAccessibleDescription("f three")
         self.setting.clicked.connect(lambda: settings(self).exec())
+        self.whats_new=guiTools.QPushButton(_("ما الجديد في هذا الإصدار"))
+        self.whats_new.setShortcut("ctrl+w")
+        self.whats_new.setAccessibleDescription("control plus w")
+        self.whats_new.clicked.connect(self.whats_new_funktion)
         self.viewLastMessage=guiTools.QPushButton(_("إظهار آخر رسالة من المطورين"))
         self.viewLastMessage.setShortcut("ctrl+m")
         self.viewLastMessage.setAccessibleDescription("control plus m")
@@ -86,6 +90,7 @@ class main(qt.QMainWindow):
         self.bookMark.setAccessibleDescription("control plus b")
         buttons_layout=qt.QHBoxLayout()
         buttons_layout.addWidget(self.setting)
+        buttons_layout.addWidget(self.whats_new)
         buttons_layout.addWidget(self.viewLastMessage)
         buttons_layout.addWidget(self.bookMark)
         buttons_layout.addWidget(self.user_guide)
@@ -209,6 +214,8 @@ class main(qt.QMainWindow):
         with open(os.path.join(os.getenv('appdata'),settings_handler.appName,"message.json"),"r",encoding="utf-8") as file:
             data=json.load(file)
         guiTools.TextViewer(self,_("آخر رسالة من المطورين"),data["message"]).exec()
+    def whats_new_funktion(self):
+        pass
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

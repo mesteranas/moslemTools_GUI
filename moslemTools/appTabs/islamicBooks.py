@@ -30,7 +30,11 @@ class IslamicBooks(qt.QWidget):
         self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.info1.setText(_("تنبيه هام , مطوري البرنامج غير مسؤولين عن محتوى هذه الكتب"))
         layout.addWidget(self.info1)
-
+        self.info2=qt.QLineEdit()
+        self.info2.setReadOnly(True)
+        self.info2.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info2.setText(_("لحذف أي كتاب تم تحميله, نستخدم زر الحذف أو زر التطبيقات"))
+        layout.addWidget(self.info2)
         self.list_of_abook.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_of_abook.customContextMenuRequested.connect(self.onDelete)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)

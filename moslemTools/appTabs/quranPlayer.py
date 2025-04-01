@@ -46,8 +46,7 @@ class QuranPlayer(qt.QWidget):
         qt1.QShortcut("ctrl+8", self).activated.connect(self.t80)
         qt1.QShortcut("ctrl+9", self).activated.connect(self.t90)
         qt1.QShortcut("shift+up", self).activated.connect(self.increase_volume)
-        qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)
-        qt1.QShortcut("ctrl+d", self).activated.connect(self.trigger_context_menu)        
+        qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)        
         qt1.QShortcut("[",self).activated.connect(self.onChangeStartingPosition)
         qt1.QShortcut("]",self).activated.connect(self.onChangeEndingPosition)
         qt1.QShortcut("backspace",self).activated.connect(self.removePosition)
@@ -88,6 +87,8 @@ class QuranPlayer(qt.QWidget):
         self.openBookmarks=qt.QPushButton(_("العلامات المرجعية"))        
         self.openBookmarks.setDefault(True)
         self.openBookmarks.clicked.connect(self.onBookmarkOpened)
+        self.openBookmarks.setShortcut("ctrl+shift+b")
+        self.openBookmarks.setAccessibleDescription("control plus shift plus b")
         self.play_all_to_end = qt.QPushButton(_("تشغيل كل السور من بداية السورة المركز عليها الى النهاية"))
         self.play_all_to_end.setAccessibleDescription("control plus A")
         self.play_all_to_end.setCheckable(True)
@@ -133,6 +134,11 @@ class QuranPlayer(qt.QWidget):
         self.delete.setDefault(True)
         self.delete.setVisible(False)
         self.delete.clicked.connect(lambda: self.delete_surah())                
+        self.user_guide=qt.QPushButton(_("دليل الاختصارات"))
+        self.user_guide.setDefault(True)
+        self.user_guide.setShortcut("ctrl+f1")
+        self.user_guide.setAccessibleDescription(_("control plus f1"))        
+        self.user_guide.clicked.connect(lambda: guiTools.TextViewer(self,_("دليل الاختصارات"),_("ctrl+s: إيقاف\nspace: التشغيل والإيقاف المؤقت\nalt زائد السهم الأيمن: التقديم السريع لمدة 5 ثواني\nalt زائد السهم الأيسر: الترجيع السريع لمدة 5 ثواني\nalt زائد السهم الأعلى: التقديم السريع لمدة 10 ثواني\nalt زائد السهم الأسفل: الترجيع السريع لمدة 10 ثواني\nctrl زائد السهم الأيمن: التقديم السريع لمدة 30 ثانية\nctrl زائد السهم الأيسر: الترجيع السريع لمدة 30 ثانية\nctrl زائد السهم الأعلى: التقديم السريع لمدة دقيقة\nctrl زائد السهم الأسفل: الترجيع  السريع لمدة دقيقة\nctrl زائد رقم: الانتقال الى موضع محدد من المقطع, مثلا ctrl+10 الانتقال الى 10% من المقطع\nshift زائد السهم الأعلى: رفع الصوت\nshift زائد السهم الأسفل: خفض الصوت\n[: تحديد موضع البدء\n]: تحديد موضع الانتهاء\nbackspace: حذف الموضع المحدد وإيقاف التكرار\nالضغط على زر التطبيقات على شريط مدة المقطع يسمح بإضافة علامة مرجعية للموضع الحالي\nctrl+shift+b: فتح نافذة العلامات المرجعية\nctrl+f1: دليل الاختصارات")).exec())
         recitersLayout = qt.QVBoxLayout()
         recitersLayout.addWidget(self.recitersLabel)
         recitersLayout.addWidget(self.reciterSearchLabel)
@@ -158,6 +164,7 @@ class QuranPlayer(qt.QWidget):
         layout.addWidget(self.play_all_to_start)
         layout.addWidget(self.repeat_surah_button)
         layout.addWidget(self.duration)
+        layout.addWidget(self.user_guide)
         self.setLayout(layout)                
         if self.recitersListWidget.count() > 0:
             self.recitersListWidget.setCurrentRow(0)
@@ -481,23 +488,7 @@ class QuranPlayer(qt.QWidget):
                     self.download_thread.finished.connect(self.download_complete)
                     self.download_thread.start()
         except:
-            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
-    def trigger_context_menu(self):
-        selected_item = self.surahListWidget.currentIndex()
-        if not selected_item.isValid():
-            return
-        rect = self.surahListWidget.visualRect(selected_item)
-        global_pos = self.surahListWidget.viewport().mapToGlobal(rect.center())
-        self.dl_audio(global_pos)
-    def dl_audio(self, position):
-        menu2 = qt.QMenu(self)
-        dl_action = qt1.QAction(_("تحميل السورة المحددة في الجهاز"), self)
-        dl_action.triggered.connect(self.download_selected_audio)
-        dl_action_ofline = qt.QAction(_("تحميل السورة المحددة في التطبيق"), self)
-        dl_action_ofline.triggered.connect(self.download_selected_audio_to_app)
-        menu2.addAction(dl_action)
-        menu2.addAction(dl_action_ofline)
-        menu2.exec(position)
+            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))    
     def open_context_menu(self, position):
         menu = qt.QMenu(self)
         repeateFromPositionTopositionMenue=menu.addMenu(_("التكرار من موضع إلى موضع"))

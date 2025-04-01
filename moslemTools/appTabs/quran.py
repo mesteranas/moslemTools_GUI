@@ -29,7 +29,13 @@ class Quran(qt.QWidget):
         layout.addWidget(self.search_bar)
         self.info=guiTools.QListWidget()
         self.info.clicked.connect(self.onItemTriggered)
+        self.user_guide=qt.QPushButton(_("دليل الاختصارات"))
+        self.user_guide.setDefault(True)
+        self.user_guide.setShortcut("ctrl+f1")
+        self.user_guide.setAccessibleDescription(_("control plus f1"))
+        self.user_guide.clicked.connect(lambda: guiTools.TextViewer(self,_("دليل الاختصارات"),_("اختصارات الآية الحالية\nspace: تشغيل الآية\nctrl+t: تفسير الآية الحالية\nctrl+i: إعراب الآية الحالية\nctrl+r: أسباب نزول الآية الحالية\nctrl+l: ترجمة الآية الحالية\nctrl+f: معلومات الآية الحالية\nctrl+b: إضافة علامة مرجعية\nاختصارات الفئة\nctrl+a: نسخ الفئة\nctrl+s: حفظ الفئة كملف نصي\nctrl+p: طباعة الفئة\nctrl+shift+t: تفسير الفئة\nctrl+shift+i: إعراب الفئة\nctrl+shift+f: معلومات السورة\nctrl+shift+l: ترجمة  الفئة\nctrl+shift+p: التشغيل إلى نهاية الفئة\nctrl+alt+t: التفسير من آية إلى آية\nctrl+alt+l: الترجمة من آية إلى آية\nctrl+alt+i: الإعراب من آية إلى آية\nctrl+alt+p: التشغيل من آية إلى آية\nاختصارات حجم الخط\nctrl+=: تكبير الخط\nctrl+-: تصغير الخط\nاختصارات التنقل\nalt زائد السهم الأيسر: الفئة السابقة\nalt زائد السهم الأيمن: الفئة التالية")).exec())
         layout.addWidget(self.info)                
+        layout.addWidget(self.user_guide)
         self.fromToSuraah=guiTools.FromToSurahWidget(self)        
         self.onTypeChanged(0)
     def search(self,pattern,text_list):    
