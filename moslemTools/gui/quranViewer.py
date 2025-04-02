@@ -334,6 +334,9 @@ class QuranViewer(qt.QDialog):
         Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
         translationViewer(self,AyahNumber1,AyahNumber2).exec()
     def onAddBookMark(self):
+        if self.enableBookmarks==False:
+            qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
+            return
         name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.getCurrentAyah(),False,name)

@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools,json,random,os,shutil,datetime,webbrowser
+import update, guiTools,json,random,os,shutil,datetime,webbrowser,requests
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -215,7 +215,13 @@ class main(qt.QMainWindow):
             data=json.load(file)
         guiTools.TextViewer(self,_("آخر رسالة من المطورين"),data["message"]).exec()
     def whats_new_funktion(self):
-        pass
+        try:
+            r=requests.get("https://raw.githubusercontent.com/mesteranas/{}/main/{}/update/app.json".format(settings_handler.appName,app.appdirname))
+            info=r.json()
+            guiTools.TextViewer(self,_("ما الجديد"),info["what is new"]).exec()
+        except Exception as e:
+            print(e)
+            qt.QMessageBox.critical(self,_("خطأ"),_("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)
