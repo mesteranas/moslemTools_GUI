@@ -68,6 +68,10 @@ class main(qt.QMainWindow):
         self.setting.setShortcut("f3")
         self.setting.setAccessibleDescription("f three")
         self.setting.clicked.connect(lambda: settings(self).exec())
+        self.license_button=guiTools.QPushButton(_("الترخيص"))
+        self.license_button.setShortcut("ctrl+l")
+        self.license_button.setAccessibleDescription("control plus l")
+        self.license_button.clicked.connect(self.license_funktion)
         self.whats_new=guiTools.QPushButton(_("ما الجديد في هذا الإصدار"))
         self.whats_new.setShortcut("ctrl+w")
         self.whats_new.setAccessibleDescription("control plus w")
@@ -89,8 +93,9 @@ class main(qt.QMainWindow):
         self.bookMark.setShortcut("ctrl+b")
         self.bookMark.setAccessibleDescription("control plus b")
         buttons_layout=qt.QHBoxLayout()
-        buttons_layout.addWidget(self.setting)
+        buttons_layout.addWidget(self.setting)        
         buttons_layout.addWidget(self.whats_new)
+        buttons_layout.addWidget(self.license_button)
         buttons_layout.addWidget(self.viewLastMessage)
         buttons_layout.addWidget(self.bookMark)
         buttons_layout.addWidget(self.user_guide)
@@ -222,6 +227,8 @@ class main(qt.QMainWindow):
         except Exception as e:
             print(e)
             qt.QMessageBox.critical(self,_("خطأ"),_("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
+    def license_funktion(self):
+        pass
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)

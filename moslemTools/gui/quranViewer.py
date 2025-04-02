@@ -43,11 +43,16 @@ class QuranViewer(qt.QDialog):
         self.show_font.setAccessibleName(_("حجم النص"))        
         self.show_font.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.show_font.setText(str(self.font_size))
-        self.show_font.setText(str(self.font_size))
+        self.show_font.setText(str(self.font_size))        
+        self.info=qt.QLineEdit()        
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info.setText(list(self.typeResult.keys())[self.CurrentIndex])
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)
         layout.addWidget(self.show_font)
         layout.addWidget(self.font_laybol)
+        layout.addWidget(self.info)
         buttonsLayout=qt.QHBoxLayout()
         self.next=qt.QPushButton(_("التالي"))
         self.next.clicked.connect(self.onNext)
@@ -168,7 +173,7 @@ class QuranViewer(qt.QDialog):
         surahOption.addAction(playSurahToEnd)
         playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category,enableBookMarks=self.enableBookmarks).exec())
         if self.enableNextPreviouseButtons:
-            goToCategoryAction=qt1.QAction(_("الذهاب إلى فئة"),self)
+            goToCategoryAction=qt1.QAction(_("الذهاب إلى محتوى فئة"),self)
             goToCategoryAction.triggered.connect(self.goToCategory)
             surahOption.addAction(goToCategoryAction)
         menu.addMenu(surahOption)
@@ -388,6 +393,7 @@ class QuranViewer(qt.QDialog):
         self.text.setText(self.quranText)
         winsound.PlaySound("data/sounds/next_page.wav",1)
         guiTools.speak(str(indexs))
+        self.info.setText(indexs)
     def onPreviouse(self):
         if self.CurrentIndex==0:
             self.CurrentIndex=len(self.typeResult)-1
@@ -398,10 +404,12 @@ class QuranViewer(qt.QDialog):
         self.text.setText(self.quranText)
         winsound.PlaySound("data/sounds/previous_page.wav",1)
         guiTools.speak(str(indexs))
+        self.info.setText(indexs)
     def goToCategory(self):
-        category,OK=qt.QInputDialog.getItem(self,_("الذهاب إلى فئة"),_("اختر فئة"),self.typeResult,self.CurrentIndex,True)
+        category,OK=qt.QInputDialog.getItem(self,_("الذهاب إلى محتوى فئة"),_("اختر عنصر"),self.typeResult,self.CurrentIndex,True)
         if OK:
             self.CurrentIndex=list(self.typeResult.keys()).index(category)
             indexs=list(self.typeResult.keys())[self.CurrentIndex]
+            self.info.setText(indexs)
             self.quranText=self.typeResult[indexs][1]
             self.text.setText(self.quranText)
