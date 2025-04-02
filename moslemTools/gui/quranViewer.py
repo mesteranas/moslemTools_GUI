@@ -14,6 +14,7 @@ class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
         self.enableBookmarks=enableBookmarks
+        self.enableNextPreviouseButtons=enableNextPreviouseButtons
         self.typeResult=typeResult
         self.CurrentIndex=CurrentIndex
         self.resize(1200,600)
@@ -67,6 +68,8 @@ class QuranViewer(qt.QDialog):
             for i in range(index-1):
                 cerser.movePosition(cerser.MoveOperation.Down)
             self.text.setTextCursor(cerser)
+        if enableNextPreviouseButtons:
+            qt1.QShortcut("ctrl+shift+g",self).activated.connect(self.goToCategory)
         qt1.QShortcut("space",self).activated.connect(self.on_play)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.goToAyah)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
@@ -164,6 +167,10 @@ class QuranViewer(qt.QDialog):
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية الفئة"),self)
         surahOption.addAction(playSurahToEnd)
         playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category,enableBookMarks=self.enableBookmarks).exec())
+        if self.enableNextPreviouseButtons:
+            goToCategoryAction=qt1.QAction(_("الذهاب إلى فئة"),self)
+            goToCategoryAction.triggered.connect(self.goToCategory)
+            surahOption.addAction(goToCategoryAction)
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
@@ -391,3 +398,10 @@ class QuranViewer(qt.QDialog):
         self.text.setText(self.quranText)
         winsound.PlaySound("data/sounds/previous_page.wav",1)
         guiTools.speak(str(indexs))
+    def goToCategory(self):
+        category,OK=qt.QInputDialog.getItem(self,_("الذهاب إلى فئة"),_("اختر فئة"),self.typeResult,self.CurrentIndex,True)
+        if OK:
+            self.CurrentIndex=list(self.typeResult.keys()).index(category)
+            indexs=list(self.typeResult.keys())[self.CurrentIndex]
+            self.quranText=self.typeResult[indexs][1]
+            self.text.setText(self.quranText)

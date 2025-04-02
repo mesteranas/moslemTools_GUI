@@ -27,6 +27,11 @@ class Athker(qt.QWidget):
         self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.search_bar)
         layout.addWidget(self.athkerList)
+        self.info1=qt.QLineEdit()
+        self.info1.setReadOnly(True)
+        self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info1.setText(_("لحذف أي نوع من الأذكار تم تحميله, نستخدم زر الحذف أو زر التطبيقات"))
+        layout.addWidget(self.info1)
     def onDelete(self):
         itemText=self.athkerList.currentItem()
         if itemText:
