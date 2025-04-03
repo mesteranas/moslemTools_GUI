@@ -228,7 +228,13 @@ class main(qt.QMainWindow):
             print(e)
             qt.QMessageBox.critical(self,_("خطأ"),_("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
     def license_funktion(self):
-        pass
+        try:
+            r=requests.get("https://raw.githubusercontent.com/mesteranas/{}/main/LICENSE".format(settings_handler.appName))
+            info=r.text
+            guiTools.TextViewer(self,_("الترخيص"),info).exec()
+        except Exception as e:
+            print(e)
+            qt.QMessageBox.critical(self,_("خطأ"),_("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
 App=qt.QApplication([])
 App.setApplicationDisplayName(app.name)
 App.setApplicationName(app.name)
