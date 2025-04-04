@@ -20,7 +20,6 @@ class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))
-        self.setAccessibleDescription(_("للمزيد من الخيارات, الرجاء الضغت على زر alt"))
         self.resize(1100, 600)
         self.media_player = QMediaPlayer()
         self.audio_output = QAudioOutput()

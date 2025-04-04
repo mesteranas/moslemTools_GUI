@@ -14,6 +14,7 @@ class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
         self.enableBookmarks=enableBookmarks
+        self.type=type
         self.enableNextPreviouseButtons=enableNextPreviouseButtons
         self.typeResult=typeResult
         self.CurrentIndex=CurrentIndex
@@ -62,6 +63,12 @@ class QuranViewer(qt.QDialog):
         self.next.setShortcut("alt+right")
         self.next.setAccessibleDescription(_("alt زائد السهم الأيمن"))
         buttonsLayout.addWidget(self.next)
+        self.changeCategory=qt.QPushButton(_("تغيير الفئة"))
+        self.changeCategory.setShortcut("ctrl+alt+g")
+        self.changeCategory.setAccessibleDescription("alt plus control plus G")
+        self.changeCategory.setEnabled(enableNextPreviouseButtons)
+        self.changeCategory.clicked.connect(self.onChangeCategory)
+        buttonsLayout.addWidget(self.changeCategory)
         self.previous=qt.QPushButton(_("السابق"))
         self.previous.clicked.connect(self.onPreviouse)
         self.previous.setShortcut("alt+left")
@@ -415,3 +422,40 @@ class QuranViewer(qt.QDialog):
             self.info.setText(indexs)
             self.quranText=self.typeResult[indexs][1]
             self.text.setText(self.quranText)
+    def onChangeCategory(self):
+        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        menu=qt.QMenu(_("اختر فئة"),self)
+        menu.setAccessibleName(_("اختر فئة"))
+        menu.setFocus()
+        selectedCategory=qt1.QAction(categories[self.type],self)
+        menu.addAction(selectedCategory)
+        selectedCategory.setCheckable(True)
+        selectedCategory.setChecked(True)
+        selectedCategory.triggered.connect(self.ONChangeCategoryRequested)
+        menu.setDefaultAction(selectedCategory)
+        categories.pop(self.type)
+        for category in categories:
+            action=qt1.QAction(category,self)
+            menu.addAction(action)
+            action.triggered.connect(self.ONChangeCategoryRequested)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def ONChangeCategoryRequested(self):
+        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        index=categories.index(self.sender().text())
+        self.type=index
+        if index==0:
+            result=functions.quranJsonControl.getSurahs()
+        elif index==1:
+            result=functions.quranJsonControl.getPage()
+        elif index==2:
+            result=functions.quranJsonControl.getJuz()
+        elif index==3:
+            result=functions.quranJsonControl.getHezb()
+        elif index==4:
+            result=functions.quranJsonControl.getHizb()
+        self.typeResult=result
+        self.CurrentIndex=0
+        indexs=list(self.typeResult.keys())[self.CurrentIndex]
+        self.info.setText(indexs)
+        self.quranText=self.typeResult[indexs][1]
+        self.text.setText(self.quranText)

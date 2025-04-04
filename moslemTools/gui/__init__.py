@@ -8,3 +8,5 @@ from .after_azaan import AfterAdaan
 from .quranRecitationViewer import QuranRecitationViewer
 from .storyViewer import StoryViewer
 from .book_marks import book_marcks
+from .tafaseerViewer import TafaseerViewer
+from .translationViewer import translationViewer

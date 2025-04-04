@@ -1,6 +1,8 @@
+import gui.translationViewer
 import gui,guiTools,functions,re
 from settings import *
 import PyQt6.QtWidgets as qt
+import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 language.init_translation()
 class Quran(qt.QWidget):
@@ -28,6 +30,8 @@ class Quran(qt.QWidget):
         layout.addWidget(self.serch)
         layout.addWidget(self.search_bar)
         self.info=guiTools.QListWidget()
+        self.info.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.info.customContextMenuRequested.connect(self.onContextMenu)
         self.info.clicked.connect(self.onItemTriggered)
         self.user_guide=qt.QPushButton(_("دليل الاختصارات"))
         self.user_guide.setDefault(True)
@@ -83,3 +87,52 @@ class Quran(qt.QWidget):
             for  i in range(1,61):
                 self.infoData.append(str(i))                        
         self.info.addItems(self.infoData)
+    def getResult(self):
+        index=self.type.currentIndex()
+        if index==0:
+            result=functions.quranJsonControl.getSurahs()
+        elif index==1:
+            result=functions.quranJsonControl.getPage()
+        elif index==2:
+            result=functions.quranJsonControl.getJuz()
+        elif index==3:
+            result=functions.quranJsonControl.getHezb()
+        elif index==4:
+            result=functions.quranJsonControl.getHizb()
+        return result[self.info.currentItem().text()][1]
+    def onContextMenu(self):
+        menu=qt.QMenu(self)
+        menu.setFocus()
+        listenAction=qt1.QAction(_("استمع"),self)
+        menu.addAction(listenAction)
+        listenAction.triggered.connect(self.onListenActionTriggert)
+        menu.setDefaultAction(listenAction)
+        tafseerAction=qt1.QAction(_("تفسير"),self)
+        menu.addAction(tafseerAction)
+        tafseerAction.triggered.connect(self.onTafseerActionTriggered)
+        translationAction=qt1.QAction(_("ترجمة"),self)
+        menu.addAction(translationAction)
+        translationAction.triggered.connect(self.onTranslationActionTriggered)
+        iarabAction=qt1.QAction(_("إعراب"),self)
+        menu.addAction(iarabAction)
+        iarabAction.triggered.connect(self.onIarabActionTriggered)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def onListenActionTriggert(self):
+        result=self.getResult()
+        gui.QuranPlayer(self,result,0,self.type.currentIndex(),self.info.currentItem().text(),enableBookMarks=True).exec()
+    def onTafseerActionTriggered(self):
+        ayahList=self.getResult().split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        gui.TafaseerViewer(self,AyahNumber1,AyahNumber2).exec()
+    def onTranslationActionTriggered(self):
+        ayahList=self.getResult().split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        gui.translationViewer(self,AyahNumber1,AyahNumber2).exec()
+    def onIarabActionTriggered(self):
+        ayahList=self.getResult().split("\n")
+        Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[-1])
+        result=functions.iarab.getIarab(AyahNumber1,AyahNumber2)
+        guiTools.TextViewer(self,_("إعراب"),result).exec()

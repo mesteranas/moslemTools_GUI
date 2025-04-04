@@ -80,7 +80,7 @@ class TafaseerViewer(qt.QDialog):
             menu.addAction(tAction)
         menu.setAccessibleName(_("اختر تفسير"))
         menu.setFocus()
-        menu.exec()
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
     def onTafaseerChanged(self,name:str):
         self.index=functions.tafseer.tafaseers[self.sender().text()]
         self.getResult()
