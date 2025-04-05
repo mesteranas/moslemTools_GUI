@@ -19,6 +19,7 @@ class settings (qt.QDialog):
         layout.addWidget(self.sectian)
         layout.addWidget(self.sectian.w)
         self.update=tabs.Update(self)
+        buttonsLayout=qt.QHBoxLayout()
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
         self.ok.clicked.connect(self.fok)
@@ -49,9 +50,10 @@ class settings (qt.QDialog):
         self.date_of_publish_laybol.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.date_of_publish_laybol)
         layout.addWidget(self.date_of_publish)
-        layout.addWidget(self.ok)
-        layout.addWidget(self.defolt)
-        layout.addWidget(self.cancel)
+        buttonsLayout.addWidget(self.ok)
+        buttonsLayout.addWidget(self.defolt)
+        buttonsLayout.addWidget(self.cancel)
+        layout.addLayout(buttonsLayout)
         self.setLayout(layout)
     def fok(self):
         aa=0

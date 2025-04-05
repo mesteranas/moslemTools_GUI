@@ -21,6 +21,7 @@ class main(qt.QMainWindow):
         super().__init__()
         self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))
         keyboard.register_hotkey("alt+windows+p",self.random_audio_theker)
+        # keyboard.register_hotkey("alt+windows+m",self.toggle_visibility)
         self.resize(1100, 600)
         self.media_player = QMediaPlayer()
         self.audio_output = QAudioOutput()
