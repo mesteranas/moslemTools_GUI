@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools, json, random, os, shutil, datetime, webbrowser, requests
+import update, guiTools, json, random, os, shutil, datetime, webbrowser, requests,keyboard
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -20,6 +20,7 @@ class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))
+        keyboard.register_hotkey("alt+windows+p",self.random_audio_theker)
         self.resize(1100, 600)
         self.media_player = QMediaPlayer()
         self.audio_output = QAudioOutput()
@@ -34,10 +35,8 @@ class main(qt.QMainWindow):
         layout.addWidget(self.info)
         self.viewInfoTextEdit()
         content_layout = qt.QHBoxLayout()
-        self.list_widget = qt.QListWidget()
+        self.list_widget = guiTools.listBook()
         self.list_widget.setAccessibleDescription(_("للمزيد من الخيارات, الرجاء الضغت على زر alt"))
-        self.list_widget.currentItemChanged.connect(self.onToolChanged)
-        self.stacked_widget = qt.QStackedWidget()        
         self.quranPlayer = QuranPlayer()
         self.storiesPlayer = StoryPlayer()
         tabs = [
@@ -57,13 +56,9 @@ class main(qt.QMainWindow):
             (DateConverter(), _("محول التاريخ"))            
         ]
         for widget_class, label in tabs:
-            self.list_widget.addItem(label)
-            instance = widget_class
-            self.stacked_widget.addWidget(instance)        
-        self.list_widget.currentRowChanged.connect(self.stacked_widget.setCurrentIndex)
-        self.list_widget.setCurrentRow(0)
+            self.list_widget.add(label,widget_class)
         content_layout.addWidget(self.list_widget, 1)
-        content_layout.addWidget(self.stacked_widget, 3)
+        content_layout.addWidget(self.list_widget.w, 3)
         layout.addLayout(content_layout)                        
         menubar = self.menuBar()
         moreOptionsMenu = menubar.addMenu(_("المزيد من الخيارات"))        
@@ -98,8 +93,6 @@ class main(qt.QMainWindow):
         w = qt.QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)        
-        qt1.QShortcut("ctrl+tab", self).activated.connect(self.Nexttab)
-        qt1.QShortcut("ctrl+shift+tab", self).activated.connect(self.previousTab)
         self.tray_icon = qt.QSystemTrayIcon(self)
         self.tray_icon.setIcon(qt1.QIcon("data/icons/tray_icon.jpg"))
         self.tray_icon.setToolTip(app.name)
@@ -157,6 +150,9 @@ class main(qt.QMainWindow):
         else:
             self.close()    
     def random_audio_theker(self):
+        if self.media_player.isPlaying():
+            self.media_player.stop()
+            return
         folder_path = r"data\sounds\athkar"
         sound_files = [f for f in os.listdir(folder_path) if f.endswith(('.ogg'))]
         if sound_files:
@@ -169,16 +165,6 @@ class main(qt.QMainWindow):
     def open_developers_window(self):
         self.developers_window = About_developers()
         self.developers_window.show()    
-    def Nexttab(self):
-        if self.list_widget.currentRow() == self.list_widget.count() - 1:
-            self.list_widget.setCurrentRow(0)
-        else:
-            self.list_widget.setCurrentRow(int(self.list_widget.currentRow()) + 1)    
-    def previousTab(self):
-        if self.list_widget.currentRow() == 0:
-            self.list_widget.setCurrentRow(self.list_widget.count() - 1)
-        else:
-            self.list_widget.setCurrentRow(self.list_widget.currentRow() - 1)    
     def viewInfoTextEdit(self):
         try:
             hijri_date_obj = Gregorian.today().to_hijri()
@@ -204,11 +190,6 @@ class main(qt.QMainWindow):
                 self.info.setText(_("لا تَنْسى ذِكْر الله"))
         except:
             self.info.setText(_("لا تَنْسى ذِكْر الله"))    
-    def onToolChanged(self, index):
-        if self.quranPlayer.mp.isPlaying():
-            self.quranPlayer.mp.stop()
-        if self.storiesPlayer.mp.isPlaying():
-            self.storiesPlayer.mp.stop()    
     def onViewLastMessageButtonClicked(self):
         with open(os.path.join(os.getenv('appdata'), settings_handler.appName, "message.json"), "r", encoding="utf-8") as file:
             data = json.load(file)

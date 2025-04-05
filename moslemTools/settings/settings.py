@@ -15,7 +15,9 @@ class settings (qt.QDialog):
         self.setWindowTitle(_("الإعدادات"))
         self.p=p
         layout=qt.QVBoxLayout()
-        self.sectian=guiTools.listBook(layout,_("اختر قسم"))
+        self.sectian=guiTools.listBook()
+        layout.addWidget(self.sectian)
+        layout.addWidget(self.sectian.w)
         self.update=tabs.Update(self)
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)

@@ -4,14 +4,9 @@ from PyQt6.QtCore import Qt
 from settings import *
 language.init_translation()
 class listBook(qt.QListWidget):
-    def __init__(self,layout,text):
+    def __init__(self):
         super().__init__()
-        self.layout=layout
-        layout.addWidget(qt.QLabel(text))
-        self.setAccessibleName(text)
-        layout.addWidget(self)
         self.w=qt.QStackedWidget()
-        layout.addWidget(self.w)
         self.currentRowChanged.connect(self.changeI)
         qt1.QShortcut("ctrl+tab",self).activated.connect(self.Nexttab)
         qt1.QShortcut("ctrl+shift+tab",self).activated.connect(self.previousTab)

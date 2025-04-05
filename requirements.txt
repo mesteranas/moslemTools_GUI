@@ -7,4 +7,5 @@ notify-py
 pyperclip
 geocoder
 pywin32
+keyboard
 pyinstaller
