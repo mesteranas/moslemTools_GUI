@@ -14,10 +14,10 @@ class settings (qt.QDialog):
         self.resize(700,500)
         self.setWindowTitle(_("الإعدادات"))
         self.p=p
-        layout=qt.QVBoxLayout()
-        self.sectian=guiTools.listBook()
+        layout=qt.QVBoxLayout()        
+        self.sectian=guiTools.listBook()        
         layout.addWidget(self.sectian)
-        layout.addWidget(self.sectian.w)
+        layout.addWidget(self.sectian.w)        
         self.update=tabs.Update(self)
         buttonsLayout=qt.QHBoxLayout()
         self.ok=qt.QPushButton(_("موافق"))
