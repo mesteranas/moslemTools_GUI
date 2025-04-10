@@ -6,6 +6,9 @@ from PyQt6 import QtCore as qt2
 class hadeeth_viewer(qt.QDialog):
     def __init__(self,p,book_name,index:int=0):
         super().__init__(p)
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         try:
             with open(os.path.join(os.getenv('appdata'),settings.app.appName,"ahadeeth",book_name),"r",encoding="utf-8") as f:
                 self.data=json.load(f)    
@@ -31,6 +34,7 @@ class hadeeth_viewer(qt.QDialog):
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
         self.font_size=12
         font=self.font()
+        font.setBold(True)
         font.setPointSize(self.font_size)
         self.text.setFont(font)
         self.font_laybol=qt.QLabel(_("حجم الخط"))
@@ -41,8 +45,10 @@ class hadeeth_viewer(qt.QDialog):
         self.show_font.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.show_font.setText(str(self.font_size))
         self.N_hadeeth=qt.QPushButton(_("الحديث التالي"))
+        self.N_hadeeth.setStyleSheet("background-color: #0000AA; color: white;")
         self.N_hadeeth.clicked.connect(self.next_hadeeth)
         self.P_hadeeth=qt.QPushButton(_("الحديث السابق"))
+        self.P_hadeeth.setStyleSheet("background-color: #0000AA; color: white;")
         self.P_hadeeth.clicked.connect(self.previous_hadeeth)
         self.hadeeth_number_laybol=qt.QLabel(_("رقم الحديث"))
         self.hadeeth_number_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)

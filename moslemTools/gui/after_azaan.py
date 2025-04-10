@@ -6,6 +6,9 @@ class AfterAdaan(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
         self.resize(1200,600)
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         self.setWindowTitle(_("دعاء بعد الأذان"))
         self.media_player=QMediaPlayer()        
         self.audio_output=QAudioOutput()

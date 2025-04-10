@@ -42,6 +42,7 @@ class Genral(qt.QWidget):
         reciter_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout1.addWidget(reciter_laybol)
         delete_laybol=qt.QLabel(_("لحذف القارئ المحدد قم بالضغط على زر الحذف أو زر التطبيقات"))
+        delete_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout1.addWidget(delete_laybol)
         layout1.addWidget(self.reciter)
     def add_to_startup(self):

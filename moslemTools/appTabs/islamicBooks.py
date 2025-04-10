@@ -6,6 +6,9 @@ import PyQt6.QtCore as qt2
 class IslamicBooks(qt.QWidget):
     def __init__(self):
         super().__init__()
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         layout=qt.QVBoxLayout(self)
         qt1.QShortcut("f5",self).activated.connect(self.refresh)
         serch=qt.QLabel(_("بحث"))

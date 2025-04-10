@@ -5,7 +5,7 @@ import PyQt6.QtCore as qt2
 from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class other_brotcasts(qt.QWidget):
     def __init__(self):
-        super().__init__()            
+        super().__init__()                    
         self.list_of_other=qt.QListWidget()
         self.list_of_other.itemActivated.connect(self.play)
         self.list_of_other.addItem(_("تَكْبِيرَات العيد"))
@@ -355,12 +355,42 @@ class quran_brotcast(qt.QWidget):
             self.player.play()
 class protcasts(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         self.brotcasts_tab=qt.QTabWidget()
         self.brotcasts_tab.addTab(quran_brotcast(), _("إذاعات القرآن الكريم"))
         self.brotcasts_tab.addTab(brotcasts_of_reciters(), _("إذاعات القراء"))
         self.brotcasts_tab.addTab(brotcasts_of_tafseer(), _("إذاعات التفاسير"))
         self.brotcasts_tab.addTab(brotcasts_of_suplications(), _("إذاعات الأذكار والأدعية"))
         self.brotcasts_tab.addTab(other_brotcasts(), _("إذاعات إسلامية أخرى"))
+        self.brotcasts_tab.setStyleSheet("""
+QTabWidget::pane {
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #1e1e1e;
+}
+
+QTabBar::tab {
+    background: #2b2b2b;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #444;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin: 2px;
+    min-width: 100px;
+    font-weight: bold;
+}
+
+QTabBar::tab:selected {
+    background: #0078d7; /* الأزرق */
+    color: white;
+    border: 1px solid #0078d7;
+}
+
+QTabBar::tab:hover {
+    background: #3a3a3a;
+}
+""")
+
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.brotcasts_tab)

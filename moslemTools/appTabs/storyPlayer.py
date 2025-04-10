@@ -125,6 +125,7 @@ class StoryPlayer(qt.QWidget):
         self.dl_all.setDefault(True)
         self.dl_all.clicked.connect(self.download_all_stories_to_device)
         self.delete = qt.QPushButton(_("حذف كل القصص للفئة الحالية من التطبيق"))
+        self.delete .setStyleSheet("background-color: #8B0000; color: white;")
         self.delete.setDefault(True)
         self.delete.setVisible(False)
         self.delete.clicked.connect(lambda: self.delete_story())        

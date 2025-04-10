@@ -6,6 +6,9 @@ import PyQt6.QtCore as qt2
 class hadeeth(qt.QWidget):
     def __init__(self):
         super().__init__()
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         qt1.QShortcut("f5",self).activated.connect(self.refresh)
         self.list_of_ahadeeth=guiTools.QListWidget()
         self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())

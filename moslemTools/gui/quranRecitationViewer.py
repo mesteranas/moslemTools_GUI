@@ -5,8 +5,8 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 class QuranRecitationViewer(qt.QDialog):
     def __init__(self,p,text):
-        super().__init__(p)
-        self.quranText=text
+        super().__init__(p)        
+        self.quranText=text        
         qt1.QShortcut("ctrl+g",self).activated.connect(self.goToAyah)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
@@ -22,6 +22,7 @@ class QuranRecitationViewer(qt.QDialog):
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
+        font.setBold(True)
         self.text.setFont(font)
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.font_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)

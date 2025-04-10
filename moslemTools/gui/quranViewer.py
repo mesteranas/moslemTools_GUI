@@ -18,7 +18,7 @@ class QuranViewer(qt.QDialog):
         self.enableNextPreviouseButtons=enableNextPreviouseButtons
         self.typeResult=typeResult
         self.CurrentIndex=CurrentIndex
-        self.resize(1200,600)
+        self.resize(1200,600)        
         self.type=type
         self.category=category
         self.media=QMediaPlayer(self)
@@ -36,6 +36,7 @@ class QuranViewer(qt.QDialog):
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
+        font.setBold(True)
         self.text.setFont(font)
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.font_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -51,29 +52,30 @@ class QuranViewer(qt.QDialog):
             self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
             self.info.setText(list(self.typeResult.keys())[self.CurrentIndex])
         layout=qt.QVBoxLayout(self)
-        layout.addWidget(self.text)
-        layout.addWidget(self.show_font)
+        layout.addWidget(self.text)        
         layout.addWidget(self.font_laybol)
+        layout.addWidget(self.show_font)
         if enableNextPreviouseButtons:
             layout.addWidget(self.info)
         buttonsLayout=qt.QHBoxLayout()
         self.next=qt.QPushButton(_("التالي"))
         self.next.clicked.connect(self.onNext)
-        self.next.setEnabled(enableNextPreviouseButtons)
+        self.next.setVisible(enableNextPreviouseButtons)
         self.next.setShortcut("alt+right")
         self.next.setAccessibleDescription(_("alt زائد السهم الأيمن"))
         buttonsLayout.addWidget(self.next)
         self.changeCategory=qt.QPushButton(_("تغيير الفئة"))
+        self.changeCategory.setStyleSheet("background-color: #0000AA; color: white;")
         self.changeCategory.setShortcut("ctrl+alt+g")
         self.changeCategory.setAccessibleDescription("alt plus control plus G")
-        self.changeCategory.setEnabled(enableNextPreviouseButtons)
+        self.changeCategory.setVisible(enableNextPreviouseButtons)
         self.changeCategory.clicked.connect(self.onChangeCategory)
         buttonsLayout.addWidget(self.changeCategory)
         self.previous=qt.QPushButton(_("السابق"))
         self.previous.clicked.connect(self.onPreviouse)
         self.previous.setShortcut("alt+left")
         self.previous.setAccessibleDescription(_("alt زائد السهم الأيسر"))
-        self.previous.setEnabled(enableNextPreviouseButtons)
+        self.previous.setVisible(enableNextPreviouseButtons)
         buttonsLayout.addWidget(self.previous)
         layout.addLayout(buttonsLayout)
         if not index==0:

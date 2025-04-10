@@ -20,7 +20,19 @@ class FromToSurahWidget(qt.QDialog):
         self.label_to_verse = qt.QLabel(_("الى الآية"))
         self.spin_to_verse = qt.QSpinBox()        
         self.spin_to_verse.setAccessibleName(_("الى الآية"))
-        self.go = qt.QPushButton(_("الذهاب"))                
+        self.go = qt.QPushButton(_("الذهاب"))                                   
+        self.go.setStyleSheet("""
+    QPushButton {
+        background-color: #1e7e34;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    QPushButton:hover {
+        background-color: #19692c;
+    }
+""")
         h_layout1 = qt.QHBoxLayout()
         h_layout1.addWidget(self.label_from_surah)
         h_layout1.addWidget(self.combo_from_surah)        

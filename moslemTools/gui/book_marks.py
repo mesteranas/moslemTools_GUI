@@ -6,13 +6,28 @@ import PyQt6.QtCore as qt2
 class book_marcks(qt.QDialog):
     def __init__(self,p,tabName):
         super().__init__(p)
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         self.tabName=tabName
         self.p=p
         self.resize(300,300)
         self.setWindowTitle(_("العلامات المرجعية"))
         self.results=guiTools.QListWidget()
         self.results.clicked.connect(self.onItemClicked)
-        self.dl=qt.QPushButton(_("حذف العلامة المرجعية"))
+        self.dl=qt.QPushButton(_("حذف العلامة المرجعية"))        
+        self.dl.setStyleSheet("""
+    QPushButton {
+        background-color: #8B0000;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    QPushButton:hover {
+        background-color: #A52A2A;
+    }
+""")
         self.dl.clicked.connect(self.onRemove)
         layout=qt.QVBoxLayout(self)
         serch=qt.QLabel(_("بحث"))

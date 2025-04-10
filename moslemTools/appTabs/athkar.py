@@ -6,6 +6,9 @@ import PyQt6.QtCore as qt2
 class Athker(qt.QWidget):
     def __init__(self):
         super().__init__()
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         qt1.QShortcut("delete",self).activated.connect(self.onDelete)
         with open("data/json/athkar.json","r",encoding="utf-8-sig") as data:
             self.data=json.load(data)

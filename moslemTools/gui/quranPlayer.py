@@ -11,9 +11,12 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
     reciters=json.load(file)
 class QuranPlayer(qt.QDialog):
     def __init__(self,p,text,index:int,type,category,enableBookMarks=True):
-        super().__init__(p)                        
+        super().__init__(p)                                
         self.enableBookmarks=enableBookMarks
         self.resize(1200,600)
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         self.type=type
         self.times=int(settings.settings_handler.get("quranPlayer","times"))
         self.currentTime=1
@@ -49,6 +52,7 @@ class QuranPlayer(qt.QDialog):
         self.N_aya.setAccessibleDescription(_("alt زائد السهم الأيمن"))
         self.PPS=qt.QPushButton(_("تشغيل"))
         self.PPS.clicked.connect(self.on_play)
+        self.PPS.setStyleSheet("background-color: #0000AA; color: white;")
         self.P_aya=qt.QPushButton(_("الآيا السابقة"))
         self.P_aya.clicked.connect(self.onPreviousAyah)
         self.P_aya.setAccessibleDescription(_("alt زائد السهم الأيسر"))

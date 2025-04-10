@@ -8,7 +8,7 @@ import guiTools
 class AthkerDialog (qt.QDialog):
     def __init__(self,p,title:str,athkerList:list):
         super().__init__(p)        
-        self.resize(1200,600)
+        self.resize(1200,600)        
         self.setWindowTitle(title)
         layout=qt.QVBoxLayout(self)
         self.media=QMediaPlayer(self)
@@ -16,7 +16,7 @@ class AthkerDialog (qt.QDialog):
         self.media.setAudioOutput(self.audioOutput)
         self.media.setSource(qt2.QUrl.fromLocalFile("data/sounds/001001.mp3"))
         self.media.play()
-        time.sleep(0.5)
+        time.sleep(0.5)        
         self.media.stop()
         self.athkerList=athkerList
         self.athkerViewer=guiTools.QReadOnlyTextEdit()
@@ -25,6 +25,7 @@ class AthkerDialog (qt.QDialog):
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
+        font.setBold(True)
         self.athkerViewer.setFont(font)
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.font_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -34,10 +35,13 @@ class AthkerDialog (qt.QDialog):
         self.show_font.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.show_font.setText(str(self.font_size))
         self.N_theker=qt.QPushButton(_("الذكر التالي"))
+        self.N_theker.setStyleSheet("background-color: #0000AA; color: white;")
         self.N_theker.clicked.connect(self.onNextThker)
         self.PPS=qt.QPushButton(_("تشغيل"))
         self.PPS.clicked.connect(self.onPlay)
-        self.P_thekr=qt.QPushButton(_("الذكر السابق"))
+        self.PPS.setStyleSheet("background-color: #0000AA; color: white;")
+        self.P_thekr=qt.QPushButton(_("الذكر السابق"))        
+        self.P_thekr.setStyleSheet("background-color: #0000AA; color: white;")
         self.P_thekr.clicked.connect(self.onPreviousThker)
         layout.addWidget(self.athkerViewer)
         layout.addWidget(self.font_laybol)

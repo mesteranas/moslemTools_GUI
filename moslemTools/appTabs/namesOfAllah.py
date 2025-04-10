@@ -8,6 +8,9 @@ language.init_translation()
 class NamesOfAllah(qt.QWidget):
     def __init__(self):
         super().__init__()
+        font = qt1.QFont()
+        font.setBold(True)
+        self.setFont(font)
         with open("data/json/namesOfAllah.json","r",encoding="utf-8") as file:
             self.data=json.load(file)
         layout=qt.QVBoxLayout(self)

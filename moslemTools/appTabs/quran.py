@@ -11,15 +11,20 @@ class Quran(qt.QWidget):
         self.infoData = []
         layout = qt.QVBoxLayout(self)
         layout.setContentsMargins(15, 15, 15, 15)
-        layout.setSpacing(15)                
+        layout.setSpacing(15)
         self.setStyleSheet("""
             QWidget {
-                background-color: #000000;
+                /* background-color: #000000; */
                 color: #f0f0f0;
-                font-size: 14px;
+                font: bold 16px; 
             }
-            QLineEdit, QComboBox, QLabel {
+            QLineEdit {
                 background-color: #3e3e3e;
+                border: 1px solid #5a5a5a;
+                border-radius: 5px;
+                padding: 5px;
+            }
+            QComboBox, QLabel {
                 border: 1px solid #5a5a5a;
                 border-radius: 5px;
                 padding: 5px;
@@ -65,44 +70,42 @@ class Quran(qt.QWidget):
                 background-color: #0078d7;
             }
         """)
-                
         browse_layout = qt.QHBoxLayout()
-        browse_layout.setSpacing(10)        
+        browse_layout.setSpacing(10)
         self.by = qt.QLabel(_("التصفح ب"))
         self.by.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        browse_layout.addWidget(self.by)        
+        browse_layout.addWidget(self.by)
         self.type = qt.QComboBox()
         self.type.setAccessibleName(_("التصفح ب"))
         self.type.addItems([_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")])
         self.type.currentIndexChanged.connect(self.onTypeChanged)
-        browse_layout.addWidget(self.type)        
+        browse_layout.addWidget(self.type)
         self.custom = guiTools.QPushButton(_("مخصص"))
         self.custom.setObjectName("customButton")
+        self.custom.setShortcut("ctrl+c")
+        self.custom.setAccessibleDescription("control plus c")
         self.custom.clicked.connect(lambda: self.fromToSuraah.exec())
-        browse_layout.addWidget(self.custom)                
+        browse_layout.addWidget(self.custom)
+        layout.addLayout(browse_layout)
         self.serch = qt.QLabel(_("بحث"))
         self.serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.serch)        
+        layout.addWidget(self.serch)
         self.search_bar = qt.QLineEdit()
         self.search_bar.setPlaceholderText(_("بحث ..."))
         self.search_bar.textChanged.connect(self.onsearch)
         self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.search_bar)                
-        layout.addLayout(browse_layout)                
+        layout.addWidget(self.search_bar)
         self.info = guiTools.QListWidget()
         self.info.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.info.customContextMenuRequested.connect(self.onContextMenu)
         self.info.itemActivated.connect(self.onItemTriggered)
-        layout.addWidget(self.info)                
-        self.info1 = qt.QLineEdit()
-        self.info1.setReadOnly(True)
-        self.info1.setText(_("لخيارات عنصر الفئة, نستخدم مفتاح التطبيقات أو clic الأيمن"))
-        self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.info1)        
+        layout.addWidget(self.info)
+        guide_layout = qt.QHBoxLayout()
         self.user_guide = qt.QPushButton(_("دليل الاختصارات"))
         self.user_guide.setDefault(True)
         self.user_guide.setShortcut("ctrl+f1")
         self.user_guide.setAccessibleDescription(_("control plus f1"))
+        self.user_guide.setFixedSize(150, 40)
         self.user_guide.clicked.connect(lambda: guiTools.TextViewer(
             self, _("دليل الاختصارات"),
             _("اختصارات الآية الحالية\n"
@@ -136,19 +139,25 @@ class Quran(qt.QWidget):
               "ctrl+alt+g: تغيير الفئة\n"
               "ctrl+f1: دليل الاختصارات")
         ).exec())
-        layout.addWidget(self.user_guide)        
+        guide_layout.addWidget(self.user_guide)
+        self.info1 = qt.QLineEdit()
+        self.info1.setReadOnly(True)
+        self.info1.setText(_("لخيارات عنصر الفئة, نستخدم مفتاح التطبيقات أو click الأيمن"))
+        self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        guide_layout.addWidget(self.info1)
+        layout.addLayout(guide_layout)
         self.fromToSuraah = guiTools.FromToSurahWidget(self)
-        self.onTypeChanged(0)        
+        self.onTypeChanged(0)
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')
         normalized_pattern = tashkeel_pattern.sub('', pattern)
         matches = [text for text in text_list if normalized_pattern in tashkeel_pattern.sub('', text)]
-        return matches        
+        return matches
     def onsearch(self):
         search_text = self.search_bar.text().lower()
         self.info.clear()
         result = self.search(search_text, self.infoData)
-        self.info.addItems(result)        
+        self.info.addItems(result)
     def onItemTriggered(self):
         index = self.type.currentIndex()
         if index == 0:
@@ -166,7 +175,6 @@ class Quran(qt.QWidget):
                           enableNextPreviouseButtons=True,
                           typeResult=result,
                           CurrentIndex=self.info.currentRow()).exec()
-                          
     def onTypeChanged(self, index: int):
         self.info.clear()
         self.infoData = []
@@ -184,7 +192,7 @@ class Quran(qt.QWidget):
         elif index == 4:
             for i in range(1, 61):
                 self.infoData.append(str(i))
-        self.info.addItems(self.infoData)        
+        self.info.addItems(self.infoData)
     def getResult(self):
         index = self.type.currentIndex()
         if index == 0:
@@ -197,7 +205,7 @@ class Quran(qt.QWidget):
             result = functions.quranJsonControl.getHezb()
         elif index == 4:
             result = functions.quranJsonControl.getHizb()
-        return result[self.info.currentItem().text()][1]        
+        return result[self.info.currentItem().text()][1]
     def onContextMenu(self):
         menu = qt.QMenu(self)
         menu.setFocus()
@@ -214,21 +222,21 @@ class Quran(qt.QWidget):
         iarabAction = qt1.QAction(_("إعراب"), self)
         menu.addAction(iarabAction)
         iarabAction.triggered.connect(self.onIarabActionTriggered)
-        menu.exec(qt1.QCursor.pos())        
+        menu.exec(qt1.QCursor.pos())
     def onListenActionTriggert(self):
         result = self.getResult()
         gui.QuranPlayer(self, result, 0, self.type.currentIndex(),
-                          self.info.currentItem().text(), enableBookMarks=True).exec()                          
+                          self.info.currentItem().text(), enableBookMarks=True).exec()
     def onTafseerActionTriggered(self):
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
-        gui.TafaseerViewer(self, AyahNumber1, AyahNumber2).exec()        
+        gui.TafaseerViewer(self, AyahNumber1, AyahNumber2).exec()
     def onTranslationActionTriggered(self):
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
-        gui.translationViewer(self, AyahNumber1, AyahNumber2).exec()        
+        gui.translationViewer(self, AyahNumber1, AyahNumber2).exec()
     def onIarabActionTriggered(self):
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])

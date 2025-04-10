@@ -5,7 +5,7 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 class StoryViewer(qt.QDialog):
     def __init__(self,p,text,type:int,category:str,index=0):
-        super().__init__(p)
+        super().__init__(p)        
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
@@ -23,6 +23,7 @@ class StoryViewer(qt.QDialog):
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
+        font.setBold(True)
         self.text.setFont(font)
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.font_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)

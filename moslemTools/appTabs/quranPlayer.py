@@ -131,6 +131,7 @@ class QuranPlayer(qt.QWidget):
         self.dl_all.setDefault(True)
         self.dl_all.clicked.connect(self.download_all_soar)
         self.delete = qt.QPushButton(_("حذف كل السور للقارئ الحالي من التطبيق"))
+        self.delete .setStyleSheet("background-color: #8B0000; color: white;")
         self.delete.setDefault(True)
         self.delete.setVisible(False)
         self.delete.clicked.connect(lambda: self.delete_surah())                
@@ -199,7 +200,7 @@ class QuranPlayer(qt.QWidget):
             self.play_all_to_end.setEnabled(True)
             self.repeat_surah_button.setEnabled(True)    
     def handle_repeat_toggled(self, checked):
-        # self.mp.stop()
+        self.mp.stop()
         if checked:
             self.play_all_to_end.setEnabled(False)
             self.play_all_to_start.setEnabled(False)
@@ -261,11 +262,11 @@ class QuranPlayer(qt.QWidget):
                         qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
                         qt.QMessageBox.StandardButton.No,
                     )
-                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                    if confirm == qt.QMessageBox.StandardButton.Yes:                        
                         for file in os.listdir(reciter_folder):
                             if file.endswith(".mp3"):
                                 try:
-                                    os.remove(os.path.join(reciter_folder, file))
+                                    os.remove(os.path.join(reciter_folder, file))                                    
                                 except PermissionError:
                                     qt.QMessageBox.critical(
                                         self,
