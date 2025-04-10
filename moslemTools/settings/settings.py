@@ -15,7 +15,7 @@ class settings (qt.QDialog):
         self.setWindowTitle(_("الإعدادات"))
         self.p=p
         layout=qt.QVBoxLayout()        
-        self.sectian=guiTools.listBook()        
+        self.sectian=guiTools.ComboBook()        
         layout.addWidget(self.sectian)
         layout.addWidget(self.sectian.w)        
         self.update=tabs.Update(self)
