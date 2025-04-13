@@ -16,7 +16,7 @@ class Quran(qt.QWidget):
             QWidget {
                 /* background-color: #000000; */
                 color: #f0f0f0;
-                font: bold 16px; 
+                font: bold 12px; 
             }
             QLineEdit {
                 background-color: #3e3e3e;
@@ -70,22 +70,26 @@ class Quran(qt.QWidget):
                 background-color: #0078d7;
             }
         """)
-        browse_layout = qt.QHBoxLayout()
+        browse_layout = qt.QHBoxLayout()        
         browse_layout.setSpacing(10)
+        layout1=qt.QVBoxLayout()
         self.by = qt.QLabel(_("التصفح ب"))
         self.by.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        browse_layout.addWidget(self.by)
+        layout1.addWidget(self.by)
         self.type = qt.QComboBox()
         self.type.setAccessibleName(_("التصفح ب"))
         self.type.addItems([_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")])
         self.type.currentIndexChanged.connect(self.onTypeChanged)
-        browse_layout.addWidget(self.type)
+        layout1.addWidget(self.type)
         self.custom = guiTools.QPushButton(_("مخصص"))
         self.custom.setObjectName("customButton")
         self.custom.setShortcut("ctrl+c")
         self.custom.setAccessibleDescription("control plus c")
-        self.custom.clicked.connect(lambda: self.fromToSuraah.exec())
-        browse_layout.addWidget(self.custom)
+        self.custom.clicked.connect(lambda: self.fromToSuraah.exec())                
+        self.custom.setMaximumWidth(150)
+        self.custom.setMaximumHeight(150)
+        browse_layout.addLayout(layout1)
+        browse_layout.addWidget(self.custom)        
         layout.addLayout(browse_layout)
         self.serch = qt.QLabel(_("بحث"))
         self.serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)

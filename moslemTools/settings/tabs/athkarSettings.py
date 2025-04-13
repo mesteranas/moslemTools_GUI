@@ -4,35 +4,53 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class AthkarSettings(qt.QWidget):
     def __init__(self):
-        super().__init__()
-        self.items=[_("5 دقائق"),_("10 دقائق"),_("20 دقيقة"),_("نصف ساعة"),_("ساعة"),_("إيقاف")]
-        layout=qt.QVBoxLayout(self)
-        self.voiceSelection_laybol=qt.QLabel(_("تشغيل الأذكار الصوتية كل"))
+        super().__init__()        
+        self.setStyleSheet("""            
+            }
+            QLabel {
+                font-size: 14px;
+                color: #e0e0e0;
+            }
+            QComboBox, QSlider, QLineEdit {                
+                color: #e0e0e0;
+                border: 1px solid #555;
+                padding: 4px;
+                font-size: 13px;
+            }
+        """)        
+        self.items = [_("5 دقائق"), _("10 دقائق"), _("20 دقيقة"), _("نصف ساعة"), _("ساعة"), _("إيقاف")]
+        layout = qt.QVBoxLayout(self)        
+        self.voiceSelection_laybol = qt.QLabel(_("تشغيل الأذكار الصوتية كل"))
         self.voiceSelection_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        self.voiceSelection=qt.QComboBox()
+        layout.addWidget(self.voiceSelection_laybol)
+        self.voiceSelection = qt.QComboBox()
         self.voiceSelection.addItems(self.items)
-        self.voiceSelection.setCurrentIndex(int(settings_handler.get("athkar","voice")))
+        self.voiceSelection.setCurrentIndex(int(settings_handler.get("athkar", "voice")))
         self.voiceSelection.setAccessibleName(_("تشغيل الأذكار الصوتية كل"))
-        self.voiceVolumeLabel=qt.QLabel(_("مستوا صوت الأذكار الصوتية"))
+        layout.addWidget(self.voiceSelection)
+        self.info1 = qt.QLineEdit()
+        self.info1.setReadOnly(True)
+        self.info1.setText(_("لتشغيل ذكر عشوائي أو إيقافه, نستخدم الاختصار windows+alt+p"))
+        self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.info1)
+        self.voiceVolumeLabel = qt.QLabel(_("مستوا صوت الأذكار الصوتية"))
         self.voiceVolumeLabel.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        self.voiceVolume=qt.QSlider(qt2.Qt.Orientation.Horizontal)
+        layout.addWidget(self.voiceVolumeLabel)        
+        self.voiceVolume = qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.voiceVolume.setAccessibleName(_("مستوا صوت الأذكار الصوتية"))
-        self.voiceVolume.setRange(0,100)
-        self.voiceVolume.setValue(int(settings_handler.get("athkar","voiceVolume")))
-        self.textSelection_laybol=qt.QLabel(_("عرض الأذكار النصية كل"))
+        self.voiceVolume.setRange(0, 100)
+        self.voiceVolume.setValue(int(settings_handler.get("athkar", "voiceVolume")))
+        layout.addWidget(self.voiceVolume)        
+        self.textSelection_laybol = qt.QLabel(_("عرض الأذكار النصية كل"))
         self.textSelection_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        self.textSelection=qt.QComboBox()
+        layout.addWidget(self.textSelection_laybol)        
+        self.textSelection = qt.QComboBox()
         self.textSelection.addItems(self.items)
-        self.textSelection.setCurrentIndex(int(settings_handler.get("athkar","text")))
+        self.textSelection.setCurrentIndex(int(settings_handler.get("athkar", "text")))
         self.textSelection.setAccessibleName(_("عرض الأذكار النصية كل"))
-        self.info=qt.QLineEdit()
+        layout.addWidget(self.textSelection)
+        self.info = qt.QLineEdit()
         self.info.setReadOnly(True)
         self.info.setText(_("تنبيه هام, حتى تظل الأذكار تعمل في الخلفية, يجب إخفاء البرنامج, لا الخروج منه"))
         self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self.voiceSelection_laybol)
-        layout.addWidget(self.voiceSelection)        
-        layout.addWidget(self.voiceVolumeLabel)
-        layout.addWidget(self.voiceVolume)
-        layout.addWidget(self.textSelection_laybol)
-        layout.addWidget(self.textSelection)
         layout.addWidget(self.info)
