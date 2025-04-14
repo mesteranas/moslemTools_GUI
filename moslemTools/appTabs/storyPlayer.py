@@ -295,20 +295,23 @@ class StoryPlayer(qt.QWidget):
     def check_current_story_downloaded(self):
         selected_category_item = self.categoriesListWidget.currentItem()
         if not selected_category_item:
-            return
+            return None
         category = selected_category_item.text()
         selected_item = self.storiesListWidget.currentItem()
         if not selected_item:
-            return
+            return None
         story_name = selected_item.text()
-        story_path = os.path.join(os.getenv('appdata'), app.appName, "audio_stories", category, f"{story_name}.mp3")
-        delete_option = qt1.QAction(_("حذف القصة المحددة من التطبيق"), self)
+        story_path = os.path.join(os.getenv('appdata'), app.appName, "audio_stories", category, f"{story_name}.mp3")        
+        action = qt.QWidgetAction(self)
+        btn = qt.QPushButton(_("حذف القصة المحددة من التطبيق"))
+        btn.setStyleSheet("background-color: #8B0000; color: white;")
+        btn.setDefault(True)    
+        btn.clicked.connect(lambda: self.delete_story(story_name))
+        action.setDefaultWidget(btn)    
         if os.path.exists(story_path):
-            delete_option.setVisible(True)
-            delete_option.triggered.connect(lambda: self.delete_story(story_name))
+            return action
         else:
-            delete_option.setVisible(False)
-        return delete_option    
+            return None
     def download_selected_story_to_app(self):
         try:
             selected_category_item = self.categoriesListWidget.currentItem()

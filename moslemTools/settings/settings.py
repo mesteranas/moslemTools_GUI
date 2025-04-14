@@ -12,6 +12,7 @@ class settings(qt.QDialog):
     def __init__(self, p):
         super().__init__(p)
         self.resize(600,300)
+        self.center()
         self.setWindowTitle(_("الإعدادات"))
         self.p = p        
         layout = qt.QVBoxLayout()        
@@ -25,13 +26,13 @@ class settings(qt.QDialog):
         self.ok = qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
         self.ok.clicked.connect(self.fok)
-        self.ok.setStyleSheet("background-color: #4CAF50; color: #e0e0e0; padding: 8px; font-weight: bold;")        
+        self.ok.setStyleSheet("background-color: #28a745; color: #e0e0e0; padding: 12px; font-weight: bold;")        
         self.defolt = qt.QPushButton(_("استعادة الإعدادات الإفتراضية"))
         self.defolt.clicked.connect(self.default)
-        self.defolt.setStyleSheet("background-color: #F44336; color: #e0e0e0; padding: 8px; font-weight: bold;")        
+        self.defolt.setStyleSheet("background-color: #8B0000; color: #e0e0e0; padding: 12px; font-weight: bold;")        
         self.cancel = qt.QPushButton(_("إلغاء"))
         self.cancel.clicked.connect(self.fcancel)        
-        self.cancel.setStyleSheet("background-color: #808080; color: #e0e0e0; padding: 8px; font-weight: bold;")        
+        self.cancel.setStyleSheet("background-color: #808080; color: #e0e0e0; padding: 12px; font-weight: bold;")        
         self.layout1 = tabs.Genral(self)
         self.sectian.add(_("عام"), self.layout1)
         self.tafaseerSettings = tabs.TafaseerSettings()
@@ -51,6 +52,11 @@ class settings(qt.QDialog):
         buttonsLayout.addWidget(self.cancel)
         layout.addLayout(buttonsLayout)
         self.setLayout(layout)
+    def center(self):        
+        frame_geometry = self.frameGeometry()        
+        screen_center = qt1.QGuiApplication.primaryScreen().availableGeometry().center()
+        frame_geometry.moveCenter(screen_center)        
+        self.move(frame_geometry.topLeft())
     def fok(self):
         aa = 0
         if settings_handler.get("g", "lang") != str(language.lang()[self.layout1.language.currentText()]):

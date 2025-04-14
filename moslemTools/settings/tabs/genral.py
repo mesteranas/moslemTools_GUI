@@ -1,4 +1,5 @@
 from settings import settings_handler
+from settings import app
 from settings import language
 import guiTools, gui, gettext
 import PyQt6.QtWidgets as qt
