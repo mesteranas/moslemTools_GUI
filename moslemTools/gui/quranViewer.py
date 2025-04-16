@@ -63,6 +63,7 @@ class QuranViewer(qt.QDialog):
         self.next.setVisible(enableNextPreviouseButtons)
         self.next.setShortcut("alt+right")
         self.next.setAccessibleDescription(_("alt زائد السهم الأيمن"))
+        self.next.setStyleSheet("background-color: #0000AA; color: white;")
         buttonsLayout.addWidget(self.next)
         self.changeCategory=qt.QPushButton(_("تغيير الفئة"))
         self.changeCategory.setStyleSheet("background-color: #0000AA; color: white;")
@@ -76,6 +77,7 @@ class QuranViewer(qt.QDialog):
         self.previous.setShortcut("alt+left")
         self.previous.setAccessibleDescription(_("alt زائد السهم الأيسر"))
         self.previous.setVisible(enableNextPreviouseButtons)
+        self.previous.setStyleSheet("background-color: #0000AA; color: white;")
         buttonsLayout.addWidget(self.previous)
         layout.addLayout(buttonsLayout)
         if not index==0:
