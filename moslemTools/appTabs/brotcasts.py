@@ -168,7 +168,7 @@ class brotcasts_of_tafseer(qt.QWidget):
         station_name=selected_item.text()
         if self.player.isPlaying():
             self.player.stop()
-            return  # إيقاف التشغيل دون إعادة تشغيل
+            return
         url=None
         if station_name == _("تفسير النابلسي"):
             url=qt2.QUrl("http://206.72.199.179:9992/;stream.mp3")
@@ -326,7 +326,7 @@ class quran_brotcast(qt.QWidget):
         station_name=selected_item.text()
         if self.player.isPlaying():
             self.player.stop()
-            return  # إيقاف التشغيل مباشرة دون إعادة تشغيل
+            return
         url=None
         if station_name == _("إذاعة القرآن الكريم من نابلِس"):
             url=qt2.QUrl("http://www.quran-radio.org:8002/;stream.mp3")
