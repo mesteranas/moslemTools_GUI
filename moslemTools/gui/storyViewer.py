@@ -4,7 +4,7 @@ from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 class StoryViewer(qt.QDialog):
-    def __init__(self,p,text,type:int,category:str,index=0):
+    def __init__(self,p,text,type:int,category:str,stories:list,index=0):
         super().__init__(p)        
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
@@ -14,7 +14,9 @@ class StoryViewer(qt.QDialog):
         qt1.QShortcut("ctrl+p", self).activated.connect(self.print_text)
         qt1.QShortcut("ctrl+b",self).activated.connect(self.onAddBookMark)
         self.type=type
+        self.stories=stories
         self.category=category
+        self.CurrentIndex=list(self.stories.keys()).index(self.category)
         self.resize(1200,600)
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setText(text)
@@ -36,6 +38,25 @@ class StoryViewer(qt.QDialog):
         layout.addWidget(self.text)        
         layout.addWidget(self.font_laybol)
         layout.addWidget(self.show_font)
+        self.info=qt.QLineEdit()        
+        self.info.setReadOnly(True)
+        self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info.setText(self.category)
+        layout.addWidget(self.info)
+        buttonsLayout=qt.QHBoxLayout()
+        self.next=qt.QPushButton(_("التالي"))
+        self.next.clicked.connect(self.onNext)
+        self.next.setShortcut("alt+right")
+        self.next.setAccessibleDescription(_("alt زائد السهم الأيمن"))
+        self.next.setStyleSheet("background-color: #0000AA; color: white;")
+        buttonsLayout.addWidget(self.next)
+        self.previous=qt.QPushButton(_("السابق"))
+        self.previous.clicked.connect(self.onPreviouse)
+        self.previous.setShortcut("alt+left")
+        self.previous.setAccessibleDescription(_("alt زائد السهم الأيسر"))
+        self.previous.setStyleSheet("background-color: #0000AA; color: white;")
+        buttonsLayout.addWidget(self.previous)
+        layout.addLayout(buttonsLayout)
         if not index==0:
             cerser=self.text.textCursor()
             cerser.movePosition(cerser.MoveOperation.Start)
@@ -133,3 +154,23 @@ class StoryViewer(qt.QDialog):
         name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewStoriesBookMark(self.type,self.category,self.getCurrentLine(),name)
+    def onNext(self):
+        if self.CurrentIndex==len(self.stories)-1:
+            self.CurrentIndex=0
+        else:
+            self.CurrentIndex+=1
+        self.category=list(self.stories.keys())[self.CurrentIndex]
+        self.text.setText(self.stories[self.category])
+        winsound.PlaySound("data/sounds/next_page.wav",1)
+        guiTools.speak(str(self.category))
+        self.info.setText(self.category)
+    def onPreviouse(self):
+        if self.CurrentIndex==0:
+            self.CurrentIndex=len(self.stories)-1
+        else:
+            self.CurrentIndex-=1
+        self.category=list(self.stories.keys())[self.CurrentIndex]
+        self.text.setText(self.stories[self.category])
+        winsound.PlaySound("data/sounds/next_page.wav",1)
+        guiTools.speak(str(self.category))
+        self.info.setText(self.category)

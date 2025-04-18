@@ -150,7 +150,7 @@ def getStoryBookmark(p,name):
                 with open("data/json/quranStories.json","r",encoding="utf-8-sig") as file:
                     stories=json.load(file)
             story=stories[category]
-            gui.StoryViewer(p,story,type,category,index=line).exec()
+            gui.StoryViewer(p,story,type,category,stories,index=line).exec()
 def addNewaudioBookMark(tabName,typeIndex:int,categoryIndex:int,position:int,bookMarkName:str):
     bookMarksList=openBookMarksFile()
     try:

@@ -1,7 +1,7 @@
 from settings import settings_handler
 from settings import app
 from settings import language
-import guiTools, gui, gettext
+import guiTools, gui, gettext,re
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
@@ -38,6 +38,14 @@ class Genral(qt.QWidget):
         self.startup.setChecked(self.check_in_startup())
         self.startup.checkStateChanged.connect(self.onStartupChanged)
         layout1.addWidget(self.startup)
+        self.serch = qt.QLabel(_("بحث"))
+        self.serch.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout1.addWidget(self.serch)
+        self.search_bar = qt.QLineEdit()
+        self.search_bar.setPlaceholderText(_("بحث ..."))
+        self.search_bar.textChanged.connect(self.onsearch)
+        self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        layout1.addWidget(self.search_bar)
         self.reciter = qt.QComboBox()
         self.reciter.addItems(gui.reciters.keys())
         self.reciter.setCurrentIndex(int(settings_handler.get("g", "reciter")))
@@ -88,3 +96,13 @@ class Genral(qt.QWidget):
                 if question == qt.QMessageBox.StandardButton.Yes:
                     shutil.rmtree(path)
                     guiTools.speak(_("تم الحذف"))
+    def search(self, pattern, text_list):
+        tashkeel_pattern = re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')
+        normalized_pattern = tashkeel_pattern.sub('', pattern)
+        matches = [text for text in text_list if normalized_pattern in tashkeel_pattern.sub('', text)]
+        return matches
+    def onsearch(self):
+        search_text = self.search_bar.text().lower()
+        self.reciter.clear()
+        result = self.search(search_text, gui.reciters.keys())
+        self.reciter.addItems(result)

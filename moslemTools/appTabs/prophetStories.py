@@ -38,7 +38,7 @@ class ProphetStories(qt.QWidget):
         gui.StoryViewer(self,
                         self.stories[self.list_of_aProphetStories.currentItem().text()],
                         self.selectCategory.currentIndex(),
-                        self.list_of_aProphetStories.currentItem().text()).exec()    
+                        self.list_of_aProphetStories.currentItem().text(),self.stories).exec()    
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(r'[\u0617-\u061A\u064B-\u0652]')
         normalized_pattern = tashkeel_pattern.sub('', pattern)
