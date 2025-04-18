@@ -1,14 +1,20 @@
-import guiTools
+import guiTools,os,json
 from settings import *
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 language.init_translation()
+path=os.path.join(os.getenv('appdata'),app.appName,"athkar.json")
+if not os.path.exists(path):
+    with open(path,"w",encoding="utf-8") as file:
+        file.write("[]")
 class sibha(qt.QWidget):
     def __init__(self):
         super().__init__()        
         qt1.QShortcut("ctrl+s", self).activated.connect(self.speak_number)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.speak_current_thecre)                
+        with open(path,"r",encoding="utf-8") as file:
+            self.externalAthkar=json.load(file)
         self.athkar_laybol = qt.QLabel(_("قم بتحديد الذكر"))
         self.athkar_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)                
         self.athkar = qt.QComboBox()        
@@ -33,9 +39,11 @@ class sibha(qt.QWidget):
             _("سبحان الله وبحمده عدد خلقه ورضى نفسه وزنة عرشه ومداد كلماته"),
             _("لا إلاه إلا الله وحده لا شريك لهُ ، لهُ الملك ، ولهُ الحمدُ ، وهو على كل شيء قدير")
         ])        
+        self.athkar.addItems(self.externalAthkar)
         self.numbers = qt.QLabel("0")
         self.numbers.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.numbers.setStyleSheet("font-size:300px;")        
+        self.numbers.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         self.reset = qt.QPushButton(_("إعادة تعين"))
         self.reset.setAccessibleDescription("control plus R")
         self.reset.setDefault(True)
@@ -55,8 +63,10 @@ class sibha(qt.QWidget):
         self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
         self.done_thecr=qt.QPushButton(_("إضافة الذكر"))
         self.done_thecr.setDefault(True)        
+        self.done_thecr.clicked.connect(self.onAddThkarCompeleted)
         self.line_of_thecr.setVisible(False)
         self.done_thecr.setVisible(False)
+        self.add_thecr.clicked.connect(self.onAddThakar)
         self.add_thecr.setStyleSheet("""
             background-color: green;
             color: white;
@@ -118,3 +128,19 @@ class sibha(qt.QWidget):
         guiTools.speak(current_number)
     def speak_current_thecre(self):
         guiTools.speak(self.athkar.currentText())
+    def onAddThakar(self):
+        self.add_thecr.setVisible(False)
+        self.line_of_thecr.setVisible(True)
+        self.done_thecr.setVisible(True)
+        self.line_of_thecr.setFocus()
+    def onAddThkarCompeleted(self):
+        thkar=self.line_of_thecr.text()
+        self.line_of_thecr.setText("")
+        self.externalAthkar.append(thkar)
+        self.athkar.addItem(thkar)
+        with open(path,"w",encoding="utf-8") as file:
+            json.dump(self.externalAthkar,file,ensure_ascii=False,indent=4)
+        self.add_thecr.setVisible(True)
+        self.line_of_thecr.setVisible(False)
+        self.done_thecr.setVisible(False)
+        self.athkar.setFocus()
