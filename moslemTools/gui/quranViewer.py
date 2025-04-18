@@ -33,6 +33,7 @@ class QuranViewer(qt.QDialog):
         self.text.setText(text)
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.oncontextMenu)
+        self.text.viewport().installEventFilter(self)    
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
@@ -112,6 +113,15 @@ class QuranViewer(qt.QDialog):
         qt1.QShortcut("ctrl+alt+i", self).activated.connect(self.IArabFromVersToVers)
         qt1.QShortcut("ctrl+alt+p", self).activated.connect(self.playFromVersToVers)
         qt1.QShortcut("ctrl+shift+p", self).activated.connect(lambda: QuranPlayer(self, self.quranText, self.getCurrentAyah(), self.type, self.category, enableBookMarks=self.enableBookmarks).exec())
+    def eventFilter(self, obj, event):
+        if obj == self.text.viewport() and \
+            event.type() == qt2.QEvent.Type.MouseButtonPress and \
+            event.button() == qt2.Qt.MouseButton.LeftButton:
+            cursor = self.text.cursorForPosition(event.position().toPoint())
+            self.text.setTextCursor(cursor)        
+            self.on_play()
+            return True
+        return super().eventFilter(obj, event)
     def oncontextMenu(self):
         menu=qt.QMenu(_("الخيارات "),self)
         menu.setAccessibleName(_("الخيارات "))
