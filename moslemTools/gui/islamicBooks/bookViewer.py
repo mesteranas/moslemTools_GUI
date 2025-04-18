@@ -37,8 +37,10 @@ class book_viewer(qt.QDialog):
         self.show_font.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.show_font.setText(str(self.font_size))
         self.N_book=qt.QPushButton(_("الصفحة التالية"))
+        self.N_book.setAccessibleDescription(_("alt زائد السهم الأيمن"))
         self.N_book.clicked.connect(self.next_book)        
         self.P_book=qt.QPushButton(_("الصفحة السابقة"))
+        self.P_book.setAccessibleDescription(_("alt زائد السهم الأيسر"))
         self.P_book.clicked.connect(self.previous_book)
         self.P_book.setStyleSheet("background-color: #0000AA; color: white;")
         self.N_book.setStyleSheet("background-color: #0000AA; color: white;")
@@ -56,8 +58,8 @@ class book_viewer(qt.QDialog):
         layout.addWidget(self.book_number_laybol)
         layout.addWidget(self.show_book_number)
         layout1=qt.QHBoxLayout()
-        layout1.addWidget(self.N_book)
         layout1.addWidget(self.P_book)
+        layout1.addWidget(self.N_book)
         layout.addLayout(layout1)
     def next_book(self):
         if self.index == len(self.data)-1:

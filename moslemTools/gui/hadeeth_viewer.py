@@ -46,8 +46,10 @@ class hadeeth_viewer(qt.QDialog):
         self.show_font.setText(str(self.font_size))
         self.N_hadeeth=qt.QPushButton(_("الحديث التالي"))
         self.N_hadeeth.setStyleSheet("background-color: #0000AA; color: white;")
+        self.N_hadeeth.setAccessibleDescription(_("alt زائد السهم الأيمن"))
         self.N_hadeeth.clicked.connect(self.next_hadeeth)
         self.P_hadeeth=qt.QPushButton(_("الحديث السابق"))
+        self.P_hadeeth.setAccessibleDescription(_("alt زائد السهم الأيسر"))
         self.P_hadeeth.setStyleSheet("background-color: #0000AA; color: white;")
         self.P_hadeeth.clicked.connect(self.previous_hadeeth)
         self.hadeeth_number_laybol=qt.QLabel(_("رقم الحديث"))
@@ -63,9 +65,9 @@ class hadeeth_viewer(qt.QDialog):
         layout.addWidget(self.show_font)
         layout.addWidget(self.hadeeth_number_laybol)
         layout.addWidget(self.show_hadeeth_number)
-        layout1=qt.QHBoxLayout()
-        layout1.addWidget(self.N_hadeeth)
+        layout1=qt.QHBoxLayout()        
         layout1.addWidget(self.P_hadeeth)
+        layout1.addWidget(self.N_hadeeth)
         layout.addLayout(layout1)
     def next_hadeeth(self):
         if self.index == len(self.data)-1:
