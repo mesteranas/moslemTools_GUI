@@ -48,11 +48,35 @@ class sibha(qt.QWidget):
         self.add.setDefault(True)
         self.add.clicked.connect(self.increment_count)
         self.add.setObjectName("addButton")
+        self.add_thecr=qt.QPushButton(_("إضافة ذكر"))
+        self.add_thecr.setDefault(True)
+        self.add_thecr.setAccessibleDescription("control plus a")
+        self.line_of_thecr=qt.QLineEdit()
+        self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
+        self.done_thecr=qt.QPushButton(_("إضافة الذكر"))
+        self.done_thecr.setDefault(True)        
+        self.line_of_thecr.setVisible(False)
+        self.done_thecr.setVisible(False)
+        self.add_thecr.setStyleSheet("""
+            background-color: green;
+            color: white;
+        """)
+        self.done_thecr.setStyleSheet("""
+            background-color: green;
+            color: white;
+        """)
         main_layout = qt.QVBoxLayout()
         main_layout.setSpacing(10)
         main_layout.setContentsMargins(20, 20, 20, 20)        
-        main_layout.addWidget(self.athkar_laybol)
-        main_layout.addWidget(self.athkar)
+        layout1=qt.QHBoxLayout()
+        layout1.addWidget(self.athkar_laybol)
+        layout1.addWidget(self.athkar)
+        layout1.addWidget(self.add_thecr)
+        layout2=qt.QHBoxLayout()
+        layout2.addWidget(self.line_of_thecr)
+        layout2.addWidget(self.done_thecr)
+        main_layout.addLayout(layout1)
+        main_layout.addLayout(layout2)
         main_layout.addWidget(self.numbers)
         btn_layout = qt.QHBoxLayout()
         btn_layout.setSpacing(20)
