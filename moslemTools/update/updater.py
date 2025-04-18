@@ -57,10 +57,11 @@ class DownloadUpdateThread(qt2.QRunnable):
 class DownloadUpdateGUI(qt.QDialog):
     def __init__(self,p,URL):
         super().__init__(p)
-        self.setWindowTitle(_("جاري التحديث"))
-
+        self.setWindowTitle(_("جاري التحديث"))        
+        self.resize(300,100)
         layout=qt.QVBoxLayout(self)
         self.state=qt.QLabel(_("يجري الآن تحميل التحديث"))
+        self.state.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.state)
         self.downloading=qt.QProgressBar()
         self.downloading.setRange(0,100)
@@ -68,6 +69,7 @@ class DownloadUpdateGUI(qt.QDialog):
         self.downloading.setValue(0)
         layout.addWidget(self.downloading)
         self.cancel=qt.QPushButton(_("إلغاء"))
+        self.cancel.setStyleSheet("background-color: #0000AA; color: white;")
         layout.addWidget(self.cancel)
         self.thread=qt2.QThreadPool(self)
         self.run=DownloadUpdateThread(URL)

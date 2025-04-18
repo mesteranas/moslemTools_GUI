@@ -19,8 +19,9 @@ def check(p,message=True):
 class download(qt.QDialog):
     def __init__(self,p,version,URL,whatsNew):
         super().__init__(p)
-        self.resize(600,500)
+        self.resize(700,500)
         layout=qt.QVBoxLayout(self)
+        layout1=qt.QHBoxLayout()
         self.setWindowTitle(_("جديد {} إصدار {}").format(settings.app.name,str(version)))
         self.p=p
         whatsn=guiTools.QReadOnlyTextEdit()
@@ -29,13 +30,16 @@ class download(qt.QDialog):
         self.URL=URL
         self.download=qt.QPushButton(_("تحميل"))
         self.download.setDefault(True)
+        self.download.setStyleSheet("background-color: #0000AA; color: white;")        
         self.download.clicked.connect(self.onUpdate)
         self.URL=URL
         self.Close=qt.QPushButton(_("إغلاق"))
         self.Close.clicked.connect(lambda:self.close())
-        layout.addWidget(whatsn)
-        layout.addWidget(self.download)
-        layout.addWidget(self.Close)
+        self.Close.setStyleSheet("background-color: #0000AA; color: white;")
+        layout.addWidget(whatsn)        
+        layout1.addWidget(self.download)
+        layout1.addWidget(self.Close)
+        layout.addLayout(layout1)
     def onUpdate(self):
         self.close()
         settings.app.exit=False
