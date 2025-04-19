@@ -59,6 +59,7 @@ class sibha(qt.QWidget):
         self.add_thecr=qt.QPushButton(_("إضافة ذكر"))
         self.add_thecr.setDefault(True)
         self.add_thecr.setAccessibleDescription("control plus a")
+        self.add_thecr.setShortcut("ctrl+a")
         self.line_of_thecr=qt.QLineEdit()
         self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
         self.done_thecr=qt.QPushButton(_("إضافة الذكر"))
