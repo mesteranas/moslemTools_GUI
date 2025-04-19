@@ -64,6 +64,7 @@ class DownloadUpdateGUI(qt.QDialog):
         self.state.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.state)
         self.downloading=qt.QProgressBar()
+        self.downloading.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         self.downloading.setRange(0,100)
         self.downloading.setAccessibleName(_("حالة التحميل"))
         self.downloading.setValue(0)

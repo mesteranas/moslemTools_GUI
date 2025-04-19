@@ -80,6 +80,7 @@ class QuranPlayer(qt.QWidget):
         self.recitersList.sort()
         self.recitersListWidget.addItems(self.recitersList)
         self.progressBar = qt.QProgressBar()
+        self.progressBar.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         self.progressBar.setVisible(False)
         self.mp = QMediaPlayer()
         self.au = QAudioOutput()

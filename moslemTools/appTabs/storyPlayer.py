@@ -74,6 +74,7 @@ class StoryPlayer(qt.QWidget):
         self.categoriesList.sort()
         self.categoriesListWidget.addItems(self.categoriesList)        
         self.progressBar = qt.QProgressBar()
+        self.progressBar.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         self.progressBar.setVisible(False)
         self.mp = QMediaPlayer()
         self.au = QAudioOutput()
