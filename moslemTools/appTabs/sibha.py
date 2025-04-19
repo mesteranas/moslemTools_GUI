@@ -20,6 +20,9 @@ class sibha(qt.QWidget):
         self.athkar = qt.QComboBox()        
         self.athkar.setAccessibleDescription(_("control plus c لنطق الذكر المحدد"))
         self.athkar.setAccessibleName(_("قم بتحديد الذكر"))
+        self.athkar.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.athkar.customContextMenuRequested.connect(self.onDelete)
+        qt1.QShortcut("delete",self).activated.connect(self.onDelete)
         self.athkar.addItems([
             _("سبحان الله"),
             _("الحمد لله "),
@@ -61,6 +64,7 @@ class sibha(qt.QWidget):
         self.add_thecr.setAccessibleDescription("control plus a")
         self.add_thecr.setShortcut("ctrl+a")
         self.line_of_thecr=qt.QLineEdit()
+        self.line_of_thecr.textChanged.connect(self.onLineTextChanged)
         self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
         self.done_thecr=qt.QPushButton(_("إضافة الذكر"))
         self.done_thecr.setDefault(True)        
@@ -133,6 +137,7 @@ class sibha(qt.QWidget):
         self.add_thecr.setVisible(False)
         self.line_of_thecr.setVisible(True)
         self.done_thecr.setVisible(True)
+        self.done_thecr.setDisabled(True)
         self.line_of_thecr.setFocus()
     def onAddThkarCompeleted(self):
         thkar=self.line_of_thecr.text()
@@ -145,3 +150,21 @@ class sibha(qt.QWidget):
         self.line_of_thecr.setVisible(False)
         self.done_thecr.setVisible(False)
         self.athkar.setFocus()
+    def onLineTextChanged(self,text):
+        if text=="":
+            disabled=True
+        else:
+            disabled=False
+        self.done_thecr.setDisabled(disabled)
+    def onDelete(self):
+        itemText=self.athkar.currentText()
+        if not itemText in self.externalAthkar:
+            qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكنك حذف هذا الذكر"))
+        else:
+            question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا الذكر"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
+            if question==qt.QMessageBox.StandardButton.Yes:
+                self.externalAthkar.remove(itemText)
+                self.athkar.removeItem(self.athkar.currentIndex())
+                with open(path,"w",encoding="utf-8") as file:
+                    json.dump(self.externalAthkar,file,ensure_ascii=False,indent=4)
+                guiTools.speak(_("تم الحذف"))

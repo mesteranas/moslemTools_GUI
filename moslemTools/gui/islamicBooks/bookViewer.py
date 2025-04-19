@@ -177,6 +177,6 @@ class book_viewer(qt.QDialog):
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def onAddBookMark(self):
-        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewislamicBookBookMark(self.bookName,self.part,self.index,name)

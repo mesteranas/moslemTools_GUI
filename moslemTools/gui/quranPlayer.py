@@ -259,7 +259,7 @@ class QuranPlayer(qt.QDialog):
         if self.enableBookmarks==False:
             qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
             return
-        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.index,True,name)
     def volume_up(self):

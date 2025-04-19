@@ -592,7 +592,7 @@ class StoryPlayer(qt.QWidget):
     def onBookmarkOpened(self):
         gui.book_marcks(self,"stories").exec()
     def onAddNewBookmark(self):
-        name,ok=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب اسم العلامة المرجعية"))
+        name,ok=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب اسم العلامة المرجعية"))
         if ok:
             type=self.categoriesListWidget.currentRow()
             surah=self.storiesListWidget.currentRow()

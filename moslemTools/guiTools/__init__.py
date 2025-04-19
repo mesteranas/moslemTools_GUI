@@ -9,3 +9,4 @@ from .QListWidget import QListWidget
 from .fromToSurahWidget import FromToSurahWidget
 from . import messageHandler
 from .comboBook import ComboBook
+from .QInputDialog import QInputDialog

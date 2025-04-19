@@ -151,7 +151,7 @@ class StoryViewer(qt.QDialog):
         cerser=self.text.textCursor()
         return cerser.blockNumber()
     def onAddBookMark(self):
-        name,OK=qt.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
+        name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewStoriesBookMark(self.type,self.category,self.getCurrentLine(),name)
     def onNext(self):
