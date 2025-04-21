@@ -95,6 +95,9 @@ class hadeeth_viewer(qt.QDialog):
             self.show_hadeeth_number.setText(str(self.index+1))
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"), self)
+        boldFont=menu.font()
+        boldFont.setBold(True)
+        menu.setFont(boldFont)
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         hadeeth_menu=qt.QMenu(_("خيارات الحديث"), self)
@@ -127,6 +130,8 @@ class hadeeth_viewer(qt.QDialog):
         decrease_font_action.triggered.connect(self.decrease_font_size)            
         menu.addMenu(text_options_menu)
         menu.addMenu(font_menu)
+        text_options_menu.setFont(boldFont)
+        font_menu.setFont(boldFont)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def print_text(self):
         try:

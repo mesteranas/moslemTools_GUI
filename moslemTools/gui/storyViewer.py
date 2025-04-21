@@ -65,13 +65,15 @@ class StoryViewer(qt.QDialog):
             self.text.setTextCursor(cerser)
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
+        boldFont=menu.font()
+        boldFont.setBold(True)
+        menu.setFont(boldFont)
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         text_options=qt.QMenu(_("خيارات النص"),self)
         addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
         text_options.addAction(addNewBookMark)
         addNewBookMark.triggered.connect(self.onAddBookMark)
-
         save=text_options.addAction(_("حفظ كملف نصي"))
         save.triggered.connect(self.save_text_as_txt)        
         print=text_options.addAction(_("طباعة"))
@@ -90,6 +92,8 @@ class StoryViewer(qt.QDialog):
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)        
         menu.addMenu(text_options)
         menu.addMenu(fontMenu)
+        text_options.setFont(boldFont)
+        fontMenu.setFont(boldFont)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def print_text(self):
         try:

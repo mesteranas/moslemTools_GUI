@@ -188,6 +188,7 @@ class QuranPlayer(qt.QDialog):
             self.currentTime=1
             self.index=number-1
             self.text.setText(self.quranText[self.index])
+            self.update_font_size()
             self.on_play()
     def onNextAyah(self):
         self.currentTime=1
@@ -196,6 +197,7 @@ class QuranPlayer(qt.QDialog):
         else:
             self.index+=1
         self.text.setText(self.quranText[self.index])
+        self.update_font_size()
         self.media.stop()
         self.on_play()
     def onPreviousAyah(self):
@@ -205,6 +207,7 @@ class QuranPlayer(qt.QDialog):
         else:
             self.index-=1
         self.text.setText(self.quranText[self.index])
+        self.update_font_size()
         self.media.stop()
         self.on_play()
     def getcurrentAyahText(self):
@@ -238,7 +241,6 @@ class QuranPlayer(qt.QDialog):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         result=functions.iarab.getIarab(AyahNumber,AyahNumber)
         guiTools.TextViewer(self,_("إعراب"),result).exec()
-
     def getCurrentAyahTanzel(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         result=functions.tanzil.gettanzil(AyahNumber)

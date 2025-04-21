@@ -124,6 +124,9 @@ class QuranViewer(qt.QDialog):
         return super().eventFilter(obj, event)
     def oncontextMenu(self):
         menu=qt.QMenu(_("الخيارات "),self)
+        boldFont=menu.font()
+        boldFont.setBold(True)
+        menu.setFont(boldFont)
         menu.setAccessibleName(_("الخيارات "))
         menu.setFocus()
         ayahOptions=qt.QMenu(_("خيارات الآية الحالية"))
@@ -209,6 +212,9 @@ class QuranViewer(qt.QDialog):
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
         menu.addMenu(fontMenu)
+        ayahOptions.setFont(boldFont)
+        surahOption.setFont(boldFont)
+        fontMenu.setFont(boldFont)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def copyAya(self):
         a=self.getcurrentAyahText()

@@ -106,6 +106,9 @@ class AthkerDialog (qt.QDialog):
         winsound.PlaySound("data/sounds/previous_page.wav",1)        
     def OnContextMenu(self):
         menu=qt.QMenu(_("الخيارات"),self)
+        boldFont=menu.font()
+        boldFont.setBold(True)
+        menu.setFont(boldFont)
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         save=menu.addAction(_("حفظ كملف نصي"))
@@ -125,7 +128,8 @@ class AthkerDialog (qt.QDialog):
         decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
-        menu.addMenu(fontMenu)
+        menu.addMenu(fontMenu)        
+        fontMenu.setFont(boldFont)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def print_text(self):
         try:

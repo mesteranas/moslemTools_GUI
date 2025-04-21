@@ -66,11 +66,22 @@ class sibha(qt.QWidget):
         self.line_of_thecr=qt.QLineEdit()
         self.line_of_thecr.textChanged.connect(self.onLineTextChanged)
         self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
+        self.line_of_thecr.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.done_thecr=qt.QPushButton(_("إضافة الذكر"))
         self.done_thecr.setDefault(True)        
         self.done_thecr.clicked.connect(self.onAddThkarCompeleted)
+        self.cancel_add=qt.QPushButton(_("إلغاء"))
+        self.cancel_add.setDefault(True)
+        self.cancel_add.setShortcut("shift+c")
+        self.cancel_add.setAccessibleDescription("shift plus c")
+        self.cancel_add.clicked.connect(self.cansel_add_thecr)
+        self.cancel_add.setStyleSheet("""
+            background-color: #8B0000;
+            color: white;
+        """)
         self.line_of_thecr.setVisible(False)
         self.done_thecr.setVisible(False)
+        self.cancel_add.setVisible(False)
         self.add_thecr.clicked.connect(self.onAddThakar)
         self.add_thecr.setStyleSheet("""
             background-color: green;
@@ -88,6 +99,7 @@ class sibha(qt.QWidget):
         layout1.addWidget(self.athkar)
         layout1.addWidget(self.add_thecr)
         layout2=qt.QHBoxLayout()
+        layout2.addWidget(self.cancel_add)
         layout2.addWidget(self.line_of_thecr)
         layout2.addWidget(self.done_thecr)
         main_layout.addLayout(layout1)
@@ -120,6 +132,12 @@ class sibha(qt.QWidget):
                 font-size: 16px;
             }
         """)
+    def cansel_add_thecr(self):
+        self.add_thecr.setVisible(True)
+        self.line_of_thecr.setVisible(False)
+        self.done_thecr.setVisible(False)
+        self.cancel_add.setVisible(False)
+        self.line_of_thecr.clear()
     def reset_count(self):
         self.numbers.setText("0")
         guiTools.speak(_("تم إعادة التعيين الى 0"))
@@ -137,6 +155,7 @@ class sibha(qt.QWidget):
         self.add_thecr.setVisible(False)
         self.line_of_thecr.setVisible(True)
         self.done_thecr.setVisible(True)
+        self.cancel_add.setVisible(True)
         self.done_thecr.setDisabled(True)
         self.line_of_thecr.setFocus()
     def onAddThkarCompeleted(self):
