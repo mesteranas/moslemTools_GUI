@@ -107,9 +107,15 @@ class hadeeth_viewer(qt.QDialog):
         previous_action.triggered.connect(self.previous_hadeeth)
         go_action=hadeeth_menu.addAction(_("الذهاب إلى حديث"))
         go_action.triggered.connect(self.go_to_hadeeth)
-        addBookMarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
-        hadeeth_menu.addAction(addBookMarkAction)
-        addBookMarkAction.triggered.connect(self.onAddBookMark)
+        state,self.nameOfBookmark=functions.bookMarksManager.getAhdeethBookmarkName(self.bookName,self.index)
+        if state:
+            removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            hadeeth_menu.addAction(removeBookmarkAction)
+            removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
+        else:
+            addBookMarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            hadeeth_menu.addAction(addBookMarkAction)
+            addBookMarkAction.triggered.connect(self.onAddBookMark)
         menu.addMenu(hadeeth_menu)
         text_options_menu=qt.QMenu(_("خيارات النص"), self)
         save_action=text_options_menu.addAction(_("حفظ كملف نصي"))
@@ -193,3 +199,9 @@ class hadeeth_viewer(qt.QDialog):
         name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewHadeethBookMark(self.bookName,self.index,name)
+    def onRemoveBookmark(self):
+        try:
+            functions.bookMarksManager.removeAhadeethBookMark(self.nameOfBookmark)
+            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+        except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))

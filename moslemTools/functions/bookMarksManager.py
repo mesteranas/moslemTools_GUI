@@ -180,3 +180,53 @@ def GetAudioBookByName(tabName,name:str):
     for hadeethData in ahadeethBookMarks["audio " + tabName]:
         if hadeethData["name"]==name:
             return hadeethData
+def getQuranBookmarkName(type:int,category:str,ayah:str,isPlayer=True):
+    name=""
+    state=False
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["quran"]
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["type"]==type and hadeethBookMarkData["category"]==category and hadeethBookMarkData["ayah"]==ayah and hadeethBookMarkData["isPlayer"]==isPlayer:
+            state=True
+            name=hadeethBookMarkData["name"]
+    return state,name
+def getAhdeethBookmarkName(bookName:str,hadeethNumber:int):
+    name=""
+    state=False
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["ahadeeth"]
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["bookName"]==bookName and hadeethBookMarkData["number"]==hadeethNumber:
+            state=True
+            name=hadeethBookMarkData["name"]
+    return state,name
+def getIslamicBookBookmarkName(bookName:str,hadeethNumber:int):
+    name=""
+    state=False
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["islamicBooks"]
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["bookName"]==bookName and hadeethBookMarkData["number"]==hadeethNumber:
+            state=True
+            name=hadeethBookMarkData["name"]
+    return state,name
+def getStoriesBookmarkName(bookName:str,hadeethNumber:int):
+    name=""
+    state=False
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["stories"]
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["category"]==bookName and hadeethBookMarkData["line"]==hadeethNumber:
+            state=True
+            name=hadeethBookMarkData["name"]
+    return state,name
+def getAudioBookmarkName(typeF:str,type:str,category:str,position:int):
+    name=""
+    state=False
+    bookMarksList=openBookMarksFile()
+    ahadeethBookMarksList=bookMarksList["audio "] + typeF
+    for hadeethBookMarkData in ahadeethBookMarksList:
+        if hadeethBookMarkData["type"]==type and hadeethBookMarkData["category"]==category and hadeethBookMarkData["position"]==position:
+            state=True
+            name=hadeethBookMarkData["name"]
+    return state,name

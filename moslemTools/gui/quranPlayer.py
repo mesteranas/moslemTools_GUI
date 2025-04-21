@@ -112,10 +112,16 @@ class QuranPlayer(qt.QDialog):
         aya_tanzeel=qt1.QAction(_("أسباب نزول الآيا الحالية"),self)
         aya.addAction(aya_tanzeel)
         aya_tanzeel.triggered.connect(self.getCurrentAyahTanzel)        
-        addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
-        aya.addAction(addNewBookMark)
-        addNewBookMark.triggered.connect(self.onAddBookMark)
-        addNewBookMark.setEnabled(self.enableBookmarks)
+        state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.index,isPlayer=True)
+        if state:
+            removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            aya.addAction(removeBookmarkAction)
+            removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
+        else:
+            addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            aya.addAction(addNewBookMark)
+            addNewBookMark.triggered.connect(self.onAddBookMark)
+            addNewBookMark.setEnabled(self.enableBookmarks)
         Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
         aya.addAction(Previous_aya)
         Previous_aya.triggered.connect(self.onPreviousAyah)
@@ -268,3 +274,9 @@ class QuranPlayer(qt.QDialog):
         self.audioOutput.setVolume(self.audioOutput.volume()+0.10)
     def volume_down(self):
         self.audioOutput.setVolume(self.audioOutput.volume()-0.10)
+    def onRemoveBookmark(self):
+        try:
+            functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
+            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+        except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))

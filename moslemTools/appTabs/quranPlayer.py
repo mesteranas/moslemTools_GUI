@@ -659,3 +659,9 @@ class QuranPlayer(qt.QWidget):
             surah = self.surahListWidget.currentRow()
             position = self.mp.position()
             functions.bookMarksManager.addNewaudioBookMark("quran", type, surah, position, name)
+    def onRemoveBookmark(self):
+        try:
+            functions.bookMarksManager.removeaudioBookMark("quran",self.nameOfBookmark)
+            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+        except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))

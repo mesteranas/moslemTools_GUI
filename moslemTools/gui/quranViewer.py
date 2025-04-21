@@ -13,6 +13,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
 class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
+        self.nameOfBookmark=""
         self.enableBookmarks=enableBookmarks
         self.type=type
         self.enableNextPreviouseButtons=enableNextPreviouseButtons
@@ -155,10 +156,16 @@ class QuranViewer(qt.QDialog):
         copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)
         ayahOptions.addAction(copy_aya)
         copy_aya.triggered.connect(self.copyAya)
-        addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
-        ayahOptions.addAction(addNewBookMark)
-        addNewBookMark.triggered.connect(self.onAddBookMark)
-        addNewBookMark.setEnabled(self.enableBookmarks)
+        state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.getCurrentAyah(),isPlayer=False)
+        if state:
+            removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            ayahOptions.addAction(removeBookmarkAction)
+            removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
+        else:
+            addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            ayahOptions.addAction(addNewBookMark)
+            addNewBookMark.triggered.connect(self.onAddBookMark)
+            addNewBookMark.setEnabled(self.enableBookmarks)
         menu.addMenu(ayahOptions)
         surahOption=qt.QMenu(_("خيارات الفئة"),self)
         copySurahAction=qt1.QAction(_("نسخ الفئة"),self)
@@ -479,3 +486,9 @@ class QuranViewer(qt.QDialog):
         self.info.setText(indexs)
         self.quranText=self.typeResult[indexs][1]
         self.text.setText(self.quranText)
+    def onRemoveBookmark(self):
+        try:
+            functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
+            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+        except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))

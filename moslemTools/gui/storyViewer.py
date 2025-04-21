@@ -71,9 +71,15 @@ class StoryViewer(qt.QDialog):
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         text_options=qt.QMenu(_("خيارات النص"),self)
-        addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
-        text_options.addAction(addNewBookMark)
-        addNewBookMark.triggered.connect(self.onAddBookMark)
+        state,self.nameOfBookmark=functions.bookMarksManager.getStoriesBookmarkName(self.category,self.getCurrentLine())
+        if state:
+            removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            text_options.addAction(removeBookmarkAction)
+            removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
+        else:
+            addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            text_options.addAction(addNewBookMark)
+            addNewBookMark.triggered.connect(self.onAddBookMark)
         save=text_options.addAction(_("حفظ كملف نصي"))
         save.triggered.connect(self.save_text_as_txt)        
         print=text_options.addAction(_("طباعة"))
@@ -178,3 +184,9 @@ class StoryViewer(qt.QDialog):
         winsound.PlaySound("data/sounds/next_page.wav",1)
         guiTools.speak(str(self.category))
         self.info.setText(self.category)
+    def onRemoveBookmark(self):
+        try:
+            functions.bookMarksManager.removeStoriesBookMark(self.nameOfBookmark)
+            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+        except:
+            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
