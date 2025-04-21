@@ -21,6 +21,10 @@ class Albaheth(qt.QWidget):
         self.ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
         self.ahadeeth.setAccessibleName(_("إختيار الكتاب"))
         self.ahadeeth.setSizePolicy(qt.QSizePolicy.Policy.Expanding, qt.QSizePolicy.Policy.Fixed)        
+        self.surahsList=functions.quranJsonControl.getSurahs()
+        self.surahs=qt.QComboBox()
+        self.surahs.addItems([_("كل القرآن")] + list(self.surahsList.keys()))
+        self.surahs.setSizePolicy(qt.QSizePolicy.Policy.Expanding, qt.QSizePolicy.Policy.Fixed)        
         self.serch.currentIndexChanged.connect(self.toggle_ahadeeth_visibility)        
         self.serch_laibol_content = qt.QLabel(_("أكتب محتوى البحث"))
         self.serch_laibol_content.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -53,6 +57,7 @@ class Albaheth(qt.QWidget):
         self.ahadeeth_layout_top = qt.QVBoxLayout()
         self.ahadeeth_layout_top.addWidget(self.ahadeeth_laibol, alignment=qt2.Qt.AlignmentFlag.AlignLeft)
         self.ahadeeth_layout_top.addWidget(self.ahadeeth)
+        self.ahadeeth_layout_top.addWidget(self.surahs)
         self.top_combo_layout.addLayout(self.search_layout_top, stretch=1)
         self.top_combo_layout.addLayout(self.ahadeeth_layout_top, stretch=1)        
         main_layout.addLayout(self.top_combo_layout)
@@ -137,7 +142,10 @@ class Albaheth(qt.QWidget):
             return
         I = self.serch.currentIndex()
         if I == 0:
-            listOfWords = functions.quranJsonControl.getQuran()
+            if self.surahs.currentIndex()==0:
+                listOfWords = functions.quranJsonControl.getQuran()
+            else:
+                listOfWords=self.surahsList[self.surahs.currentText()][1].split("\n")
         elif I == 1:
             book_name = functions.ahadeeth.ahadeeths[self.ahadeeth.currentText()]
             with open(os.path.join(os.getenv('appdata'), settings.app.appName, "ahadeeth", book_name),
@@ -148,7 +156,7 @@ class Albaheth(qt.QWidget):
                 listOfWords.append(str(ahadeeth.index(item)+1) + item)                
         result = self.search(self.serch_input.text(), listOfWords)
         if result:
-            self.results.setText("عدد نتائج البحث " + str(len(result)) + "\n" + "\n".join(result))
+            self.results.setText(_("عدد نتائج البحث ") + str(len(result)) + "\n" + "\n".join(result))
         else:
             self.results.setText(_("لم يتم العثور على نتائج"))
         self.results.setFocus()        

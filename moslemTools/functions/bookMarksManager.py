@@ -184,7 +184,10 @@ def getQuranBookmarkName(type:int,category:str,ayah:str,isPlayer=True):
     name=""
     state=False
     bookMarksList=openBookMarksFile()
-    ahadeethBookMarksList=bookMarksList["quran"]
+    try:
+        ahadeethBookMarksList=bookMarksList["quran"]
+    except:
+        return False,""
     for hadeethBookMarkData in ahadeethBookMarksList:
         if hadeethBookMarkData["type"]==type and hadeethBookMarkData["category"]==category and hadeethBookMarkData["ayah"]==ayah and hadeethBookMarkData["isPlayer"]==isPlayer:
             state=True
@@ -194,7 +197,11 @@ def getAhdeethBookmarkName(bookName:str,hadeethNumber:int):
     name=""
     state=False
     bookMarksList=openBookMarksFile()
-    ahadeethBookMarksList=bookMarksList["ahadeeth"]
+    try:
+        ahadeethBookMarksList=bookMarksList["ahadeeth"]
+    except:
+        return False,""
+
     for hadeethBookMarkData in ahadeethBookMarksList:
         if hadeethBookMarkData["bookName"]==bookName and hadeethBookMarkData["number"]==hadeethNumber:
             state=True
@@ -204,7 +211,10 @@ def getIslamicBookBookmarkName(bookName:str,hadeethNumber:int):
     name=""
     state=False
     bookMarksList=openBookMarksFile()
-    ahadeethBookMarksList=bookMarksList["islamicBooks"]
+    try:
+        ahadeethBookMarksList=bookMarksList["islamicBooks"]
+    except:
+        return False,""
     for hadeethBookMarkData in ahadeethBookMarksList:
         if hadeethBookMarkData["bookName"]==bookName and hadeethBookMarkData["number"]==hadeethNumber:
             state=True
@@ -214,7 +224,11 @@ def getStoriesBookmarkName(bookName:str,hadeethNumber:int):
     name=""
     state=False
     bookMarksList=openBookMarksFile()
-    ahadeethBookMarksList=bookMarksList["stories"]
+    try:
+        ahadeethBookMarksList=bookMarksList["stories"]
+    except:
+        return False,""
+
     for hadeethBookMarkData in ahadeethBookMarksList:
         if hadeethBookMarkData["category"]==bookName and hadeethBookMarkData["line"]==hadeethNumber:
             state=True
@@ -224,7 +238,10 @@ def getAudioBookmarkName(typeF:str,type:str,category:str,position:int):
     name=""
     state=False
     bookMarksList=openBookMarksFile()
-    ahadeethBookMarksList=bookMarksList["audio "] + typeF
+    try:
+        ahadeethBookMarksList=bookMarksList["audio "] + typeF
+    except:
+        return False,""
     for hadeethBookMarkData in ahadeethBookMarksList:
         if hadeethBookMarkData["type"]==type and hadeethBookMarkData["category"]==category and hadeethBookMarkData["position"]==position:
             state=True
