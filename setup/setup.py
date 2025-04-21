@@ -12,8 +12,8 @@ version_info = r'''
 # https://docs.microsoft.com/en-us/windows/win32/menurc/vs-versioninfo
 VSVersionInfo(
   ffi=FixedFileInfo(
-    filevers=(7, 0, 0, 0),
-    prodvers=(7, 0, 0, 0),
+    filevers=(8, 0, 0, 0),
+    prodvers=(8, 0, 0, 0),
     mask=0x3f,
     flags=0x0,
     OS=0x4,
@@ -29,11 +29,11 @@ VSVersionInfo(
           [
             StringStruct('CompanyName', 'mister anas , abd el-rahman mohammed alcoder'),
             StringStruct('FileDescription', 'moslem tools , the best program for moslems'),
-            StringStruct('FileVersion', '7.0.0.0'),
+            StringStruct('FileVersion', '8.0.0.0'),
             StringStruct('InternalName', 'moslem tools'),
             StringStruct('OriginalFilename', 'moslem_tools.exe'),
             StringStruct('ProductName', 'moslem tools'),
-            StringStruct('ProductVersion', '7.0.0.0'),
+            StringStruct('ProductVersion', '8.0.0.0'),
             StringStruct('LegalCopyright', '© 2025 ; moslem tools developers')
           ]
         )
