@@ -22,10 +22,13 @@ class Albaheth(qt.QWidget):
         self.ahadeeth.setAccessibleName(_("إختيار الكتاب"))
         self.ahadeeth.setSizePolicy(qt.QSizePolicy.Policy.Expanding, qt.QSizePolicy.Policy.Fixed)        
         self.surahsList=functions.quranJsonControl.getSurahs()
+        self.surahs_laybol=qt.QLabel(_("ابحث في"))
+        self.surahs_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignRight)
         self.surahs=qt.QComboBox()
         self.surahs.addItems([_("كل القرآن")] + list(self.surahsList.keys()))
         self.surahs.setSizePolicy(qt.QSizePolicy.Policy.Expanding, qt.QSizePolicy.Policy.Fixed)        
-        self.serch.currentIndexChanged.connect(self.toggle_ahadeeth_visibility)        
+        self.surahs.setAccessibleName(_("ابحث في"))
+        self.serch.currentIndexChanged.connect(self.toggle_ahadeeth_visibility)                
         self.serch_laibol_content = qt.QLabel(_("أكتب محتوى البحث"))
         self.serch_laibol_content.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.serch_input = qt.QLineEdit()
@@ -57,6 +60,7 @@ class Albaheth(qt.QWidget):
         self.ahadeeth_layout_top = qt.QVBoxLayout()
         self.ahadeeth_layout_top.addWidget(self.ahadeeth_laibol, alignment=qt2.Qt.AlignmentFlag.AlignLeft)
         self.ahadeeth_layout_top.addWidget(self.ahadeeth)
+        self.ahadeeth_layout_top.addWidget(self.surahs_laybol)
         self.ahadeeth_layout_top.addWidget(self.surahs)
         self.top_combo_layout.addLayout(self.search_layout_top, stretch=1)
         self.top_combo_layout.addLayout(self.ahadeeth_layout_top, stretch=1)        
@@ -160,12 +164,16 @@ class Albaheth(qt.QWidget):
         else:
             self.results.setText(_("لم يتم العثور على نتائج"))
         self.results.setFocus()        
-    def toggle_ahadeeth_visibility(self):
-        if self.serch.currentText() == _("الأحاديث"):
+    def toggle_ahadeeth_visibility(self):    
+        if self.serch.currentText() == _("الأحاديث"):        
             self.ahadeeth_laibol.show()
-            self.ahadeeth.show()
-        else:
+            self.ahadeeth.show()        
+            self.surahs_laybol.hide()
+            self.surahs.hide()
+        else:        
             self.ahadeeth_laibol.hide()
             self.ahadeeth.hide()        
+            self.surahs_laybol.show()
+            self.surahs.show()    
         self.top_combo_layout.setStretch(0, 1)
         self.top_combo_layout.setStretch(1, 1)
