@@ -63,7 +63,7 @@ class sibha(qt.QWidget):
         self.add_thecr.setAccessibleDescription("control plus a")
         self.add_thecr.setShortcut("ctrl+a")
         self.add_thecr.setMaximumHeight(30)
-        self.add_thecr.setMaximumWidth(100)
+        self.add_thecr.setMaximumWidth(160)
         self.line_of_thecr=qt.QLineEdit()
         self.line_of_thecr.textChanged.connect(self.onLineTextChanged)
         self.line_of_thecr.setPlaceholderText(_("أكتب الذكر"))
