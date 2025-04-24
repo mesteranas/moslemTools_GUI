@@ -5,6 +5,7 @@ from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class AfterAdaan(qt.QDialog):
     def __init__(self,p):
         super().__init__(p)
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.resize(1200,600)
         font = qt1.QFont()
         font.setBold(True)
