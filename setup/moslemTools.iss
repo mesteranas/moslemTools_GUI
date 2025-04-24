@@ -1,5 +1,5 @@
 ﻿#define MyAppName "moslemTools"
-#define MyAppVersion "8.0.0"
+#define MyAppVersion "8.1.0"
 #define MyAppPublisher "mister anas , abd el-rahman mohammed alcoder"
 #define MyAppURL "https://github.com/mesteranas/moslemTools_GUI/"
 #define MyAppExeName "moslem_tools.exe"
