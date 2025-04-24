@@ -19,17 +19,18 @@ except:
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))                
+        self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))                                                
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
+        self.setWindowFlag(qt2.Qt.WindowType.WindowMinimizeButtonHint, False)
         guiTools.speak(_("مرحبا بك في moslem tools, جاري تشغيل البرنامج, الرجاء الانتظار."))
-        keyboard.add_hotkey("alt+windows+p", self.random_audio_theker)
-        self.resize(1100, 600)
-        self.media_player = QMediaPlayer()
+        keyboard.add_hotkey("alt+windows+p", self.random_audio_theker)        
+        self.media_player = QMediaPlayer()        
         self.audio_output = QAudioOutput()
         self.audio_output.setVolume(int(settings_handler.get("athkar", "voiceVolume")) / 100)
         self.media_player.setAudioOutput(self.audio_output)
         self.timer = qt2.QTimer(self)
         self.timer.timeout.connect(self.random_audio_theker)
-        layout = qt.QVBoxLayout()                
+        layout = qt.QVBoxLayout()                        
         self.info = qt.QLineEdit()
         self.info.setReadOnly(True)
         self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -76,7 +77,7 @@ class main(qt.QMainWindow):
         max_width += 40
         self.list_widget.setFixedWidth(max_width)        
         content_layout.addWidget(self.list_widget)
-        content_layout.addWidget(self.list_widget.w, 1)
+        content_layout.addWidget(self.list_widget.w, 1)                
         layout.addLayout(content_layout)        
         menubar = self.menuBar()
         menubar.setNativeMenuBar(False)        
@@ -138,9 +139,12 @@ class main(qt.QMainWindow):
         self.TIMER1.timeout.connect(self.show_random_theker)
         self.runAudioThkarTimer()
         self.notification_random_thecker()        
+        self.a=qt2.QTimer.singleShot(0, self._restore)
         guiTools.messageHandler.check(self)
         if settings_handler.get("update", "autoCheck") == "True":
-            update.check(self, message=False)
+            update.check(self, message=False)        
+    def _restore(self):        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
     def toggle_visibility(self):
         if self.isVisible():
             self.hide()

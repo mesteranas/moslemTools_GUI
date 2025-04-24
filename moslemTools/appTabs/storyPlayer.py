@@ -25,7 +25,7 @@ class DownloadThread(qt2.QThread):
             self.finished.emit()
 class StoryPlayer(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         qt1.QShortcut("ctrl+s", self).activated.connect(lambda: self.mp.stop())
         qt1.QShortcut("space", self).activated.connect(self.play)
         qt1.QShortcut("alt+right", self).activated.connect(lambda: self.mp.setPosition(self.mp.position() + 5000))

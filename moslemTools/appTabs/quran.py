@@ -7,7 +7,7 @@ import PyQt6.QtCore as qt2
 language.init_translation()
 class Quran(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         self.infoData = []
         layout = qt.QVBoxLayout(self)
         layout.setContentsMargins(15, 15, 15, 15)

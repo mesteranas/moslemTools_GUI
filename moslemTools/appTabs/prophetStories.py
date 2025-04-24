@@ -5,7 +5,7 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class ProphetStories(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         category_layout = qt.QHBoxLayout()
         category_layout.addStretch(1)
         selectCategoryLabel = qt.QLabel(_("اختر قسم"))

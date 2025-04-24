@@ -4,8 +4,8 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class Athker(qt.QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self):        
+        super().__init__()                
         font = qt1.QFont()
         font.setBold(True)
         self.setFont(font)

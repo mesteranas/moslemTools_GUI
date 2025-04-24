@@ -7,7 +7,7 @@ import PyQt6.QtCore as qt2
 language.init_translation()
 class DateConverter(qt.QWidget):
     def __init__(self):
-        super().__init__()        
+        super().__init__()                        
         self.setStyleSheet("""
             QWidget {                
                 font-size: 14px;

@@ -9,7 +9,7 @@ import PyQt6.QtCore as qt2
 language.init_translation()
 class prayer_times(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_selected_item)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_all_items)
         qt1.QShortcut("f5", self).activated.connect(self.display_prayer_times)

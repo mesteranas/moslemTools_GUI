@@ -300,7 +300,7 @@ class brotcasts_of_reciters(qt.QWidget):
             self.player.play()        
 class quran_brotcast(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         self.list_of_quran_brotcasts=qt.QListWidget()
         self.list_of_quran_brotcasts.itemActivated.connect(self.play)
         self.list_of_quran_brotcasts.addItem(_("إذاعة القرآن الكريم من نابلِس"))

@@ -7,7 +7,7 @@ from PyQt6.QtPrintSupport import QPrinter,QPrintDialog
 language.init_translation()
 class NamesOfAllah(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         font = qt1.QFont()
         font.setBold(True)
         self.setFont(font)

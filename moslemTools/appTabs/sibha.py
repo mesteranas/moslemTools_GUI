@@ -10,7 +10,7 @@ if not os.path.exists(path):
         file.write("[]")
 class sibha(qt.QWidget):
     def __init__(self):
-        super().__init__()        
+        super().__init__()                
         qt1.QShortcut("ctrl+s", self).activated.connect(self.speak_number)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.speak_current_thecre)                
         with open(path,"r",encoding="utf-8") as file:

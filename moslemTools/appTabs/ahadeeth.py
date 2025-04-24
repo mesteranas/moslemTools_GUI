@@ -5,7 +5,7 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class hadeeth(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()                
         font = qt1.QFont()
         font.setBold(True)
         self.setFont(font)

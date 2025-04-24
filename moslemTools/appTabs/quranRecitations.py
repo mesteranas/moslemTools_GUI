@@ -4,7 +4,7 @@ import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 class QuranRecitations(qt.QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__()        
         with open("data/json/files/all_quran_recitations.json", "r", encoding="utf-8") as file:
             self.recitationData = json.load(file)
         layout = qt.QVBoxLayout(self)
