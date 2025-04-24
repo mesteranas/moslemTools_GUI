@@ -43,7 +43,7 @@ class downloadObjects(qt2.QObject):
     finch=qt2.pyqtSignal(bool)
 class downloadThread(qt2.QRunnable):
     def __init__(self,p,url):
-        super().__init__()        
+        super().__init__()                
         self.objects=downloadObjects()
         self.url=url
         self.pause=False
@@ -106,6 +106,7 @@ class downloadThread(qt2.QRunnable):
 class DownloadReciter(qt.QDialog):
     def __init__(self,p,url):
         super().__init__(p)                    
+        self.resize(300,100)
         self.setWindowTitle(_("جاري التحميل"))        
         qt1.QShortcut("escape",self).activated.connect(lambda:self.run.objects.pauseDownloading.emit("a"))
         self.lay=qt.QLabel(_("عدد الآيات التي تم تحميلها"))
