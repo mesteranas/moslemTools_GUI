@@ -6,6 +6,7 @@ from PyQt6 import QtCore as qt2
 class QuranRecitationViewer(qt.QDialog):
     def __init__(self,p,text):
         super().__init__(p)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.quranText=text        
         qt1.QShortcut("ctrl+g",self).activated.connect(self.goToAyah)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)

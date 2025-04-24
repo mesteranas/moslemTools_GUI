@@ -6,6 +6,7 @@ from PyQt6 import QtCore as qt2
 class StoryViewer(qt.QDialog):
     def __init__(self,p,text,type:int,category:str,stories:list,index=0):
         super().__init__(p)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)

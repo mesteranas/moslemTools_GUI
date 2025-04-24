@@ -6,6 +6,7 @@ from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 class translationViewer(qt.QDialog):
     def __init__(self, p, From, to):
         super().__init__(p)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)

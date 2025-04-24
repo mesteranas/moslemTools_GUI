@@ -13,6 +13,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
 class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.nameOfBookmark=""
         self.enableBookmarks=enableBookmarks
         self.type=type

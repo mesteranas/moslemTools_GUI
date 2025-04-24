@@ -6,9 +6,12 @@ language.init_translation()
 class About_developers(qt.QDialog):
     def __init__(self):
         super().__init__()
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.setWindowTitle(_("عن المطورين"))
-        self.resize(1100,600)
         self.info=guiTools.QListWidget()
+        font = self.info.font()      # 1. استرجاع الخط الحالي
+        font.setBold(True)
+        self.info.setFont(font)
         self.info.itemClicked.connect(self.open_link)        
         self.info.addItem(_("عبد الرحمن محمد alcoder"))
         self.info.addItem(_("قناة عبد الرحمن على YouTube"))
@@ -23,6 +26,7 @@ class About_developers(qt.QDialog):
         self.info_text.setReadOnly(True)
         self.info_text.setText(_("اللهم اجعل عملنا هذا في ميزان حسناتنا وصدقة جارية لنا"))
         self.info_text.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.info_text.setFont(font)
         layout=qt.QVBoxLayout()
         layout.addWidget(self.info)
         layout.addWidget(self.info_text)

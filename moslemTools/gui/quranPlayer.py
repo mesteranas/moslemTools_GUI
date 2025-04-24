@@ -12,6 +12,7 @@ with open("data/json/files/all_reciters.json","r",encoding="utf-8-sig") as file:
 class QuranPlayer(qt.QDialog):
     def __init__(self,p,text,index:int,type,category,enableBookMarks=True):
         super().__init__(p)                                
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.enableBookmarks=enableBookMarks
         self.resize(1200,600)
         font = qt1.QFont()

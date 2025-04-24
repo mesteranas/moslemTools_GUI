@@ -8,7 +8,7 @@ import guiTools
 class AthkerDialog (qt.QDialog):
     def __init__(self,p,title:str,athkerList:list):
         super().__init__(p)        
-        self.resize(1200,600)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)        
         self.setWindowTitle(title)
         layout=qt.QVBoxLayout(self)
         self.media=QMediaPlayer(self)

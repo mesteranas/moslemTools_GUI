@@ -6,6 +6,7 @@ from PyQt6 import QtCore as qt2
 class hadeeth_viewer(qt.QDialog):
     def __init__(self,p,book_name,index:int=0):
         super().__init__(p)
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         font = qt1.QFont()
         font.setBold(True)
         self.setFont(font)

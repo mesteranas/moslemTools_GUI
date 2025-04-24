@@ -6,6 +6,7 @@ from PyQt6 import QtCore as qt2
 class book_viewer(qt.QDialog):
     def __init__(self,p,book_name,partName:str,content:list,index:int=0):
         super().__init__(p)
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.data=content
         self.index=index
         self.bookName=book_name

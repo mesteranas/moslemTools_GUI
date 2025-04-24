@@ -6,6 +6,7 @@ from PyQt6 import QtCore as qt2
 class TextViewer(qt.QDialog):
     def __init__(self,p,title,text):
         super().__init__(p)        
+        self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
         qt1.QShortcut("ctrl+=", self).activated.connect(self.increase_font_size)
