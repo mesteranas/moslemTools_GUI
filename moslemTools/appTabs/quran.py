@@ -8,6 +8,10 @@ language.init_translation()
 class Quran(qt.QWidget):
     def __init__(self):
         super().__init__()        
+        qt1.QShortcut("ctrl+p",self).activated.connect(self.onListenActionTriggert)
+        qt1.QShortcut("ctrl+t",self).activated.connect(self.onTafseerActionTriggered)
+        qt1.QShortcut("ctrl+l",self).activated.connect(self.onTranslationActionTriggered)
+        qt1.QShortcut("ctrl+i",self).activated.connect(self.onIarabActionTriggered)
         self.infoData = []
         layout = qt.QVBoxLayout(self)
         layout.setContentsMargins(15, 15, 15, 15)
@@ -219,34 +223,46 @@ class Quran(qt.QWidget):
         menu = qt.QMenu(self)
         menu.setFocus()
         listenAction = qt1.QAction(_("تشغيل"), self)
+        listenAction.setShortcut("ctrl+p")
         menu.addAction(listenAction)
         listenAction.triggered.connect(self.onListenActionTriggert)
         menu.setDefaultAction(listenAction)
         tafseerAction = qt1.QAction(_("تفسير"), self)
+        tafseerAction.setShortcut("ctrl+t")
         menu.addAction(tafseerAction)
         tafseerAction.triggered.connect(self.onTafseerActionTriggered)
         translationAction = qt1.QAction(_("ترجمة"), self)
+        translationAction.setShortcut("ctrl+l")
         menu.addAction(translationAction)
         translationAction.triggered.connect(self.onTranslationActionTriggered)
         iarabAction = qt1.QAction(_("إعراب"), self)
+        iarabAction.setShortcut("ctrl+i")
         menu.addAction(iarabAction)
         iarabAction.triggered.connect(self.onIarabActionTriggered)
         menu.exec(qt1.QCursor.pos())
     def onListenActionTriggert(self):
+        if not self.info.currentItem():
+            return
         result = self.getResult()
         gui.QuranPlayer(self, result, 0, self.type.currentIndex(),
                           self.info.currentItem().text(), enableBookMarks=True).exec()
     def onTafseerActionTriggered(self):
+        if not self.info.currentItem():
+            return
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
         gui.TafaseerViewer(self, AyahNumber1, AyahNumber2).exec()
     def onTranslationActionTriggered(self):
+        if not self.info.currentItem():
+            return
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
         gui.translationViewer(self, AyahNumber1, AyahNumber2).exec()
     def onIarabActionTriggered(self):
+        if not self.info.currentItem():
+            return
         ayahList = self.getResult().split("\n")
         Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])

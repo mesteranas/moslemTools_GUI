@@ -36,6 +36,10 @@ class QuranViewer(qt.QDialog):
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.oncontextMenu)
         self.text.viewport().installEventFilter(self)    
+        self.media_progress=qt.QSlider(qt2.Qt.Orientation.Horizontal)
+        self.media_progress.setVisible(False)
+        self.media_progress.setRange(0,100)
+        self.media_progress.setAccessibleName(_("التحكم في تقدم الآية"))
         self.font_size=12
         font=self.font()
         font.setPointSize(self.font_size)
@@ -56,6 +60,7 @@ class QuranViewer(qt.QDialog):
             self.info.setText(list(self.typeResult.keys())[self.CurrentIndex])
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.text)        
+        layout.addWidget(self.media_progress)
         layout.addWidget(self.font_laybol)
         layout.addWidget(self.show_font)
         if enableNextPreviouseButtons:
