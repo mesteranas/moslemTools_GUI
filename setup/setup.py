@@ -54,6 +54,7 @@ include_files = [
     ("data/icons", "data/icons"),
     ("data/sounds/adaan", "data/sounds/adaan"),
     ("data/sounds/athkar", "data/sounds/athkar"),
+    ("data/sounds/before_azan", "data/sounds/before_azan"),
     ("data/sounds/001001.mp3", "data/sounds/001001.mp3"),
     ("data/sounds/next_page.wav", "data/sounds/next_page.wav"),
     ("data/sounds/prayAfterAdaan.m4a", "data/sounds/prayAfterAdaan.m4a"),

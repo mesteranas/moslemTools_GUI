@@ -46,7 +46,7 @@ class main(qt.QMainWindow):
         self.quranPlayer = QuranPlayer()
         self.storiesPlayer = StoryPlayer()
         tabs = [
-            (prayer_times(), _("مواقيت الصلاة والتاريخ")),
+            (prayer_times(self), _("مواقيت الصلاة والتاريخ")),
             (Quran(), _("القرآن الكريم مكتوب")),
             (self.quranPlayer, _("القرآن الكريم صوتي")),
             (QuranRecitations(), _("قراءات القرآن الكريم")),

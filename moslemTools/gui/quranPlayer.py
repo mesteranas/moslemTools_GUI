@@ -43,6 +43,9 @@ class QuranPlayer(qt.QDialog):
         self.text.setFont(font)        
         self.media_progress=qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.media_progress.setRange(0,100)
+        self.media_progress.valueChanged.connect(self.set_position_from_slider)
+        self.media.durationChanged.connect(self.update_slider)
+        self.media.positionChanged.connect(self.update_slider)
         self.media_progress.setAccessibleName(_("التحكم في تقدم الآية"))
         self.font_laybol=qt.QLabel(_("حجم الخط"))
         self.font_laybol.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
@@ -291,3 +294,14 @@ class QuranPlayer(qt.QDialog):
             self.onRemoveBookmark()
         else:
             self.onAddBookMark()
+    def set_position_from_slider(self, value):
+        duration = self.media.duration()
+        new_position = int((value / 100) * duration)
+        self.media.setPosition(new_position)
+    def update_slider(self):
+        try:
+            self.media_progress.blockSignals(True)
+            self.media_progress.setValue(int((self.media.position() / self.media.duration()) * 100))
+            self.media_progress.blockSignals(False)
+        except:
+            pass

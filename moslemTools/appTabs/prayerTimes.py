@@ -2,14 +2,15 @@ import pyperclip, requests, geocoder, winsound, gui
 from settings import settings_handler
 from settings import *
 from hijri_converter import Gregorian
-from datetime import datetime
+from datetime import datetime,timedelta
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
 language.init_translation()
 class prayer_times(qt.QWidget):
-    def __init__(self):
+    def __init__(self,p):
         super().__init__()        
+        self.p=p
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_selected_item)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_all_items)
         qt1.QShortcut("f5", self).activated.connect(self.display_prayer_times)
@@ -33,6 +34,7 @@ class prayer_times(qt.QWidget):
         font = qt1.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        self.reminded=False
         self.information.setFont(font)
         self.worning.setFont(font)
         layout = qt.QVBoxLayout()
@@ -43,11 +45,29 @@ class prayer_times(qt.QWidget):
         self.setLayout(layout)
         self.display_prayer_times()
     def onTimer(self):
-        currentTime = datetime.now().strftime("%I:%M %p")
+        currentTimeOBJ = datetime.now()
+        currentTime=currentTimeOBJ.strftime("%I:%M %p")
+        beforeOptions=settings_handler.get("prayerTimes","remindBeforeAdaan")
+        beforeChoises={"0":15,"1":30}
         for time in self.times:
-            if currentTime == time:
-                if self.times.index(time) == 1:
+            if self.times.index(time) == 1:
+                return
+            if not beforeOptions=="2":
+                beforeTimeOBJ=datetime.strptime(time,"%I:%M %p")-timedelta(minutes=beforeChoises[beforeOptions])
+                beforeTime=beforeTimeOBJ.strftime("%I:%M %p")
+                print(beforeTime,currentTime,time)
+                if self.reminded:
                     return
+                self.reminded=True
+                medias={0:"fagrsoon.mp3",2:"zohrsoon.mp3",3:"asrsoon.mp3",4:"maghribsoon.mp3",5:"eshaasoon.mp3"}
+                if beforeTime==currentTime:
+                    if self.p.media_player.isPlaying():
+                        self.p.media_player.stop()
+                    self.p.media_player.setSource(qt2.QUrl.fromLocalFile("data\\sounds\\before_azan\\" + medias[self.times.index(time)]))
+                    self.p.media_player.play()
+                    print("playing")
+            if currentTime == time:
+                self.reminded=False
                 if settings_handler.get("prayerTimes", "adaanReminder") == "True":
                     gui.AdaanDialog(self, self.times.index(time), self.prayers[self.times.index(time)]).exec()
                     self.timer.stop()

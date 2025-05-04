@@ -64,6 +64,8 @@ class settings(qt.QDialog):
         settings_handler.set("g", "lang", str(language.lang()[self.layout1.language.currentText()]))
         settings_handler.set("g", "exitDialog", str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("g", "reciter", str(list(gui.reciters.keys()).index(self.layout1.reciter.currentText())))
+        settings_handler.set("prayerTimes","volume",str(self.prayerTimesSettings.Sound_level.value()))
+        settings_handler.set("prayerTimes","remindBeforeAdaan",str(self.prayerTimesSettings.before.currentIndex()))
         try:
             settings_handler.set("tafaseer", "tafaseer", functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
         except:

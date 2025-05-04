@@ -62,7 +62,9 @@ settingsConfig={
 	},
 	"prayerTimes":{
 		"adaanReminder":"True",
-		"playPrayerAfterAdhaan":"True"
+		"playPrayerAfterAdhaan":"True",
+		"volume":"100",
+		"remindBeforeAdaan":"0"
 	},
 	"update":{
 		"autoCheck":"True",

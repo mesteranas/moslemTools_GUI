@@ -15,6 +15,7 @@ class AdaanDialog(qt.QDialog):
         self.media_player=QMediaPlayer()
         self.media_player.mediaStatusChanged.connect(self.onStateChanged)
         self.audio_output=QAudioOutput()
+        self.audio_output.setVolume(int(settings.settings_handler.get("prayerTimes","volume"))/100)
         self.media_player.setAudioOutput(self.audio_output)
         if index==0:
             self.media_player.setSource(qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.settings_handler.appName,"addan","fajr.mp3")))

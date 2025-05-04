@@ -30,6 +30,7 @@ class QuranViewer(qt.QDialog):
         self.media.play()
         time.sleep(0.5)
         self.media.stop()
+        self.media.mediaStatusChanged.connect(self.on_state)
         self.quranText=text
         self.text=guiTools.QReadOnlyTextEdit()
         self.text.setText(text)
@@ -39,6 +40,9 @@ class QuranViewer(qt.QDialog):
         self.media_progress=qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.media_progress.setVisible(False)
         self.media_progress.setRange(0,100)
+        self.media_progress.valueChanged.connect(self.set_position_from_slider)
+        self.media.durationChanged.connect(self.update_slider)
+        self.media.positionChanged.connect(self.update_slider)
         self.media_progress.setAccessibleName(_("التحكم في تقدم الآية"))
         self.font_size=12
         font=self.font()
@@ -260,6 +264,7 @@ class QuranViewer(qt.QDialog):
             Ayah=str(Ayah)
         return surah+Ayah+".mp3"
     def on_play(self):
+        self.media_progress.setVisible(True)
         if not self.media.isPlaying():
             if os.path.exists(os.path.join(os.getenv('appdata'),settings.app.appName,"reciters",reciters[self.getCurrentReciter()].split("/")[-3],self.on_set())):
                 path=qt2.QUrl.fromLocalFile(os.path.join(os.getenv('appdata'),settings.app.appName,"reciters",reciters[self.getCurrentReciter()].split("/")[-3],self.on_set()))
@@ -504,3 +509,17 @@ class QuranViewer(qt.QDialog):
             self.onRemoveBookmark()
         else:
             self.onAddBookMark()
+    def set_position_from_slider(self, value):
+        duration = self.media.duration()
+        new_position = int((value / 100) * duration)
+        self.media.setPosition(new_position)
+    def update_slider(self):
+        try:
+            self.media_progress.blockSignals(True)
+            self.media_progress.setValue(int((self.media.position() / self.media.duration()) * 100))
+            self.media_progress.blockSignals(False)
+        except:
+            pass
+    def on_state(self,state):
+        if state==QMediaPlayer.MediaStatus.EndOfMedia:
+            self.media_progress.setVisible(False)
