@@ -6,7 +6,10 @@ from PyQt6.QtMultimedia import QAudioOutput,QMediaPlayer
 class other_brotcasts(qt.QWidget):
     def __init__(self):
         super().__init__()                    
+        style_sheet = "QListWidget::item { font-weight: bold; }"        
         self.list_of_other=qt.QListWidget()
+        self.list_of_other.setStyleSheet(style_sheet)
+        self.list_of_other.setStyleSheet(style_sheet)
         self.list_of_other.itemActivated.connect(self.play)
         self.list_of_other.addItem(_("تَكْبِيرَات العيد"))
         self.list_of_other.addItem(_("الرقية الشرعية"))        
@@ -118,7 +121,9 @@ class other_brotcasts(qt.QWidget):
 class brotcasts_of_suplications(qt.QWidget):
     def __init__(self):
         super().__init__()
+        style_sheet = "QListWidget::item { font-weight: bold; }"
         self.list_of_adhkar=qt.QListWidget()
+        self.list_of_adhkar.setStyleSheet(style_sheet)
         self.list_of_adhkar.itemActivated.connect(self.play)
         self.list_of_adhkar.addItem(_("اذكار الصباح"))
         self.list_of_adhkar.addItem(_("أذكار المساء"))
@@ -149,7 +154,9 @@ class brotcasts_of_suplications(qt.QWidget):
 class brotcasts_of_tafseer(qt.QWidget):
     def __init__(self):
         super().__init__()            
+        style_sheet = "QListWidget::item { font-weight: bold; }"
         self.list_of_tafseer=qt.QListWidget()
+        self.list_of_tafseer.setStyleSheet(style_sheet)
         self.list_of_tafseer.itemActivated.connect(self.play)
         self.list_of_tafseer.addItem(_("تفسير النابلسي"))
         self.list_of_tafseer.addItem(_("تفسير الشعراوي"))
@@ -186,7 +193,9 @@ class brotcasts_of_tafseer(qt.QWidget):
 class brotcasts_of_reciters(qt.QWidget):
     def __init__(self):
         super().__init__()
+        style_sheet = "QListWidget::item { font-weight: bold; }"
         self.list_of_reciters=qt.QListWidget()
+        self.list_of_reciters.setStyleSheet(style_sheet)
         self.list_of_reciters.itemActivated.connect(self.play)
         self.list_of_reciters.addItem(_("إذاعة القُراء"))
         self.list_of_reciters.addItem(_("القارء أبو بكر الشاطري"))
@@ -301,7 +310,9 @@ class brotcasts_of_reciters(qt.QWidget):
 class quran_brotcast(qt.QWidget):
     def __init__(self):
         super().__init__()        
+        style_sheet = "QListWidget::item { font-weight: bold; }"
         self.list_of_quran_brotcasts=qt.QListWidget()
+        self.list_of_quran_brotcasts.setStyleSheet(style_sheet)
         self.list_of_quran_brotcasts.itemActivated.connect(self.play)
         self.list_of_quran_brotcasts.addItem(_("إذاعة القرآن الكريم من نابلِس"))
         self.list_of_quran_brotcasts.addItem(_("إذاعة القرآن الكريم من القاهرة"))
