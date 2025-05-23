@@ -19,12 +19,13 @@ except:
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))                                                
+        self.setWindowTitle(app.name + _("الإصدار:") + str(app.version))                                                        
         self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
         self.setWindowFlag(qt2.Qt.WindowType.WindowMinimizeButtonHint, False)
         guiTools.speak(_("مرحبا بك في moslem tools, جاري تشغيل البرنامج, الرجاء الانتظار."))
         keyboard.add_hotkey("alt+windows+p", self.random_audio_theker)        
-        keyboard.add_hotkey("alt+windows+l", self.show_random_theker)        
+        keyboard.add_hotkey("alt+windows+l", self.show_random_theker)                    
+        keyboard.add_hotkey("ctrl+alt+h", self.check_app_show_or_not)
         self.media_player = QMediaPlayer()        
         self.audio_output = QAudioOutput()
         self.audio_output.setVolume(int(settings_handler.get("athkar", "voiceVolume")) / 100)
@@ -127,6 +128,7 @@ class main(qt.QMainWindow):
         self.random_thecker_text = qt1.QAction(_("عرض ذكر عشوائي"))
         self.random_thecker_text.triggered.connect(self.show_random_theker)
         self.show_action = qt1.QAction(_("إخفاء البرنامج"))
+        self.show_action.setShortcut("ctrl+alt+h")
         self.show_action.triggered.connect(self.toggle_visibility)
         self.close_action = qt1.QAction(_("إغلاق البرنامج"))
         self.close_action.triggered.connect(lambda: qt.QApplication.quit())
@@ -143,7 +145,12 @@ class main(qt.QMainWindow):
         self.a=qt2.QTimer.singleShot(0, self._restore)
         guiTools.messageHandler.check(self)
         if settings_handler.get("update", "autoCheck") == "True":
-            update.check(self, message=False)        
+            update.check(self, message=False)            
+    def check_app_show_or_not(self):
+        if self.isVisible():
+            self.hide()
+        else:
+            self.show()
     def _restore(self):        
         self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
     def toggle_visibility(self):
