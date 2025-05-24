@@ -221,6 +221,7 @@ class Quran(qt.QWidget):
         return result[self.info.currentItem().text()][1]
     def onContextMenu(self):
         menu = qt.QMenu(self)
+        menu.setAccessibleName(_("خيارات عنصر الفئة"))
         menu.setFocus()
         listenAction = qt1.QAction(_("تشغيل"), self)
         listenAction.setShortcut("ctrl+p")

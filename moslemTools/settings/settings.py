@@ -17,8 +17,11 @@ class settings(qt.QDialog):
         self.p = p        
         layout = qt.QVBoxLayout()        
         self.sectian = guiTools.ComboBook()
+        font = qt1.QFont()
+        font.setBold(True)        
         self.sectian.setStyleSheet("color: #e0e0e0;")
         self.sectian.setAccessibleName(_("اختر قسم"))
+        self.sectian.setFont(font)
         layout.addWidget(self.sectian)
         layout.addWidget(self.sectian.w)        
         self.update = tabs.Update(self)        

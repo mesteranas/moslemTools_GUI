@@ -511,6 +511,7 @@ class QuranPlayer(qt.QWidget):
             qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
     def open_context_menu(self, position):
         menu = qt.QMenu(self)
+        menu.setAccessibleName(_("خيارات السورة"))
         boldFont=menu.font()
         boldFont.setBold(True)
         menu.setFont(boldFont)

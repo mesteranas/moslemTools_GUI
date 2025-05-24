@@ -80,6 +80,7 @@ class TafaseerViewer(qt.QDialog):
         self.text.setText(content)
     def on_change_tafaseer(self):
         menu = qt.QMenu(_("اختر تفسير"), self)
+        menu.setAccessibleName(_("اختر تفسير"))
         tafaseer = list(functions.tafseer.tafaseers.keys())
         tafaseer.remove(functions.tafseer.getTafaseerByIndex(self.index))
         selectedTafaseer = qt1.QAction(functions.tafseer.getTafaseerByIndex(self.index), self)
