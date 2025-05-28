@@ -11,6 +11,7 @@ class prayer_times(qt.QWidget):
     def __init__(self,p):
         super().__init__()        
         self.p=p
+        self.day=0
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_selected_item)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_all_items)
         qt1.QShortcut("f5", self).activated.connect(self.display_prayer_times)
@@ -49,30 +50,35 @@ class prayer_times(qt.QWidget):
         currentTime=currentTimeOBJ.strftime("%I:%M %p")
         beforeOptions=settings_handler.get("prayerTimes","remindBeforeAdaan")
         beforeChoises={"0":15,"1":30}
+        if self.day==4:
+            ZoharDay="gomaasoon.mp3"
+        else:
+            ZoharDay="zohrsoon.mp3"
         for time in self.times:
             if self.times.index(time) == 1:
                 return
+            if currentTime == time:
+                self.reminded=False
+                if settings_handler.get("prayerTimes", "adaanReminder") == "True":
+                    print("addaan")
+                    gui.AdaanDialog(self, self.times.index(time), self.prayers[self.times.index(time)]).exec()
+                    self.timer.stop()
+                    self.timer.singleShot(60000, qt2.Qt.TimerType.PreciseTimer, lambda: self.timer.start(10000))
+                    return
             if not beforeOptions=="2":
                 beforeTimeOBJ=datetime.strptime(time,"%I:%M %p")-timedelta(minutes=beforeChoises[beforeOptions])
                 beforeTime=beforeTimeOBJ.strftime("%I:%M %p")
-                print(beforeTime,currentTime,time)
+                print(beforeTime)
                 if self.reminded:
                     return
-                self.reminded=True
-                medias={0:"fagrsoon.mp3",2:"zohrsoon.mp3",3:"asrsoon.mp3",4:"maghribsoon.mp3",5:"eshaasoon.mp3"}
+                medias={0:"fagrsoon.mp3",2:ZoharDay,3:"asrsoon.mp3",4:"maghribsoon.mp3",5:"eshaasoon.mp3"}
                 if beforeTime==currentTime:
+                    self.reminded=True
                     if self.p.media_player.isPlaying():
                         self.p.media_player.stop()
                     self.p.media_player.setSource(qt2.QUrl.fromLocalFile("data\\sounds\\before_azan\\" + medias[self.times.index(time)]))
                     self.p.media_player.play()
                     print("playing")
-            if currentTime == time:
-                self.reminded=False
-                if settings_handler.get("prayerTimes", "adaanReminder") == "True":
-                    gui.AdaanDialog(self, self.times.index(time), self.prayers[self.times.index(time)]).exec()
-                    self.timer.stop()
-                    self.timer.singleShot(60000, qt2.Qt.TimerType.PreciseTimer, lambda: self.timer.start(10000))
-                    return
     def copy_all_items(self):
         all_text = "\n".join([self.information.item(i).text() for i in range(self.information.count())])
         pyperclip.copy(all_text)
@@ -155,6 +161,7 @@ class prayer_times(qt.QWidget):
             self.information.addItem(_("لم يتم تحديد الموقع الجغرافي. تأكد من اتصال الإنترنت."))
         now = datetime.now()
         day_name = days_of_week[now.weekday()]
+        self.day=now.weekday()
         gregorian_date = f"{day_name} - {now.day} {gregorian_months[now.month - 1]} {now.year}"
         hijri_date_obj = Gregorian.today().to_hijri()
         hijri_date = f"{hijri_date_obj.day} {hijri_months[hijri_date_obj.month - 1]} {hijri_date_obj.year}"

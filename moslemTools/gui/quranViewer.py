@@ -416,19 +416,28 @@ class QuranViewer(qt.QDialog):
         if ok:
             toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
-                TafaseerViewer(self,FromVers,toVers).exec()
+                ayahList=self.quranText.split("\n")
+                Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
+                Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[toVers-1])
+                TafaseerViewer(self,AyahNumber1,AyahNumber2).exec()
     def translateFromVersToVers(self):
         FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
             toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
-                translationViewer(self,FromVers,toVers).exec()
+                ayahList=self.quranText.split("\n")
+                Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
+                Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[toVers-1])
+                translationViewer(self,AyahNumber1,AyahNumber2).exec()
     def IArabFromVersToVers(self):
         FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
             toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
-                result=functions.iarab.getIarab(FromVers,toVers)
+                ayahList=self.quranText.split("\n")
+                Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
+                Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[toVers-1])
+                result=functions.iarab.getIarab(AyahNumber1,AyahNumber2)
                 guiTools.TextViewer(self,_("إعراب"),result).exec()
     def onNext(self):
         if self.CurrentIndex==len(self.typeResult)-1:

@@ -90,8 +90,6 @@ class DateConverter(qt.QWidget):
         self.day = qt.QLineEdit()
         self.day.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.day.setAccessibleName(_("اليوم"))
-        self.v = qt1.QIntValidator(1, 31)
-        self.day.setValidator(self.v)
         self.day.textChanged.connect(self.max_number)
         day_layout.addWidget(self.l_day, 1)
         day_layout.addWidget(self.day, 2)
@@ -122,6 +120,7 @@ class DateConverter(qt.QWidget):
     def max_number(self):
         if self.day.text() > "31":
             self.day.clear()
+            self.day.setText("0")
     def copy(self):
         pyperclip.copy(self.result.text())
         winsound.Beep(1000, 100)
@@ -146,6 +145,15 @@ class DateConverter(qt.QWidget):
             ]
         self.month_combo.addItems(months)
     def convert_date(self):
+        days_of_week = [
+            _("الاثنين"),
+            _("الثلاثاء"),
+            _("الأربعاء"),
+            _("الخميس"),
+            _("الجمعة"),
+            _("السبت"),
+            _("الأحد")
+        ]
         year_text = self.year.text()
         day_text = self.day.text()
         month = self.month_combo.currentIndex() + 1
@@ -159,7 +167,7 @@ class DateConverter(qt.QWidget):
             try:
                 hijri_date = Hijri(year, month, day)
                 gregorian_date = hijri_date.to_gregorian()
-                result_str = f"{gregorian_date.day} {self.get_gregorian_month_name(gregorian_date.month)} {gregorian_date.year}"
+                result_str = f"{days_of_week[gregorian_date.weekday()]} - {gregorian_date.day} {self.get_gregorian_month_name(gregorian_date.month)} {gregorian_date.year}"
                 self.result.setFocus()
                 self.result.setText(result_str)
             except Exception:
@@ -169,7 +177,7 @@ class DateConverter(qt.QWidget):
             try:
                 gregorian_date = Gregorian(year, month, day)
                 hijri_date = gregorian_date.to_hijri()
-                result_str = f"{hijri_date.day} {self.get_hijri_month_name(hijri_date.month)} {hijri_date.year}"
+                result_str = f"{days_of_week[gregorian_date.weekday()]} - {hijri_date.day} {self.get_hijri_month_name(hijri_date.month)} {hijri_date.year}"
                 self.result.setFocus()
                 self.result.setText(result_str)
             except Exception:
