@@ -81,6 +81,7 @@ class Quran(qt.QWidget):
         self.by.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout1.addWidget(self.by)
         self.type = qt.QComboBox()
+        self.type.setFixedWidth(100)
         self.type.setAccessibleName(_("التصفح ب"))
         self.type.addItems([_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")])
         self.type.currentIndexChanged.connect(self.onTypeChanged)
@@ -269,16 +270,20 @@ class Quran(qt.QWidget):
         result = functions.iarab.getIarab(AyahNumber1, AyahNumber2)
         guiTools.TextViewer(self, _("إعراب"), result).exec()
     def onCostumBTNClicked(self):
-        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        categories=[_("من سورة الى سورة"), _("من صفحة الى صفحة"), _("من جزء الى جزء"), _("من ربع الى ربع"), _("من حزب الى حزب")]
         menu=qt.QMenu(_("اختر فئة"),self)
+        font=qt1.QFont()
+        font.setBold(True)
+        menu.setFont(font)
         menu.setAccessibleName(_("اختر فئة"))
         menu.setFocus()
         for category in categories:
             action=qt1.QAction(category,self)
             menu.addAction(action)
             action.triggered.connect(self.onCostumBTNRequested)
-        menu.exec(self.mapToGlobal(self.cursor().pos()))
+        menu.exec(qt1.QCursor.pos())
+        menu.setFont(font)
     def onCostumBTNRequested(self):
-        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        categories=[_("من سورة الى سورة"), _("من صفحة الى صفحة"), _("من جزء الى جزء"), _("من ربع الى ربع"), _("من حزب الى حزب")]
         index=categories.index(self.sender().text())
         guiTools.FromToSurahWidget(self,index).exec()

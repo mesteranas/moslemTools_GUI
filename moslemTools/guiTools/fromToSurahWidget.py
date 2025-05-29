@@ -19,8 +19,11 @@ class FromToSurahWidget(qt.QDialog):
             self.surahs = functions.quranJsonControl.getHizb()                
         self.label_from_surah = qt.QLabel(_("من"))
         self.combo_from_surah = qt.QComboBox()
+        font=qt1.QFont()
+        font.setBold(True)
         self.combo_from_surah.addItems(self.surahs)        
         self.combo_from_surah.setAccessibleName(_("من"))
+        self.combo_from_surah.setFont(font)
         self.label_from_verse = qt.QLabel(_("من الآية"))
         self.spin_from_verse = qt.QSpinBox()        
         self.spin_from_verse.setAccessibleName(_("من الآية"))
@@ -105,6 +108,8 @@ class FromToSurahWidget(qt.QDialog):
         self.handle_verse_change()    
     def onGo(self):
         menu = qt.QMenu(self)
+        font=qt1.QFont()
+        font.setBold(True)
         menu.setAccessibleName(_("خيارات"))
         menu.setFocus()
         readAction=qt1.QAction(_("قراءة"),self)
@@ -124,6 +129,7 @@ class FromToSurahWidget(qt.QDialog):
         menu.addAction(iarabAction)
         iarabAction.triggered.connect(self.onIarabActionTriggered)
         menu.exec(qt1.QCursor.pos())
+        menu.setFont(font)
     def onListenActionTriggert(self):
         result = functions.quranJsonControl.getFromTo(
             self.combo_from_surah.currentIndex() + 1,
