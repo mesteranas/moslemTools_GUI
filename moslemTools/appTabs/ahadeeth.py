@@ -11,6 +11,7 @@ class hadeeth(qt.QWidget):
         self.setFont(font)
         qt1.QShortcut("f5",self).activated.connect(self.refresh)
         self.list_of_ahadeeth=guiTools.QListWidget()
+        self.list_of_ahadeeth.setFont(font)
         self.list_of_ahadeeth.addItems(functions.ahadeeth.ahadeeths.keys())
         self.list_of_ahadeeth.itemClicked.connect(self.open)
         layout=qt.QVBoxLayout(self)

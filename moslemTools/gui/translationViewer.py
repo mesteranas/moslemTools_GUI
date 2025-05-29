@@ -21,10 +21,11 @@ class translationViewer(qt.QDialog):
         self.text.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)
         self.text.customContextMenuRequested.connect(self.OnContextMenu)
         self.font_size = 12
-        font = self.font()
-        font.setBold(True)
+        font = qt1.QFont()
         font.setPointSize(self.font_size)
+        font.setBold(True)
         self.text.setFont(font)
+        self.text.setStyleSheet(f"font-size: {self.font_size}pt;")
         layout = qt.QVBoxLayout(self)
         layout.addWidget(self.text)
         bottomLayout = qt.QHBoxLayout()        

@@ -15,6 +15,9 @@ class NamesOfAllah(qt.QWidget):
             self.data=json.load(file)
         layout=qt.QVBoxLayout(self)
         self.information=guiTools.QReadOnlyTextEdit()
+        font1=qt1.QFont()
+        font1.setBold(True)
+        self.information.setFont(font1)
         result=""
         for item in self.data[settings_handler.get("g","lang")]:
             result+=item["name"] + " : \n" + item["meaning"]+"\n"
