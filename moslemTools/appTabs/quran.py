@@ -91,7 +91,7 @@ class Quran(qt.QWidget):
         self.custom.setObjectName("customButton")
         self.custom.setShortcut("ctrl+c")
         self.custom.setAccessibleDescription("control plus c")
-        self.custom.clicked.connect(lambda: self.fromToSuraah.exec())                
+        self.custom.clicked.connect(self.onCostumBTNClicked)                
         self.custom.setMaximumWidth(150)
         self.custom.setMaximumHeight(150)
         layout2=qt.QVBoxLayout()
@@ -159,7 +159,6 @@ class Quran(qt.QWidget):
         self.info1.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         guide_layout.addWidget(self.info1)
         layout.addLayout(guide_layout)
-        self.fromToSuraah = guiTools.FromToSurahWidget(self)
         self.onTypeChanged(0)
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')
@@ -269,3 +268,17 @@ class Quran(qt.QWidget):
         Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
         result = functions.iarab.getIarab(AyahNumber1, AyahNumber2)
         guiTools.TextViewer(self, _("إعراب"), result).exec()
+    def onCostumBTNClicked(self):
+        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        menu=qt.QMenu(_("اختر فئة"),self)
+        menu.setAccessibleName(_("اختر فئة"))
+        menu.setFocus()
+        for category in categories:
+            action=qt1.QAction(category,self)
+            menu.addAction(action)
+            action.triggered.connect(self.onCostumBTNRequested)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def onCostumBTNRequested(self):
+        categories=[_("سور"), _("صفحات"), _("أجزاء"), _("أرباع"), _("أحزاب")]
+        index=categories.index(self.sender().text())
+        guiTools.FromToSurahWidget(self,index).exec()

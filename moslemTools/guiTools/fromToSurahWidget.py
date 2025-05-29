@@ -1,21 +1,32 @@
 import functions, gui, guiTools
 import PyQt6.QtWidgets as qt
+import PyQt6.QtGui as qt1
 class FromToSurahWidget(qt.QDialog):
-    def __init__(self, p):
+    def __init__(self, p,index:int):
         super().__init__()
         self.p = p
+        self.index=index
         self.resize(300,200)
-        self.surahs = functions.quranJsonControl.getSurahs()                
-        self.label_from_surah = qt.QLabel(_("من سورة"))
+        if index==0:
+            self.surahs = functions.quranJsonControl.getSurahs()                
+        elif index==1:
+            self.surahs = functions.quranJsonControl.getPage()                
+        elif index==2:
+            self.surahs = functions.quranJsonControl.getJuz()                
+        elif index==3:
+            self.surahs = functions.quranJsonControl.getHezb()                
+        elif index==4:
+            self.surahs = functions.quranJsonControl.getHizb()                
+        self.label_from_surah = qt.QLabel(_("من"))
         self.combo_from_surah = qt.QComboBox()
         self.combo_from_surah.addItems(self.surahs)        
-        self.combo_from_surah.setAccessibleName(_("من سورة"))
+        self.combo_from_surah.setAccessibleName(_("من"))
         self.label_from_verse = qt.QLabel(_("من الآية"))
         self.spin_from_verse = qt.QSpinBox()        
         self.spin_from_verse.setAccessibleName(_("من الآية"))
-        self.label_to_surah = qt.QLabel(_("الى سورة"))
+        self.label_to_surah = qt.QLabel(_("الى"))
         self.combo_to_surah = qt.QComboBox()
-        self.combo_to_surah.setAccessibleName(_("الى سورة"))
+        self.combo_to_surah.setAccessibleName(_("الى"))
         self.combo_to_surah.addItems(self.surahs)        
         self.label_to_verse = qt.QLabel(_("الى الآية"))
         self.spin_to_verse = qt.QSpinBox()        
@@ -74,12 +85,13 @@ class FromToSurahWidget(qt.QDialog):
         if self.combo_from_surah.currentIndex() == self.combo_to_surah.currentIndex():
             if self.spin_to_verse.value() <= self.spin_from_verse.value():
                 self.spin_to_verse.setValue(len(self.surahs[self.combo_to_surah.currentText()][1].split("\n")))    
-    def onGo(self):
+    def onOpen(self):
         result = functions.quranJsonControl.getFromTo(
             self.combo_from_surah.currentIndex() + 1,
             self.spin_from_verse.value(),
             self.combo_to_surah.currentIndex() + 1,
-            self.spin_to_verse.value()
+            self.spin_to_verse.value(),
+            self.index
         )
         gui.QuranViewer(self.p, "\n".join(result), 5, 0, enableBookmarks=False).exec()
     def handle_to_surah_change(self):        
@@ -91,3 +103,67 @@ class FromToSurahWidget(qt.QDialog):
         self.spin_to_verse.setRange(1, num_verses_to)
         self.spin_to_verse.setValue(num_verses_to)
         self.handle_verse_change()    
+    def onGo(self):
+        menu = qt.QMenu(self)
+        menu.setAccessibleName(_("خيارات"))
+        menu.setFocus()
+        readAction=qt1.QAction(_("قراءة"),self)
+        menu.addAction(readAction)
+        menu.setDefaultAction(readAction)
+        readAction.triggered.connect(self.onOpen)
+        listenAction = qt1.QAction(_("تشغيل"), self)
+        menu.addAction(listenAction)
+        listenAction.triggered.connect(self.onListenActionTriggert)
+        tafseerAction = qt1.QAction(_("تفسير"), self)
+        menu.addAction(tafseerAction)
+        tafseerAction.triggered.connect(self.onTafseerActionTriggered)
+        translationAction = qt1.QAction(_("ترجمة"), self)
+        menu.addAction(translationAction)
+        translationAction.triggered.connect(self.onTranslationActionTriggered)
+        iarabAction = qt1.QAction(_("إعراب"), self)
+        menu.addAction(iarabAction)
+        iarabAction.triggered.connect(self.onIarabActionTriggered)
+        menu.exec(qt1.QCursor.pos())
+    def onListenActionTriggert(self):
+        result = functions.quranJsonControl.getFromTo(
+            self.combo_from_surah.currentIndex() + 1,
+            self.spin_from_verse.value(),
+            self.combo_to_surah.currentIndex() + 1,
+            self.spin_to_verse.value(),
+            self.index
+        )
+        gui.QuranPlayer(self.p, "\n".join(result), 0,5, 0, enableBookMarks=False).exec()
+    def onTafseerActionTriggered(self):
+        result = functions.quranJsonControl.getFromTo(
+            self.combo_from_surah.currentIndex() + 1,
+            self.spin_from_verse.value(),
+            self.combo_to_surah.currentIndex() + 1,
+            self.spin_to_verse.value(),
+            self.index
+        )
+        Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(result[0])
+        Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(result[-1])
+        gui.TafaseerViewer(self.p, AyahNumber1, AyahNumber2).exec()
+    def onTranslationActionTriggered(self):
+        result = functions.quranJsonControl.getFromTo(
+            self.combo_from_surah.currentIndex() + 1,
+            self.spin_from_verse.value(),
+            self.combo_to_surah.currentIndex() + 1,
+            self.spin_to_verse.value(),
+            self.index
+        )
+        Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(result[0])
+        Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(result[-1])
+        gui.translationViewer(self.p, AyahNumber1, AyahNumber2).exec()
+    def onIarabActionTriggered(self):
+        ayahList =        functions.quranJsonControl.getFromTo(
+            self.combo_from_surah.currentIndex() + 1,
+            self.spin_from_verse.value(),
+            self.combo_to_surah.currentIndex() + 1,
+            self.spin_to_verse.value(),
+            self.index
+        )
+        Ayah, surah, juz, page, AyahNumber1 = functions.quranJsonControl.getAyah(ayahList[0])
+        Ayah, surah, juz, page, AyahNumber2 = functions.quranJsonControl.getAyah(ayahList[-1])
+        result = functions.iarab.getIarab(AyahNumber1, AyahNumber2)
+        guiTools.TextViewer(self.p, _("إعراب"), result).exec()
