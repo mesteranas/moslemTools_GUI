@@ -1,5 +1,6 @@
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
+import PyQt6.QtCore as qt2
 from PyQt6.QtCore import Qt
 from .QReadOnlyTextEdit import QReadOnlyTextEdit
 import winsound
@@ -16,7 +17,7 @@ class MessageBox(qt.QDialog):
         self.OKBTN.setDefault(True)
         self.OKBTN.clicked.connect(self.accept)
         self.OKBTN.setStyleSheet("background-color: #0000AA; color: #e0e0e0;")
-        layout.addWidget(self.OKBTN)
+        layout.addWidget(self.OKBTN,alignment=qt2.Qt.AlignmentFlag.AlignLeft)
         qt1.QShortcut("Escape", self).activated.connect(self.reject)
     @staticmethod
     def view(parent,title:str,label:str):
