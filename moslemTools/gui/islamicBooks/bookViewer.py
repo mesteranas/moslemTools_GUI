@@ -81,7 +81,7 @@ class book_viewer(qt.QDialog):
         self.show_book_number.setText(str(self.index+1))
         winsound.PlaySound("data/sounds/previous_page.wav",1)
     def go_to_book(self):        
-        book,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى صفحة"),_("أكتب رقم الصفحة"),self.index+1,1,len(self.data))
+        book,OK=guiTools.QInputDialog.getInt(self,_("الذهاب إلى صفحة"),_("أكتب رقم الصفحة"),self.index+1,1,len(self.data))
         if OK:                                    
             self.index=book-1
             self.text.setText(self.data[self.index])

@@ -133,7 +133,7 @@ class Albaheth(qt.QWidget):
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))            
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(
-            r'[\u0617-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]'
+            r'[\u060C\u0617-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]'
         )
         normalized_pattern = tashkeel_pattern.sub('', pattern)
         matches = [

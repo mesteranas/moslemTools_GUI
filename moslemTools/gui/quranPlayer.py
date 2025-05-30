@@ -197,7 +197,7 @@ class QuranPlayer(qt.QDialog):
             self.PPS.setText(_("تشغيل"))
     def gotoayah(self):
         self.media.stop()
-        number,ok=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية"),self.index+1,1,len(self.quranText),1)
+        number,ok=guiTools.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية"),self.index+1,1,len(self.quranText),1)
         if ok:
             self.currentTime=1
             self.index=number-1

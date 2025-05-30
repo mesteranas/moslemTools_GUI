@@ -126,7 +126,7 @@ class QuranRecitationViewer(qt.QDialog):
         except Exception as error:
             qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
     def goToAyah(self):
-        ayah,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        ayah,OK=guiTools.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if OK:
             cerser=self.text.textCursor()
             cerser.movePosition(cerser.MoveOperation.Start)

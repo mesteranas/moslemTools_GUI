@@ -89,7 +89,7 @@ class hadeeth_viewer(qt.QDialog):
         self.show_hadeeth_number.setText(str(self.index+1))
         winsound.PlaySound("data/sounds/previous_page.wav",1)
     def go_to_hadeeth(self):        
-        hadeeth,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى حديث"),_("أكتب رقم الحديث"),self.index+1,1,len(self.data))
+        hadeeth,OK=guiTools.QInputDialog.getInt(self,_("الذهاب إلى حديث"),_("أكتب رقم الحديث"),self.index+1,1,len(self.data))
         if OK:                                    
             self.index=hadeeth-1
             self.text.setText(self.data[self.index])
