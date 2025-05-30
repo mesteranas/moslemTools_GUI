@@ -2,6 +2,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 from PyQt6.QtCore import Qt
 from .QReadOnlyTextEdit import QReadOnlyTextEdit
+import winsound
 class MessageBox(qt.QDialog):
     def __init__(self, parent, title: str, label: str):
         super().__init__(parent)
@@ -19,6 +20,7 @@ class MessageBox(qt.QDialog):
         qt1.QShortcut("Escape", self).activated.connect(self.reject)
     @staticmethod
     def view(parent,title:str,label:str):
+        winsound.MessageBeep(winsound.MB_ICONASTERISK)
         dlg=MessageBox(parent,title,label)
         result=dlg.exec()
         print(result)

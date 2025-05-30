@@ -16,11 +16,16 @@ class ExitApp(qt.QDialog):
         label=qt.QLabel(lec)        
         self.exit=qt.QComboBox()
         self.exit.setAccessibleName(lec)
+        font=qt1.QFont()
+        font.setBold(True)
         self.exit.addItems([_("إخفاء"), _("خروج"), _("إعادة تشغيل")])
+        self.exit.setFont(font)
         self.ok=qt.QPushButton(_("موافق"))
         self.ok.setDefault(True)
-        self.ok.clicked.connect(self.fok)
+        self.ok.clicked.connect(self.fok)        
         self.cancel=qt.QPushButton(_("إلغاء"))
+        self.ok.setStyleSheet("background-color: #008000; color: #e0e0e0;")       # أخضر
+        self.cancel.setStyleSheet("background-color: #AA0000; color: #e0e0e0;")   # أحمر
         self.cancel.clicked.connect(self.fcan)
         layout=qt.QVBoxLayout()
         layout.addWidget(label)
