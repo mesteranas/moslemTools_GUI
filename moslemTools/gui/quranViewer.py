@@ -409,7 +409,7 @@ class QuranViewer(qt.QDialog):
         sajda=""
         if juz[3]:
             sajda=_("الآية تحتوي على سجدة")
-        guiTools.qMessageBox.MessageBox.view(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
+        guiTools.qMessageBox.MessageBox.view(self,_("معلومة"),_("رقم الآية {} \nرقم السورة {} {} \nرقم الآية في المصحف {} \nالجزء {} \nالربع {} \nالصفحة {} \n{}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
     def getCurentAyahTranslation(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         translationViewer(self,AyahNumber,AyahNumber).exec()
