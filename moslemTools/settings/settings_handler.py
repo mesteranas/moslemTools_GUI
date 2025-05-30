@@ -66,6 +66,11 @@ settingsConfig={
 		"volume":"100",
 		"remindBeforeAdaan":"0"
 	},
+	"location":{
+		"autoDetect":"True",
+		"LT1":"33",
+		"LT2":"33"
+	},
 	"update":{
 		"autoCheck":"True",
 		"beta":"False"

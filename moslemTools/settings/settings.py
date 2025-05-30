@@ -42,6 +42,8 @@ class settings(qt.QDialog):
         self.sectian.add(_("إعدادات التفسير والترجمة"), self.tafaseerSettings)
         self.prayerTimesSettings = tabs.PrayerTimesSettings(self)
         self.sectian.add(_("إعدادات الأذان"), self.prayerTimesSettings)
+        self.locationSettings=tabs.LocationSettings(self)
+        self.sectian.add(_("إعدادات تحديد الموقع الجغرافي"),self.locationSettings)
         self.quranPlayerTimes = tabs.QuranPlayerSettings(self)
         self.sectian.add(_("إعدادات مشغل القرآن للقرآن المكتوب"), self.quranPlayerTimes)
         self.sectian.add(_("إعدادات التحديثات"), self.update)
@@ -68,6 +70,9 @@ class settings(qt.QDialog):
         settings_handler.set("g", "exitDialog", str(self.layout1.ExitDialog.isChecked()))
         settings_handler.set("g", "reciter", str(list(gui.reciters.keys()).index(self.layout1.reciter.currentText())))
         settings_handler.set("prayerTimes","volume",str(self.prayerTimesSettings.Sound_level.value()))
+        settings_handler.set("location","autoDetect",str(self.locationSettings.autoDetectLocation.isChecked()))
+        settings_handler.set("location","LT1",str(self.locationSettings.LT1.value()))
+        settings_handler.set("location","LT2",str(self.locationSettings.LT2.value()))
         settings_handler.set("prayerTimes","remindBeforeAdaan",str(self.prayerTimesSettings.before.currentIndex()))
         try:
             settings_handler.set("tafaseer", "tafaseer", functions.tafseer.tafaseers[self.tafaseerSettings.selectTafaseer.currentText()])
@@ -109,18 +114,8 @@ class settings(qt.QDialog):
         else:
             self.close()
     def default(self):
-        mb = qt.QMessageBox(self)
-        mb.setWindowTitle(_("تنبيه"))
-        mb.setText(_("هل تريد إعادة تعيين إعداداتك؟ إذا قمت بالنقر على إعادة تعيين، سيعيد البرنامج التشغيل لإكمال إعادة التعيين."))
-        rn = mb.addButton(qt.QMessageBox.StandardButton.Yes)
-        rn.setText(_("إعادة التعيين وإعادة التشغيل"))
-        rn.setStyleSheet("background-color: #0000AA; color: white;")
-        rl = mb.addButton(qt.QMessageBox.StandardButton.No)
-        rl.setText(_("إلغاء"))
-        rl.setStyleSheet("background-color: #0000AA; color: white;")
-        mb.exec()
-        ex = mb.clickedButton()
-        if ex == rn:
+        mb = guiTools.QQuestionMessageBox.view(self,_("تنبيه"),_("هل تريد إعادة تعيين إعداداتك؟ إذا قمت بالنقر على إعادة تعيين، سيعيد البرنامج التشغيل لإكمال إعادة التعيين."),_("إعادة التعيين وإعادة التشغيل"),_("إلغاء"))
+        if mb==0:
             os.remove(os.path.join(os.getenv('appdata'), app.appName, "settings.ini"))
             os.execl(sys.executable, sys.executable, *sys.argv)
     def fcancel(self):

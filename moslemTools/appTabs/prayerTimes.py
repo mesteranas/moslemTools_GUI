@@ -129,8 +129,12 @@ class prayer_times(qt.QWidget):
         ]
         g = geocoder.ip('me')
         if g.ok:
-            latitude = g.latlng[0]
-            longitude = g.latlng[1]
+            if settings_handler.get("location","autoDetect")=="True":
+                latitude = g.latlng[0]
+                longitude = g.latlng[1]
+            else:
+                latitude=float(settings_handler.get("location","LT2"))
+                longitude=float(settings_handler.get("location","LT1"))
             method = 5
             response = requests.get('http://api.aladhan.com/v1/timings', params={
                 'latitude': latitude,
