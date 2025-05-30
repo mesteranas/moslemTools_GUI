@@ -80,6 +80,8 @@ class Albaheth(qt.QWidget):
         self.ahadeeth.hide()        
     def OnContextMenu(self):
         menu = qt.QMenu(_("الخيارات"), self)
+        font=qt1.QFont()
+        font.setBold(True)
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         copy_all = menu.addAction(_("نسخ النص كاملا"))
@@ -94,7 +96,9 @@ class Albaheth(qt.QWidget):
         decreaseFontSizeAction = qt1.QAction(_("تصغير الخط"), self)
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)        
+        fontMenu.setFont(font)
         menu.addMenu(fontMenu)
+        menu.setFont(font)
         menu.exec(self.mapToGlobal(self.cursor().pos()))        
     def increase_font_size(self):
         if self.font_size < 50:
@@ -123,14 +127,14 @@ class Albaheth(qt.QWidget):
                 pyperclip.copy(selected_text)
                 winsound.Beep(1000, 100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))            
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))            
     def copy_text(self):
         try:
             text = self.results.toPlainText()
             pyperclip.copy(text)
             winsound.Beep(1000, 100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))            
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))            
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(
             r'[\u060C\u0617-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]'
@@ -143,7 +147,7 @@ class Albaheth(qt.QWidget):
         return matches        
     def onSearchClicked(self):
         if not self.serch_input.text():
-            qt.QMessageBox.critical(self, _("تنبيه"), _("يرجى كتابة محتوى للبحث"))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("يرجى كتابة محتوى للبحث"))
             return
         I = self.serch.currentIndex()
         if I == 0:

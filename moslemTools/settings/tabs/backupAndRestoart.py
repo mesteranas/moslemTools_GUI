@@ -26,7 +26,7 @@ class GUIForThread(qt.QDialog):
     def onFinished(self, state):
         if state:
             if self.choice == 0:
-                qt.QMessageBox.information(self, _("تم"), _("تم نسخ الإعدادات بنجاح"))
+                guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم نسخ الإعدادات بنجاح"))
             else:
                 mb = qt.QMessageBox(self)
                 mb.setWindowTitle(_("تم تحديث الإعدادات"))

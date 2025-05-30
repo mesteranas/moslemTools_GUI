@@ -45,10 +45,10 @@ class SelectItem(qt.QDialog):
                 self.data=jsonContent
                 self.item.addItems(self.data)
             else:
-                qt.QMessageBox.critical(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
+                guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
                 self.close()
         except:
-            qt.QMessageBox.critical(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
             self.accept()
     def search(self,pattern,text_list):    
         tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        
@@ -104,10 +104,10 @@ class StartDownloading(qt.QDialog):
         self.thread.start()
     def onFinished(self,state):
         if state:
-            qt.QMessageBox.information(self,_("تم"),_("تم تحميل بنجاح"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم تحميل بنجاح"))
             self.accept()
         else:
-            qt.QMessageBox.critical(self,_("تنبيه"),_("حدث خطأ أثناء التحميل"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("حدث خطأ أثناء التحميل"))
             self.close()
     def onProgreesBarChanged(self,value):
         self.progressBar.setValue(value)

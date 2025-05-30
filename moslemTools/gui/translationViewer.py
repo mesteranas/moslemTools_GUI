@@ -53,20 +53,26 @@ class translationViewer(qt.QDialog):
         menu.setAccessibleName(_("الخيارات"))
         menu.setFocus()
         save = menu.addAction(_("حفظ كملف نصي"))
+        save.setShortcut("ctrl+s")
         save.triggered.connect(self.save_text_as_txt)
         menu.setDefaultAction(save)
         printerAction = menu.addAction(_("طباعة"))
+        printerAction.setShortcut("ctrl+p")
         printerAction.triggered.connect(self.print_text)
         copy_all = menu.addAction(_("نسخ النص كاملا"))
+        copy_all.setShortcut("ctrl+a")
         copy_all.triggered.connect(self.copy_text)
         copy_selected_text = menu.addAction(_("نسخ النص المحدد"))
+        copy_selected_text .setShortcut("ctrl+c")
         copy_selected_text.triggered.connect(self.copy_line)
         fontMenu = qt.QMenu(_("حجم الخط"), self)
         incressFontAction = qt1.QAction(_("تكبير الخط"), self)
+        incressFontAction.setShortcut("ctrl+=")
         fontMenu.addAction(incressFontAction)
         fontMenu.setDefaultAction(incressFontAction)
         incressFontAction.triggered.connect(self.increase_font_size)
         decreaseFontSizeAction = qt1.QAction(_("تصغير الخط"), self)
+        decreaseFontSizeAction.setShortcut("ctrl+-")
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
         menu.addMenu(fontMenu)
@@ -105,7 +111,7 @@ class translationViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            qt.QMessageBox.warning(self, _("تنبيه حدث خطأ"), str(error))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه حدث خطأ"), str(error))
     def save_text_as_txt(self):
         try:
             file_dialog = qt.QFileDialog(self)
@@ -117,7 +123,7 @@ class translationViewer(qt.QDialog):
                 with open(file_name, 'w', encoding='utf-8') as file:
                     file.write(self.text.toPlainText())
         except Exception as error:
-            qt.QMessageBox.warning(self, _("تنبيه حدث خطأ"), str(error))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه حدث خطأ"), str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -144,10 +150,10 @@ class translationViewer(qt.QDialog):
                 pyperclip.copy(cursor.selectedText())
                 winsound.Beep(1000, 100)
         except Exception as error:
-            qt.QMessageBox.warning(self, _("تنبيه حدث خطأ"), str(error))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه حدث خطأ"), str(error))
     def copy_text(self):
         try:
             pyperclip.copy(self.text.toPlainText())
             winsound.Beep(1000, 100)
         except Exception as error:
-            qt.QMessageBox.warning(self, _("تنبيه حدث خطأ"), str(error))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه حدث خطأ"), str(error))

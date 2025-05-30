@@ -49,7 +49,7 @@ class TafaseerSettings(qt.QWidget):
         if selectedItem:
             itemText = selectedItem
             if itemText == "English by Talal Itani":
-                qt.QMessageBox.critical(self, _("تنبيه"), _("لا يمكنك حذف هذا الكتاب "))
+                guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("لا يمكنك حذف هذا الكتاب "))
             else:
                 question = qt.QMessageBox.question(self, _("تنبيه"), _("هل تريد حذف هذا الكتاب"), qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
                 if question == qt.QMessageBox.StandardButton.Yes:
@@ -64,7 +64,7 @@ class TafaseerSettings(qt.QWidget):
         if selectedItem:
             itemText = selectedItem
             if itemText == "الميصر":
-                qt.QMessageBox.critical(self, _("تنبيه"), _("لا يمكنك حذف هذا الكتاب "))
+                guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("لا يمكنك حذف هذا الكتاب "))
             else:
                 question = qt.QMessageBox.question(self, _("تنبيه"), _("هل تريد حذف هذا الكتاب"), qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
                 if question == qt.QMessageBox.StandardButton.Yes:

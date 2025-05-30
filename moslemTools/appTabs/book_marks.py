@@ -85,7 +85,7 @@ class book_marcks(qt.QDialog):
             guiTools.speak(_("تم حذف العلامة المرجعية"))
             self.onCategoryChanged(self.Category.currentIndex())
         except:
-            qt.QMessageBox.critical(self, _("تحذير"), _("حدث خطأ أثناء حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self, _("تحذير"), _("حدث خطأ أثناء حذف العلامة المرجعية"))
     def onCategoryChanged(self, index):
         bookMarksData = functions.bookMarksManager.openBookMarksFile()
         if index == 0:

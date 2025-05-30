@@ -135,10 +135,10 @@ class DownloadReciter(qt.QDialog):
         self.run.objects.pauseDownloading.emit("a")
     def on(self,state):
         if state==True:
-            qt.QMessageBox.information(self,_("تم"),_("تم التحميل بنجاح"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم التحميل بنجاح"))
             self.close()
         else:
-            qt.QMessageBox.information(self,_("خطأ"),_("تعظر التحميل"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعظر التحميل"))
             self.close()
     def on_progress(self,progress):
         self.progress.setValue(progress)

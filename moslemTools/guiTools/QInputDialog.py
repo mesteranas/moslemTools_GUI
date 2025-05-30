@@ -16,7 +16,7 @@ class QInputDialog(qt.QDialog):
         self.text.textChanged.connect(self.onTextChanged)
         layout.addWidget(self.text)
         buttonsLayout = qt.QHBoxLayout()
-        self.OKBTN = qt.QPushButton("موافق")        
+        self.OKBTN = qt.QPushButton(_("موافق"))
         self.OKBTN.setStyleSheet("""
             background-color: black;
             color: white;
@@ -25,7 +25,7 @@ class QInputDialog(qt.QDialog):
         self.OKBTN.setDefault(True)
         self.OKBTN.clicked.connect(self.accept)
         buttonsLayout.addWidget(self.OKBTN)
-        self.cancelBTN = qt.QPushButton("إلغاء")
+        self.cancelBTN = qt.QPushButton(_("إلغاء"))
         self.cancelBTN.setStyleSheet("""
             background-color: #8B0000;
             color: white;

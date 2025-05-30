@@ -1,3 +1,4 @@
+import guiTools
 import settings
 import requests
 import subprocess
@@ -87,7 +88,7 @@ class DownloadUpdateGUI(qt.QDialog):
         self.downloading.setValue(progress)
     def finish(self,c):
         if c=="error":
-            qt.QMessageBox.critical(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("خطأ أثناء التحميل الرجاء المحاولة لاحقا"))
             self.close()
         elif c=="cancelled":
             self.close()

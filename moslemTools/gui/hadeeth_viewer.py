@@ -16,7 +16,7 @@ class hadeeth_viewer(qt.QDialog):
             self.index=index
             self.bookName=book_name
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر فتح الملف "))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر فتح الملف "))
             self.close()
         qt1.QShortcut("ctrl+c", self).activated.connect(self.copy_line)
         qt1.QShortcut("ctrl+a", self).activated.connect(self.copy_text)
@@ -103,36 +103,47 @@ class hadeeth_viewer(qt.QDialog):
         menu.setFocus()
         hadeeth_menu=qt.QMenu(_("خيارات الحديث"), self)
         next_action=hadeeth_menu.addAction(_("الحديث التالي"))
+        next_action.setShortcut("alt+right")
         next_action.triggered.connect(self.next_hadeeth)
         previous_action=hadeeth_menu.addAction(_("الحديث السابق"))
+        previous_action.setShortcut("alt+left")
         previous_action.triggered.connect(self.previous_hadeeth)
         go_action=hadeeth_menu.addAction(_("الذهاب إلى حديث"))
+        go_action.setShortcut("ctrl+g")
         go_action.triggered.connect(self.go_to_hadeeth)
         state,self.nameOfBookmark=functions.bookMarksManager.getAhdeethBookmarkName(self.bookName,self.index)
         if state:
             removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            removeBookmarkAction.setShortcut("ctrl+b")
             hadeeth_menu.addAction(removeBookmarkAction)
             removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
         else:
             addBookMarkAction=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            addBookMarkAction.setShortcut("ctrl+b")
             hadeeth_menu.addAction(addBookMarkAction)
             addBookMarkAction.triggered.connect(self.onAddBookMark)
         menu.addMenu(hadeeth_menu)
         text_options_menu=qt.QMenu(_("خيارات النص"), self)
         save_action=text_options_menu.addAction(_("حفظ كملف نصي"))
+        save_action.setShortcut("ctrl+s")
         save_action.triggered.connect(self.save_text_as_txt)
         text_options_menu.setDefaultAction(save_action)
         print_action=text_options_menu.addAction(_("طباعة"))
+        print_action.setShortcut("ctrl+p")
         print_action.triggered.connect(self.print_text)
         copy_all_action=text_options_menu.addAction(_("نسخ النص كاملاً"))
+        copy_all_action.setShortcut("ctrl+a")
         copy_all_action.triggered.connect(self.copy_text)
         copy_selected_action=text_options_menu.addAction(_("نسخ النص المحدد"))
+        copy_selected_action.setShortcut("ctrl+c")
         copy_selected_action.triggered.connect(self.copy_line)    
         font_menu=qt.QMenu(_("حجم الخط"), self)
         increase_font_action=qt1.QAction(_("تكبير الخط"), self)
+        increase_font_action.setShortcut("ctrl+=")
         font_menu.addAction(increase_font_action)
         increase_font_action.triggered.connect(self.increase_font_size)
         decrease_font_action=qt1.QAction(_("تصغير الخط"), self)
+        decrease_font_action.setShortcut("ctrl+-")
         font_menu.addAction(decrease_font_action)
         decrease_font_action.triggered.connect(self.decrease_font_size)            
         menu.addMenu(text_options_menu)
@@ -147,7 +158,7 @@ class hadeeth_viewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -160,7 +171,7 @@ class hadeeth_viewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -188,14 +199,14 @@ class hadeeth_viewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def onAddBookMark(self):
         name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
@@ -205,7 +216,7 @@ class hadeeth_viewer(qt.QDialog):
             functions.bookMarksManager.removeAhadeethBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getAhdeethBookmarkName(self.bookName,self.index)
         if state:

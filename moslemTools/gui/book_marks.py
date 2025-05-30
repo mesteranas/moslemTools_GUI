@@ -64,7 +64,7 @@ class book_marcks(qt.QDialog):
             functions.bookMarksManager.removeaudioBookMark(self.tabName,self.results.currentItem().text())
             self.onCategoryChanged()
         except:
-            qt.QMessageBox.critical(self,_("تحذير"),_("حدث خطأ أثناء حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تحذير"),_("حدث خطأ أثناء حذف العلامة المرجعية"))
     def onCategoryChanged(self):
         bookMarksData=functions.bookMarksManager.openBookMarksFile()
         self.results.clear()

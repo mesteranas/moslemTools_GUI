@@ -182,7 +182,7 @@ class sibha(qt.QWidget):
     def onDelete(self):
         itemText=self.athkar.currentText()
         if not itemText in self.externalAthkar:
-            qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكنك حذف هذا الذكر"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا يمكنك حذف هذا الذكر"))
         else:
             question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا الذكر"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
             if question==qt.QMessageBox.StandardButton.Yes:

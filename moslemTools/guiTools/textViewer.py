@@ -66,7 +66,7 @@ class TextViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -79,7 +79,7 @@ class TextViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -107,11 +107,11 @@ class TextViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))

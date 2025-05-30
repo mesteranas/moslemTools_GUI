@@ -42,7 +42,7 @@ class hadeeth(qt.QWidget):
         if selectedItem:
             itemText=selectedItem.text()
             if itemText=="الأربعون نووية" or itemText=="الأربعون قُدسية":
-                qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكنك حذف هذا الكتاب "))
+                guiTools.MessageBox.view(self,_("تنبيه"),_("لا يمكنك حذف هذا الكتاب "))
             else:
                 question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا الكتاب"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
                 if question==qt.QMessageBox.StandardButton.Yes:

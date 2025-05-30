@@ -267,9 +267,9 @@ class QuranPlayer(qt.QWidget):
                     if confirm == qt.QMessageBox.StandardButton.Yes:
                         try:
                             os.remove(surah_path)
-                            qt.QMessageBox.information(self, _("تم"), _("تم حذف السورة بنجاح."))
+                            guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف السورة بنجاح."))
                         except PermissionError:
-                            qt.QMessageBox.critical(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
+                            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
             else:
                 if os.path.exists(reciter_folder):
                     confirm = qt.QMessageBox.question(
@@ -285,14 +285,14 @@ class QuranPlayer(qt.QWidget):
                                 try:
                                     os.remove(os.path.join(reciter_folder, file))
                                 except PermissionError:
-                                    qt.QMessageBox.critical(
+                                    guiTools.qMessageBox.MessageBox.view(
                                         self,
                                         _("خطأ"),
                                         _("تعذر حذف بعض الملفات. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج")
                                     )
-                        qt.QMessageBox.information(self, _("تم"), _("تم حذف جميع السور بنجاح."))
+                        guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف جميع السور بنجاح."))
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ غير متوقع"), str(e))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ غير متوقع"), str(e))
         self.check_all_surahs_downloaded()
     def check_all_surahs_downloaded(self):
         selected_reciter_item = self.recitersListWidget.currentItem()
@@ -344,7 +344,7 @@ class QuranPlayer(qt.QWidget):
                 os.makedirs(audio_folder, exist_ok=True)
                 filepath = os.path.join(audio_folder, f"{selected_item.text()}.mp3")
                 if self.is_audio_downloaded(filepath):
-                    qt.QMessageBox.critical(self, _("تنبيه"), _("السورة محملة بالفعل."))
+                    guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("السورة محملة بالفعل."))
                     return
                 self.progressBar.setVisible(True)
                 self.download_thread = DownloadThread(url, filepath)
@@ -352,7 +352,7 @@ class QuranPlayer(qt.QWidget):
                 self.download_thread.finished.connect(self.download_audio_complete)
                 self.download_thread.start()
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))
     def download_all_audios_to_app(self):
         try:
             selected_reciter_item = self.recitersListWidget.currentItem()
@@ -368,7 +368,7 @@ class QuranPlayer(qt.QWidget):
             ]
             self.current_file_index = 0
             if not self.files_to_download:
-                qt.QMessageBox.critical(self, _("تنبيه"), _("جميع السور محملة بالفعل"))
+                guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("جميع السور محملة بالفعل"))
                 return
             response = qt.QMessageBox.question(
                 self,
@@ -383,9 +383,9 @@ class QuranPlayer(qt.QWidget):
                 self.save_folder = app_folder
                 self.download_next_audio_to_app()
             else:
-                qt.QMessageBox.information(self, _("إلغاء العملية"), _("تم إلغاء تحميل السور."))
+                guiTools.qMessageBox.MessageBox.view(self, _("إلغاء العملية"), _("تم إلغاء تحميل السور."))
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))
     def is_audio_downloaded(self, filepath):
         return os.path.exists(filepath)
     def download_next_audio_to_app(self):
@@ -400,11 +400,11 @@ class QuranPlayer(qt.QWidget):
             self.download_thread.start()
         else:
             self.progressBar.setVisible(False)
-            qt.QMessageBox.information(self, _("تم"), _("تم تحميل جميع السور بنجاح."))
+            guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تحميل جميع السور بنجاح."))
     def download_audio_complete(self):
         self.progressBar.setValue(100)
         self.progressBar.setVisible(False)
-        qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة بنجاح."))
+        guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تحميل السورة بنجاح."))
     def download_all_soar(self):
         selected_reciter_item = self.recitersListWidget.currentItem()
         if not selected_reciter_item:
@@ -423,7 +423,7 @@ class QuranPlayer(qt.QWidget):
             self.save_folder = save_folder
             self.download_next_sora()
         else:
-            qt.QMessageBox.information(self, _("إلغاء التحميل"), _("تم إلغاء التحميل."))
+            guiTools.qMessageBox.MessageBox.view(self, _("إلغاء التحميل"), _("تم إلغاء التحميل."))
     def download_next_sora(self):
         if self.current_file_index < len(self.files_to_download):
             file_name, url = self.files_to_download[self.current_file_index]
@@ -435,7 +435,7 @@ class QuranPlayer(qt.QWidget):
             self.download_thread.start()
         else:
             self.progressBar.setVisible(False)
-            qt.QMessageBox.information(self, _("تم التحميل"), _("تم تحميل جميع السور."))
+            guiTools.qMessageBox.MessageBox.view(self, _("تم التحميل"), _("تم تحميل جميع السور."))
     def update_progress(self, progress_percent):
         self.progressBar.setValue(progress_percent)
     def download_finished(self):
@@ -443,7 +443,7 @@ class QuranPlayer(qt.QWidget):
         self.download_next_sora()
     def download_complete(self):
         self.progressBar.setVisible(False)
-        qt.QMessageBox.information(self, _("تم"), _("تم تحميل السورة"))
+        guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تحميل السورة"))
     def on_reciter_selected(self):
         self.mp.stop()
         self.surahListWidget.clear()
@@ -490,7 +490,7 @@ class QuranPlayer(qt.QWidget):
                     self.mp.setSource(qt2.QUrl(url))
                     self.mp.play()
         except Exception as e:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))
     def download_selected_audio(self):
         try:
             selected_reciter_item = self.recitersListWidget.currentItem()
@@ -508,7 +508,7 @@ class QuranPlayer(qt.QWidget):
                     self.download_thread.finished.connect(self.download_complete)
                     self.download_thread.start()
         except:
-            qt.QMessageBox.critical(self, _("تنبيه"), _("حدث خطأ ما"))
+            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("حدث خطأ ما"))
     def open_context_menu(self, position):
         menu = qt.QMenu(self)
         menu.setAccessibleName(_("خيارات السورة"))
@@ -639,9 +639,9 @@ class QuranPlayer(qt.QWidget):
     def onChangeEndingPosition(self):
         if self.startingPosition is not None:
             if self.startingPosition == self.mp.position():
-                qt.QMessageBox.critical(self, _("خطأ"), _("لا يمكن أن يكون موضع البداية هو نفس موضع النهاية"))
+                guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("لا يمكن أن يكون موضع البداية هو نفس موضع النهاية"))
             elif self.startingPosition > self.mp.position():
-                qt.QMessageBox.critical(self, _("خطأ"), _("لا يمكن أن يكون موضع البداية أكبر من موضع النهاية"))
+                guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("لا يمكن أن يكون موضع البداية أكبر من موضع النهاية"))
             else:
                 position = self.mp.position()
                 self.endingPosition = position
@@ -649,7 +649,7 @@ class QuranPlayer(qt.QWidget):
                 self.repeatFromPositionToPosition = True
                 self.mp.setPosition(self.startingPosition)
         else:
-            qt.QMessageBox.critical(self, _("خطأ"), _("يرجى تحديد موضع البداية أولا"))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("يرجى تحديد موضع البداية أولا"))
     def removePosition(self):
         self.startingPosition = None
         self.endingPosition = None
@@ -667,6 +667,6 @@ class QuranPlayer(qt.QWidget):
     def onRemoveBookmark(self):
         try:
             functions.bookMarksManager.removeaudioBookMark("quran",self.nameOfBookmark)
-            qt.QMessageBox.information(self,_("تم"),_("تم الحذف"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم الحذف"))
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))

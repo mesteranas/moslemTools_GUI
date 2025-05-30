@@ -124,7 +124,7 @@ class QuranViewer(qt.QDialog):
         qt1.QShortcut("ctrl+alt+l", self).activated.connect(self.translateFromVersToVers)
         qt1.QShortcut("ctrl+alt+i", self).activated.connect(self.IArabFromVersToVers)
         qt1.QShortcut("ctrl+alt+p", self).activated.connect(self.playFromVersToVers)
-        qt1.QShortcut("ctrl+shift+p", self).activated.connect(lambda: QuranPlayer(self, self.quranText, self.getCurrentAyah(), self.type, self.category, enableBookMarks=self.enableBookmarks).exec())
+        qt1.QShortcut("ctrl+shift+p", self).activated.connect(lambda: QuranPlayer(self, self.quranText, self.getCurrentAyah(), self.type, self.category, enableBookMarks=self.enableBookmarks).exec())        
     def eventFilter(self, obj, event):
         if obj == self.text.viewport() and \
             event.type() == qt2.QEvent.Type.MouseButtonPress and \
@@ -136,103 +136,128 @@ class QuranViewer(qt.QDialog):
         return super().eventFilter(obj, event)
     def oncontextMenu(self):
         menu=qt.QMenu(_("الخيارات "),self)
-        boldFont=menu.font()
-        boldFont.setBold(True)
-        menu.setFont(boldFont)
+        font=qt1.QFont()        
+        font.setBold(True)
+        menu.setFont(font)
         menu.setAccessibleName(_("الخيارات "))
         menu.setFocus()
         ayahOptions=qt.QMenu(_("خيارات الآية الحالية"))
         goToAyah=qt1.QAction(_("الذهاب إلى آية"))
+        goToAyah.setShortcut("ctrl+g")
         ayahOptions.addAction(goToAyah)
         goToAyah.triggered.connect(self.goToAyah)
         ayahOptions.setDefaultAction(goToAyah)
         playCurrentAyahAction=qt1.QAction(_("تشغيل الآية الحالية"),self)        
+        playCurrentAyahAction.setShortcut("space")
         ayahOptions.addAction(playCurrentAyahAction)
         playCurrentAyahAction.triggered.connect(self.on_play)
         tafaserCurrentAyahAction=qt1.QAction(_("تفسير الآية الحالية"),self)
+        tafaserCurrentAyahAction.setShortcut("ctrl+t")
         ayahOptions.addAction(tafaserCurrentAyahAction)
         tafaserCurrentAyahAction.triggered.connect(self.getCurentAyahTafseer)
         IArabCurrentAyah=qt1.QAction(_("إعراب الآية الحالية"),self)
+        IArabCurrentAyah.setShortcut("ctrl+i")
         ayahOptions.addAction(IArabCurrentAyah)
         IArabCurrentAyah.triggered.connect(self.getCurentAyahIArab)
         tanzelCurrentAyahAction=qt1.QAction(_("أسباب نزول الآية الحالية"),self)
+        tanzelCurrentAyahAction.setShortcut("ctrl+r")
         ayahOptions.addAction(tanzelCurrentAyahAction)
         tanzelCurrentAyahAction.triggered.connect(self.getCurrentAyahTanzel)
         translationCurrentAyahAction=qt1.QAction(_("ترجمة الآية الحالية"),self)
+        translationCurrentAyahAction.setShortcut("ctrl+l")
         ayahOptions.addAction(translationCurrentAyahAction)
         translationCurrentAyahAction.triggered.connect(self.getCurentAyahTranslation)
         ayahInfo=qt1.QAction(_("معلومات الآية الحالية"),self)
+        ayahInfo.setShortcut("ctrl+f")
         ayahOptions.addAction(ayahInfo)
         ayahInfo.triggered.connect(self.getAyahInfo)        
-        copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)
+        copy_aya=qt1.QAction(_("نسخ الآية الحالية"),self)        
         ayahOptions.addAction(copy_aya)
         copy_aya.triggered.connect(self.copyAya)
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.getCurrentAyah(),isPlayer=False)
         if state:
             removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            removeBookmarkAction.setShortcut("ctrl+b")
             ayahOptions.addAction(removeBookmarkAction)
             removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
         else:
             addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            addNewBookMark.setShortcut("ctrl+b")
             ayahOptions.addAction(addNewBookMark)
             addNewBookMark.triggered.connect(self.onAddBookMark)
             addNewBookMark.setEnabled(self.enableBookmarks)
         menu.addMenu(ayahOptions)
         surahOption=qt.QMenu(_("خيارات الفئة"),self)
         copySurahAction=qt1.QAction(_("نسخ الفئة"),self)
+        copySurahAction.setShortcut("ctrl+a")
         surahOption.addAction(copySurahAction)
         surahOption.setDefaultAction(copySurahAction)
         copySurahAction.triggered.connect(self.copy_text)
         saveSurahAction=qt1.QAction(_("حفظ الفئة كملف نصي"),self)
+        saveSurahAction.setShortcut("ctrl+s")
         surahOption.addAction(saveSurahAction)
         saveSurahAction.triggered.connect(self.save_text_as_txt)
         printSurah=qt1.QAction(_("طباعة الفئة"),self)
+        printSurah.setShortcut("ctrl+p")
         surahOption.addAction(printSurah)
         printSurah.triggered.connect(self.print_text)
         tafaseerSurahAction=qt1.QAction(_("تفسير الفئة"),self)
+        tafaseerSurahAction.setShortcut("ctrl+shift+t")
         surahOption.addAction(tafaseerSurahAction)
         tafaseerSurahAction.triggered.connect(self.getTafaseerForSurah)
         IArabSurah=qt1.QAction(_("إعراب الفئة"),self)
+        IArabSurah.setShortcut("ctrl+shift+i")
         surahOption.addAction(IArabSurah)
         IArabSurah.triggered.connect(self.getIArabForSurah)
         translationSurahAction=qt1.QAction(_("ترجمة  الفئة"),self)
+        translationSurahAction.setShortcut("ctrl+shift+l")
         surahOption.addAction(translationSurahAction)
         translationSurahAction.triggered.connect(self.getTranslationForSurah)
         SurahInfoAction=qt1.QAction(_("معلومات السورة"),self)
-        surahOption.addAction(SurahInfoAction)
+        SurahInfoAction.setShortcut("ctrl+shift+f")
+        surahOption.addAction(SurahInfoAction)        
         SurahInfoAction.triggered.connect(self.onSurahInfo)
         tafseerFromVersToVersAction=qt1.QAction(_("التفسير من آية إلى آية"))
+        tafseerFromVersToVersAction.setShortcut("ctrl+alt+t")
         surahOption.addAction(tafseerFromVersToVersAction)
         tafseerFromVersToVersAction.triggered.connect(self.TafseerFromVersToVers)
         translateFromVersToVersAction=qt1.QAction(_("الترجمة من آية إلى آية"))
+        translateFromVersToVersAction.setShortcut("ctrl+alt+l")
         surahOption.addAction(translateFromVersToVersAction)
         translateFromVersToVersAction.triggered.connect(self.translateFromVersToVers)
         IArabFromVersToVersAction=qt1.QAction(_("الإعراب من آية إلى آية"),self)
+        IArabFromVersToVersAction.setShortcut("ctrl+alt+i")
         surahOption.addAction(IArabFromVersToVersAction)
         IArabFromVersToVersAction.triggered.connect(self.IArabFromVersToVers)
         playFromVersToVersAction=qt1.QAction(_("التشغيل من آية إلى آية"),self)
+        playFromVersToVersAction.setShortcut("ctrl+alt+p")
         surahOption.addAction(playFromVersToVersAction)
         playFromVersToVersAction.triggered.connect(self.playFromVersToVers)
         playSurahToEnd=qt1.QAction(_("التشغيل إلى نهاية الفئة"),self)
+        playSurahToEnd.setShortcut("ctrl+shift+p")
         surahOption.addAction(playSurahToEnd)
         playSurahToEnd.triggered.connect(lambda:QuranPlayer(self,self.quranText,self.getCurrentAyah(),self.type,self.category,enableBookMarks=self.enableBookmarks).exec())
         if self.enableNextPreviouseButtons:
             goToCategoryAction=qt1.QAction(_("الذهاب إلى محتوى فئة"),self)
+            goToCategoryAction.setShortcut("ctrl+shift+g")
             goToCategoryAction.triggered.connect(self.goToCategory)
             surahOption.addAction(goToCategoryAction)
         menu.addMenu(surahOption)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        incressFontAction.setShortcut("ctrl+=")
         fontMenu.addAction(incressFontAction)
         fontMenu.setDefaultAction(incressFontAction)
         incressFontAction.triggered.connect(self.increase_font_size)
         decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        decreaseFontSizeAction.setShortcut("ctrl+-")
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
         menu.addMenu(fontMenu)
-        ayahOptions.setFont(boldFont)
-        surahOption.setFont(boldFont)
-        fontMenu.setFont(boldFont)
+        ayahOptions.setFont(font)
+        surahOption.setFont(font)
+        fontMenu.setFont(font)
+        menu.setFont(font)
         menu.exec(self.mapToGlobal(self.cursor().pos()))
     def copyAya(self):
         a=self.getcurrentAyahText()
@@ -291,7 +316,7 @@ class QuranViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -304,7 +329,7 @@ class QuranViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -332,14 +357,14 @@ class QuranViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def getCurentAyahTafseer(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         TafaseerViewer(self,AyahNumber,AyahNumber).exec()
@@ -378,13 +403,13 @@ class QuranViewer(qt.QDialog):
         if result:
             guiTools.TextViewer(self,_("أسباب النزول"),result).exec()
         else:
-            qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
     def getAyahInfo(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         sajda=""
         if juz[3]:
             sajda=_("الآية تحتوي على سجدة")
-        qt.QMessageBox.information(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
+        guiTools.qMessageBox.MessageBox.view(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
     def getCurentAyahTranslation(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         translationViewer(self,AyahNumber,AyahNumber).exec()
@@ -395,15 +420,15 @@ class QuranViewer(qt.QDialog):
         translationViewer(self,AyahNumber1,AyahNumber2).exec()
     def onAddBookMark(self):
         if self.enableBookmarks==False:
-            qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
             return
         name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
             functions.bookMarksManager.addNewQuranBookMark(self.type,self.category,self.getCurrentAyah(),False,name)
     def playFromVersToVers(self):
-        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        FromVers,ok=guiTools.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
-            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            toVers,ok=guiTools.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
                 verses=[]
                 allVerses=self.quranText.split("\n")
@@ -413,27 +438,27 @@ class QuranViewer(qt.QDialog):
                         verses.append(vers)
                 QuranPlayer(self,"\n".join(verses),0,self.type,self.category,enableBookMarks=self.enableBookmarks).exec()
     def TafseerFromVersToVers(self):
-        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        FromVers,ok=guiTools.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
-            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            toVers,ok=guiTools.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
                 ayahList=self.quranText.split("\n")
                 Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
                 Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[toVers-1])
                 TafaseerViewer(self,AyahNumber1,AyahNumber2).exec()
     def translateFromVersToVers(self):
-        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        FromVers,ok=guiTools.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
-            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            toVers,ok=guiTools.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
                 ayahList=self.quranText.split("\n")
                 Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
                 Ayah,surah,juz,page,AyahNumber2=functions.quranJsonControl.getAyah(ayahList[toVers-1])
                 translationViewer(self,AyahNumber1,AyahNumber2).exec()
     def IArabFromVersToVers(self):
-        FromVers,ok=qt.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        FromVers,ok=guiTools.QInputDialog.getInt(self,_("من الآية"),_("أكتب الرقم"),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if ok:
-            toVers,ok=qt.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
+            toVers,ok=guiTools.QInputDialog.getInt(self,_("إلى الآية"),_("أكتب الرقم"),len(self.quranText.split("\n")),1,len(self.quranText.split("\n")))
             if ok:
                 ayahList=self.quranText.split("\n")
                 Ayah,surah,juz,page,AyahNumber1=functions.quranJsonControl.getAyah(ayahList[FromVers-1])
@@ -512,7 +537,7 @@ class QuranViewer(qt.QDialog):
             functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.getCurrentAyah(),isPlayer=False)
         if state:

@@ -244,7 +244,7 @@ class main(qt.QMainWindow):
             guiTools.TextViewer(self, _("ما الجديد"), info["what is new"]).exec()
         except Exception as e:
             print(e)
-            qt.QMessageBox.critical(self, _("خطأ"), _("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
     def license_funktion(self):
         try:
             r = requests.get("https://raw.githubusercontent.com/mesteranas/{}/main/LICENSE".format(settings_handler.appName))
@@ -252,7 +252,7 @@ class main(qt.QMainWindow):
             guiTools.TextViewer(self, _("الترخيص"), info).exec()
         except Exception as e:
             print(e)
-            qt.QMessageBox.critical(self, _("خطأ"), _("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
     def speac_info(self):
         guiTools.speak(_("للمزيد من الخيارات, الرجاء الضغت على زر alt"))
     def onToolChanged(self,index):
@@ -285,7 +285,7 @@ App.setPalette(dark_palette)
 shared=qt2.QSharedMemory("com.MTC.moslemTools")
 window = main()
 if shared.attach() or not shared.create(1):
-    qt.QMessageBox.critical(window,_("تنبيه"),_("البرنامج يعمل بالفعل"))
+    guiTools.qMessageBox.MessageBox.view(window,_("تنبيه"),_("البرنامج يعمل بالفعل"))
     sys.exit(0)
 App.aboutToQuit.connect(lambda: shared.detach())
 window.show()

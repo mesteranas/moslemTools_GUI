@@ -75,26 +75,34 @@ class StoryViewer(qt.QDialog):
         state,self.nameOfBookmark=functions.bookMarksManager.getStoriesBookmarkName(self.category,self.getCurrentLine())
         if state:
             removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            removeBookmarkAction.setShortcut("ctrl+b")
             text_options.addAction(removeBookmarkAction)
             removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
         else:
             addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            addNewBookMark.setShortcut("ctrl+b")
             text_options.addAction(addNewBookMark)
             addNewBookMark.triggered.connect(self.onAddBookMark)
         save=text_options.addAction(_("حفظ كملف نصي"))
+        save.setShortcut("ctrl+s")
         save.triggered.connect(self.save_text_as_txt)        
         print=text_options.addAction(_("طباعة"))
+        print.setShortcut("ctrl+p")
         print.triggered.connect(self.print_text)
         copy_all=text_options.addAction(_("نسخ النص كاملا"))        
+        copy_all.setShortcut("ctrl+a")
         copy_all.triggered.connect(self.copy_text)
         copy_selected_text=text_options.addAction(_("نسخ النص المحدد"))
+        copy_selected_text.setShortcut("ctrl+c")
         copy_selected_text.triggered.connect(self.copy_line)
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        incressFontAction.setShortcut("ctrl+=")
         fontMenu.addAction(incressFontAction)
         fontMenu.setDefaultAction(incressFontAction)
         incressFontAction.triggered.connect(self.increase_font_size)
         decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        decreaseFontSizeAction.setShortcut("ctrl+-")
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)        
         menu.addMenu(text_options)
@@ -109,7 +117,7 @@ class StoryViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -122,7 +130,7 @@ class StoryViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -150,14 +158,14 @@ class StoryViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
     def getCurrentLine(self):
         cerser=self.text.textCursor()
         return cerser.blockNumber()
@@ -190,7 +198,7 @@ class StoryViewer(qt.QDialog):
             functions.bookMarksManager.removeStoriesBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getStoriesBookmarkName(self.category,self.getCurrentLine())
         if state:

@@ -9,13 +9,13 @@ def check(p,message=True):
         info=r.json()
         if info["version"]>settings.app.version:
             if info["is_beta"] and settings.settings_handler.get("update","beta")=="False":
-                if message: qt.QMessageBox.information(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
+                if message: guiTools.qMessageBox.MessageBox.view(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
             else:
                 download(p,info["version"],info["download"],info["what is new"]).exec()
         else:
-            if message: qt.QMessageBox.information(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
+            if message: guiTools.qMessageBox.MessageBox.view(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
     except:
-        if message:qt.QMessageBox.critical(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
+        if message:guiTools.qMessageBox.MessageBox.view(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
 class download(qt.QDialog):
     def __init__(self,p,version,URL,whatsNew):
         super().__init__(p)

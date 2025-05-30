@@ -2,7 +2,7 @@ from settings import settings_handler
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 import PyQt6.QtCore as qt2
-import os, shutil
+import os, shutil,guiTools
 class PrayerTimesSettings(qt.QWidget):
     def __init__(self, p):
         super().__init__()
@@ -96,9 +96,9 @@ class PrayerTimesSettings(qt.QWidget):
         try:
             os.remove(path)
             shutil.copy("data/sounds/adaan/" + adaanName, path)
-            qt.QMessageBox.information(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
+            guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
         except:
-            qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ غير متوقع"))
+            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ غير متوقع"))
     def onChooseFromDevice(self, adaanName):
         path = os.path.join(os.getenv('appdata'), settings_handler.appName, "addan", adaanName)
         fileDialog = qt.QFileDialog(self, _("اختر صوت"))
@@ -108,6 +108,6 @@ class PrayerTimesSettings(qt.QWidget):
             try:
                 os.remove(path)
                 shutil.copy(fileDialog.selectedFiles()[0], path)
-                qt.QMessageBox.information(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
+                guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
             except:
-                qt.QMessageBox.critical(self, _("خطأ"), _("حدث خطأ غير متوقع"))
+                guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ غير متوقع"))

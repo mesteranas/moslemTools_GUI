@@ -102,47 +102,59 @@ class QuranPlayer(qt.QDialog):
         menu.setAccessibleName(_("الخيارات"))
         aya=qt.QMenu(_("خيارات الآية"),self)
         GoToAya=qt1.QAction(_("الذهاب الى آيا"),self)
+        GoToAya.setShortcut("ctrl+g")
         aya.addAction(GoToAya)
         aya.setDefaultAction(GoToAya)
         GoToAya.triggered.connect(self.gotoayah)
         aya_info=qt1.QAction(_("معلومات الآيا الحالية"),self)
+        aya_info.setShortcut("ctrl+f")
         aya.addAction(aya_info)
         aya_info.triggered.connect(self.getAyahInfo)
         aya_trans=qt1.QAction(_("ترجمة الآيا الحالية"),self)
+        aya_trans.setShortcut("ctrl+l")
         aya.addAction(aya_trans)
         aya_trans.triggered.connect(self.getCurentAyahTranslation)
         aya_tafsseer=qt1.QAction(_("تفسير الآيا الحالية"),self)
+        aya_tafsseer.setShortcut("ctrl+t")
         aya.addAction(aya_tafsseer)
         aya_tafsseer.triggered.connect(self.getCurentAyahTafseer)
         aya_arab=qt1.QAction(_("إعراب الآيا الحالية"),self)
+        aya_arab.setShortcut("ctrl+i")
         aya.addAction(aya_arab)
         aya_arab.triggered.connect(self.getCurentAyahIArab)        
         aya_tanzeel=qt1.QAction(_("أسباب نزول الآيا الحالية"),self)
+        aya_tanzeel.setShortcut("ctrl+r")
         aya.addAction(aya_tanzeel)
         aya_tanzeel.triggered.connect(self.getCurrentAyahTanzel)        
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.index,isPlayer=True)
         if state:
             removeBookmarkAction=qt1.QAction(_("حذف العلامة المرجعية"),self)
+            removeBookmarkAction.setShortcut("ctrl+b")
             aya.addAction(removeBookmarkAction)
             removeBookmarkAction.triggered.connect(self.onRemoveBookmark)
         else:
             addNewBookMark=qt1.QAction(_("إضافة علامة مرجعية"),self)
+            addNewBookMark.setShortcut("ctrl+b")
             aya.addAction(addNewBookMark)
             addNewBookMark.triggered.connect(self.onAddBookMark)
             addNewBookMark.setEnabled(self.enableBookmarks)
         Previous_aya=qt1.QAction(_("الآيا السابقة"),self)
+        Previous_aya.setShortcut("alt+left")
         aya.addAction(Previous_aya)
         Previous_aya.triggered.connect(self.onPreviousAyah)
         next_aya=qt1.QAction(_("الآيا التالية"),self)
+        next_aya.setShortcut("alt+right")
         aya.addAction(next_aya)
         next_aya.triggered.connect(self.onNextAyah)
         menu.setFocus()
         fontMenu=qt.QMenu(_("حجم الخط"),self)
         incressFontAction=qt1.QAction(_("تكبير الخط"),self)
+        incressFontAction.setShortcut("ctrl+=")
         fontMenu.addAction(incressFontAction)
         fontMenu.setDefaultAction(incressFontAction)
         incressFontAction.triggered.connect(self.increase_font_size)
         decreaseFontSizeAction=qt1.QAction(_("تصغير الخط"),self)
+        decreaseFontSizeAction.setShortcut("ctrl+-")
         fontMenu.addAction(decreaseFontSizeAction)
         decreaseFontSizeAction.triggered.connect(self.decrease_font_size)
         menu.addMenu(aya)
@@ -261,19 +273,19 @@ class QuranPlayer(qt.QDialog):
         if result:
             guiTools.TextViewer(self,_("اسباب النزول"),result).exec()
         else:
-            qt.QMessageBox.information(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا توجد أسباب نزول متاحة لهذه الآية"))
     def getAyahInfo(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         sajda=""
         if juz[3]:
             sajda=_("الآية تحتوي على سجدة")
-        qt.QMessageBox.information(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
+        guiTools.qMessageBox.MessageBox.view(self,_("معلومة"),_("رقم الآية {} رقم السورة {} {} رقم الآية في المصحف {} الجزء {} الربع {} الصفحة {} {}").format(str(Ayah),surah,juz[1],AyahNumber,juz[0],juz[2],page,sajda))
     def getCurentAyahTranslation(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         translationViewer(self,AyahNumber,AyahNumber).exec()    
     def onAddBookMark(self):
         if self.enableBookmarks==False:
-            qt.QMessageBox.critical(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
+            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا يمكن وضع علامة مرجعية عند تصفح القرآن بشكلا مخصص"))
             return
         name,OK=guiTools.QInputDialog.getText(self,_("إضافة علامة مرجعية"),_("أكتب أسم للعلامة المرجعية"))
         if OK:
@@ -287,7 +299,7 @@ class QuranPlayer(qt.QDialog):
             functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.index,isPlayer=True)
         if state:
