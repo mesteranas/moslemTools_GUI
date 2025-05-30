@@ -239,7 +239,7 @@ class QuranViewer(qt.QDialog):
         pyperclip.copy(a)
         winsound.Beep(1000,100)
     def goToAyah(self):
-        ayah,OK=qt.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
+        ayah,OK=guiTools.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if OK:
             cerser=self.text.textCursor()
             cerser.movePosition(cerser.MoveOperation.Start)
@@ -358,7 +358,7 @@ class QuranViewer(qt.QDialog):
             type=_("مكية")
         else:
             type=_("مدنية")
-        qt.QMessageBox.information(self,_("معلومات {}").format(juz[1]),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
+        guiTools.MessageBox.view(self,_("معلومات {}").format(juz[1]),_("رقم السورة {} \n عدد آياتها {} \n نوع السورة {}").format(str(surah),str(numberOfAyah),type))
     def closeEvent(self,event):
         self.media.stop()
         self.close()

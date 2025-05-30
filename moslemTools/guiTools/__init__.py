@@ -10,3 +10,4 @@ from .fromToSurahWidget import FromToSurahWidget
 from . import messageHandler
 from .comboBook import ComboBook
 from .QInputDialog import QInputDialog
+from .qMessageBox import MessageBox

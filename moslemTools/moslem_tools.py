@@ -44,6 +44,7 @@ class main(qt.QMainWindow):
         self.viewInfoTextEdit()
         content_layout = qt.QHBoxLayout()
         self.list_widget = guiTools.listBook()        
+        self.list_widget.currentItemChanged.connect(self.onToolChanged)
         self.quranPlayer = QuranPlayer()
         self.storiesPlayer = StoryPlayer()
         tabs = [
@@ -116,7 +117,7 @@ class main(qt.QMainWindow):
         moreOptionsMenu.addAction(action_about_devs)
         action_release_date = qt1.QAction(_("تاريخ نشر البرنامج"), self)        
         action_release_date.setShortcut("ctrl+d")
-        action_release_date.triggered.connect(lambda: qt.QMessageBox.information(self, _("تاريخ نشر البرنامج"), _("2 ديسمبر 2024,1 جُمادى الآخِرة 1446")))
+        action_release_date.triggered.connect(lambda: guiTools.MessageBox.view(self, _("تاريخ نشر البرنامج"), _("2 ديسمبر 2024,1 جُمادى الآخِرة 1446")))
         moreOptionsMenu.addAction(action_release_date)
         moreOptionsMenu.setFont(font)
         w = qt.QWidget()
@@ -254,6 +255,9 @@ class main(qt.QMainWindow):
             qt.QMessageBox.critical(self, _("خطأ"), _("فشلت عملية جلب المعلومات, الرجاء الإتصال بالإنترنت"))
     def speac_info(self):
         guiTools.speak(_("للمزيد من الخيارات, الرجاء الضغت على زر alt"))
+    def onToolChanged(self,index):
+        self.quranPlayer.mp.stop()
+        self.storiesPlayer.mp.stop()
 App = qt.QApplication([])
 default_font = qt1.QFont()
 default_font.setBold(True)

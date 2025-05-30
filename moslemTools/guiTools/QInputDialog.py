@@ -2,7 +2,7 @@ import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
 from PyQt6.QtCore import Qt
 class QInputDialog(qt.QDialog):
-    def __init__(self, parent, title: str, label: str, text: str = ""):
+    def __init__(self, parent, title: str, label: str,widget):
         super().__init__(parent)
         self.resize(300, 150)
         self.setWindowTitle(title)
@@ -10,8 +10,7 @@ class QInputDialog(qt.QDialog):
         self.label = qt.QLabel(label)
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.label)
-        self.text = qt.QLineEdit()
-        self.text.setText(text)
+        self.text = widget
         self.text.setAccessibleName(label)
         self.text.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.text.textChanged.connect(self.onTextChanged)
@@ -53,9 +52,22 @@ class QInputDialog(qt.QDialog):
             """)
     @staticmethod
     def getText(parent, title: str, label: str, text: str = ""):
-        dlg = QInputDialog(parent, title, label, text=text)
+        dlg = QInputDialog(parent, title, label,qt.QLineEdit())
+        dlg.text.setText(text)
+        dlg.text.textChanged.connect(dlg.onTextChanged)
         result = dlg.exec()
         if result == qt.QDialog.DialogCode.Accepted:
             return dlg.text.text(), True
         else:
             return "", False
+    @staticmethod
+    def getInt(parent, title: str, label: str, value:int,min:int,max:int):
+        dlg = QInputDialog(parent, title, label,qt.QSpinBox())
+        dlg.text.setRange(min,max)
+        dlg.text.setValue(value)
+        # dlg.text.valueChanged.connect(dlg.onTextChanged)
+        result = dlg.exec()
+        if result == qt.QDialog.DialogCode.Accepted:
+            return dlg.text.value(), True
+        else:
+            return 0, False
