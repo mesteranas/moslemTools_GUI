@@ -97,8 +97,8 @@ class Genral(qt.QWidget):
             reciterText = gui.quranViewer.reciters[itemText].split("/")[-3]
             path = os.path.join(os.getenv('appdata'), app.appName, "reciters", reciterText)
             if os.path.exists(path):
-                question = qt.QMessageBox.question(self, _("تنبيه"), _("هل تريد حذف هذا القارئ"), qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
-                if question == qt.QMessageBox.StandardButton.Yes:
+                question = guiTools.QQuestionMessageBox.view(self, _("تنبيه"), _("هل تريد حذف هذا القارئ"),_("نعم"),_("لا"))
+                if question == 0:
                     shutil.rmtree(path)
                     guiTools.speak(_("تم الحذف"))
     def search(self, pattern, text_list):

@@ -257,14 +257,11 @@ class QuranPlayer(qt.QWidget):
             if surah_name:
                 surah_path = os.path.join(reciter_folder, f"{surah_name}.mp3")
                 if os.path.exists(surah_path):
-                    confirm = qt.QMessageBox.question(
+                    confirm = guiTools.QQuestionMessageBox.view(
                         self,
                         _("تأكيد الحذف"),
-                        _("هل أنت متأكد أنك تريد حذف السورة المحددة؟"),
-                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                        qt.QMessageBox.StandardButton.No,
-                    )
-                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        _("هل أنت متأكد أنك تريد حذف السورة المحددة؟"),_("نعم"),_("لا"))
+                    if confirm == 0:
                         try:
                             os.remove(surah_path)
                             guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف السورة بنجاح."))
@@ -272,14 +269,11 @@ class QuranPlayer(qt.QWidget):
                             guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر حذف السورة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
             else:
                 if os.path.exists(reciter_folder):
-                    confirm = qt.QMessageBox.question(
+                    confirm = guiTools.QQuestionMessageBox.view(
                         self,
                         _("تأكيد الحذف"),
-                        _("هل أنت متأكد أنك تريد حذف جميع السور؟"),
-                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                        qt.QMessageBox.StandardButton.No,
-                    )
-                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        _("هل أنت متأكد أنك تريد حذف جميع السور؟"),_("نعم"),_("لا"))
+                    if confirm == 0:
                         for file in os.listdir(reciter_folder):
                             if file.endswith(".mp3"):
                                 try:
@@ -370,14 +364,11 @@ class QuranPlayer(qt.QWidget):
             if not self.files_to_download:
                 guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("جميع السور محملة بالفعل"))
                 return
-            response = qt.QMessageBox.question(
+            response = guiTools.QQuestionMessageBox.view(
                 self,
                 _("تأكيد التحميل"),
-                _("هل تريد تحميل جميع السور المتاحة لهذا القارئ؟"),
-                qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                qt.QMessageBox.StandardButton.No,
-            )
-            if response == qt.QMessageBox.StandardButton.Yes:
+                _("هل تريد تحميل جميع السور المتاحة لهذا القارئ؟"),_("نعم"),_("لا"))
+            if response == 0:
                 app_folder = os.path.join(os.getenv('appdata'), app.appName, "quran surah reciters", reciter)
                 os.makedirs(app_folder, exist_ok=True)
                 self.save_folder = app_folder
@@ -415,11 +406,9 @@ class QuranPlayer(qt.QWidget):
         save_folder = qt.QFileDialog.getExistingDirectory(self, _("اختيار مجلد لحفظ السور"))
         if not save_folder:
             return
-        response = qt.QMessageBox.question(self, _("تأكيد التحميل"),
-            _("هل أنت متأكد من تحميل جميع السور؟"),
-            qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-            qt.QMessageBox.StandardButton.No)
-        if response == qt.QMessageBox.StandardButton.Yes:
+        response = guiTools.QQuestionMessageBox.view(self, _("تأكيد التحميل"),
+            _("هل أنت متأكد من تحميل جميع السور؟"),_("نعم"),_("لا"))
+        if response == 0:
             self.save_folder = save_folder
             self.download_next_sora()
         else:

@@ -28,16 +28,8 @@ class GUIForThread(qt.QDialog):
             if self.choice == 0:
                 guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم نسخ الإعدادات بنجاح"))
             else:
-                mb = qt.QMessageBox(self)
-                mb.setWindowTitle(_("تم تحديث الإعدادات"))
-                mb.setText(_("يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"))
-                rn = mb.addButton(qt.QMessageBox.StandardButton.Yes)
-                rn.setText(_("إعادة التشغيل الآن"))
-                rl = mb.addButton(qt.QMessageBox.StandardButton.No)
-                rl.setText(_("إعادة التشغيل لاحقا"))
-                mb.exec()
-                ex = mb.clickedButton()
-                if ex == rn:
+                mb = guiTools.QQuestionMessageBox.view(self,_("تم تحديث الإعدادات"),_("يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"),_("إعادة التشغيل الآن"),_("إعادة التشغيل لاحقا"))
+                if mb==0:
                     os.execl(sys.executable, sys.executable, *sys.argv)
         self.close()
 class Thread(qt2.QRunnable):

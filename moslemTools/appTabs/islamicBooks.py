@@ -48,8 +48,8 @@ class IslamicBooks(qt.QWidget):
             if itemText=="حياة الصحابة":
                 guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا يمكنك حذف هذا الكتاب "))
             else:
-                question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا الكتاب"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
-                if question==qt.QMessageBox.StandardButton.Yes:
+                question=guiTools.QQuestionMessageBox.view(self,_("تنبيه"),_("هل تريد حذف هذا الكتاب"),_("نعم"),_("لا"))
+                if question==0:
                     name=functions.islamicBooks.books[itemText]
                     os.remove(os.path.join(os.getenv('appdata'),app.appName,"islamicBooks",name))
                     functions.islamicBooks.setbook()

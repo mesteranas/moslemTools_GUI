@@ -238,14 +238,12 @@ class StoryPlayer(qt.QWidget):
             if story_name:
                 story_path = os.path.join(category_folder, f"{story_name}.mp3")
                 if os.path.exists(story_path):
-                    confirm = qt.QMessageBox.question(
+                    confirm = guiTools.QQuestionMessageBox.view(
                         self,
                         _("تأكيد الحذف"),
                         _("هل أنت متأكد أنك تريد حذف القصة المحددة؟"),
-                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                        qt.QMessageBox.StandardButton.No,
-                    )
-                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        _("نعم"),_("لا"))
+                    if confirm == 0:
                         try:
                             os.remove(story_path)
                             guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف القصة بنجاح."))
@@ -253,14 +251,12 @@ class StoryPlayer(qt.QWidget):
                             guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر حذف القصة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
             else:
                 if os.path.exists(category_folder):
-                    confirm = qt.QMessageBox.question(
+                    confirm = guiTools.QQuestionMessageBox.view(
                         self,
                         _("تأكيد الحذف"),
                         _("هل أنت متأكد أنك تريد حذف جميع القصص؟"),
-                        qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                        qt.QMessageBox.StandardButton.No,
-                    )
-                    if confirm == qt.QMessageBox.StandardButton.Yes:
+                        _("نعم"),_("لا"))
+                    if confirm == 0:
                         for file in os.listdir(category_folder):
                             if file.endswith(".mp3"):
                                 try:
@@ -352,14 +348,12 @@ class StoryPlayer(qt.QWidget):
             if not self.files_to_download:
                 guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("جميع القصص محملة بالفعل"))
                 return
-            response = qt.QMessageBox.question(
+            response = guiTools.QQuestionMessageBox.view(
                 self,
                 _("تأكيد التحميل"),
                 _("هل تريد تحميل جميع القصص المتاحة لهذه الفئة؟"),
-                qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-                qt.QMessageBox.StandardButton.No,
-            )
-            if response == qt.QMessageBox.StandardButton.Yes:
+                _("نعم"),_("لا"))
+            if response == 0:
                 app_folder = os.path.join(os.getenv('appdata'), app.appName, "audio_stories", category)
                 os.makedirs(app_folder, exist_ok=True)
                 self.save_folder = app_folder
@@ -397,11 +391,10 @@ class StoryPlayer(qt.QWidget):
         save_folder = qt.QFileDialog.getExistingDirectory(self, _("اختيار مجلد لحفظ القصص"))
         if not save_folder:
             return
-        response = qt.QMessageBox.question(self, _("تأكيد التحميل"),
+        response = guiTools.QQuestionMessageBox.view(self, _("تأكيد التحميل"),
             _("هل أنت متأكد من تحميل جميع القصص؟"),
-            qt.QMessageBox.StandardButton.Yes | qt.QMessageBox.StandardButton.No,
-            qt.QMessageBox.StandardButton.No)
-        if response == qt.QMessageBox.StandardButton.Yes:
+            _("نعم"),_("لا"))
+        if response == 0:
             self.save_folder = save_folder
             self.download_next_story()
         else:

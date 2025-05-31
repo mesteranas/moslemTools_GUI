@@ -63,6 +63,7 @@ class DownloadUpdateGUI(qt.QDialog):
         layout=qt.QVBoxLayout(self)
         self.state=qt.QLabel(_("يجري الآن تحميل التحديث"))
         self.state.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
+        self.state.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         layout.addWidget(self.state)
         self.downloading=qt.QProgressBar()
         self.downloading.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)

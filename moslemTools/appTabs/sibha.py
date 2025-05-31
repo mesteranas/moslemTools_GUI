@@ -184,8 +184,8 @@ class sibha(qt.QWidget):
         if not itemText in self.externalAthkar:
             guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("لا يمكنك حذف هذا الذكر"))
         else:
-            question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف هذا الذكر"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
-            if question==qt.QMessageBox.StandardButton.Yes:
+            question=guiTools.QQuestionMessageBox.view(self,_("تنبيه"),_("هل تريد حذف هذا الذكر"),_("نعم"),_("لا"))
+            if question==0:
                 self.externalAthkar.remove(itemText)
                 self.athkar.removeItem(self.athkar.currentIndex())
                 with open(path,"w",encoding="utf-8") as file:

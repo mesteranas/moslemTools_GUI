@@ -41,8 +41,8 @@ class Athker(qt.QWidget):
             reciterText=itemText.text()
             path=os.path.join(os.getenv('appdata'),app.appName,"athkar",reciterText)
             if os.path.exists(path):
-                question=qt.QMessageBox.question(self,_("تنبيه"),_("هل تريد حذف الأذكار الصوتية"),qt.QMessageBox.StandardButton.Yes|qt.QMessageBox.StandardButton.No)
-                if question==qt.QMessageBox.StandardButton.Yes:
+                question=guiTools.QQuestionMessageBox.view(self,_("تنبيه"),_("هل تريد حذف الأذكار الصوتية"),_("نعم"),_("لا"))
+                if question==0:
                     shutil.rmtree(path)
                     guiTools.speak(_("تم الحذف"))
     def search(self,pattern,text_list):    

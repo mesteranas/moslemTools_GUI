@@ -1,4 +1,4 @@
-import json,os,requests,gettext,re
+import json,os,requests,gettext,re,guiTools,functions
 import guiTools,gui,settings,settings,functions
 import PyQt6.QtWidgets as qt
 import PyQt6.QtGui as qt1
@@ -95,13 +95,28 @@ class DownloadThread(qt2.QThread):
 class StartDownloading(qt.QDialog):
     def __init__(self,p,FileName:str,DIRName:str):
         super().__init__(p)
+        self.fileName=FileName
+        self.DIRName=DIRName
         layout=qt.QVBoxLayout(self)
         self.progressBar=qt.QProgressBar()        
+        self.progressBar.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         layout.addWidget(self.progressBar)
+        self.cancel=qt.QPushButton(_("إلغاء"))
+        self.cancel.clicked.connect(self.close)
+        layout.addWidget(self.cancel)
         self.thread=DownloadThread(FileName,DIRName)
         self.thread.finished.connect(self.onFinished)
         self.thread.progress.connect(self.onProgreesBarChanged)
         self.thread.start()
+        qt1.QShortcut("escape",self).activated.connect(self.close)
+    def closeEvent(self, a0):
+        result=guiTools.QQuestionMessageBox.view(self,_("تنبيه"),_("هل تريد إلغاء العملية"),_("نعم"),_("لا"))
+        if result==0:
+            self.thread.terminate()
+            functions.removeManager.addNewFile(os.path.join(os.getenv('appdata'),settings.app.appName,self.DIRName,self.fileName))
+            a0.accept()
+        else:
+            a0.ignore()
     def onFinished(self,state):
         if state:
             guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم تحميل بنجاح"))

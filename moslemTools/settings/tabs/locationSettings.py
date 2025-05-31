@@ -27,7 +27,8 @@ class LocationSettings(qt.QWidget):
         layout.addWidget(self.autoDetectLocation)
         self.LT1=qt.QDoubleSpinBox()
         self.LT1.setAccessibleName(_("خط الطول"))
-        self.LT1.setRange(0,360)
+        self.LT1.setRange(0.0001,360.0000)
+        self.LT1.setDecimals(4)
         self.LT1.setValue(float(settings_handler.get("location","LT1")))
         self.LT1.setVisible(p.cbts(settings_handler.get("location","autoDetect"))==False)
         layout.addWidget(self.LT1)
@@ -35,6 +36,7 @@ class LocationSettings(qt.QWidget):
         self.LT2.setAccessibleName(_("دائرة العرض"))
         self.LT2.setRange(0,180)
         self.LT2.setValue(float(settings_handler.get("location","LT2")))
+        self.LT2.setDecimals(4)
         self.LT2.setVisible(p.cbts(settings_handler.get("location","autoDetect"))==False)
         layout.addWidget(self.LT2)
     def onStateChanged(self,state):

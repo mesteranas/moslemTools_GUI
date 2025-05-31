@@ -96,20 +96,10 @@ class settings(qt.QDialog):
         self.p.notification_random_thecker()
         self.p.audio_output.setVolume(int(settings_handler.get("athkar", "voiceVolume")) / 100)
         if aa == 1:
-            mb = qt.QMessageBox(self)
-            mb.setWindowTitle(_("تم تحديث الإعدادات"))
-            mb.setText(_("يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"))
-            rn = mb.addButton(qt.QMessageBox.StandardButton.Yes)
-            rn.setText(_("إعادة التشغيل الآن"))
-            rn.setStyleSheet("background-color: #0000AA; color: white;")
-            rl = mb.addButton(qt.QMessageBox.StandardButton.No)
-            rl.setStyleSheet("background-color: #0000AA; color: white;")
-            rl.setText(_("إعادة التشغيل لاحقا"))
-            mb.exec()
-            ex = mb.clickedButton()
-            if ex == rn:
+            mb = guiTools.QQuestionMessageBox.view(self,_("تم تحديث الإعدادات"),_("يجب عليك إعادة تشغيل البرنامج لتطبيق التغييرات. هل تريد إعادة التشغيل الآن؟"),_("إعادة التشغيل الآن"),_("إعادة التشغيل لاحقا"))
+            if mb==0:
                 os.execl(sys.executable, sys.executable, *sys.argv)
-            elif ex == rl:
+            else:
                 self.close()
         else:
             self.close()
