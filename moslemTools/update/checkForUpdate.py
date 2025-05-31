@@ -15,7 +15,7 @@ def check(p,message=True):
         else:
             if message: guiTools.qMessageBox.MessageBox.view(p,_("معلومة"),_("لا تتوفر تحديثات جديدة . أنت تستخدم أحدث إصدار"))
     except:
-        if message:guiTools.qMessageBox.MessageBox.view(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
+        if message:guiTools.qMessageBox.MessageBox.error(p,_("خطأ"),_("حدث خطأ أثناء الإتصال بالخادم . ألرجاء المحاولة في وقت لاحق."))
 class download(qt.QDialog):
     def __init__(self,p,version,URL,whatsNew):
         super().__init__(p)

@@ -98,7 +98,7 @@ class PrayerTimesSettings(qt.QWidget):
             shutil.copy("data/sounds/adaan/" + adaanName, path)
             guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
         except:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ غير متوقع"))
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("حدث خطأ غير متوقع"))
     def onChooseFromDevice(self, adaanName):
         path = os.path.join(os.getenv('appdata'), settings_handler.appName, "addan", adaanName)
         fileDialog = qt.QFileDialog(self, _("اختر صوت"))
@@ -110,4 +110,4 @@ class PrayerTimesSettings(qt.QWidget):
                 shutil.copy(fileDialog.selectedFiles()[0], path)
                 guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم تغيير صوت الأذان بنجاح"))
             except:
-                guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ غير متوقع"))
+                guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("حدث خطأ غير متوقع"))

@@ -80,7 +80,7 @@ class QuranViewer(qt.QDialog):
         self.changeCategory=qt.QPushButton(_("تغيير الفئة"))
         self.changeCategory.setStyleSheet("background-color: #0000AA; color: white;")
         self.changeCategory.setShortcut("ctrl+alt+g")
-        self.changeCategory.setAccessibleDescription("alt plus control plus G")
+        self.changeCategory.setAccessibleDescription("control plus alt plus g")
         self.changeCategory.setVisible(enableNextPreviouseButtons)
         self.changeCategory.clicked.connect(self.onChangeCategory)        
         self.previous=qt.QPushButton(_("السابق"))
@@ -316,7 +316,7 @@ class QuranViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -329,7 +329,7 @@ class QuranViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -357,14 +357,14 @@ class QuranViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def getCurentAyahTafseer(self):
         Ayah,surah,juz,page,AyahNumber=functions.quranJsonControl.getAyah(self.getcurrentAyahText())
         TafaseerViewer(self,AyahNumber,AyahNumber).exec()
@@ -537,7 +537,7 @@ class QuranViewer(qt.QDialog):
             functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.getCurrentAyah(),isPlayer=False)
         if state:

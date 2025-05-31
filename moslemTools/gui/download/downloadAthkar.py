@@ -20,6 +20,9 @@ class SelectAthkar(qt.QDialog):
         with open("data/json/athkar.json","r",encoding="utf-8-sig") as data:
             self.reciterData=json.load(data)
         self.reciters=guiTools.QListWidget()
+        font=qt1.QFont()
+        font.setBold(True)
+        self.reciters.setFont(font)
         self.reciterData1=[]
         for athker in self.reciterData:
             self.reciterData1.append(athker["name"])
@@ -123,7 +126,7 @@ class DownloadReciter(qt.QDialog):
             guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم التحميل بنجاح"))
             self.close()
         else:
-            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعظر التحميل"))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعظر التحميل"))
             self.close()
     def on_progress(self,progress):
         self.progress.setValue(progress)

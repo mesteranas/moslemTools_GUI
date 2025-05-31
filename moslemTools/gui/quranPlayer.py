@@ -299,7 +299,7 @@ class QuranPlayer(qt.QDialog):
             functions.bookMarksManager.removeQuranBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getQuranBookmarkName(self.type,self.category,self.index,isPlayer=True)
         if state:

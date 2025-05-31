@@ -19,6 +19,9 @@ class SelectReciter(qt.QDialog):
         layout.addWidget(self.search_bar)
         self.reciterData=gui.reciters
         self.reciters=guiTools.QListWidget()
+        font=qt1.QFont()
+        font.setBold(True)
+        self.reciters.setFont(font)
         self.reciters.addItems(self.reciterData.keys())
         self.reciters.clicked.connect(lambda:DownloadReciter(self,self.reciterData[self.reciters.currentItem().text()]).exec())
         layout.addWidget(self.reciters)
@@ -138,7 +141,7 @@ class DownloadReciter(qt.QDialog):
             guiTools.qMessageBox.MessageBox.view(self,_("تم"),_("تم التحميل بنجاح"))
             self.close()
         else:
-            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعظر التحميل"))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعظر التحميل"))
             self.close()
     def on_progress(self,progress):
         self.progress.setValue(progress)

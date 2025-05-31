@@ -138,7 +138,7 @@ class AthkerDialog (qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.athkerViewer.print(printer)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -151,7 +151,7 @@ class AthkerDialog (qt.QDialog):
                     text=self.athkerViewer.toPlainText()
                     file.write(text)                
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -179,14 +179,14 @@ class AthkerDialog (qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.athkerViewer.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def volume_up(self):
         self.audioOutput.setVolume(self.audioOutput.volume()+0.10)
     def volume_down(self):

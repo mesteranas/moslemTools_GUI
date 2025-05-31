@@ -68,7 +68,7 @@ class IslamicBooks(qt.QWidget):
                     gui.islamicBooks.PartSelection(self,bookName,data).exec()
         except Exception as error:
             print(error)
-            qt.QMessageBox.critical(self,_("خطأ"),_("تعذر فتح الملف "))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعذر فتح الملف "))
     def refresh(self):
         functions.islamicBooks.setbook()
         self.list_of_abook.clear()

@@ -23,5 +23,8 @@ class MessageBox(qt.QDialog):
     def view(parent,title:str,label:str):
         winsound.MessageBeep(winsound.MB_ICONASTERISK)
         dlg=MessageBox(parent,title,label)
-        result=dlg.exec()
-        print(result)
+        result=dlg.exec()        
+    def error(parent,title:str,label:str):
+        winsound.MessageBeep(winsound.MB_ICONHAND)
+        dlg=MessageBox(parent,title,label)
+        result=dlg.exec()                

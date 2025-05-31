@@ -117,7 +117,7 @@ class StoryViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -130,7 +130,7 @@ class StoryViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -158,14 +158,14 @@ class StoryViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def getCurrentLine(self):
         cerser=self.text.textCursor()
         return cerser.blockNumber()
@@ -198,7 +198,7 @@ class StoryViewer(qt.QDialog):
             functions.bookMarksManager.removeStoriesBookMark(self.nameOfBookmark)
             winsound.Beep(1000,100)
         except:
-            guiTools.qMessageBox.MessageBox.view(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
+            guiTools.qMessageBox.MessageBox.error(self,_("خطأ"),_("تعذر حذف العلامة المرجعية"))
     def onAddOrRemoveBookmark(self):
         state,self.nameOfBookmark=functions.bookMarksManager.getStoriesBookmarkName(self.category,self.getCurrentLine())
         if state:

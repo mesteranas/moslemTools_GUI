@@ -248,7 +248,7 @@ class StoryPlayer(qt.QWidget):
                             os.remove(story_path)
                             guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف القصة بنجاح."))
                         except PermissionError:
-                            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر حذف القصة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
+                            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("تعذر حذف القصة. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج"))
             else:
                 if os.path.exists(category_folder):
                     confirm = guiTools.QQuestionMessageBox.view(
@@ -262,14 +262,14 @@ class StoryPlayer(qt.QWidget):
                                 try:
                                     os.remove(os.path.join(category_folder, file))
                                 except PermissionError:
-                                    guiTools.qMessageBox.MessageBox.view(
+                                    guiTools.qMessageBox.MessageBox.error(
                                         self,
                                         _("خطأ"),
                                         _("تعذر حذف بعض الملفات. قد تكون قيد الاستخدام, يرجى إعادة تشغيل البرنامج")
                                     )
                         guiTools.qMessageBox.MessageBox.view(self, _("تم"), _("تم حذف جميع القصص بنجاح."))
         except Exception as e:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ غير متوقع"), str(e))
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ غير متوقع"), str(e))
         self.check_all_stories_downloaded()    
     def check_all_stories_downloaded(self):
         selected_category_item = self.categoriesListWidget.currentItem()
@@ -330,7 +330,7 @@ class StoryPlayer(qt.QWidget):
                 self.download_thread.finished.connect(self.download_story_complete)
                 self.download_thread.start()
         except Exception as e:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))    
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("حدث خطأ أثناء تحميل المقطع: ") + str(e))    
     def download_all_stories_to_app(self):
         try:
             selected_category_item = self.categoriesListWidget.currentItem()
@@ -361,7 +361,7 @@ class StoryPlayer(qt.QWidget):
             else:
                 guiTools.qMessageBox.MessageBox.view(self, _("إلغاء العملية"), _("تم إلغاء تحميل القصص."))
         except Exception as e:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))    
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("حدث خطأ أثناء بدء التحميل: ") + str(e))    
     def is_audio_downloaded(self, filepath):
         return os.path.exists(filepath)    
     def download_next_story_to_app(self):
@@ -464,7 +464,7 @@ class StoryPlayer(qt.QWidget):
                     self.mp.setSource(qt2.QUrl(url))
                     self.mp.play()
         except Exception as e:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))    
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("حدث خطأ أثناء تشغيل المقطع:") + str(e))    
     def download_selected_story(self):
         try:
             selected_category_item = self.categoriesListWidget.currentItem()
@@ -482,7 +482,7 @@ class StoryPlayer(qt.QWidget):
                     self.download_thread.finished.connect(self.download_complete)
                     self.download_thread.start()
         except:
-            guiTools.qMessageBox.MessageBox.view(self, _("تنبيه"), _("حدث خطأ ما"))        
+            guiTools.qMessageBox.MessageBox.error(self, _("تنبيه"), _("حدث خطأ ما"))        
     def open_context_menu(self, position):
         menu=qt.QMenu(self)
         menu.setAccessibleName(_("خيارات القصة"))

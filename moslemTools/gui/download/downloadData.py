@@ -19,6 +19,9 @@ class SelectItem(qt.QDialog):
         self.search_bar.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.search_bar)
         self.item=guiTools.QListWidget()        
+        font=qt1.QFont()
+        font.setBold(True)
+        self.item.setFont(font)
         layout.addWidget(self.item)        
         self.item.clicked.connect(lambda:StartDownloading(self,self.data[self.item.currentItem().text()],self.dirName).exec())                
         self.fileName=fileName
@@ -45,10 +48,10 @@ class SelectItem(qt.QDialog):
                 self.data=jsonContent
                 self.item.addItems(self.data)
             else:
-                guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
+                guiTools.qMessageBox.MessageBox.error(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
                 self.close()
         except:
-            guiTools.qMessageBox.MessageBox.view(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
+            guiTools.qMessageBox.MessageBox.error(self,_("تنبيه"),_("حدث خطأ أثناء تحميل البيانات"))
             self.accept()
     def search(self,pattern,text_list):    
         tashkeel_pattern=re.compile(r'[\u0617-\u061A\u064B-\u0652\u0670]')        

@@ -132,14 +132,14 @@ class Albaheth(qt.QWidget):
                 pyperclip.copy(selected_text)
                 winsound.Beep(1000, 100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))            
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))            
     def copy_text(self):
         try:
             text = self.results.toPlainText()
             pyperclip.copy(text)
             winsound.Beep(1000, 100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))            
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))            
     def search(self, pattern, text_list):
         tashkeel_pattern = re.compile(
             r'[\u060C\u0617-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]'

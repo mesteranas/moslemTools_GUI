@@ -100,7 +100,7 @@ class NamesOfAllah(qt.QWidget):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.information.print(printer)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -113,7 +113,7 @@ class NamesOfAllah(qt.QWidget):
                     text = self.information.toPlainText()
                     file.write(text)                
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_line(self):
         try:
             cursor=self.information.textCursor()
@@ -122,11 +122,11 @@ class NamesOfAllah(qt.QWidget):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.information.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            qt.QMessageBox.warning(self, "تنبيه حدث خطأ", str(error))    
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))    

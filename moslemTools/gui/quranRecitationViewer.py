@@ -83,7 +83,7 @@ class QuranRecitationViewer(qt.QDialog):
             if dialog.exec() == QPrintDialog.DialogCode.Accepted:
                 self.text.print(printer)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def save_text_as_txt(self):
         try:
             file_dialog=qt.QFileDialog()
@@ -96,7 +96,7 @@ class QuranRecitationViewer(qt.QDialog):
                     text = self.text.toPlainText()
                     file.write(text)                
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def increase_font_size(self):
         if self.font_size < 50:
             self.font_size += 1
@@ -124,14 +124,14 @@ class QuranRecitationViewer(qt.QDialog):
                 pyperclip.copy(selected_text)                
                 winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def copy_text(self):
         try:
             text=self.text.toPlainText()
             pyperclip.copy(text)            
             winsound.Beep(1000,100)
         except Exception as error:
-            guiTools.qMessageBox.MessageBox.view(self, "تنبيه حدث خطأ", str(error))
+            guiTools.qMessageBox.MessageBox.error(self, "تنبيه حدث خطأ", str(error))
     def goToAyah(self):
         ayah,OK=guiTools.QInputDialog.getInt(self,_("الذهاب إلى آية"),_("أكتب رقم الآية "),self.getCurrentAyah()+1,1,len(self.quranText.split("\n")))
         if OK:

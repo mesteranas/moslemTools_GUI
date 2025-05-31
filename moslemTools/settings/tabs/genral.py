@@ -75,7 +75,7 @@ class Genral(qt.QWidget):
             shortcut.Save()
         except Exception as e:
             print(e)
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر إتمام العملية"))
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("تعذر إتمام العملية"))
     def check_in_startup(self):
         try:
             return os.path.exists(startUpPath)
@@ -85,7 +85,7 @@ class Genral(qt.QWidget):
         try:
             os.remove(startUpPath)
         except Exception as e:
-            guiTools.qMessageBox.MessageBox.view(self, _("خطأ"), _("تعذر إتمام العملية"))
+            guiTools.qMessageBox.MessageBox.error(self, _("خطأ"), _("تعذر إتمام العملية"))
     def onStartupChanged(self, value):
         if self.check_in_startup():
             self.remove_from_startup()
