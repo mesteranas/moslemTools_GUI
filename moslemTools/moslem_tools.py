@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools, json, random, os, shutil, datetime, webbrowser, requests, keyboard,pyperclip
+import update,guiTools,json,random,os,shutil,datetime,webbrowser,requests,keyboard,pyperclip,winsound
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -120,6 +120,7 @@ class main(qt.QMainWindow):
         action_release_date.triggered.connect(lambda: guiTools.MessageBox.view(self, _("تاريخ نشر البرنامج"), _("2 ديسمبر 2024,1 جُمادى الآخِرة 1446")))
         moreOptionsMenu.addAction(action_release_date)
         donateAction=qt1.QAction(_("تبرع"),self)
+        donateAction.setShortcut("ctrl+shift+d")
         moreOptionsMenu.addAction(donateAction)
         donateAction.triggered.connect(self.OnDonation)
         moreOptionsMenu.setFont(font)
@@ -262,18 +263,27 @@ class main(qt.QMainWindow):
         self.quranPlayer.mp.stop()
         self.storiesPlayer.mp.stop()
     def OnDonation(self):
-        guiTools.MessageBox.view(self,_("تنبيه"),_("في حالة التبرع الرجاء إرسال صورة للتحويل على حسابات ال Telegram الخاصة بنا"))
+        guiTools.MessageBox.view(self,_("تنبيه"),_("في حالة التبرع الرجاء إرسال صورة للتحويل على حسابات ال Telegram الخاصة بنا، حتى لا تختلط التحويلات الخاطئة بالتحويلات المقصودة"))
         menu=qt.QMenu(_("اختر طريقة"),self)
+        font=qt1.QFont()
+        font.setBold(True)
         menu.setAccessibleName(_("اختر طريقة"))
         menu.setFocus()
         VFCashAction=qt1.QAction(_("نسخ رقم فودافون كاش"),self)
         menu.addAction(VFCashAction)
-        VFCashAction.triggered.connect(lambda:pyperclip.copy("+201555984782"))
+        VFCashAction.triggered.connect(self.VF_cash)
         menu.setDefaultAction(VFCashAction)
-        instaPayAction=qt1.QAction(_("نسخ إيميل InstaPay"),self)
+        instaPayAction=qt1.QAction(_("نسخ رابط حساب InstaPay"),self)
         menu.addAction(instaPayAction)
-        instaPayAction.triggered.connect(lambda:pyperclip.copy(""))
-        menu.exec()
+        instaPayAction.triggered.connect(self.instaPay)
+        menu.setFont(font)
+        menu.exec(qt1.QCursor.pos())
+    def VF_cash(self):
+        pyperclip.copy("+201555984782")
+        winsound.Beep(1000, 100)
+    def instaPay(self):
+        pyperclip.copy("https://ipn.eg/S/av369852/instapay/23Mu5Z")
+        winsound.Beep(1000, 100)
 App = qt.QApplication([])
 default_font = qt1.QFont()
 default_font.setBold(True)
