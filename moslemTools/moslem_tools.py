@@ -1,7 +1,7 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update, guiTools, json, random, os, shutil, datetime, webbrowser, requests, keyboard
+import update, guiTools, json, random, os, shutil, datetime, webbrowser, requests, keyboard,pyperclip
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt
@@ -119,6 +119,9 @@ class main(qt.QMainWindow):
         action_release_date.setShortcut("ctrl+d")
         action_release_date.triggered.connect(lambda: guiTools.MessageBox.view(self, _("تاريخ نشر البرنامج"), _("2 ديسمبر 2024,1 جُمادى الآخِرة 1446")))
         moreOptionsMenu.addAction(action_release_date)
+        donateAction=qt1.QAction(_("تبرع"),self)
+        moreOptionsMenu.addAction(donateAction)
+        donateAction.triggered.connect(self.OnDonation)
         moreOptionsMenu.setFont(font)
         w = qt.QWidget()
         w.setLayout(layout)
@@ -258,6 +261,19 @@ class main(qt.QMainWindow):
     def onToolChanged(self,index):
         self.quranPlayer.mp.stop()
         self.storiesPlayer.mp.stop()
+    def OnDonation(self):
+        guiTools.MessageBox.view(self,_("تنبيه"),_("في حالة التبرع الرجاء إرسال صورة للتحويل على حسابات ال Telegram الخاصة بنا"))
+        menu=qt.QMenu(_("اختر طريقة"),self)
+        menu.setAccessibleName(_("اختر طريقة"))
+        menu.setFocus()
+        VFCashAction=qt1.QAction(_("نسخ رقم فودافون كاش"),self)
+        menu.addAction(VFCashAction)
+        VFCashAction.triggered.connect(lambda:pyperclip.copy("+201555984782"))
+        menu.setDefaultAction(VFCashAction)
+        instaPayAction=qt1.QAction(_("نسخ إيميل InstaPay"),self)
+        menu.addAction(instaPayAction)
+        instaPayAction.triggered.connect(lambda:pyperclip.copy(""))
+        menu.exec()
 App = qt.QApplication([])
 default_font = qt1.QFont()
 default_font.setBold(True)
