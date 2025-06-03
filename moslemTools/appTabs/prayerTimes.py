@@ -56,7 +56,7 @@ class prayer_times(qt.QWidget):
             ZoharDay="zohrsoon.mp3"
         for time in self.times:
             if self.times.index(time) == 1:
-                return
+                continue
             if currentTime == time:
                 self.reminded=False
                 if settings_handler.get("prayerTimes", "adaanReminder") == "True":
@@ -68,9 +68,8 @@ class prayer_times(qt.QWidget):
             if not beforeOptions=="2":
                 beforeTimeOBJ=datetime.strptime(time,"%I:%M %p")-timedelta(minutes=beforeChoises[beforeOptions])
                 beforeTime=beforeTimeOBJ.strftime("%I:%M %p")
-                print(beforeTime)
                 if self.reminded:
-                    return
+                    continue
                 medias={0:"fagrsoon.mp3",2:ZoharDay,3:"asrsoon.mp3",4:"maghribsoon.mp3",5:"eshaasoon.mp3"}
                 if beforeTime==currentTime:
                     self.reminded=True
