@@ -57,7 +57,7 @@ class LocationSettings(qt.QWidget):
         self.dl_app1.setStyleSheet("background-color: #0000AA; color: #e0e0e0;")
         self.dl_app1.setVisible(p.cbts(settings_handler.get("location","autoDetect"))==False)
         layout.addWidget(self.dl_app1)
-        self.info=qt.QLabel(_("تنبيه هام، عند تحديد الموقع الجغرافي يجب إعادة تحميل مواقيط الصلاة"))
+        self.info=qt.QLabel(_("تنبيه هام، عند تحديد الموقع الجغرافي يجب إعادة تحميل مواقيت الصلاة"))
         self.info.setAlignment(qt2.Qt.AlignmentFlag.AlignCenter)
         self.info.setFocusPolicy(qt2.Qt.FocusPolicy.StrongFocus)
         layout.addWidget(self.info)
