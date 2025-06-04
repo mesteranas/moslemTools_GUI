@@ -122,39 +122,46 @@ class Quran(qt.QWidget):
         self.user_guide.setDefault(True)
         self.user_guide.setShortcut("ctrl+f1")
         self.user_guide.setAccessibleDescription(_("control plus f1"))
-        self.user_guide.setFixedSize(150, 40)
+        self.user_guide.setFixedSize(150, 40)                
         self.user_guide.clicked.connect(lambda: guiTools.TextViewer(
-            self, _("دليل الاختصارات"),
-            _("اختصارات الآية الحالية\n"
-              "space: تشغيل الآية\n"
-              "ctrl+t: تفسير الآية الحالية\n"
-              "ctrl+i: إعراب الآية الحالية\n"
-              "ctrl+r: أسباب نزول الآية الحالية\n"
-              "ctrl+l: ترجمة الآية الحالية\n"
-              "ctrl+f: معلومات الآية الحالية\n"
-              "ctrl+b: إضافة علامة مرجعية\n"
-              "اختصارات الفئة\n"
-              "ctrl+a: نسخ الفئة\n"
-              "ctrl+s: حفظ الفئة كملف نصي\n"
-              "ctrl+p: طباعة الفئة\n"
-              "ctrl+shift+t: تفسير الفئة\n"
-              "ctrl+shift+i: إعراب الفئة\n"
-              "ctrl+shift+f: معلومات السورة\n"
-              "ctrl+shift+l: ترجمة  الفئة\n"
-              "ctrl+shift+p: التشغيل إلى نهاية الفئة\n"
-              "ctrl+alt+t: التفسير من آية إلى آية\n"
-              "ctrl+alt+l: الترجمة من آية إلى آية\n"
-              "ctrl+alt+i: الإعراب من آية إلى آية\n"
-              "ctrl+alt+p: التشغيل من آية إلى آية\n"
-              "اختصارات حجم الخط\n"
-              "ctrl+=: تكبير الخط\n"
-              "ctrl+-: تصغير الخط\n"
-              "اختصارات التنقل\n"
-              "alt زائد السهم الأيسر: الفئة السابقة\n"
-              "alt زائد السهم الأيمن: الفئة التالية\n"
-              "ctrl+shift+g: الذهاب إلى محتوى فئة\n"
-              "ctrl+alt+g: تغيير الفئة\n"
-              "ctrl+f1: دليل الاختصارات")
+            self,
+            _("دليل الاختصارات"),
+            _(
+                "اختصارات الآية الحالية\n"
+                "space: تشغيل الآية\n"
+                "ctrl+t: تفسير الآية الحالية\n"
+                "ctrl+i: إعراب الآية الحالية\n"
+                "ctrl+r: أسباب نزول الآية الحالية\n"
+                "ctrl+l: ترجمة الآية الحالية\n"
+                "ctrl+f: معلومات الآية الحالية\n"
+                "ctrl+b: إضافة علامة مرجعية\n"
+                "\n"
+            "اختصارات الفئة\n"
+                "ctrl+a: نسخ الفئة\n"
+                "ctrl+s: حفظ الفئة كملف نصي\n"
+                "ctrl+p: طباعة الفئة\n"
+                "ctrl+shift+t: تفسير الفئة\n"
+                "ctrl+shift+i: إعراب الفئة\n"
+                "ctrl+shift+f: معلومات السورة\n"
+                "ctrl+shift+l: ترجمة الفئة\n"
+                "ctrl+shift+p: التشغيل إلى نهاية الفئة\n"
+                "ctrl+alt+t: التفسير من آية إلى آية\n"
+                "ctrl+alt+l: الترجمة من آية إلى آية\n"
+                "ctrl+alt+i: الإعراب من آية إلى آية\n"
+                "ctrl+alt+p: التشغيل من آية إلى آية\n"
+                "\n"
+            "اختصارات حجم الخط\n"
+                "ctrl+=: تكبير الخط\n"
+                "ctrl+-: تصغير الخط\n"
+                "\n"
+            "اختصارات التنقل\n"
+                "alt + السهم الأيسر: الفئة السابقة\n"
+                "alt + السهم الأيمن: الفئة التالية\n"
+                "ctrl+shift+g: الذهاب إلى محتوى فئة\n"
+                "ctrl+alt+g: تغيير الفئة\n"
+                "ctrl+shift+r: تغيير القارئ\n"
+                "ctrl+f1: دليل الاختصارات"
+            )
         ).exec())
         guide_layout.addWidget(self.user_guide)
         self.info1 = qt.QLineEdit()
