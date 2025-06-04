@@ -14,6 +14,7 @@ class QuranViewer(qt.QDialog):
     def __init__(self,p,text:str,type:int,category,index=0,enableNextPreviouseButtons=False,typeResult=[],CurrentIndex=0,enableBookmarks=True):
         super().__init__(p)        
         self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
+        self.currentReciter=int(settings.settings_handler.get("g","reciter"))
         self.nameOfBookmark=""
         self.enableBookmarks=enableBookmarks
         self.type=type
@@ -92,6 +93,10 @@ class QuranViewer(qt.QDialog):
         buttonsLayout.addWidget(self.previous)
         buttonsLayout.addWidget(self.changeCategory)
         buttonsLayout.addWidget(self.next)
+        self.changeCurrentReciterButton=qt.QPushButton(_("تغيير القارئ"))
+        self.changeCurrentReciterButton.clicked.connect(self.onChangeRecitersContextMenuRequested)
+        self.changeCurrentReciterButton.setStyleSheet("background-color: #0000AA; color: white;")
+        buttonsLayout.addWidget(self.changeCurrentReciterButton)
         layout.addLayout(buttonsLayout)
         if not index==0:
             cerser=self.text.textCursor()
@@ -303,7 +308,7 @@ class QuranViewer(qt.QDialog):
         else:
             self.media.pause()
     def getCurrentReciter(self):
-        index=int(settings.settings_handler.get("g","reciter"))
+        index=self.currentReciter
         name=list(reciters.keys())[index]
         return name
     def getcurrentAyahText(self):
@@ -558,3 +563,23 @@ class QuranViewer(qt.QDialog):
     def on_state(self,state):
         if state==QMediaPlayer.MediaStatus.EndOfMedia:
             self.media_progress.setVisible(False)
+    def onChangeRecitersContextMenuRequested(self):
+        menu=qt.QMenu(_("أختر قارئ"),self)
+        menu.setAccessibleName(_("أختر قارئ"))
+        menu.setFocus()
+        currentReciter=qt1.QAction(self.getCurrentReciter(),self)
+        menu.addAction(currentReciter)
+        menu.setDefaultAction(currentReciter)
+        currentReciter.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
+        currentReciter.setCheckable(True)
+        currentReciter.setChecked(True)
+        RL=list(reciters.keys())
+        RL.remove(currentReciter.text())
+        for reciter in RL:
+            action=qt1.QAction(reciter,self)
+            menu.addAction(action)
+            action.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def onChangeCurrentReciterContextMenuMenuItemTriggered(self):
+        index=list(reciters.keys()).index(self.sender().text())
+        self.currentReciter=index

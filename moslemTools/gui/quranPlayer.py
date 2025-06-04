@@ -13,6 +13,7 @@ class QuranPlayer(qt.QDialog):
     def __init__(self,p,text,index:int,type,category,enableBookMarks=True):
         super().__init__(p)                                
         self.setWindowState(qt2.Qt.WindowState.WindowMaximized)
+        self.currentReciter=int(settings.settings_handler.get("g","reciter"))
         self.enableBookmarks=enableBookMarks
         self.resize(1200,600)
         font = qt1.QFont()
@@ -77,6 +78,11 @@ class QuranPlayer(qt.QDialog):
         layout1.addWidget(self.P_aya)
         layout1.addWidget(self.PPS)        
         layout1.addWidget(self.N_aya)
+        self.changeCurrentReciterButton=qt.QPushButton(_("تغيير القارئ"))
+        self.changeCurrentReciterButton.clicked.connect(self.onChangeRecitersContextMenuRequested)
+        self.changeCurrentReciterButton.setStyleSheet("background-color: #0000AA; color: white;")
+        layout1.addWidget(self.changeCurrentReciterButton)
+
         layout.addLayout(layout1)
         qt1.QShortcut("space",self).activated.connect(self.on_play)
         qt1.QShortcut("ctrl+g",self).activated.connect(self.gotoayah)
@@ -254,7 +260,7 @@ class QuranPlayer(qt.QDialog):
                 self.currentTime+=1
                 qt2.QTimer.singleShot(int(settings.settings_handler.get("quranPlayer","duration"))*1000,qt2.Qt.TimerType.PreciseTimer,self.media.play)
     def getCurrentReciter(self):
-        index=int(settings.settings_handler.get("g","reciter"))
+        index=self.currentReciter
         name=list(reciters.keys())[index]
         return name
     def getCurentAyahTafseer(self):
@@ -317,3 +323,25 @@ class QuranPlayer(qt.QDialog):
             self.media_progress.blockSignals(False)
         except:
             pass
+    def onChangeRecitersContextMenuRequested(self):
+        menu=qt.QMenu(_("أختر قارئ"),self)
+        menu.setAccessibleName(_("أختر قارئ"))
+        menu.setFocus()
+        currentReciter=qt1.QAction(self.getCurrentReciter(),self)
+        menu.addAction(currentReciter)
+        menu.setDefaultAction(currentReciter)
+        currentReciter.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
+        currentReciter.setCheckable(True)
+        currentReciter.setChecked(True)
+        RL=list(reciters.keys())
+        RL.remove(currentReciter.text())
+        for reciter in RL:
+            action=qt1.QAction(reciter,self)
+            menu.addAction(action)
+            action.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
+        menu.exec(self.mapToGlobal(self.cursor().pos()))
+    def onChangeCurrentReciterContextMenuMenuItemTriggered(self):
+        index=list(reciters.keys()).index(self.sender().text())
+        self.currentReciter=index
+        self.media.stop()
+        self.on_play()
