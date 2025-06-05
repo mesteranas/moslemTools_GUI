@@ -1,3 +1,4 @@
+from .changeReciter import ChangeReciter
 from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
 from .quranPlayer import QuranPlayer
@@ -566,22 +567,9 @@ class QuranViewer(qt.QDialog):
         if state==QMediaPlayer.MediaStatus.EndOfMedia:
             self.media_progress.setVisible(False)
     def onChangeRecitersContextMenuRequested(self):
-        menu=qt.QMenu(_("اختر قارئ"),self)
-        menu.setAccessibleName(_("اختر قارئ"))
-        menu.setFocus()
-        currentReciter=qt1.QAction(self.getCurrentReciter(),self)
-        menu.addAction(currentReciter)
-        menu.setDefaultAction(currentReciter)
-        currentReciter.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
-        currentReciter.setCheckable(True)
-        currentReciter.setChecked(True)
+        self.media.stop()
         RL=list(reciters.keys())
-        RL.remove(currentReciter.text())
-        for reciter in RL:
-            action=qt1.QAction(reciter,self)
-            menu.addAction(action)
-            action.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
-        menu.exec(self.mapToGlobal(self.cursor().pos()))
-    def onChangeCurrentReciterContextMenuMenuItemTriggered(self):
-        index=list(reciters.keys()).index(self.sender().text())
-        self.currentReciter=index
+        dlg=ChangeReciter(self,RL,self.currentReciter)
+        code=dlg.exec()
+        if code==dlg.DialogCode.Accepted:
+            self.currentReciter=list(reciters.keys()).index(dlg.recitersListWidget.currentItem().text())

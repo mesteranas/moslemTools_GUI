@@ -1,3 +1,4 @@
+from .changeReciter import ChangeReciter
 from .translationViewer import translationViewer
 from .tafaseerViewer import TafaseerViewer
 import time,gettext,os,json,winsound
@@ -81,6 +82,8 @@ class QuranPlayer(qt.QDialog):
         self.changeCurrentReciterButton=qt.QPushButton(_("تغيير القارئ"))
         self.changeCurrentReciterButton.clicked.connect(self.onChangeRecitersContextMenuRequested)
         self.changeCurrentReciterButton.setStyleSheet("background-color: #0000AA; color: white;")
+        self.changeCurrentReciterButton.setShortcut("ctrl+shift+r")
+        self.changeCurrentReciterButton.setAccessibleDescription("control plus shift plus R")
         layout1.addWidget(self.changeCurrentReciterButton)
 
         layout.addLayout(layout1)
@@ -324,24 +327,10 @@ class QuranPlayer(qt.QDialog):
         except:
             pass
     def onChangeRecitersContextMenuRequested(self):
-        menu=qt.QMenu(_("أختر قارئ"),self)
-        menu.setAccessibleName(_("أختر قارئ"))
-        menu.setFocus()
-        currentReciter=qt1.QAction(self.getCurrentReciter(),self)
-        menu.addAction(currentReciter)
-        menu.setDefaultAction(currentReciter)
-        currentReciter.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
-        currentReciter.setCheckable(True)
-        currentReciter.setChecked(True)
-        RL=list(reciters.keys())
-        RL.remove(currentReciter.text())
-        for reciter in RL:
-            action=qt1.QAction(reciter,self)
-            menu.addAction(action)
-            action.triggered.connect(self.onChangeCurrentReciterContextMenuMenuItemTriggered)
-        menu.exec(self.mapToGlobal(self.cursor().pos()))
-    def onChangeCurrentReciterContextMenuMenuItemTriggered(self):
-        index=list(reciters.keys()).index(self.sender().text())
-        self.currentReciter=index
         self.media.stop()
+        RL=list(reciters.keys())
+        dlg=ChangeReciter(self,RL,self.currentReciter)
+        code=dlg.exec()
+        if code==dlg.DialogCode.Accepted:
+            self.currentReciter=list(reciters.keys()).index(dlg.recitersListWidget.currentItem().text())
         self.on_play()
