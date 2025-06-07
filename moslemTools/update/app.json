@@ -1,7 +1,7 @@
 {
 "name": "moslem tools",
-"version": 9.0,
-"what is new": "تم إضافة شريط تمرير يتتبع تقدم الآية في تبويبة القرآن الكريم مكتوب\nA progress slider has been added to track verse playback in the Quran Kareem as text tab\nتم جعل التصفح المخصص في تبويبة القرآن الكريم مكتوب أكثر تخصيصا\nCustom Browsing in the Quran Kareem as text tab has been made more personalized\nتم وضع الاختصارات على عنوان الإجراء في كل التبويبات\nShortcuts have been added to the action title in all tabs\nتم إضافة تحديد الموقع يدويا في الإعدادات للحصول على المواقيط الصحيحة للصلاة\nManual location selection has been added in settings to get accurate prayer times\nتم إضافة إمكانية التنبيه قبل الأذان\nPre-adhan notifications have been added\nتم إضافة إمكانية تحديد مستوى صوت الأذان\nAbility to adjust the adhan volume has been added\nتم وضع زر إلغاء أثناء تنزيل موارد للبرنامج\nA cancel button has been added during resource downloads\nتم جعل البرنامج أكثر توافقية مع مستخدمي قارآت الشاشة\nThe program has been made more compatible with screen reader users\nتم إضافة إمكانية التبرع لمطوري البرنامج في شريط القوائم\nAn option to donate to the developers has been added to the menu bar\nتم إضافة زر لتغيير القارئ في القرآن المكتوب\nan ability to change the reciter has been added to quran as text\nتم إصلاح الكثير من الأخطاء التي كانت في البرنامج\nMany bugs in the program have been fixed\n",
-"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v9.0/moslemToolsSetup.exe",
+"version": 9.1,
+"what is new": "تم إصلاح العديد من المشاكل\nfixed alot of problems",
+"download": "https://github.com/mesteranas/moslemTools_GUI/releases/download/v9.1/moslemToolsSetup.exe",
 "is_beta": false
 }
