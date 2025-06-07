@@ -1,7 +1,9 @@
 import sys
 from custome_errors import *
 sys.excepthook = my_excepthook
-import update,guiTools,json,random,os,shutil,datetime,webbrowser,requests,keyboard,pyperclip,winsound
+import winsound
+winsound.PlaySound("data/sounds/001001.wav",1)
+import update,guiTools,json,random,os,shutil,datetime,webbrowser,requests,keyboard,pyperclip
 from hijri_converter import Gregorian
 from settings import *
 import PyQt6.QtWidgets as qt

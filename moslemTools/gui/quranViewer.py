@@ -28,7 +28,7 @@ class QuranViewer(qt.QDialog):
         self.media=QMediaPlayer(self)
         self.audioOutput=QAudioOutput(self)
         self.media.setAudioOutput(self.audioOutput)
-        self.media.setSource(qt2.QUrl.fromLocalFile("data/sounds/001001.mp3"))
+        self.media.setSource(qt2.QUrl.fromLocalFile("data/sounds/001001.wav"))
         self.media.play()
         time.sleep(0.5)
         self.media.stop()
